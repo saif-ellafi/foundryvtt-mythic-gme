@@ -18,6 +18,8 @@ Voluntarily invite me to a Coffee (Ko-Fi) if you like my work! (see at the botto
 
 ## Features
 
+![](example-mythic-tools.png)
+
 * Scripts for rolling Fate Charts, Random Event and Scene Chaos Checks
 * Persistently records current Chaos Rank
 * Allows Increasing and Decreasing Chaos Rank with a button
