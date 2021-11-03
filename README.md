@@ -42,12 +42,11 @@ This module is developed by me (Saif Ellafi - JeansenVaars) independently, and h
 * Subject Meaning
 
 ## How to use
-1. Install Mythic GME Tools from FoundryVTT module installer
-2. Enable Mythic GME Tools module in FoundryVTT
-3. Enter any game (This module is system agnostic!)
-4. Go to Compendiums and import all Macros to your Macro Bar to use them
-5. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
-6. Say thanks if you like this :)
+1. Install and Enable Mythic GME Tools in FoundryVTT
+2. Enter any game (This module is system agnostic!)
+3. Go to Compendiums and import all Macros to your Macro Bar to use them
+4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
+5. Say thanks if you like this :)
 
 **Note #1** - You may customize or change the probabilities of the Roll Tables, the will be used so long the keep the same name.
 

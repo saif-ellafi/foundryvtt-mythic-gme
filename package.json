@@ -1,0 +1,37 @@
+{
+  "name": "foundryvtt-mythic-gme",
+  "version": "1.0.0",
+  "description": "A set of Macros and Random Tables for playing with the Mythic Game Master Emulator",
+  "main": "mythic-gme-tools.js",
+  "scripts": {
+    "copy": "mkdir -p dist && cp ./mythic-gme-tools.js dist/ && cp ./README.md dist/ && cp ./CHANGELOG.md dist/ && cp ./LICENSE.md dist/ && cp ./module.json dist/ && cp ./THANKS.txt dist/ && cp -r ./packs dist/",
+    "copyWin": "copy module.json dist && copy mythic-gme-tools.js dist && copy README.md dist && copy CHANGELOG.md dist && copy LICENSE.md dist && copy module.json dist && copy THANKS.txt dist && xcopy /Y /I packs dist\\packs",
+    "zip": "npm-build-zip --source=dist --destination=.",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saif-ellafi/foundryvtt-mythic-gme.git"
+  },
+  "keywords": [
+    "foundry",
+    "vtt",
+    "mythic",
+    "gme",
+    "emulator"
+  ],
+  "author": "JeansenVaars (Saif Ellafi)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/issues"
+  },
+  "homepage": "https://github.com/saif-ellafi/foundryvtt-mythic-gme",
+  "dependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "rollup": "^2.45.2",
+    "rollup-plugin-css-porter": "^1.0.2"
+  },
+  "devDependencies": {
+    "npm-build-zip": "^1.0.3"
+  }
+}
