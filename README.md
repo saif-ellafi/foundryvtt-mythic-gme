@@ -14,7 +14,7 @@ All attributions belong to [WORD MILL GAMES](https://www.wordmillgames.com) and 
 
 This module is developed by me (Saif Ellafi - JeansenVaars) independently, and hold no business relationship with World Mill Games. Freely distributed non-commercially within Foundry VTT only.
 
-Voluntarily invite me to a Coffee (Ko-Fi) if you like my work! (see at the bottom)
+[Invite me to a Coffee](#by-jeansenvaars) (Ko-Fi) if you like my work!
 
 ## Features
 
@@ -65,10 +65,10 @@ Voluntarily invite me to a Coffee (Ko-Fi) if you like my work! (see at the botto
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
 
 ## Check out my other modules!
-* Minimal UI
-* Window Controls
-* Scene Preview
-* Super Select
+* [Minimal UI](https://github.com/saif-ellafi/foundryvtt-minimal-ui)
+* [Window Controls](https://github.com/saif-ellafi/foundryvtt-window-controls)
+* [Scene Preview](https://github.com/saif-ellafi/foundryvtt-scene-preview)
+* [Super Select](https://github.com/saif-ellafi/foundryvtt-super-select)
 
 # License
 [MIT License](./LICENSE.md)
