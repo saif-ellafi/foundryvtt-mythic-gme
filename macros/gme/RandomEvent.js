@@ -1,3 +1,5 @@
+MYTHIC_GME_CHECK_VERSION(this.name, 0);
+
 const tables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
 
 const focusTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'focusTable')) ??

@@ -35,6 +35,7 @@ This module is developed by me (Saif Ellafi - JeansenVaars) independently, and h
 * Fate Chart: Rolls on the Fate Chart. Triggers Random Events when appropriate.
 * Random Event: Generates a random event.
 * Scene Alteration: Checks if the proposed event is still valid. Rolls Random Events when appropriate.
+* Complex Questions (Mythic Variations #1)
 
 ### Roll Tables
 * Event Focus
@@ -44,13 +45,19 @@ This module is developed by me (Saif Ellafi - JeansenVaars) independently, and h
 ## How to use
 1. Install and Enable Mythic GME Tools in FoundryVTT
 2. Enter any game (This module is system agnostic!)
-3. Go to Compendiums and import all Macros to your Macro Bar to use them
+3. Go to Compendiums, right click on Mythic GME Macros, Import All Content 
 4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
 5. Say thanks if you like this :)
 
-**Note #1** - You may customize or change the probabilities of the Roll Tables, the will be used so long the keep the same name.
+**WARNING** - This module relies on the names of tables and macros, since many functions are called within each other. Treat with care when renaming!.
 
-**Note #2** - You may copy the tables under different names. In settings you can point which tables you would like to use in your macros.
+**Note #1** - You may customize or change the probabilities of the Roll Tables, they will be used so long the keep the same name.
+
+**Note #2** - You may copy the tables under different names. In settings, you can point which tables you would like to use in your macros.
+
+**Note #3** - It is better if you use Random Tell from the Compendium, so updates can update these tables if needed! (Should rarely happen)
+
+**Note #4** - This module cannot update your macros once imported. A message in red will appear indicating your Macro is now obsolete if this happens.
 
 ## To do
 

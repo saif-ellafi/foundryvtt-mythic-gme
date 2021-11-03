@@ -1,3 +1,5 @@
+MYTHIC_GME_CHECK_VERSION(this.name, 0);
+
 const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
 if (currentChaos < 9) {
   game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);

@@ -1,3 +1,24 @@
+const MYTHIC_GME_TOOLS_METADATA = {
+  'Fate Chart': 0,
+  'Random Event': 0,
+  'Scene Alteration': 0,
+  'Increase Chaos': 0,
+  'Decrease Chaos': 0,
+  'Complex Question': 0
+}
+
+function MYTHIC_GME_CHECK_VERSION(name, version) {
+  if (MYTHIC_GME_TOOLS_METADATA[name] !== undefined && MYTHIC_GME_TOOLS_METADATA[name] > version) {
+    let versionChat = {
+      content: `<div style="color:red">
+      <div>This Macro (${name}) is outdated!</div>
+      <div>Please re-import from Mythic GME Tools Compendium!</div>
+      </div>`
+    };
+    ChatMessage.create(versionChat);
+  }
+}
+
 Hooks.once('init', () => {
 
   game.settings.register('mythic-gme-tools', 'currentChaos', {
