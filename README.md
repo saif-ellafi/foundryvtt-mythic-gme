@@ -14,7 +14,7 @@ All attributions belong to [WORD MILL GAMES](https://www.wordmillgames.com) and 
 
 This module is developed by me (Saif Ellafi - JeansenVaars) independently, and hold no business relationship with World Mill Games. Freely distributed non-commercially within Foundry VTT only.
 
-Voluntarily donate if you like my work! (see at the bottom)
+Voluntarily invite me to a Coffee (Ko-Fi) if you like my work! (see at the bottom)
 
 ## Features
 
