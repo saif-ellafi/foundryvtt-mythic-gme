@@ -1,6 +1,6 @@
 Hooks.once('init', () => {
 
-  game.settings.register('mythic-gme-helper', 'currentChaos', {
+  game.settings.register('mythic-gme-tools', 'currentChaos', {
     name: 'Chaos Rank',
     hint: 'Current Mythic GME Chaos Rank',
     scope: 'world',
@@ -9,7 +9,7 @@ Hooks.once('init', () => {
     default: 5
   });
 
-  game.settings.register('mythic-gme-helper', 'focusTable', {
+  game.settings.register('mythic-gme-tools', 'focusTable', {
     name: 'Focus Table',
     hint: 'Table to use for Random Event focus. Falls back to default if not found.',
     scope: 'world',
@@ -18,7 +18,7 @@ Hooks.once('init', () => {
     default: "Mythic GME: Event Focus"
   });
 
-  game.settings.register('mythic-gme-helper', 'actionTable', {
+  game.settings.register('mythic-gme-tools', 'actionTable', {
     name: 'Action Table',
     hint: 'Table to use for Mythic GME Random Event action meaning. Falls back to default if not found.',
     scope: 'world',
@@ -27,7 +27,7 @@ Hooks.once('init', () => {
     default: "Mythic GME: Action Meaning"
   });
 
-  game.settings.register('mythic-gme-helper', 'subjectTable', {
+  game.settings.register('mythic-gme-tools', 'subjectTable', {
     name: 'Subject Table',
     hint: 'Table to use for Mythic GME Random Event subject meaning. Falls back to default if not found.',
     scope: 'world',

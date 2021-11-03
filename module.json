@@ -1,28 +1,33 @@
 {
-  "name": "mythic-gme-helper",
-  "title": "Mythic GME Helper",
+  "name": "mythic-gme-tools",
+  "title": "Mythic GME Tools",
   "description": "A set of Macros and Random Tables for playing with the Mythic Game Master Emulator",
-  "author": "JeansenVaars",
-  "version": "1.0",
+  "authors": [
+    "JeansenVaars",
+    "Tana Pigeon (Word Mill Games)"
+  ],
+  "version": "1.0.0",
   "minimumCoreVersion": "0.8.9",
-  "url": "https://www.github.com/saif-ellafi",
+  "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
+  "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/1.0.0/foundryvtt-mythic-gme_1.0.0.zip",
   "compatibleCoreVersion": "0.8.9",
   "scripts": [
-    "mythic-gme-helper.js"
+    "mythic-gme-tools.js"
   ],
   "packs": [
     {
       "name": "mythic-gme-tables",
       "label": "Mythic GME Tables",
       "path": "packs/mythic-gme-tables.db",
-      "module": "mythic-gme-helper",
+      "module": "mythic-gme-tools",
       "entity": "RollTable"
     },
     {
       "name": "mythic-gme-macros",
       "label": "Mythic GME Macros",
       "path": "packs/mythic-gme-macros.db",
-      "module": "mythic-gme-helper",
+      "module": "mythic-gme-tools",
       "entity": "Macro"
     }
   ]

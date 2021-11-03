@@ -1,16 +1,16 @@
-const tables = await game.packs.get('mythic-gme-helper.mythic-gme-tables').getDocuments();
+const tables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
 
-const focusTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-helper', 'focusTable')) ??
+const focusTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'focusTable')) ??
   tables.find(t => t.name === "Mythic GME: Event Focus");
 const focusRoll = await focusTable.roll();
 const focusResult = focusRoll.results[0].getChatText();
 
-const actionTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-helper', 'actionTable')) ??
+const actionTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'actionTable')) ??
   tables.find(t => t.name === "Mythic GME: Action Meaning");
 const actionRoll = await actionTable.roll();
 const actionResult = actionRoll.results[0].getChatText();
 
-const subjectTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-helper', 'subjectTable')) ??
+const subjectTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'subjectTable')) ??
   tables.find(t => t.name === "Mythic GME: Subject Meaning");
 const subjectRoll = await subjectTable.roll();
 const subjectResult = subjectRoll.results[0].getChatText();

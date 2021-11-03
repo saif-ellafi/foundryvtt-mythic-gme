@@ -1,4 +1,4 @@
-const currentChaos = game.settings.get('mythic-gme-helper', 'currentChaos')
+const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
 const sceneAlterationDialogue = `
 <form>
 <label for="chaos" style="margin-left: 5px;">Chaos Rank:</label>
@@ -32,7 +32,7 @@ let dialogue = new Dialog({
             await roll.toMessage({
               content: `<b style="color: darkred">Scene was interrupted!</b> (${result})`
             });
-            const macros = await game.packs.get('mythic-gme-helper.mythic-gme-macros').getDocuments();
+            const macros = await game.packs.get('mythic-gme-tools.mythic-gme-macros').getDocuments();
             return macros.find(m => m.name === "Random Event").execute();
           } else {
             return roll.toMessage({

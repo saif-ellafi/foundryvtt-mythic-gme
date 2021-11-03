@@ -1,4 +1,4 @@
-const currentChaos = game.settings.get('mythic-gme-helper', 'currentChaos')
+const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
 const fateChartDialog = `
 <form>
 <label for="odds">Odds:</label>
@@ -208,7 +208,7 @@ let dialogue = new Dialog({
         let content = generateOutput(odds, chaos, result);
         if (result > 10 && result < 100) {
           const s = result.toString();
-          const macros = await game.packs.get('mythic-gme-helper.mythic-gme-macros').getDocuments();
+          const macros = await game.packs.get('mythic-gme-tools.mythic-gme-macros').getDocuments();
           if (s[0] === s[1] && s[0] <= parseInt(chaos)) {
             content += `<div><b>Doubles!</b></div>`
             macros.find(m => m.name === "Random Event").execute();

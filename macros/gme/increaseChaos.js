@@ -1,6 +1,6 @@
-const currentChaos = game.settings.get('mythic-gme-helper', 'currentChaos')
+const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
 if (currentChaos < 9) {
-  game.settings.set('mythic-gme-helper', 'currentChaos', currentChaos + 1);
+  game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
   let chat = {
     content: `<h2>Chaos Increased to ${currentChaos + 1}</h2>`
   };
