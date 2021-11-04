@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/Apps/foundryvtt-0.8.9/resources/app/node_modules/jquery" />
+    <content url="file://$USER_HOME$/Apps/foundryvtt-0.8.9/resources/app/public/scripts" />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
