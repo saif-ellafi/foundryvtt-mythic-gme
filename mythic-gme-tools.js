@@ -1,4 +1,7 @@
-Hooks.once('init', () => {
+Hooks.once('ready', async () => {
+
+  const tables = Object.fromEntries((await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments())
+      .concat(game.tables.contents).filter(e => e.name.startsWith('Mythic')).map(e => [e.name, e.name]));
 
   game.settings.register('mythic-gme-tools', 'currentChaos', {
     name: 'Chaos Rank',
@@ -15,6 +18,7 @@ Hooks.once('init', () => {
     scope: 'world',
     config: true,
     type: String,
+    choices: tables,
     default: "Mythic GME: Event Focus"
   });
 
@@ -24,6 +28,7 @@ Hooks.once('init', () => {
     scope: 'world',
     config: true,
     type: String,
+    choices: tables,
     default: "Mythic GME: Action Meaning"
   });
 
@@ -33,6 +38,7 @@ Hooks.once('init', () => {
     scope: 'world',
     config: true,
     type: String,
+    choices: tables,
     default: "Mythic GME: Subject Meaning"
   });
 
@@ -308,24 +314,43 @@ function mgeFateChart() {
 
 }
 
-async function mgeRandomEvent() {
+async function _mgeGetTableResults(includeFocus) {
 
-  const tables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
+  function _mgeFindTable(setting, fallbackTables) {
+    const name = game.settings.get('mythic-gme-tools', setting);
+    return game.tables.contents.find(t => t.name === name) ??
+        fallbackTables.find(t => t.name === name) ??
+          fallbackTables.find(t => t.name === game.settings.settings.get(`mythic-gme-tools.${setting}`).default);
+  }
 
-  const focusTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'focusTable')) ??
-      tables.find(t => t.name === "Mythic GME: Event Focus");
-  const focusRoll = await focusTable.roll();
-  const focusResult = focusRoll.results[0].getChatText();
+  const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
 
-  const actionTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'actionTable')) ??
-      tables.find(t => t.name === "Mythic GME: Action Meaning");
+  let focusResult = undefined;
+  let focusRoll = undefined;
+  if (includeFocus) {
+    const focusTable = _mgeFindTable('focusTable', fallbackTables);
+    focusRoll = await focusTable.roll();
+    focusResult = focusRoll.results[0].getChatText();
+  }
+
+  const actionTable = _mgeFindTable('actionTable', fallbackTables);
   const actionRoll = await actionTable.roll();
   const actionResult = actionRoll.results[0].getChatText();
 
-  const subjectTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'subjectTable')) ??
-      tables.find(t => t.name === "Mythic GME: Subject Meaning");
+  const subjectTable = _mgeFindTable('subjectTable', fallbackTables);
   const subjectRoll = await subjectTable.roll();
   const subjectResult = subjectRoll.results[0].getChatText();
+
+  if (includeFocus) {
+    return [focusResult, focusRoll, actionResult, actionRoll, subjectResult, subjectRoll];
+  } else {
+    return [actionResult, actionRoll, subjectResult, subjectRoll];
+  }
+}
+
+async function mgeRandomEvent() {
+
+  const [focusResult, focusRoll, actionResult, actionRoll, subjectResult, subjectRoll] = await _mgeGetTableResults(true);
 
   let subjectChat = {
     content: `
@@ -397,7 +422,6 @@ function mgeSceneAlteration() {
 
 async function mgeComplexQuestion() {
 
-  const tables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
   const complexQuestionDialog = `
     <form>
     <label for="mgme_complex_question">Question (optional):</label>
@@ -413,19 +437,11 @@ async function mgeComplexQuestion() {
         icon: '',
         label: 'Submit',
         callback: async (html) => {
-          const actionTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'actionTable')) ??
-              tables.find(t => t.name === "Mythic GME: Action Meaning");
-          const actionRoll = await actionTable.roll();
-          const actionResult = actionRoll.results[0].getChatText();
-
-          const subjectTable = game.tables.contents.find(t => t.name === game.settings.get('mythic-gme-tools', 'subjectTable')) ??
-              tables.find(t => t.name === "Mythic GME: Subject Meaning");
-          const subjectRoll = await subjectTable.roll();
-          const subjectResult = subjectRoll.results[0].getChatText();
+          const [actionResult, actionRoll, subjectResult, subjectRoll] = await _mgeGetTableResults(false);
 
           let subjectChat = {
             content: `
-            ${html.find("#mgme_complex_question").val() === '' ? '<h2><b>"Complex Question"</b></h2>' : `<h2><b>${html.find("#mgme_complex_question").val()}</b></h2>`}
+            ${html.find("#mgme_complex_question").val() === '' ? 'Complex Question' : `<h2><b>${html.find("#mgme_complex_question").val()}</b></h2>`}
             <div><b>Action: </b>${actionResult} (${actionRoll.roll.total})</div>
             <div><b>Subject: </b>${subjectResult} (${subjectRoll.roll.total})</div>
           `

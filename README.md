@@ -4,9 +4,9 @@ Provides Script Macros and Roll Tables for Playing any RPG system with Mythic GM
 
 ## Credits and Attributions
 
-Mythic GM Emulator Rulebook is required to use and understand this content. Variations 1 and 2 books are needed for the optional rules!.
+**Mythic GM Emulator Rulebook** is REQUIRED to use and understand this content. Variations 1 and 2 books are needed for the optional rules!.
 
-All attributions belong to [WORD MILL GAMES](https://www.wordmillgames.com) and this module is redistributed with appropriate permission from author **Tana Pigeon**
+All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and this module is redistributed with _appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUTED FURTHER without CONSENT
 
 [Get Mythic GME Book](https://www.drivethrurpg.com/product/20798/Mythic-Game-Master-Emulator)
 
@@ -51,9 +51,9 @@ This module is developed by me (Saif Ellafi - JeansenVaars) independently, and h
 4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
 5. Say thanks if you like this :)
 
-**WARNING** - This module relies on the names of tables, since many functions are called within each other. Use settings when targeting different tables!
+**CUSTOMIZATION** - Macros use Roll Tables! Going to **Module Settings** lets you choose which tables are being usd and can be configured. TABLE NAME MUST START WITH KEYWORD **Mythic**
 
-**WARNING** - If you installed pre-release builds from link, please uninstall and reinstall. Final release 1.0.0 contains changes not in the pre-release builds!
+**WARNING** - If you installed pre-release builds from manifest links, please uninstall and reinstall the module from Foundry! Important scripts have changed since.
 
 ## To do
 
