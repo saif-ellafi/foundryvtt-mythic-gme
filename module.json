@@ -29,6 +29,20 @@
       "path": "packs/mythic-gme-macros.db",
       "module": "mythic-gme-tools",
       "entity": "Macro"
+    },
+    {
+      "name": "decks-macros",
+      "label": "Deck Macros",
+      "path": "packs/decks-macros.db",
+      "module": "mythic-gme-tools",
+      "entity": "Macro"
+    },
+    {
+      "name": "decks-rollable-tables",
+      "label": "Deck RollTables",
+      "path": "packs/decks-rollable-tables.db",
+      "module": "mythic-gme-tools",
+      "entity": "RollTable"
     }
   ]
 }
