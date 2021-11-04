@@ -12,7 +12,7 @@ All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and 
 
 [Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
 
-This module is developed by me (Saif Ellafi - JeansenVaars) independently, and hold no business relationship with World Mill Games. Freely distributed non-commercially within Foundry VTT only.
+This module is developed by me (Saif Ellafi - JeansenVaars) independently, and hold no business relationship with World Mill Games. Distributed UNDER STRICT CONSENT and non-commercially within Foundry VTT only.
 
 [Invite me to a Coffee](#by-jeansenvaars) (Ko-Fi) if you like my work!
 
