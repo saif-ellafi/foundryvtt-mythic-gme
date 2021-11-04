@@ -53,7 +53,7 @@ Special thanks to the Community at the Discord Channel from [Mythic Game Master 
 4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
 5. Say thanks if you like this :)
 
-**CUSTOMIZATION** - Macros use Roll Tables! Going to **Module Settings** lets you choose which tables are being usd and can be configured. Table names must begin with **Mythic** in order to be eligible (this is to avoid dropdown crowding).
+**CUSTOMIZATION** - Macros use Roll Tables! Going to **Module Settings** lets you choose which tables are being used and can be configured. Table names must begin with **Mythic** in order to be eligible (this is to avoid dropdown crowding).
 
 **WARNING** - If you installed pre-release builds from manifest links, please uninstall and reinstall the module from Foundry! Important scripts have changed since.
 
