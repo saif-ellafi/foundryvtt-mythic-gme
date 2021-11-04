@@ -16,6 +16,8 @@ This module is developed by me (Saif Ellafi - JeansenVaars) independently, and h
 
 [Invite me to a Coffee](#by-jeansenvaars) (Ko-Fi) if you like my work!
 
+Special thanks to the Community at the Discord Channel from [Mythic Game Master Emulator](https://discord.gg/hyHUuZEt) for the support
+
 ## Features
 
 ![](example-mythic-tools.png)
