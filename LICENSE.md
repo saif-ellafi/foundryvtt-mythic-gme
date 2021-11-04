@@ -1,23 +1,17 @@
-MIT License
-
 Copyright (c) [2021] [Saif Addin Ellafi]
 Copyright (c) [2021] [Tana Pigeon]
 Copyright (c) [2021] [Word Mill Games]
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+**Mythic GM Emulator Rulebook** is REQUIRED to use and understand this content. Variations 1 and 2 books are needed for the optional rules!.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and this module is redistributed with _appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUTED FURTHER without CONSENT
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+[Get Mythic GME Book](https://www.drivethrurpg.com/product/20798/Mythic-Game-Master-Emulator)
+
+[Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
+
+This module is developed by me (Saif Ellafi - JeansenVaars) independently, and hold no business relationship with World Mill Games. Distributed UNDER STRICT CONSENT and non-commercially within Foundry VTT only.
+
+[Invite me to a Coffee](#by-jeansenvaars) (Ko-Fi) if you like my work!
+
+Special thanks to the Community at the Discord Channel from [Mythic Game Master Emulator](https://discord.gg/hyHUuZEt) for the support
