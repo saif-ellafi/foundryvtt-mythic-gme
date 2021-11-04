@@ -477,23 +477,24 @@ async function dealCard({
   const table = game.tables.getName(tableName);
 
   const result = await table.draw();
-  const image = result.results[0].data.text;
-  if (shuffle && result.results.length === 0) {
+  if (result.results.length === 0) {
     table.reset();
-    table = game.tables.getName(tableName);
+    ui.notifications.info("The Deck has been shuffled. Please draw again.");
+    return false;
   }
+  const image = await result.results[0].data.text;
   const isRotated = Math.random() < 0.5;
   const style = useRotate && isRotated ? " transform: rotate(181deg);" : "";
 
   new Dialog({
     title: dialogTitle,
     content: `
-<div style="height: ${height};">
-  <img 
-    style="border-radius: 5px; margin-bottom: 1em; ${style}"
-    src="${projectRoot}/${image}.${fileExtension}" 
-  />
-<div>`,
+      <div style="height: ${height};">
+        <img 
+          style="border-radius: 5px; margin-bottom: 1em; ${style}"
+          src="${projectRoot}/${image}.${fileExtension}" 
+        />
+      <div>`,
     buttons: {
       reset: {
         label: "Shuffle Deck",
