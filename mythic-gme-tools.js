@@ -14,7 +14,7 @@ Hooks.once('ready', async () => {
 
   game.settings.register('mythic-gme-tools', 'focusTable', {
     name: 'Focus Table',
-    hint: 'Table to use for Random Event focus. Falls back to default if not found.',
+    hint: 'Table to use for Random Event focus. Only table names starting with Mythic are listed.',
     scope: 'world',
     config: true,
     type: String,
@@ -24,7 +24,7 @@ Hooks.once('ready', async () => {
 
   game.settings.register('mythic-gme-tools', 'actionTable', {
     name: 'Action Table',
-    hint: 'Table to use for Mythic GME Random Event action meaning. Falls back to default if not found.',
+    hint: 'Table to use for Mythic GME Random Event action meaning. Only table names starting with Mythic are listed.',
     scope: 'world',
     config: true,
     type: String,
@@ -34,7 +34,7 @@ Hooks.once('ready', async () => {
 
   game.settings.register('mythic-gme-tools', 'subjectTable', {
     name: 'Subject Table',
-    hint: 'Table to use for Mythic GME Random Event subject meaning. Falls back to default if not found.',
+    hint: 'Table to use for Mythic GME Random Event subject meaning. Only table names starting with Mythic are listed.',
     scope: 'world',
     config: true,
     type: String,
