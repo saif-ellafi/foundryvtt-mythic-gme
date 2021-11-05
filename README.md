@@ -78,7 +78,7 @@ Special thanks to the Community at the Discord Channel from [Mythic Game Master 
 2. Enter any game (This module is system agnostic!)
 3. Go to Compendiums, right click on Mythic GME Macros, Import All Content
 4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
-5. Using Decks (Cards not included) - Thank you stargolum/spacegiant) !!!
+5. [Optional] Using Decks (Cards not included) - Thank you stargolum/spacegiant) !!!
     1. Get a copy of cards [Mythic GME Cards](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck) or [TAC Cards](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck) 
     2. Upload deck image files in to subdirectories inside the `deck` folder (Configurable in settings) relative to your Foundry User Data directory.
     3. Import mythic deck Macros for your preset game (or use these as guidance)

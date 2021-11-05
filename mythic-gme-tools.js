@@ -474,9 +474,9 @@ async function dealCard({
                             shuffle = true
                         }) {
     const projectRoot = game.settings.get("mythic-gme-tools", "deckPath");
-    const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
-    const table = game.tables.getName(tableName) ??
-        fallbackTables.find(t => t.name === name)
+    const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-decks-tables').getDocuments();
+    const table = game.tables.find(t => t.name === tableName) ??
+        fallbackTables.find(t => t.name === tableName)
 
     const result = await table.draw();
     if (shuffle && result.results.length === 0) {
