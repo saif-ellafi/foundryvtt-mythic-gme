@@ -1,3 +1,7 @@
+### 1.3.0
+* Support for Deck of Cards (Mythic, GMA) thanks to spacegiant
+* Minor corrections in code consistency
+
 ### 1.2.0
 * Fixed selection of V1 Table Themes in Settings
 * Improved Settings to show a list of available Tables to roll from

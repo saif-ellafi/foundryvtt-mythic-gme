@@ -4,3 +4,4 @@ package-lock.json
 dist
 *.zip
 .idea
+.DS_Store
