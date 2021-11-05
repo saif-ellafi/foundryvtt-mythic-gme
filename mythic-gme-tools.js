@@ -477,7 +477,7 @@ async function dealCard({
   const table = game.tables.getName(tableName);
 
   const result = await table.draw();
-  if (result.results.length === 0) {
+  if (shuffle && result.results.length === 0) {
     table.reset();
     ui.notifications.info("The Deck has been shuffled. Please draw again.");
     return false;
