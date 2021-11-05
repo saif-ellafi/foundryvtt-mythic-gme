@@ -46,11 +46,28 @@ Special thanks to the Community at the Discord Channel from [Mythic Game Master 
 * Subject Meaning
 * Event Focus Themes from Variations #1
 
+### Card Decks
+
+![](example-decks.png)
+
+**NOTE** - Deck Images are not included and can be purchased from DriveThruRPG or similar outlets.
+
+* Includes presets for GME Deck, TAC Deck and some of the GMA Decks
+* Add your own decks
+* Set your default Deck folder
+* Optional rotate cards feature (Mythic and TAC need this)
+* Toggle shuffle off if required
+* Set image file type to match your card image files. 
+
 ## How to use
 1. Install and Enable Mythic GME Tools in FoundryVTT
 2. Enter any game (This module is system agnostic!)
 3. Go to Compendiums, right click on Mythic GME Macros, Import All Content
 4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
+5. Using Decks (Cards not included)
+    1. Upload deck image files in to subdirectories inside the `deck` folder in the root of your FoundryVTT setup.
+    2. Import preset Rolltables and Macros for your preset game (or use these as guidance)
+    3. [Optional] Use the preset Rolltables and Macros to use other decks
 5. Say thanks if you like this :)
 
 **CUSTOMIZATION** - Macros use Roll Tables! Going to **Module Settings** lets you choose which tables are being usd and can be configured. Table names must begin with **Mythic** in order to be eligible (this is to avoid dropdown crowding).

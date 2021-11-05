@@ -42,6 +42,15 @@ Hooks.once('ready', async () => {
     default: "Mythic GME: Subject Meaning"
   });
 
+  game.settings.register("mythic-gme-tools", "projectRoot", {
+    name: "Project Root",
+    hint: "Root folder where you store you card decks.",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "decks",
+  });
+
 });
 
 function mgeIncreaseChaos() {
@@ -454,4 +463,46 @@ async function mgeComplexQuestion() {
 
   dialogue.render(true)
 
+}
+
+async function dealCard({
+  tableName,
+  fileExtension = 'jpg',
+  useRotate = false,
+  dialogTitle = 'Dealt Card',
+  height = '580px',
+  shuffle = true
+}) {
+  const projectRoot = game.settings.get("mythic-gme-tools", "projectRoot");
+  const table = game.tables.getName(tableName);
+
+  const result = await table.draw();
+  const image = result.results[0].data.text;
+  if (shuffle && result.results.length === 0) {
+    table.reset();
+    table = game.tables.getName(tableName);
+  }
+  const isRotated = Math.random() < 0.5;
+  const style = useRotate && isRotated ? " transform: rotate(181deg);" : "";
+
+  new Dialog({
+    title: dialogTitle,
+    content: `
+<div style="height: ${height};">
+  <img 
+    style="border-radius: 5px; margin-bottom: 1em; ${style}"
+    src="${projectRoot}/${image}.${fileExtension}" 
+  />
+<div>`,
+    buttons: {
+      reset: {
+        label: "Shuffle Deck",
+        callback: () => table.reset(),
+      },
+      close: {
+        label: "Close",
+        callback: () => {},
+      },
+    },
+  }).render(true);
 }
