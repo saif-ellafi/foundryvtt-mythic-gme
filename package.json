@@ -1,11 +1,11 @@
 {
   "name": "foundryvtt-mythic-gme",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A set of Macros and Random Tables for playing with the Mythic Game Master Emulator",
   "main": "mythic-gme-tools.js",
   "scripts": {
-    "copy": "mkdir -p dist && cp ./mythic-gme-tools.js dist/ && cp ./README.md dist/ && cp ./CHANGELOG.md dist/ && cp ./LICENSE.md dist/ && cp ./module.json dist/ && cp ./THANKS.txt dist/ && cp -r ./packs dist/",
-    "copyWin": "copy module.json dist && copy mythic-gme-tools.js dist && copy README.md dist && copy CHANGELOG.md dist && copy LICENSE.md dist && copy module.json dist && copy THANKS.txt dist && xcopy /Y /I packs dist\\packs",
+    "copy": "mkdir -p dist && cp ./mythic-gme-tools.js dist/ && cp ./README.md dist/ && cp ./CHANGELOG.md dist/ && cp ./LICENSE.md dist/ && cp ./module.json dist/ && cp ./THANKS.txt dist/ && cp -r ./packs dist/ && cp -r ./icons dist/",
+    "copyWin": "mkdir dist && copy module.json dist && copy mythic-gme-tools.js dist && copy README.md dist && copy CHANGELOG.md dist && copy LICENSE.md dist && copy module.json dist && copy THANKS.txt dist && xcopy /Y /I packs dist\\packs && xcopy /Y /I icons dist\\icons",
     "zip": "npm-build-zip --source=dist --destination=.",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
