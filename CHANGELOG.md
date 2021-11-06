@@ -1,3 +1,7 @@
+### 1.3.1
+* Macro Dialogs now automatically focus keyboard on input for faster writing
+* Macro Dialogs roll dice when pressing Enter instead of refreshing Foundry
+
 ### 1.3.0
 * Support for Deck of Cards (Mythic, GMA) thanks to spacegiant
 * Minor corrections in code consistency
