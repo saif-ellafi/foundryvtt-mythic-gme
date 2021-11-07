@@ -79,9 +79,14 @@ Special thanks to the Community at the Discord Channel from [Mythic Game Master 
 3. Go to Compendiums, right click on Mythic GME Macros, Import All Content
 4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
 5. [Optional] Using Decks (Cards not included) - Thank you stargolum/spacegiant) !!!
-    1. Get a copy of cards [Mythic GME Cards](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck) or [TAC Cards](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck) 
-    2. Upload deck image files in to subdirectories (it is expected that they are extracted exactly as they come in the purchased zip files, including folder structure and file names) inside the `decks` folder (Folder name/path may be changed in settings) relative to your Foundry User **Data** directory (Where the folders modules and systems are)
-    3. Import mythic deck Macros for your preset game (or use these as guidance)
+    1. Get a copy of cards [Mythic GME Cards](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck) or [TAC Cards](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck)
+    2. Download the ZIP files of the decks you wnat to use
+    3. Go to the folder "Data" from Foundry. This is where you have folders like `modules`, `systems` and `worlds`.
+    4. Create a folder called `decks` exactly there along these other folders.
+    5. Go inside the `decks` folder you just created and put the purchased .ZIP file there
+    6. Right-click on the ZIP and press "Extract Here". Leave everything as is, make sure no folder names are duplicated when you extract it.
+    7. Import mythic deck Macros for your preset game (or use these as guidance)
+    8. If everything works, you can delete the zip file from there. It is not needed.
 5. Say thanks if you like this :)
 
 **CUSTOMIZATION** - Macros use Roll Tables! Going to **Module Settings** lets you choose which tables are being used and can be configured. Table names must begin with **Mythic** in order to be eligible (this is to avoid dropdown crowding).
