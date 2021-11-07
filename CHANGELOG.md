@@ -1,3 +1,6 @@
+### 1.3.2
+* Minor changes in README, LICENSE and internal building files
+
 ### 1.3.1
 * Macro Dialogs now automatically focus keyboard on input for faster writing
 * Macro Dialogs roll dice when pressing Enter instead of refreshing Foundry
