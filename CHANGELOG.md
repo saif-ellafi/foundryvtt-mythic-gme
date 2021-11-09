@@ -1,3 +1,9 @@
+### 1.4.0
+* Fate and Complex Questions are now sent from a character if a token is selected for Flavor 
+* Random Events now take optional user prompt to add flavor (i.e. why is the event for)
+* When using the Deck macros and cards are not found, a helpful error message is shown
+* Fixed a few wrong chat labels here and there
+
 ### 1.3.2
 * Minor changes in README, LICENSE and internal building files
 

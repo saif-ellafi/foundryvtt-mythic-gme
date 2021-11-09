@@ -312,9 +312,10 @@ function mgeFateChart() {
           }
           await roll.toMessage({
             flavor: question,
-            content: content
+            content: content,
+            speaker: ChatMessage.getSpeaker()
           })
-          if (doubles) await mgeRandomEvent();
+          if (doubles) await mgeRandomEvent('Unexpected Event');
         }
       }
     },
@@ -359,19 +360,49 @@ async function _mgeGetTableResults(includeFocus) {
   }
 }
 
-async function mgeRandomEvent() {
+async function mgeRandomEvent(randomEventTitle) {
+
+  function submitRandomEvent(eventTitle) {
+    let subjectChat = {
+      content: `
+        ${eventTitle}
+        <div><b>Focus: </b>${focusResult} (${focusRoll.roll.total})</div>
+        <div><b>Action: </b>${actionResult} (${actionRoll.roll.total})</div>
+        <div><b>Subject: </b>${subjectResult} (${subjectRoll.roll.total})</div>
+      `
+    };
+    ChatMessage.create(subjectChat);
+  }
 
   const [focusResult, focusRoll, actionResult, actionRoll, subjectResult, subjectRoll] = await _mgeGetTableResults(true);
 
-  let subjectChat = {
-    content: `
-    <h2>New Event</h2>
-    <div><b>Focus: </b>${focusResult} (${focusRoll.roll.total})</div>
-    <div><b>Action: </b>${actionResult} (${actionRoll.roll.total})</div>
-    <div><b>Subject: </b>${subjectResult} (${subjectRoll.roll.total})</div>
-  `
-  };
-  ChatMessage.create(subjectChat);
+  if (!randomEventTitle) {
+    const complexQuestionDialog = `
+      <form>
+      <label for="mgme_re_question">Event Reason (optional):</label>
+      <input id="mgme_re_question" style="margin-bottom: 10px" placeholder="Random Event"/>
+      </form>
+    `
+    let dialogue = new Dialog({
+      title: `Random Event`,
+      content: complexQuestionDialog,
+      render: html => html[0].getElementsByTagName("input").mgme_re_question.focus(),
+      buttons: {
+        submit: {
+          icon: '',
+          label: 'Submit',
+          callback: async (html) => {
+            let text = html[0].getElementsByTagName("input").mgme_re_question.value;
+            submitRandomEvent(text.length ? `<h2>${text}</h2>` : 'Random Event');
+          }
+        }
+      },
+      default: "submit"
+    })
+    dialogue.render(true)
+  } else {
+    submitRandomEvent(randomEventTitle);
+  }
 
 }
 
@@ -411,7 +442,7 @@ function mgeSceneAlteration() {
               await roll.toMessage({
                 content: `<b style="color: darkred">Scene was interrupted!</b> (${result})`
               });
-              await mgeRandomEvent();
+              await mgeRandomEvent('Interruption Scene');
             } else {
               return roll.toMessage({
                 content: `<b style="color: darkred">Scene was altered!</b> (${result})`
@@ -437,7 +468,7 @@ async function mgeComplexQuestion() {
   const complexQuestionDialog = `
     <form>
     <label for="mgme_complex_question">Question (optional):</label>
-    <input id="mgme_complex_question" style="margin-bottom: 10px" placeholder="Fate Chart Question"/>
+    <input id="mgme_complex_question" style="margin-bottom: 10px" placeholder="Complex Question"/>
     </form>
     `
 
@@ -457,7 +488,8 @@ async function mgeComplexQuestion() {
             ${html.find("#mgme_complex_question").val() === '' ? 'Complex Question' : `<h2><b>${html.find("#mgme_complex_question").val()}</b></h2>`}
             <div><b>Action: </b>${actionResult} (${actionRoll.roll.total})</div>
             <div><b>Subject: </b>${subjectResult} (${subjectRoll.roll.total})</div>
-          `
+            `,
+            speaker: ChatMessage.getSpeaker()
           };
           ChatMessage.create(subjectChat);
         }
@@ -493,13 +525,29 @@ async function dealCard({
   const isRotated = Math.random() < 0.5;
   const style = useRotate && isRotated ? " transform: rotate(181deg);" : "";
 
+  const path = `${projectRoot}/${image}.${fileExtension}`
+
+  try {
+    await FilePicker.browse('user', path);
+  } catch {
+    let errorChat = {
+      content: `
+        <div style="color: red">ERROR: Cards not found. Make sure your cards are available in the following path:</div>
+        <br>
+        <div><em>${path}</em></div>
+      `
+    };
+    ChatMessage.create(errorChat);
+    return;
+  }
+
   new Dialog({
     title: dialogTitle,
     content: `
       <div style="height: ${height};">
         <img 
           style="border-radius: 5px; margin-bottom: 1em; ${style}"
-          src="${projectRoot}/${image}.${fileExtension}" 
+          src="${path}" 
         />
       <div>`,
     buttons: {
