@@ -1,3 +1,6 @@
+### 1.4.1
+* Added an optional setting that enables 3D dice on d100 table rolls
+
 ### 1.4.0
 * Fate and Complex Questions are now sent from a character if a token is selected for Flavor 
 * Random Events now take optional user prompt to add flavor (i.e. why is the event for)
