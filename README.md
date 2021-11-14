@@ -50,6 +50,7 @@ for the support
 * Allows Increasing and Decreasing Chaos Rank with a button
 * Roll Tables for manual use in Foundry
 * Configuration to point to custom Roll Tables to the Macros to customize your fate
+* Formatted Message macro allows styling a chat message (color, title, bold, etc)
 
 ### Functionalities
 

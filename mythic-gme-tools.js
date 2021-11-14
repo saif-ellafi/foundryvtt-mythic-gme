@@ -597,3 +597,85 @@ async function dealCard({
     default: "close"
   }).render(true);
 }
+
+function mgeFormattedChat() {
+
+  const formattedChatDialog = `
+    <form>
+    <label for="mgme_format_style">Style:</label>
+    <select id="mgme_format_style" style="margin-bottom: 10px;">
+      <option value="title" selected>Title</option>
+      <option value="subtitle">Subtitle</option>
+      <option value="bold">Bold</option>
+      <option value="italic">Italic</option>
+      <option value="underline">Underline</option>
+      <option value="normal">Normal</option>
+    </select>
+    <label for="mgme_format_color">Color:</label>
+    <input id="mgme_format_color" style="margin-bottom: 10px" placeholder="default"/> 
+    <label for="mgme_format_text">Message:</label>
+    <input id="mgme_format_text" style="margin-bottom: 10px"/> 
+    </form>
+    `
+
+  let dialogue = new Dialog({
+    title: `Formatted Text`,
+    content: formattedChatDialog,
+    render: html => html[0].getElementsByTagName("input").mgme_format_text.focus(),
+    buttons: {
+      submit: {
+        icon: '',
+        label: 'Submit',
+        callback: () => {
+          let message;
+          let color = $("#mgme_format_color").val();
+          if (color && color !== '') {
+            color = `style="color:${color};"`;
+          } else {
+            `style="color:inherit;"`;
+          }
+          let text = $("#mgme_format_text").val();
+          if (!text || text === '') return;
+          switch ($("#mgme_format_style").val()) {
+            case '':
+            case 'normal':
+            case undefined: {
+              message = `<span ${color}>${text}</span>`;
+              break;
+            }
+            case 'title': {
+              message = `<h1 ${color}>${text}</h1>`;
+              break;
+            }
+            case 'subtitle': {
+              message = `<h2 ${color}>${text}</h2>`;
+              break;
+            }
+            case 'bold': {
+              message = `<b ${color}>${text}</b>`;
+              break;
+            }
+            case 'italic': {
+              message = `<em ${color}>${text}</em>`;
+              break;
+            }
+            case 'underline': {
+              message = `<u ${color}>${text}</u>`;
+              break;
+            }
+          }
+
+          let subjectChat = {
+            content: message,
+            speaker: ChatMessage.getSpeaker()
+          };
+          ChatMessage.create(subjectChat);
+        }
+      }
+    },
+    default: "submit"
+  })
+
+  dialogue.render(true)
+
+}

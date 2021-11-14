@@ -1,3 +1,7 @@
+### 1.4.2
+* Added new macro "Formatted Message" allows for formatting Chat style with formats (title, subtitle, bold) and color
+* Fixed a redundant entry in compendium packs
+
 ### 1.4.1
 * Added an optional setting that enables 3D dice on d100 table rolls
 
