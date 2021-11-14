@@ -1,3 +1,6 @@
+### 1.4.3
+* Improved Formatted Message macro so user can choose Speaker of the message among tokens
+
 ### 1.4.2
 * Added new macro "Formatted Message" allows for formatting Chat style with formats (title, subtitle, bold) and color
 * Fixed a redundant entry in compendium packs

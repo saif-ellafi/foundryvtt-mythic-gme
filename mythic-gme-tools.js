@@ -1,7 +1,7 @@
 Hooks.once('ready', async () => {
 
   const tables = Object.fromEntries((await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments())
-      .concat(game.tables.contents).filter(e => e.name.startsWith('Mythic')).map(e => [e.name, e.name]));
+    .concat(game.tables.contents).filter(e => e.name.startsWith('Mythic')).map(e => [e.name, e.name]));
 
   game.settings.register('mythic-gme-tools', 'currentChaos', {
     name: 'Chaos Rank',
@@ -23,7 +23,8 @@ Hooks.once('ready', async () => {
       choices: tables,
       default: false
     });
-  };
+  }
+  ;
 
   game.settings.register('mythic-gme-tools', 'focusTable', {
     name: 'Focus Table',
@@ -122,7 +123,7 @@ function mgeFateChart() {
       <option value="nst">Near sure thing</option>
       <option value="ast">A sure thing</option>
       <option value="htb">Has to be</option>
-    </select> 
+    </select>
     <label for="chaos" style="margin-left: 5px;">Chaos Rank:</label>
     <select name="chaos" id="mgme_chaos" style="margin-bottom: 10px;">
       <option value="9" ${currentChaos === 9 ? 'selected' : ''}>9</option>
@@ -344,8 +345,8 @@ async function _mgeGetTableResults(includeFocus) {
   function _mgeFindTable(setting, fallbackTables) {
     const name = game.settings.get('mythic-gme-tools', setting);
     return game.tables.contents.find(t => t.name === name) ??
-        fallbackTables.find(t => t.name === name) ??
-        fallbackTables.find(t => t.name === game.settings.settings.get(`mythic-gme-tools.${setting}`).default);
+      fallbackTables.find(t => t.name === name) ??
+      fallbackTables.find(t => t.name === game.settings.settings.get(`mythic-gme-tools.${setting}`).default);
   }
 
   const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
@@ -546,7 +547,7 @@ async function dealCard({
   const projectRoot = game.settings.get("mythic-gme-tools", "deckPath");
   const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-decks-tables').getDocuments();
   const table = game.tables.find(t => t.name === tableName) ??
-      fallbackTables.find(t => t.name === tableName)
+    fallbackTables.find(t => t.name === tableName)
 
   const result = await table.draw();
   if (shuffle && result.results.length === 0) {
@@ -578,9 +579,9 @@ async function dealCard({
     title: dialogTitle,
     content: `
       <div style="height: ${height};">
-        <img 
+        <img
           style="border-radius: 5px; margin-bottom: 1em; ${style}"
-          src="${path}" 
+          src="${path}"
         />
       <div>`,
     buttons: {
@@ -600,6 +601,8 @@ async function dealCard({
 
 function mgeFormattedChat() {
 
+  const tokens = game.scenes.active.tokens.contents;
+
   const formattedChatDialog = `
     <form>
     <label for="mgme_format_style">Style:</label>
@@ -611,17 +614,29 @@ function mgeFormattedChat() {
       <option value="underline">Underline</option>
       <option value="normal">Normal</option>
     </select>
-    <label for="mgme_format_color">Color:</label>
-    <input id="mgme_format_color" style="margin-bottom: 10px" placeholder="default"/> 
+    <label for="mgme_format_speaker">Speaker:</label>
+    <select id="mgme_format_speaker" style="margin-bottom: 10px;width:180px"></select>
+    <label for="mgme_format_color" style="margin-bottom:10px;">Color:</label>
+    <input id="mgme_format_color" style="margin-bottom:10px;width:60px;" placeholder="default"/>
     <label for="mgme_format_text">Message:</label>
-    <input id="mgme_format_text" style="margin-bottom: 10px"/> 
+    <input id="mgme_format_text" style="margin-bottom:10px;width: 200px;"/>
     </form>
     `
 
   let dialogue = new Dialog({
     title: `Formatted Text`,
     content: formattedChatDialog,
-    render: html => html[0].getElementsByTagName("input").mgme_format_text.focus(),
+    render: html => {
+      const curSpeaker = ChatMessage.getSpeaker();
+      const speakerElement = $("#mgme_format_speaker");
+      speakerElement.append(`<option value="Gamemaster">Gamemaster</option>`);
+      tokens.forEach(token => {
+        if (token.actor)
+          speakerElement.append(`<option value=${token.actor.id} selected>${token.name}</option>`);
+      });
+      speakerElement.val(curSpeaker.actor ?? curSpeaker.alias);
+      html[0].getElementsByTagName("input").mgme_format_text.focus()
+    },
     buttons: {
       submit: {
         icon: '',
@@ -665,9 +680,11 @@ function mgeFormattedChat() {
             }
           }
 
+          const speakerElementVal = $("#mgme_format_speaker").val();
+          const selectedSpeaker = speakerElementVal === 'Gamemaster' ? {alias: "Gamemaster"} : {actor: tokens.find(t => t.actor.id === speakerElementVal).actor.id};
           let subjectChat = {
             content: message,
-            speaker: ChatMessage.getSpeaker()
+            speaker: selectedSpeaker
           };
           ChatMessage.create(subjectChat);
         }
