@@ -2,12 +2,12 @@
 
 Provides Script Macros and Roll Tables for Playing any RPG system with Mythic GM Emulator
 
-## Credits and Attributions
+[Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
+
+## Word Mill Games
 
 **Mythic GM Emulator Rulebook** is REQUIRED to use and understand this content. Variations 1 and 2 books are needed for
 the optional rules!.
-
-### Word Mill Games
 
 All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and this module is redistributed with _
 appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUTED FURTHER without CONSENT
@@ -16,46 +16,23 @@ appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUT
 
 [Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
 
-### Author
-
-This module is developed by me (Saif Ellafi - JeansenVaars) independently, and I hold no business relationship with Word
-Mill Games. I (Saif Ellafi / @JeansenVaars) was given PERMISSION by Tana Pigeon to distribute this package UNDER STRICT
-CONSENT of non-commercial distribution within Foundry VTT only.
-
-However you can still [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
-
-### Contributors
-
-Thanks to [spacegiant](https://github.com/spacegiant) (GitHub username) - We can enjoy a set of Macros destined to use
-Mythic Cards Deck as well as The GameMaster's Apprentice.
-
-The decks **ARE NOT INCLUDED**, thus must be purchased
-separately: [Mythic GME Deck](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck)
-and [TAC](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck)
-
-### Community
-
-Special thanks to the Community at the Discord Channel from [Mythic Game Master Emulator](https://discord.gg/hyHUuZEt)
-for the support
-
-## Mythic GME Tools
+## Features
 
 ![](example-mythic-tools.png)
 
-### Features
-
-* Scripts for rolling Fate Charts, Random Event and Scene Chaos Checks
-* Scripts for Complex Questions (Mythics Variations #1 Book)
+* Scripts for rolling Fate Charts, Random Event and Scene Chaos Checks with configurable parameters
+* Scripts for Complex Questions and predefined focus events (Mythics Variations #1)
 * Persistently records current Chaos Rank
 * Allows Increasing and Decreasing Chaos Rank with a button
 * Roll Tables for manual use in Foundry
 * Configuration to point to custom Roll Tables to the Macros to customize your fate
 * Formatted Message macro allows styling a chat message (color, title, bold, etc)
 
-### Functionalities
+### Persisted Configuration
 
-* Remembers Chaos Rank: When changing Chaos Rank with the Macro, the value will be persisted and used as default for
-  other macros!
+* Chaos Rank: When changing Chaos Rank, the value will be saved and reused across all functions
+* Minimum and Maximum Chaos Rank is configurable
+* Optional setting for ignoring Chaos Factor in Doubles (Variations #1)
 
 ### Macros
 
@@ -112,6 +89,28 @@ can be configured. Table names must begin with **Mythic** in order to be eligibl
 
 **WARNING** - If you installed pre-release builds from manifest links, please uninstall and reinstall the module from
 Foundry! Important scripts have changed since.
+
+## Author
+
+This module is developed by me (Saif Ellafi - JeansenVaars) independently, and I hold no business relationship with Word
+Mill Games. I (Saif Ellafi / @JeansenVaars) was given PERMISSION by Tana Pigeon to distribute this package UNDER STRICT
+CONSENT of non-commercial distribution within Foundry VTT only.
+
+However you can still [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
+
+### Contributors
+
+Thanks to [spacegiant](https://github.com/spacegiant) (GitHub username) - We can enjoy a set of Macros destined to use
+Mythic Cards Deck as well as The GameMaster's Apprentice.
+
+The decks **ARE NOT INCLUDED**, thus must be purchased
+separately: [Mythic GME Deck](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck)
+and [TAC](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck)
+
+### Community
+
+Special thanks to the Community at the Discord Channel from [Mythic Game Master Emulator](https://discord.gg/hyHUuZEt)
+for the support
 
 ## To do
 

@@ -20,11 +20,46 @@ Hooks.once('ready', async () => {
       scope: 'world',
       config: true,
       type: Boolean,
-      choices: tables,
       default: false
     });
   }
-  ;
+
+  game.settings.register('mythic-gme-tools', 'doublesIgnoreChaos', {
+    name: 'Double Ignores Chaos Factor',
+    hint: 'Whether to ignore CF and always hit a random event regardless',
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register('mythic-gme-tools', 'minChaos', {
+    name: 'Minimum Chaos Factor',
+    hint: 'Minimum value for Chaos Factor',
+    scope: 'world',
+    config: true,
+    type: Number,
+    default: 1,
+    onChange: (newMinChaos) => {
+      const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
+      if (currentChaos < newMinChaos)
+        game.settings.set('mythic-gme-tools', 'currentChaos', newMinChaos)
+    }
+  });
+
+  game.settings.register('mythic-gme-tools', 'maxChaos', {
+    name: 'Maximum Chaos Factor',
+    hint: 'Maximum value for Chaos Factor',
+    scope: 'world',
+    config: true,
+    type: Number,
+    default: 9,
+    onChange: (newMaxChaos) => {
+      const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
+      if (currentChaos > newMaxChaos)
+        game.settings.set('mythic-gme-tools', 'currentChaos', newMaxChaos)
+    }
+  });
 
   game.settings.register('mythic-gme-tools', 'focusTable', {
     name: 'Focus Table',
@@ -69,8 +104,9 @@ Hooks.once('ready', async () => {
 
 function mgeIncreaseChaos() {
 
-  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
-  if (currentChaos < 9) {
+  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
+  const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
+  if (currentChaos < maxChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
     let chat = {
       content: `<h2>Chaos Increased to ${currentChaos + 1}</h2>`
@@ -79,7 +115,7 @@ function mgeIncreaseChaos() {
     ChatMessage.create(chat);
   } else {
     let chat = {
-      content: `<h2>Chaos already at Maximum!</h2>`
+      content: `<h2>Chaos Maximum! (${currentChaos})</h2>`
     };
     ChatMessage.create(chat);
   }
@@ -88,8 +124,9 @@ function mgeIncreaseChaos() {
 
 function mgeDecreaseChaos() {
 
-  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
-  if (currentChaos > 1) {
+  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
+  const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
+  if (currentChaos > minChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos - 1);
     let chat = {
       content: `<h2>Chaos Decreased to ${currentChaos - 1}</h2>`
@@ -98,7 +135,7 @@ function mgeDecreaseChaos() {
     ChatMessage.create(chat);
   } else {
     let chat = {
-      content: `<h2>Chaos already at Minimum!</h2>`
+      content: `<h2>Chaos Minimum! (${currentChaos})</h2>`
     };
     ChatMessage.create(chat);
   }
@@ -319,7 +356,8 @@ function mgeFateChart() {
           let doubles = false;
           if (result > 10 && result < 100) {
             const s = result.toString();
-            if (s[0] === s[1] && s[0] <= parseInt(chaos)) {
+            const ignoreDoubles = game.settings.get("mythic-gme-tools", "doublesIgnoreChaos");
+            if (s[0] === s[1] && (ignoreDoubles || s[0] <= parseInt(chaos))) {
               content += `<div><b>Doubles!</b></div>`
               doubles = true;
             }
@@ -340,7 +378,7 @@ function mgeFateChart() {
 
 }
 
-async function _mgeGetTableResults(includeFocus) {
+async function _mgeGetTableResults(includeFocus, eventFocus) {
 
   function _mgeFindTable(setting, fallbackTables) {
     const name = game.settings.get('mythic-gme-tools', setting);
@@ -357,13 +395,17 @@ async function _mgeGetTableResults(includeFocus) {
   let randomEventsIn3D = false;
   if (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D')) randomEventsIn3D = true;
   if (includeFocus) {
-    const focusTable = _mgeFindTable('focusTable', fallbackTables);
-    focusRoll = await focusTable.roll();
-    if (randomEventsIn3D) {
-      game.dice3d.showForRoll(focusRoll.roll);
-      await new Promise(r => setTimeout(r, 2000));
+    if (eventFocus)
+      focusResult = eventFocus;
+    else {
+      const focusTable = _mgeFindTable('focusTable', fallbackTables);
+      focusRoll = await focusTable.roll();
+      if (randomEventsIn3D) {
+        game.dice3d.showForRoll(focusRoll.roll);
+        await new Promise(r => setTimeout(r, 2000));
+      }
+      focusResult = focusRoll.results[0].getChatText();
     }
-    focusResult = focusRoll.results[0].getChatText();
   }
 
   const actionTable = _mgeFindTable('actionTable', fallbackTables);
@@ -391,18 +433,18 @@ async function _mgeGetTableResults(includeFocus) {
 
 function mgeRandomEvent(randomEventTitle) {
 
-  async function submitRandomEvent(eventTitle) {
+  async function submitRandomEvent(eventTitle, eventFocus) {
     let randomEventsIn3D = false;
     if (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D')) randomEventsIn3D = true;
     if (randomEventsIn3D && eventTitle === 'Interruption Scene') {
       await new Promise(r => setTimeout(r, 2000)); // Give time for current 3D dice to roll
     }
-    const [focusResult, focusRoll, actionResult, actionRoll, subjectResult, subjectRoll] = await _mgeGetTableResults(true);
+    const [focusResult, focusRoll, actionResult, actionRoll, subjectResult, subjectRoll] = await _mgeGetTableResults(true, eventFocus);
 
     let subjectChat = {
       content: `
         ${eventTitle}
-        <div><b>Focus: </b>${focusResult} (${focusRoll.roll.total})</div>
+        <div><b>Focus: </b>${focusResult} (${focusRoll?.roll.total ?? '*'})</div>
         <div><b>Action: </b>${actionResult} (${actionRoll.roll.total})</div>
         <div><b>Subject: </b>${subjectResult} (${subjectRoll.roll.total})</div>
       `
@@ -415,19 +457,35 @@ function mgeRandomEvent(randomEventTitle) {
       <form>
       <label for="mgme_re_question">Event Reason (optional):</label>
       <input id="mgme_re_question" style="margin-bottom: 10px" placeholder="Random Event"/>
+      <label for="mgme_re_efocus" style="display:inline-block;">Event Focus:</label>
+      <select id="mgme_re_efocus" style="width:250px;margin-bottom: 10px;"></select>
       </form>
     `
     let dialogue = new Dialog({
       title: `Random Event`,
       content: complexQuestionDialog,
-      render: html => html[0].getElementsByTagName("input").mgme_re_question.focus(),
+      render: async function (html) {
+        const eFocusElement = $("#mgme_re_efocus");
+        const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
+        eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
+        const allTables = Object.values(
+          (await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments()).concat(game.tables.contents)
+        );
+        const focusResults = allTables.find(t => t.name === focusTableName).results.contents.map(c => c.getChatText());
+        focusResults.forEach(focus => {
+          eFocusElement.append(`<option value="${focus}">${focus}</option>`);
+        });
+        html[0].getElementsByTagName("input").mgme_re_question.focus();
+      },
       buttons: {
         submit: {
           icon: '',
           label: 'Submit',
           callback: (html) => {
             let text = html[0].getElementsByTagName("input").mgme_re_question.value;
-            submitRandomEvent(text.length ? `<h2>${text}</h2>` : 'Random Event');
+            const focusValue = $("#mgme_re_efocus");
+            const eventFocus = focusValue.val() === 'Random' ? undefined : focusValue.val();
+            submitRandomEvent(text.length ? `<h2>${text}</h2>` : 'Random Event', eventFocus);
           }
         }
       },

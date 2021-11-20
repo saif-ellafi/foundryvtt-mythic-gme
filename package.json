@@ -1,6 +1,6 @@
 {
   "name": "foundryvtt-mythic-gme",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "description": "A set of Macros and Random Tables for playing with the Mythic Game Master Emulator",
   "main": "mythic-gme-tools.js",
   "scripts": {

@@ -1,3 +1,9 @@
+### 1.5.0
+* Chaos Factor range can be now configured (Variations #1 Theme Settings)
+* Random Events may take a predefined Event Focus (Variations #1 Theme Settings)
+* Configuration allows Doubles to ignore Chaos Factor for Random Events (Variations #1)
+* Fixed typo in module causing a warning in the console on launch
+
 ### 1.4.3
 * Improved Formatted Message macro so user can choose Speaker of the message among tokens
 
