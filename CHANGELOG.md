@@ -1,3 +1,6 @@
+### 1.5.1
+* Fixed a typo in GMA SciFi cards file names
+
 ### 1.5.0
 * Chaos Factor range can be now configured (Variations #1 Theme Settings)
 * Random Events may take a predefined Event Focus (Variations #1 Theme Settings)
