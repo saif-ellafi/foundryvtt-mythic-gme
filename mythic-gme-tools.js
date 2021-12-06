@@ -766,21 +766,22 @@ async function mgeBackstoryGenerator() {
   const speaker = ChatMessage.getSpeaker();
   const eventsCountTable = await _mgeFindTableByName('Mythic GME V1: Backstory Events');
   const eventsCount = parseInt((await eventsCountTable.roll()).results[0].getChatText());
-  let backgroundChat = {
-    content: `<b>${eventsCount} Background Events${speaker.alias === 'Gamemaster' ? '' : ` for ${speaker.alias}`}</b>`,
+  let backstoryChat = {
+    content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`,
     speaker: ChatMessage.getSpeaker()
   };
-  ChatMessage.create(backgroundChat);
+  ChatMessage.create(backstoryChat);
   const backstoryFocusTable = await _mgeFindTableByName('Mythic GME V1: Backstory Focus')
+  const backstoryLabels = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
   let i = 0;
   while (i < eventsCount) {
     const backstoryFocus = (await backstoryFocusTable.roll()).roll.result;
     const backstoryEvent = await _mgeGetRandomEventResults(backstoryFocus);
-    let backgroundChat = {
-      content: '',
+    let backstoryEventChat = {
+      content: `<h2>${backstoryLabels[i] ?? i+1} Backstory Event</h2>`,
       speaker: ChatMessage.getSpeaker()
     };
-    let chatMessage = await ChatMessage.create(backgroundChat);
+    let chatMessage = await ChatMessage.create(backstoryEventChat);
     await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${backstoryEvent.actionResult} (${(await _mgeSimulateRoll(backstoryEvent.actionRoll.roll)).total})</div>`);
     await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${backstoryEvent.subjectResult} (${(await _mgeSimulateRoll(backstoryEvent.subjectRoll.roll)).total})</div>`);
     i++
