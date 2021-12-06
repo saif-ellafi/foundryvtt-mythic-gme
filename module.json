@@ -24,6 +24,20 @@
       "entity": "RollTable"
     },
     {
+      "name": "mythic-gme-v1-tables",
+      "label": "Mythic GME V1 Tables",
+      "path": "packs/mythic-gme-v1-tables.db",
+      "module": "mythic-gme-tools",
+      "entity": "RollTable"
+    },
+    {
+      "name": "mythic-gme-v2-tables",
+      "label": "Mythic GME V2 Tables",
+      "path": "packs/mythic-gme-v2-tables.db",
+      "module": "mythic-gme-tools",
+      "entity": "RollTable"
+    },
+    {
       "name": "mythic-gme-macros",
       "label": "Mythic GME Macros",
       "path": "packs/mythic-gme-macros.db",
@@ -32,7 +46,7 @@
     },
     {
       "name": "mythic-gme-v1-macros",
-      "label": "Mythic GME Macros V1",
+      "label": "Mythic GME V1 Macros",
       "path": "packs/mythic-gme-v1-macros.db",
       "module": "mythic-gme-tools",
       "entity": "Macro"
