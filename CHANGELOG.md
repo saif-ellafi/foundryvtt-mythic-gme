@@ -1,3 +1,11 @@
+### 1.6.0
+* Feature: Variations #1 Background Stories
+* Feature: Reorganized Macros to separate Core GME from V1 and V2 content
+* Feature: 'Slow Simulation of Random Events' builds up tension by slowly rolling random events. Customizable speed.
+* Fixed: Random Events Macro focus now gives priority to imported tables over default ones (to allow user overrides)
+* Compatibility: Support for Foundry V9
+* 
+
 ### 1.5.1
 * Fixed a typo in GMA SciFi cards file names
 

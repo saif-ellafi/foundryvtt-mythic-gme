@@ -12,15 +12,22 @@ Hooks.once('ready', async () => {
     default: 5
   });
 
-
   if (game.dice3d) {
     game.settings.register('mythic-gme-tools', 'randomEvents3D', {
-      name: 'Random Events with Dice So Nice!',
-      hint: 'Roll random events with 3D dice. Screen full of dice!',
+      name: 'Slow Simulation of Random Events',
+      hint: 'All random event related rolls will slowly appear as 3D dice show results. Adds tension but slows down results.',
       scope: 'world',
       config: true,
       type: Boolean,
-      default: false
+      default: !!game.dice3d
+    });
+    game.settings.register('mythic-gme-tools', 'randomEvents3DDelay', {
+      name: 'Slow Simulation Delay in Seconds',
+      hint: 'If Slow Simulation is enabled, how much to wait between roll steps. Default: 2',
+      scope: 'world',
+      config: true,
+      type: Number,
+      default: 2
     });
   }
 
@@ -378,78 +385,81 @@ function mgeFateChart() {
 
 }
 
-async function _mgeGetTableResults(includeFocus, eventFocus) {
-
-  function _mgeFindTable(setting, fallbackTables) {
-    const name = game.settings.get('mythic-gme-tools', setting);
-    return game.tables.contents.find(t => t.name === name) ??
-      fallbackTables.find(t => t.name === name) ??
-      fallbackTables.find(t => t.name === game.settings.settings.get(`mythic-gme-tools.${setting}`).default);
-  }
-
-  const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
-
-  let focusResult = undefined;
-  let focusRoll = undefined;
-
-  let randomEventsIn3D = false;
-  if (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D')) randomEventsIn3D = true;
-  if (includeFocus) {
-    if (eventFocus)
-      focusResult = eventFocus;
-    else {
-      const focusTable = _mgeFindTable('focusTable', fallbackTables);
-      focusRoll = await focusTable.roll();
-      if (randomEventsIn3D) {
-        game.dice3d.showForRoll(focusRoll.roll);
-        await new Promise(r => setTimeout(r, 2000));
-      }
-      focusResult = focusRoll.results[0].getChatText();
-    }
-  }
-
-  const actionTable = _mgeFindTable('actionTable', fallbackTables);
-  const actionRoll = await actionTable.roll();
+async function _mgeSimulateRoll(targetRoll) {
+  const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D'));
   if (randomEventsIn3D) {
-    game.dice3d.showForRoll(actionRoll.roll);
-    await new Promise(r => setTimeout(r, 2000));
+    await game.dice3d.showForRoll(targetRoll);
   }
+  return targetRoll;
+}
+
+async function _mgeUpdateChatSimulation(baseChat, newMessage) {
+  await baseChat.update({content: baseChat.data.content + newMessage});
+  ui.chat.scrollBottom();
+  const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D'));
+  if (randomEventsIn3D) {
+    await new Promise(r => setTimeout(r, game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000));
+  }
+}
+
+async function _mgeFindTableBySetting(setting) {
+  const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
+  const name = game.settings.get('mythic-gme-tools', setting);
+  const baseSetting = game.settings.settings.get(`mythic-gme-tools.${setting}`);
+  return game.tables.contents.find(t => t.name === name) ??
+    fallbackTables.find(t => t.name === name) ??
+    fallbackTables.find(t => t.name === baseSetting.default);
+}
+
+async function _mgeFindTableByName(tableName) {
+  return Object.values(
+    game.tables.contents.concat((await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments()))
+  ).find(t => t.name === tableName);
+}
+
+async function _mgeGetRandomEventResults(eventFocus) {
+
+  let focusResult;
+  let focusRoll;
+
+  if (eventFocus)
+    focusResult = eventFocus;
+  else {
+    const focusTable = await _mgeFindTableBySetting('focusTable');
+    focusRoll = await focusTable.roll();
+    focusResult = focusRoll.results[0].getChatText();
+  }
+
+  const actionTable = await _mgeFindTableBySetting('actionTable');
+  const actionRoll = await actionTable.roll();
   const actionResult = actionRoll.results[0].getChatText();
 
-  const subjectTable = _mgeFindTable('subjectTable', fallbackTables);
+  const subjectTable = await _mgeFindTableBySetting('subjectTable');
   const subjectRoll = await subjectTable.roll();
-  if (randomEventsIn3D) {
-    game.dice3d.showForRoll(subjectRoll.roll);
-    await new Promise(r => setTimeout(r, 2000));
-  }
   const subjectResult = subjectRoll.results[0].getChatText();
 
-  if (includeFocus) {
-    return [focusResult, focusRoll, actionResult, actionRoll, subjectResult, subjectRoll];
-  } else {
-    return [actionResult, actionRoll, subjectResult, subjectRoll];
-  }
+  return {
+    focusResult: focusResult,
+    focusRoll: focusRoll,
+    actionResult: actionResult,
+    actionRoll: actionRoll,
+    subjectResult: subjectResult,
+    subjectRoll: subjectRoll
+  };
+
 }
 
 function mgeRandomEvent(randomEventTitle) {
 
   async function submitRandomEvent(eventTitle, eventFocus) {
-    let randomEventsIn3D = false;
-    if (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D')) randomEventsIn3D = true;
-    if (randomEventsIn3D && eventTitle === 'Interruption Scene') {
-      await new Promise(r => setTimeout(r, 2000)); // Give time for current 3D dice to roll
-    }
-    const [focusResult, focusRoll, actionResult, actionRoll, subjectResult, subjectRoll] = await _mgeGetTableResults(true, eventFocus);
-
+    const randomEvent = await _mgeGetRandomEventResults(eventFocus);
     let subjectChat = {
-      content: `
-        ${eventTitle}
-        <div><b>Focus: </b>${focusResult} (${focusRoll?.roll.total ?? '*'})</div>
-        <div><b>Action: </b>${actionResult} (${actionRoll.roll.total})</div>
-        <div><b>Subject: </b>${subjectResult} (${subjectRoll.roll.total})</div>
-      `
+      content: eventTitle
     };
-    ChatMessage.create(subjectChat);
+    let chatMessage = await ChatMessage.create(subjectChat);
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Focus: </b>${randomEvent.focusResult} (${(await _mgeSimulateRoll(randomEvent.focusRoll?.roll)).total ?? '*'})</div>`);
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${randomEvent.actionResult} (${(await _mgeSimulateRoll(randomEvent.actionRoll.roll)).total})</div>`);
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${randomEvent.subjectResult} (${(await _mgeSimulateRoll(randomEvent.subjectRoll.roll)).total})</div>`);
   }
 
   if (!randomEventTitle) {
@@ -468,10 +478,7 @@ function mgeRandomEvent(randomEventTitle) {
         const eFocusElement = $("#mgme_re_efocus");
         const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
         eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
-        const allTables = Object.values(
-          (await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments()).concat(game.tables.contents)
-        );
-        const focusResults = allTables.find(t => t.name === focusTableName).results.contents.map(c => c.getChatText());
+        const focusResults = (await _mgeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
         focusResults.forEach(focus => {
           eFocusElement.append(`<option value="${focus}">${focus}</option>`);
         });
@@ -534,7 +541,10 @@ function mgeSceneAlteration() {
               await roll.toMessage({
                 content: `<b style="color: darkred">Scene was interrupted!</b> (${result})`
               });
-              await mgeRandomEvent('Interruption Scene');
+              if (game.dice3d)
+                Hooks.once('diceSoNiceRollComplete', async () => await mgeRandomEvent('Interruption Scene'))
+              else
+                await mgeRandomEvent('Interruption Scene');
             } else {
               return roll.toMessage({
                 content: `<b style="color: darkred">Scene was altered!</b> (${result})`
@@ -573,17 +583,14 @@ async function mgeComplexQuestion() {
         icon: '',
         label: 'Submit',
         callback: async (html) => {
-          const [actionResult, actionRoll, subjectResult, subjectRoll] = await _mgeGetTableResults(false);
-
+          const randomEvent = await _mgeGetRandomEventResults();
           let subjectChat = {
-            content: `
-            ${html.find("#mgme_complex_question").val() === '' ? 'Complex Question' : `<h2><b>${html.find("#mgme_complex_question").val()}</b></h2>`}
-            <div><b>Action: </b>${actionResult} (${actionRoll.roll.total})</div>
-            <div><b>Subject: </b>${subjectResult} (${subjectRoll.roll.total})</div>
-            `,
+            content: html.find("#mgme_complex_question").val() === '' ? 'Complex Question' : `<h2><b>${html.find("#mgme_complex_question").val()}</b></h2>`,
             speaker: ChatMessage.getSpeaker()
           };
-          ChatMessage.create(subjectChat);
+          let chatMessage = await ChatMessage.create(subjectChat);
+          await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${randomEvent.actionResult} (${(await _mgeSimulateRoll(randomEvent.actionRoll.roll)).total})</div>`);
+          await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${randomEvent.subjectResult} (${(await _mgeSimulateRoll(randomEvent.subjectRoll.roll)).total})</div>`);
         }
       }
     },
@@ -594,14 +601,14 @@ async function mgeComplexQuestion() {
 
 }
 
-async function dealCard({
-                          tableName,
-                          fileExtension = 'jpg',
-                          useRotate = false,
-                          dialogTitle = 'Dealt Card',
-                          height = '580px',
-                          shuffle = true
-                        }) {
+async function mgeDealCard({
+                             tableName,
+                             fileExtension = 'jpg',
+                             useRotate = false,
+                             dialogTitle = 'Dealt Card',
+                             height = '580px',
+                             shuffle = true
+                           }) {
   const projectRoot = game.settings.get("mythic-gme-tools", "deckPath");
   const fallbackTables = await game.packs.get('mythic-gme-tools.mythic-decks-tables').getDocuments();
   const table = game.tables.find(t => t.name === tableName) ??
@@ -753,4 +760,29 @@ function mgeFormattedChat() {
 
   dialogue.render(true)
 
+}
+
+async function mgeBackstoryGenerator() {
+  const speaker = ChatMessage.getSpeaker();
+  const eventsCountTable = await _mgeFindTableByName('Mythic GME V1: Backstory Events');
+  const eventsCount = parseInt((await eventsCountTable.roll()).results[0].getChatText());
+  let backgroundChat = {
+    content: `<b>${eventsCount} Background Events${speaker.alias === 'Gamemaster' ? '' : ` for ${speaker.alias}`}</b>`,
+    speaker: ChatMessage.getSpeaker()
+  };
+  ChatMessage.create(backgroundChat);
+  const backstoryFocusTable = await _mgeFindTableByName('Mythic GME V1: Backstory Focus')
+  let i = 0;
+  while (i < eventsCount) {
+    const backstoryFocus = (await backstoryFocusTable.roll()).roll.result;
+    const backstoryEvent = await _mgeGetRandomEventResults(backstoryFocus);
+    let backgroundChat = {
+      content: '',
+      speaker: ChatMessage.getSpeaker()
+    };
+    let chatMessage = await ChatMessage.create(backgroundChat);
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${backstoryEvent.actionResult} (${(await _mgeSimulateRoll(backstoryEvent.actionRoll.roll)).total})</div>`);
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${backstoryEvent.subjectResult} (${(await _mgeSimulateRoll(backstoryEvent.subjectRoll.roll)).total})</div>`);
+    i++
+  }
 }
