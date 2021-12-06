@@ -447,7 +447,12 @@ function mgeFateChart() {
             content: content,
             speaker: ChatMessage.getSpeaker()
           })
-          if (doubles) await mgeRandomEvent('Unexpected Event');
+          if (doubles) {
+            if (game.dice3d)
+              Hooks.once('diceSoNiceRollComplete', async () => await mgeRandomEvent('Interruption Scene'))
+            else
+              await mgeRandomEvent('Unexpected Event');
+          }
         }
       }
     },

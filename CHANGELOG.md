@@ -4,6 +4,7 @@
 * Feature: 'Slow Simulation of Random Events' builds up tension by slowly rolling random events. Customizable speed.
 * Fixed: Random Events Macro focus now gives priority to imported tables over default ones (to allow user overrides)
 * Fixed: Scene Alteration now waits for 3D dice (if enabled) to roll before telling the answer
+* Fixed: Doubles Event now waits for 3D dice (if enabled) to roll before telling the answer
 * Compatibility: Support for Foundry V9
 
 ### 1.5.1
