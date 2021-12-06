@@ -24,12 +24,13 @@ appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUT
 ![](example-mythic-tools.png)
 
 * Scripts for rolling Fate Charts, Random Event and Scene Chaos Checks with configurable parameters
-* Scripts for Complex Questions and predefined focus events (Mythics Variations #1)
+* Scripts for Complex Questions, Backstory Generation and themed focus tables (Mythics Variations #1)
 * Persistently records current Chaos Rank
 * Allows Increasing and Decreasing Chaos Rank with a button
 * Roll Tables for manual use in Foundry
 * Configuration to point to custom Roll Tables to the Macros to customize your fate
 * Formatted Message macro allows styling a chat message (color, title, bold, etc)
+* Integration recommended with Dice So Nice! module for 3D dice support waits and builds up tension with them
 
 ### Persisted Configuration
 
@@ -45,6 +46,7 @@ appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUT
 * Random Event: Generates a random event.
 * Scene Alteration: Checks if the proposed event is still valid. Rolls Random Events when appropriate.
 * Complex Questions (Mythic Variations #1)
+* Backstory Generator (Mythic Variations #1)
 
 ### Roll Tables
 
@@ -52,6 +54,8 @@ appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUT
 * Action Meaning
 * Subject Meaning
 * Event Focus Themes from Variations #1
+* Descriptions from Variations #2
+* Actions from Variations #2
 
 ### Card Decks
 
