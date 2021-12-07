@@ -1,3 +1,14 @@
+function _mgeEnsureV2Chaos() {
+  const isMinChaos = game.settings.get('mythic-gme-tools', 'minChaos') >= 3
+  const isMaxChaos = game.settings.get('mythic-gme-tools', 'maxChaos') <= 6
+  if (isMinChaos && isMaxChaos)
+    return true
+  else {
+    ui.notifications.warn("This rule is based on Mythic Variations #2 Chaos Rank rules and requires a range between 3 and 6. This can be changed in Module Settings");
+    return false
+  }
+}
+
 async function _mgeGetAllPacks() {
   const packsCore = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
   const packsV1 = await game.packs.get('mythic-gme-tools.mythic-gme-v1-tables').getDocuments();
@@ -85,7 +96,7 @@ function _mgeWaitFor3DDice(targetMessageId) {
   });
 }
 
-function _mgeGenerateChaosOptions() {
+function _mgeGenerateChaosRankOptions() {
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
   const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
   const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
@@ -265,7 +276,6 @@ function mgeCheckChaos() {
 }
 
 function mgeFateChart() {
-  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
   const fateChartDialog = `
     <form>
     <label for="odds">Odds:</label>
@@ -284,7 +294,7 @@ function mgeFateChart() {
     </select>
     <label for="chaos" style="margin-left: 5px;">Chaos Rank:</label>
     <select name="chaos" id="mgme_chaos" style="margin-bottom: 10px;">
-    ${_mgeGenerateChaosOptions()}
+    ${_mgeGenerateChaosRankOptions()}
     </select><br>
     <label for="question">Question (optional):</label>
     <input id="mgme_question" style="margin-bottom: 10px" placeholder="Fate Chart Question"/>
@@ -446,7 +456,7 @@ function mgeFateChart() {
       outcome = 'No!';
     }
     return `
-  <div><b>Roll:</b> ${result} at <em>${odds_id_map[odds]}</em> with Chaos[${chaos}]</div>
+  <div><b>Roll:</b> ${result} at <em>${odds_id_map[odds]}</em> with Chaos Rank[${chaos}]</div>
   <b style="color: ${color}">${outcome}</b>
   `
   }
@@ -482,9 +492,9 @@ function mgeFateChart() {
           })
           if (doubles) {
             if (game.dice3d)
-              Hooks.once('diceSoNiceRollComplete', async () => await mgeRandomEvent('Interruption Scene'))
+              Hooks.once('diceSoNiceRollComplete', () => mgeRandomEvent('Unexpected Random Event'))
             else
-              await mgeRandomEvent('Unexpected Event');
+              mgeRandomEvent('Unexpected Random Event');
           }
         }
       }
@@ -554,12 +564,11 @@ function mgeRandomEvent(randomEventTitle) {
 
 function mgeSceneAlteration() {
 
-  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
   const sceneAlterationDialogue = `
     <form>
     <label for="chaos" style="margin-left: 5px;">Chaos Rank:</label>
     <select name="chaos" id="mgme_chaos" style="margin-bottom: 10px;">
-      ${_mgeGenerateChaosOptions()}
+      ${_mgeGenerateChaosRankOptions()}
     </select>
     </form>
 `
