@@ -85,6 +85,20 @@ function _mgeWaitFor3DDice(targetMessageId) {
   });
 }
 
+function _mgeGenerateChaosOptions() {
+  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
+  const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
+  const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
+  let options = '';
+  let i = 1;
+  while (i <= maxChaos) {
+    if (i >= minChaos)
+      options += `<option value="${i}" ${currentChaos === i ? 'selected' : ''}>${i}</option>`;
+    i++;
+  }
+  return options
+}
+
 Hooks.once('ready', async () => {
 
   const tables = Object.fromEntries((await _mgeGetAllPacks())
@@ -265,15 +279,7 @@ function mgeFateChart() {
     </select>
     <label for="chaos" style="margin-left: 5px;">Chaos Rank:</label>
     <select name="chaos" id="mgme_chaos" style="margin-bottom: 10px;">
-      <option value="9" ${currentChaos === 9 ? 'selected' : ''}>9</option>
-      <option value="8" ${currentChaos === 8 ? 'selected' : ''}>8</option>
-      <option value="7" ${currentChaos === 7 ? 'selected' : ''}>7</option>
-      <option value="6" ${currentChaos === 6 ? 'selected' : ''}>6</option>
-      <option value="5" ${currentChaos === 5 ? 'selected' : ''}>5</option>
-      <option value="4" ${currentChaos === 4 ? 'selected' : ''}>4</option>
-      <option value="3" ${currentChaos === 3 ? 'selected' : ''}>3</option>
-      <option value="2" ${currentChaos === 2 ? 'selected' : ''}>2</option>
-      <option value="1" ${currentChaos === 1 ? 'selected' : ''}>1</option>
+    ${_mgeGenerateChaosOptions()}
     </select><br>
     <label for="question">Question (optional):</label>
     <input id="mgme_question" style="margin-bottom: 10px" placeholder="Fate Chart Question"/>
@@ -550,15 +556,7 @@ function mgeSceneAlteration() {
     <form>
     <label for="chaos" style="margin-left: 5px;">Chaos Rank:</label>
     <select name="chaos" id="mgme_chaos" style="margin-bottom: 10px;">
-      <option value="9" ${currentChaos === 9 ? 'selected' : ''}>9</option>
-      <option value="8" ${currentChaos === 8 ? 'selected' : ''}>8</option>
-      <option value="7" ${currentChaos === 7 ? 'selected' : ''}>7</option>
-      <option value="6" ${currentChaos === 6 ? 'selected' : ''}>6</option>
-      <option value="5" ${currentChaos === 5 ? 'selected' : ''}>5</option>
-      <option value="4" ${currentChaos === 4 ? 'selected' : ''}>4</option>
-      <option value="3" ${currentChaos === 3 ? 'selected' : ''}>3</option>
-      <option value="2" ${currentChaos === 2 ? 'selected' : ''}>2</option>
-      <option value="1" ${currentChaos === 1 ? 'selected' : ''}>1</option>
+      ${_mgeGenerateChaosOptions()}
     </select>
     </form>
 `
