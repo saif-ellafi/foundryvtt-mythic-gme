@@ -213,7 +213,6 @@ Hooks.once('ready', async () => {
 });
 
 function mgeIncreaseChaos() {
-
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
   const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
@@ -232,11 +231,9 @@ function mgeIncreaseChaos() {
     };
     ChatMessage.create(chat);
   }
-
 }
 
 function mgeDecreaseChaos() {
-
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
   const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
@@ -255,11 +252,19 @@ function mgeDecreaseChaos() {
     };
     ChatMessage.create(chat);
   }
+}
 
+function mgeCheckChaos() {
+  const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
+  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+  let chat = {
+    content: `<h2>Chaos Rank (${currentChaos})</h2>`,
+    whisper: whisper
+  };
+  ChatMessage.create(chat);
 }
 
 function mgeFateChart() {
-
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos')
   const fateChartDialog = `
     <form>
@@ -488,7 +493,6 @@ function mgeFateChart() {
   })
 
   dialogue.render(true)
-
 }
 
 function mgeRandomEvent(randomEventTitle) {
@@ -546,7 +550,6 @@ function mgeRandomEvent(randomEventTitle) {
   } else {
     submitRandomEvent(randomEventTitle);
   }
-
 }
 
 function mgeSceneAlteration() {
@@ -598,7 +601,6 @@ function mgeSceneAlteration() {
   })
 
   dialogue.render(true)
-
 }
 
 async function mgeComplexQuestion() {
@@ -636,7 +638,6 @@ async function mgeComplexQuestion() {
   })
 
   dialogue.render(true)
-
 }
 
 async function mgeDealCard({
