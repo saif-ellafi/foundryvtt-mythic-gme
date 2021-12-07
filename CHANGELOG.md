@@ -1,3 +1,8 @@
+### 1.7.0
+* Feature: Privacy for group play: Macros will follow dice roll privacy setting
+* Fixed: Random Tables are now set to privately roll by default when rolled manually
+* Fixed: Improved waiting events for 3D dice to finish (if enabled)
+
 ### 1.6.0
 * Feature: Variations #1 Background Stories Generator (V1 is now feature complete)
 * Feature: Reorganized Macros and Tables to separate Core GME from V1 and V2 variations content

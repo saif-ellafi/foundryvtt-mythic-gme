@@ -38,7 +38,6 @@ async function _mgeFindTableByName(tableName) {
 }
 
 async function _mgeGetRandomEventResults(eventFocus) {
-
   let focusResult;
   let focusRoll;
 
@@ -66,7 +65,24 @@ async function _mgeGetRandomEventResults(eventFocus) {
     subjectResult: subjectResult,
     subjectRoll: subjectRoll
   };
+}
 
+function _mgeWaitFor3DDice(targetMessageId) {
+  function buildHook(resolve) {
+    Hooks.once('diceSoNiceRollComplete', (messageId) => {
+      if (targetMessageId === messageId)
+        resolve(true);
+      else
+        buildHook(resolve)
+    });
+  }
+  return new Promise((resolve,reject) => {
+    if(game.dice3d){
+      buildHook(resolve);
+    } else {
+      resolve(true);
+    }
+  });
 }
 
 Hooks.once('ready', async () => {
@@ -186,16 +202,19 @@ function mgeIncreaseChaos() {
 
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
   const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
+  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   if (currentChaos < maxChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
     let chat = {
-      content: `<h2>Chaos Increased to ${currentChaos + 1}</h2>`
+      content: `<h2>Chaos Increased to ${currentChaos + 1}</h2>`,
+      whisper: whisper
     };
     $("#mgme_chaos").val(currentChaos + 1);
     ChatMessage.create(chat);
   } else {
     let chat = {
-      content: `<h2>Chaos Maximum! (${currentChaos})</h2>`
+      content: `<h2>Chaos Maximum! (${currentChaos})</h2>`,
+      whisper: whisper
     };
     ChatMessage.create(chat);
   }
@@ -206,16 +225,19 @@ function mgeDecreaseChaos() {
 
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
   const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
+  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   if (currentChaos > minChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos - 1);
     let chat = {
-      content: `<h2>Chaos Decreased to ${currentChaos - 1}</h2>`
+      content: `<h2>Chaos Decreased to ${currentChaos - 1}</h2>`,
+      whisper: whisper
     };
     $("#mgme_chaos").val(currentChaos - 1);
     ChatMessage.create(chat);
   } else {
     let chat = {
-      content: `<h2>Chaos Minimum! (${currentChaos})</h2>`
+      content: `<h2>Chaos Minimum! (${currentChaos})</h2>`,
+      whisper: whisper
     };
     ChatMessage.create(chat);
   }
@@ -467,8 +489,10 @@ function mgeRandomEvent(randomEventTitle) {
 
   async function submitRandomEvent(eventTitle, eventFocus) {
     const randomEvent = await _mgeGetRandomEventResults(eventFocus);
+    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
     let subjectChat = {
-      content: eventTitle
+      content: eventTitle,
+      whisper: whisper
     };
     let chatMessage = await ChatMessage.create(subjectChat);
     await _mgeUpdateChatSimulation(chatMessage, `<div><b>Focus: </b>${randomEvent.focusResult} (${(await _mgeSimulateRoll(randomEvent.focusRoll?.roll))?.total ?? '*'})</div>`);
@@ -598,9 +622,11 @@ async function mgeComplexQuestion() {
         label: 'Submit',
         callback: async (html) => {
           const randomEvent = await _mgeGetRandomEventResults();
+          const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
           let subjectChat = {
             content: html.find("#mgme_complex_question").val() === '' ? 'Complex Question' : `<h2><b>${html.find("#mgme_complex_question").val()}</b></h2>`,
-            speaker: ChatMessage.getSpeaker()
+            speaker: ChatMessage.getSpeaker(),
+            whisper: whisper
           };
           let chatMessage = await ChatMessage.create(subjectChat);
           await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${randomEvent.actionResult} (${(await _mgeSimulateRoll(randomEvent.actionRoll.roll)).total})</div>`);
@@ -679,7 +705,6 @@ async function mgeDealCard({
 }
 
 function mgeFormattedChat() {
-
   const tokens = game.scenes.active.tokens.contents;
 
   const formattedChatDialog = `
@@ -776,13 +801,14 @@ function mgeFormattedChat() {
 
 async function mgeBackstoryGenerator() {
   const speaker = ChatMessage.getSpeaker();
+  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   const eventsCountTable = await _mgeFindTableByName('Mythic GME: Backstory Events');
-  const eventsCount = parseInt((await eventsCountTable.roll()).results[0].getChatText());
-  let backstoryChat = {
-    content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`,
-    speaker: ChatMessage.getSpeaker()
-  };
-  ChatMessage.create(backstoryChat);
+  const drawed = await eventsCountTable.roll();
+  const eventsCount = parseInt(drawed.results[0].getChatText());
+  let triggerMsg = await drawed.roll.toMessage({
+    content: `${whisper ? '[SECRET] ' : ''}<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
+  });
+  await _mgeWaitFor3DDice(triggerMsg.id);
   const backstoryFocusTable = await _mgeFindTableByName('Mythic GME: Backstory Focus')
   const backstoryLabels = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
   let i = 0;
@@ -791,7 +817,8 @@ async function mgeBackstoryGenerator() {
     const backstoryEvent = await _mgeGetRandomEventResults(backstoryFocus);
     let backstoryEventChat = {
       content: `<h2>${backstoryLabels[i] ?? i+1} Backstory Event</h2>`,
-      speaker: ChatMessage.getSpeaker()
+      speaker: speaker,
+      whisper: whisper
     };
     let chatMessage = await ChatMessage.create(backstoryEventChat);
     await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${backstoryEvent.actionResult} (${(await _mgeSimulateRoll(backstoryEvent.actionRoll.roll)).total})</div>`);
