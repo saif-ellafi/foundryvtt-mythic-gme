@@ -13,8 +13,7 @@
   "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/1.6.0/foundryvtt-mythic-gme_1.6.0.zip",
   "compatibleCoreVersion": "9.233",
   "scripts": [
-    "mythic-gme-tools.js",
-    "mythic-gme-tools-variations2.js"
+    "mythic-gme-tools.js"
   ],
   "packs": [
     {

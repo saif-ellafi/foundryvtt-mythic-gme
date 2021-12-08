@@ -1,3 +1,38 @@
+const MGE_PROPS_TEMPLATES = {
+  UNEXPECTED_EVENT: {
+    purpose: 'Unexpected Random Event',
+  },
+  INTERRUPTION_EVENT: {
+    purpose: 'Interruption Event',
+  },
+  DESCRIPTION_DETAIL: {
+    purpose: 'Description Detail Check',
+  },
+  ACTION_DETAIL: {
+    purpose: 'Action Detail Check',
+  },
+  EVENT_QUESTION: {
+    label: 'Detail Question',
+    placeholder: 'Description Detail',
+    useFocusTable: true
+  },
+  COMPLEX_QUESTION: {
+    label: 'Complex Question',
+    placeholder: 'Question',
+    useFocusTable: false
+  },
+  DESCRIPTION_QUESTION: {
+    label: 'Detail Question',
+    placeholder: 'Description Detail',
+    useFocusTable: false
+  },
+  ACTION_QUESTION: {
+    label: 'Detail Question',
+    placeholder: 'Description Detail',
+    useFocusTable: false
+  }
+}
+
 function _mgeEnsureV2Chaos() {
   const isMinChaos = game.settings.get('mythic-gme-tools', 'minChaos') >= 3
   const isMaxChaos = game.settings.get('mythic-gme-tools', 'maxChaos') <= 6
@@ -46,36 +81,6 @@ async function _mgeFindTableByName(tableName) {
   return Object.values(
     game.tables.contents.concat((await _mgeGetAllPacks()))
   ).find(t => t.name === tableName);
-}
-
-async function _mgeGetRandomEventResults(eventFocus) {
-  let focusResult;
-  let focusRoll;
-
-  if (eventFocus)
-    focusResult = eventFocus;
-  else {
-    const focusTable = await _mgeFindTableBySetting('focusTable');
-    focusRoll = await focusTable.roll();
-    focusResult = focusRoll.results[0].getChatText();
-  }
-
-  const actionTable = await _mgeFindTableBySetting('actionTable');
-  const actionRoll = await actionTable.roll();
-  const actionResult = actionRoll.results[0].getChatText();
-
-  const subjectTable = await _mgeFindTableBySetting('subjectTable');
-  const subjectRoll = await subjectTable.roll();
-  const subjectResult = subjectRoll.results[0].getChatText();
-
-  return {
-    focusResult: focusResult,
-    focusRoll: focusRoll,
-    actionResult: actionResult,
-    actionRoll: actionRoll,
-    subjectResult: subjectResult,
-    subjectRoll: subjectRoll
-  };
 }
 
 function _mgeWaitFor3DDice(targetMessageId) {
@@ -148,6 +153,15 @@ Hooks.once('ready', async () => {
   game.settings.register('mythic-gme-tools', 'doublesIgnoreChaos', {
     name: 'Double Ignores Chaos Factor',
     hint: 'Whether to ignore CF and always hit a random event regardless',
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register('mythic-gme-tools', 'useD8ForSceneCheck', {
+    name: 'Use D8 for Scene Alteration checks',
+    hint: 'A special rule for Variations #2 changing scene alteration probabilities',
     scope: 'world',
     config: true,
     type: Boolean,
@@ -492,9 +506,9 @@ function mgeFateChart() {
           })
           if (doubles) {
             if (game.dice3d)
-              Hooks.once('diceSoNiceRollComplete', () => mgeRandomEvent('Unexpected Random Event'))
+              Hooks.once('diceSoNiceRollComplete', () => _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
             else
-              mgeRandomEvent('Unexpected Random Event');
+              await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
           }
         }
       }
@@ -505,41 +519,221 @@ function mgeFateChart() {
   dialogue.render(true)
 }
 
-function mgeRandomEvent(randomEventTitle) {
+// Variations #2 Rule!
+function mgeFateCheck() {
+  if (!_mgeEnsureV2Chaos())
+    return;
+  const currentChaosFactor = game.settings.get('mythic-gme-tools', 'currentChaos')
+  const fateCheckDialog = `
+    <form>
+    <label for="odds">Odds:</label>
+    <select name="odds" id="mgme_v2_odds" style="margin-bottom: 10px;">
+      <option value="imp">Impossible</option>
+      <option value="nw">No way</option>
+      <option value="vu">Very unlikely</option>
+      <option value="u">Unlikely</option>
+      <option value="ff" selected>50/50</option>
+      <option value="l">Likely</option>
+      <option value="vl">Very likely</option>
+      <option value="st">Sure thing</option>
+      <option value="htb">Has to be</option>
+    </select>
+    <label for="chaos" style="margin-left: 5px;">Chaos Factor:</label>
+    <select name="chaos" id="mgme_v2_chaos" style="margin-bottom: 10px;">
+        <option value="6" ${currentChaosFactor === 6 ? 'selected' : ''}>6</option>
+        <option value="5" ${currentChaosFactor === 5 ? 'selected' : ''}>5</option>
+        <option value="4" ${currentChaosFactor === 4 ? 'selected' : ''}>4</option>
+        <option value="3" ${currentChaosFactor === 3 ? 'selected' : ''}>3</option>
+    </select><br>
+    <label for="question">Question (optional):</label>
+    <input name="question" id="mgme_v2_question" style="margin-bottom: 10px" placeholder="Fate Check Question"/>
+    <input name="yesfav" type="checkbox" id="mgme_v2_yesfav">
+    <label for="yesfav">Yes is favorable</label>
+    </form>
+    `
 
-  async function submitRandomEvent(eventTitle, eventFocus) {
-    const randomEvent = await _mgeGetRandomEventResults(eventFocus);
-    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
-    let subjectChat = {
-      content: eventTitle,
-      whisper: whisper
-    };
-    let chatMessage = await ChatMessage.create(subjectChat);
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Focus: </b>${randomEvent.focusResult} (${(await _mgeSimulateRoll(randomEvent.focusRoll?.roll))?.total ?? '*'})</div>`);
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${randomEvent.actionResult} (${(await _mgeSimulateRoll(randomEvent.actionRoll.roll)).total})</div>`);
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${randomEvent.subjectResult} (${(await _mgeSimulateRoll(randomEvent.subjectRoll.roll)).total})</div>`);
+  const oddsMap = {
+    'imp': {label: 'Impossible', mod: -8},
+    'nw': {label: 'No way', mod: -6},
+    'vu': {label: 'Very unlikely', mod: -4},
+    'u': {label: 'Unlikely', mod: -2},
+    'ff': {label: '50/50', mod: 0},
+    'l': {label: 'Likely', mod: 2},
+    'vl': {label: 'Very likely', mod: 4},
+    'st': {label: 'Sure thing', mod: 6},
+    'htb': {label: 'Has to be', mod: 8}
   }
 
-  if (!randomEventTitle) {
+  function generateOutput(oddsMod, chaosFactor, yesFavorable, fateTotal, fateDice1, fateDice2, chaosDie) {
+    let outcome;
+    let color;
+    let randomEvent = false;
+    const checkTotal = (
+      fateTotal + oddsMod +
+      (chaosFactor === 3 ? (yesFavorable ? 2 : -2) : 0) +
+      (chaosFactor === 6 ? (yesFavorable ? -2 : 2) : 0)
+    );
+    const checkYes = checkTotal >= 11;
+    if (checkYes) {
+      outcome = 'Yes!';
+      color = 'green';
+    } else {
+      outcome = 'No!';
+      color = 'red';
+    }
+    if (chaosDie <= chaosFactor) {
+      if (fateDice1 === fateDice2) { // both are the same - Exceptional + Random Event
+        randomEvent = true;
+        outcome = 'Exceptional ' + outcome + ' With Random Event';
+        if (checkYes)
+          color = 'blueviolet';
+        else
+          color = 'orangered';
+      } else if (fateDice1 % 2 === 0 && fateDice2 % 2 === 0) { // both are even - Exceptional
+        randomEvent = true;
+        outcome = outcome + ' With Random Event'
+      } else if (fateDice1 % 2 !== 0 && fateDice2 % 2 !== 0) { // both are odd - Random Event
+        outcome = 'Exceptional ' + outcome;
+        if (checkYes)
+          color = 'lightseagreen';
+        else
+          color = 'darkred';
+      }
+    }
+    return {
+      checkTotal: checkTotal,
+      randomEvent: randomEvent,
+      outcomeText: outcome,
+      outcomeColor: color
+    }
+  }
+
+  let dialogue = new Dialog({
+    title: `Fate Chart`,
+    content: fateCheckDialog,
+    render: html => html[0].getElementsByTagName("input").mgme_v2_question.focus(),
+    buttons: {
+      submit: {
+        icon: '',
+        label: 'Submit',
+        callback: async (html) => {
+          const question = html.find("#mgme_v2_question").val() === '' ? "Fate Chart Question" : `<h2><b>${html.find("#mgme_v2_question").val()}</b></h2>`;
+          const odds = html.find("#mgme_v2_odds").val();
+          const chaosFactor = html.find("#mgme_v2_chaos").val();
+          const yesFavorable = html.find("#mgme_v2_yesfav").prop('checked');
+          const roll = Roll.create('2d10 + 1d10[fire]').roll();
+          const fateResult = roll.results[0];
+          const fateLeft = roll.terms[0].results[0].result;
+          const fateRight = roll.terms[0].results[1].result;
+          const chaosResult = roll.results[2];
+          let output = generateOutput(oddsMap[odds].mod, chaosFactor, yesFavorable, fateResult, fateLeft, fateRight, chaosResult);
+          const content = `
+          <div><b>Roll:</b> ${output.checkTotal} at <em>${oddsMap[odds].label}</em> with Chaos Factor[${chaosFactor}]</div>
+          <b style="color: ${output.outcomeColor}">${output.outcomeText}</b>
+          `;
+          await roll.toMessage({
+            flavor: question,
+            content: content,
+            speaker: ChatMessage.getSpeaker()
+          })
+          if (output.randomEvent) {
+            if (game.dice3d)
+              Hooks.once('diceSoNiceRollComplete', () => _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
+            else
+              await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
+          }
+        }
+      }
+    },
+    default: "submit"
+  })
+
+  dialogue.render(true)
+}
+
+async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus) {
+
+  async function getOracleAnswers() {
+    let focusResult;
+    let focusRoll;
+
+    if (eventFocus)
+      focusResult = eventFocus;
+    else {
+      const focusTable = await _mgeFindTableBySetting('focusTable');
+      focusRoll = await focusTable.roll();
+      focusResult = focusRoll.results[0].getChatText();
+    }
+
+    const actionTable = await _mgeFindTableBySetting('actionTable');
+    const actionRoll = await actionTable.roll();
+    const actionResult = actionRoll.results[0].getChatText();
+
+    const subjectTable = await _mgeFindTableBySetting('subjectTable');
+    const subjectRoll = await subjectTable.roll();
+    const subjectResult = subjectRoll.results[0].getChatText();
+
+    return {
+      focusResult: focusResult,
+      focusRoll: focusRoll,
+      actionResult: actionResult,
+      actionRoll: actionRoll,
+      subjectResult: subjectResult,
+      subjectRoll: subjectRoll
+    };
+  }
+
+  const randomEvent = await getOracleAnswers(eventFocus);
+  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+  let subjectChat = {
+    content: eventTitle,
+    speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
+    whisper: whisper
+  };
+  let chatMessage = await ChatMessage.create(subjectChat);
+  if (randomEvent.focusResult !== '_') // Special exception for non-focus based oracle questions
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Focus: </b>${randomEvent.focusResult} (${(await _mgeSimulateRoll(randomEvent.focusRoll?.roll))?.total ?? '*'})</div>`);
+  await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${randomEvent.actionResult} (${(await _mgeSimulateRoll(randomEvent.actionRoll.roll)).total})</div>`);
+  await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${randomEvent.subjectResult} (${(await _mgeSimulateRoll(randomEvent.subjectRoll.roll)).total})</div>`);
+}
+
+async function mgeRandomEvent() {
+  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.EVENT_QUESTION);
+}
+
+async function mgeDetailDescriptionCheck() {
+  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION);
+}
+
+async function mgeDetailActionCheck() {
+  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.ACTION_QUESTION);
+}
+
+async function _mgePrepareOracleQuestion(questionProps) {
+  if (!questionProps.purpose) {
     const complexQuestionDialog = `
       <form>
-      <label for="mgme_re_question">Event Reason (optional):</label>
-      <input id="mgme_re_question" style="margin-bottom: 10px" placeholder="Random Event"/>
-      <label for="mgme_re_efocus" style="display:inline-block;">Event Focus:</label>
-      <select id="mgme_re_efocus" style="width:250px;margin-bottom: 10px;"></select>
+      <label for="reQuestion">${questionProps.label} (optional):</label>
+      <input name="reQuestion" id="mgme_re_question" style="margin-bottom: 10px" placeholder="${questionProps.placeholder}"/>
+      ${questionProps.useFocusTable ? `
+        <label for="reFocus" style="display:inline-block;">Event Focus:</label>
+        <select name="reFocus" id="mgme_re_efocus" style="width:250px;margin-bottom: 10px;"></select>
+      ` : ''}
       </form>
     `
     let dialogue = new Dialog({
       title: `Random Event`,
       content: complexQuestionDialog,
       render: async function (html) {
-        const eFocusElement = $("#mgme_re_efocus");
-        const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
-        eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
-        const focusResults = (await _mgeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
-        focusResults.forEach(focus => {
-          eFocusElement.append(`<option value="${focus}">${focus}</option>`);
-        });
+        if (questionProps.useFocusTable) {
+          const eFocusElement = $("#mgme_re_efocus");
+          const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
+          eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
+          const focusResults = (await _mgeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
+          focusResults.forEach(focus => {
+            eFocusElement.append(`<option value="${focus}">${focus}</option>`);
+          });
+        }
         html[0].getElementsByTagName("input").mgme_re_question.focus();
       },
       buttons: {
@@ -550,7 +744,7 @@ function mgeRandomEvent(randomEventTitle) {
             let text = html[0].getElementsByTagName("input").mgme_re_question.value;
             const focusValue = $("#mgme_re_efocus");
             const eventFocus = focusValue.val() === 'Random' ? undefined : focusValue.val();
-            submitRandomEvent(text.length ? `<h2>${text}</h2>` : 'Random Event', eventFocus);
+            _mgeSubmitOracleQuestion(text.length ? `<h2>${text}</h2>` : 'Random Event', true, eventFocus);
           }
         }
       },
@@ -558,7 +752,7 @@ function mgeRandomEvent(randomEventTitle) {
     })
     dialogue.render(true)
   } else {
-    submitRandomEvent(randomEventTitle);
+    await _mgeSubmitOracleQuestion(questionProps.purpose, false);
   }
 }
 
@@ -582,7 +776,8 @@ function mgeSceneAlteration() {
         label: 'Submit',
         callback: async (html) => {
           const chaos = parseInt(html.find("#mgme_chaos").val());
-          const roll = new Roll(`1d10`);
+          const useD8 = game.settings.get('mythic-gme-tools', 'useD8ForSceneCheck');
+          const roll = new Roll(`${useD8 ? '1d8' : '1d10'}`);
           const result = roll.evaluate({async: false}).total;
           if (result <= chaos) {
             if (result % 2 === 0) {
@@ -590,9 +785,9 @@ function mgeSceneAlteration() {
                 content: `<b style="color: darkred">Scene was interrupted!</b> (${result})`
               });
               if (game.dice3d)
-                Hooks.once('diceSoNiceRollComplete', async () => await mgeRandomEvent('Interruption Scene'))
+                Hooks.once('diceSoNiceRollComplete', () => _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT))
               else
-                await mgeRandomEvent('Interruption Scene');
+                await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT);
             } else {
               return roll.toMessage({
                 content: `<b style="color: darkred">Scene was altered!</b> (${result})`
@@ -612,41 +807,9 @@ function mgeSceneAlteration() {
   dialogue.render(true)
 }
 
+// Variations #1 Rule!
 async function mgeComplexQuestion() {
-
-  const complexQuestionDialog = `
-    <form>
-    <label for="mgme_complex_question">Question (optional):</label>
-    <input id="mgme_complex_question" style="margin-bottom: 10px" placeholder="Complex Question"/>
-    </form>
-    `
-
-  let dialogue = new Dialog({
-    title: `Complex Question`,
-    content: complexQuestionDialog,
-    render: html => html[0].getElementsByTagName("input").mgme_complex_question.focus(),
-    buttons: {
-      submit: {
-        icon: '',
-        label: 'Submit',
-        callback: async (html) => {
-          const randomEvent = await _mgeGetRandomEventResults();
-          const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
-          let subjectChat = {
-            content: html.find("#mgme_complex_question").val() === '' ? 'Complex Question' : `<h2><b>${html.find("#mgme_complex_question").val()}</b></h2>`,
-            speaker: ChatMessage.getSpeaker(),
-            whisper: whisper
-          };
-          let chatMessage = await ChatMessage.create(subjectChat);
-          await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${randomEvent.actionResult} (${(await _mgeSimulateRoll(randomEvent.actionRoll.roll)).total})</div>`);
-          await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${randomEvent.subjectResult} (${(await _mgeSimulateRoll(randomEvent.subjectRoll.roll)).total})</div>`);
-        }
-      }
-    },
-    default: "submit"
-  })
-
-  dialogue.render(true)
+  _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.COMPLEX_QUESTION)
 }
 
 async function mgeDealCard({
@@ -807,6 +970,61 @@ function mgeFormattedChat() {
   dialogue.render(true)
 }
 
+// Variations #2 Rule!
+async function mgeDetailCheck() {
+  if (!_mgeEnsureV2Chaos())
+    return;
+
+  const detailQuestionDialog = `
+    <form>
+    <label for="detailCheck">Question (optional):</label>
+    <input name="detailCheck" id="mgme_v2_detail_check" style="margin-bottom: 10px" placeholder="Detail Question"/>
+    <input name="includeDescriptionDetail" type="checkbox" id="mgme_v2_include_desc_detail">
+    <label for="includeDescriptionDetail">Include Description Detail</label>
+    <input name="includeActionDetail" type="checkbox" id="mgme_v2_include_act_detail">
+    <label for="includeActionDetail">Include Action Detail</label>
+    </form>
+    `
+
+  let dialogue = new Dialog({
+    title: `Detail Check`,
+    content: detailQuestionDialog,
+    render: html => html[0].getElementsByTagName("input").mgme_v2_detail_check.focus(),
+    buttons: {
+      submit: {
+        icon: '',
+        label: 'Submit',
+        callback: async (html) => {
+          const speaker = ChatMessage.getSpeaker();
+          const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+          const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
+          const detailCheckTable = _mgeFindTableByName('Mythic GME: Detail Check Table');
+          const detailCheckRoll = new Roll(`2d10 + ${currentChaos === 3 ? 2 : 0} + ${currentChaos === 6 ? -2 : 0}`);
+          const detailCheckResult = (await detailCheckTable.draw(detailCheckRoll)).results[0].text;
+          const includeDescription = html.find("mgme_v2_include_desc_detail").prop('checked');
+          const includeAction = html.find("mgme_v2_include_act_detail").prop('checked');
+          let content = html.find("#mgme_v2_detail_check").val() === '' ? 'Detail Check' : `<h1><b>${html.find("#mgme_v2_detail_check").val()}</b></h1>`
+          content += `<div><h2>${detailCheckResult}</h2></div>`;
+          let subjectChat = {
+            content: content,
+            speaker: speaker,
+            whisper: whisper
+          };
+          await ChatMessage.create(subjectChat);
+          if (includeDescription)
+            await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.DESCRIPTION_DETAIL);
+          if (includeAction)
+            await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.ACTION_DETAIL);
+        }
+      }
+    },
+    default: "submit"
+  })
+
+  dialogue.render(true)
+}
+
+// Variations #1 Rule!
 async function mgeBackstoryGenerator() {
   const speaker = ChatMessage.getSpeaker();
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
@@ -822,15 +1040,11 @@ async function mgeBackstoryGenerator() {
   let i = 0;
   while (i < eventsCount) {
     const backstoryFocus = (await backstoryFocusTable.roll()).roll.result;
-    const backstoryEvent = await _mgeGetRandomEventResults(backstoryFocus);
-    let backstoryEventChat = {
-      content: `<h2>${backstoryLabels[i] ?? i+1} Backstory Event</h2>`,
-      speaker: speaker,
-      whisper: whisper
-    };
-    let chatMessage = await ChatMessage.create(backstoryEventChat);
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Action: </b>${backstoryEvent.actionResult} (${(await _mgeSimulateRoll(backstoryEvent.actionRoll.roll)).total})</div>`);
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b>Subject: </b>${backstoryEvent.subjectResult} (${(await _mgeSimulateRoll(backstoryEvent.subjectRoll.roll)).total})</div>`);
+    await _mgeSubmitOracleQuestion(
+      `<h2>${backstoryLabels[i] ?? i+1} Backstory Event</h2>`,
+      false,
+      backstoryFocus
+    )
     i++
   }
 }
