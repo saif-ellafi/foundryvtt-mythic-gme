@@ -65,7 +65,7 @@ async function _mgeGetAllPacks() {
 }
 
 async function _mgeSimulateRoll(targetRoll) {
-  const randomEventsIn3D = (targetRoll && game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D'));
+  const randomEventsIn3D = (targetRoll && game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
   if (randomEventsIn3D) {
     await game.dice3d.showForRoll(targetRoll);
   }
@@ -75,7 +75,7 @@ async function _mgeSimulateRoll(targetRoll) {
 async function _mgeUpdateChatSimulation(baseChat, newMessage) {
   await baseChat.update({content: baseChat.data.content + newMessage});
   ui.chat.scrollBottom();
-  const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3D'));
+  const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
   if (randomEventsIn3D) {
     await new Promise(r => setTimeout(r, game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000));
   }
@@ -145,27 +145,17 @@ Hooks.once('ready', async () => {
   });
 
   if (game.dice3d) {
-    game.settings.register('mythic-gme-tools', 'randomEvents3D', {
-      name: 'Slow Simulation of Random Events',
-      hint: 'All random event related rolls will slowly appear as 3D dice show results. Adds tension but slows down results.',
-      scope: 'world',
-      config: true,
-      type: Boolean,
-      default: !!game.dice3d
-    });
     game.settings.register('mythic-gme-tools', 'randomEvents3DDelay', {
-      name: 'Slow Simulation Delay in Seconds',
-      hint: 'If Slow Simulation is enabled, how much to wait between roll steps. Default: 1. Max 10.',
+      name: 'Simulate Slow Dice Rolling Oracle Questions',
+      hint: 'Rolls Mythic questions slowly, simulating sequential answers as we roll 3D dice. 0 Disables the feature. Larger numbers make it even slower',
       scope: 'world',
       config: true,
       type: Number,
       default: 1,
-      onChange: (newDelay) => {
-        if (newDelay > 10 || newDelay < 1) {
-          ui.notifications.error("Mythic GME Tools: Delay must be between 1 and 10. Setting restored to default.");
-          game.settings.set('mythic-gme-tools', 'randomEvents3DDelay', 1);
-          return false;
-        }
+      range: {
+        min: 0,
+        max: 10,
+        step: 1
       }
     });
   }
@@ -195,9 +185,14 @@ Hooks.once('ready', async () => {
     config: true,
     type: Number,
     default: 1,
+    range: {
+      min: 1,
+      max: 9,
+      step: 1
+    },
     onChange: (newMinChaos) => {
-      if (newMinChaos < 1 || newMinChaos >= game.settings.get('mythic-gme-tools', 'maxChaos')) {
-        ui.notifications.error("Mythic GME Tools: Minimum Chaos Factor may not be below 1. Settings restored to default.");
+      if (newMinChaos >= game.settings.get('mythic-gme-tools', 'maxChaos')) {
+        ui.notifications.error("Mythic GME Tools: Minimum Chaos Factor must be smaller than Maximum Chaos value. Settings restored to default.");
         game.settings.set('mythic-gme-tools', 'minChaos', 1);
         game.settings.set('mythic-gme-tools', 'maxChaos', 9);
         return false;
@@ -215,9 +210,14 @@ Hooks.once('ready', async () => {
     config: true,
     type: Number,
     default: 9,
+    range: {
+      min: 1,
+      max: 9,
+      step: 1
+    },
     onChange: (newMaxChaos) => {
-      if (newMaxChaos > 9 || newMaxChaos <= game.settings.get('mythic-gme-tools', 'minChaos')) {
-        ui.notifications.error("Mythic GME Tools: Maximum Chaos Factor may not be above 9. Settings restored to default.");
+      if (newMaxChaos <= game.settings.get('mythic-gme-tools', 'minChaos')) {
+        ui.notifications.error("Mythic GME Tools: Maximum Chaos Factor must be larger than Minimum Chaos value. Settings restored to default.");
         game.settings.set('mythic-gme-tools', 'minChaos', 1);
         game.settings.set('mythic-gme-tools', 'maxChaos', 9);
         return false;
@@ -744,10 +744,20 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
     whisper: whisper
   };
   let chatMessage = await ChatMessage.create(chatConfig);
+  let oldHide;
+  if (game.dice3d) {
+    oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
+    game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000;
+  }
   if (randomEvent.focusResult !== '_') // Special exception for non-focus based oracle questions
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b>${randomEvent.focusResult}</b> (${(await _mgeSimulateRoll(randomEvent.focusRoll?.roll))?.total ?? '*'})</div>`);
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b><u>${randomEvent.focusResult}</u></b> (${(await _mgeSimulateRoll(randomEvent.focusRoll?.roll))?.total ?? '*'})</div>`);
   await _mgeUpdateChatSimulation(chatMessage, `<div>${randomEvent.descriptor1Result} (${(await _mgeSimulateRoll(randomEvent.descriptor1Roll.roll)).total})</div>`);
   await _mgeUpdateChatSimulation(chatMessage, `<div>${randomEvent.descriptor2Result} (${(await _mgeSimulateRoll(randomEvent.descriptor2Roll.roll)).total})</div>`);
+  if (game.dice3d && oldHide) {
+    Hooks.once('diceSoNiceRollComplete', async () => {
+      game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = oldHide;
+    })
+  }
 }
 
 async function mgeRandomEvent() {
