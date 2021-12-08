@@ -46,14 +46,38 @@ const MGE_PROPS_TEMPLATES = {
   }
 }
 
-function _mgeEnsureV2Chaos() {
+function _mgeEnsureV2Chaos(windowTitle, macroCallback) {
   const isMinChaos = game.settings.get('mythic-gme-tools', 'minChaos') >= 3
   const isMaxChaos = game.settings.get('mythic-gme-tools', 'maxChaos') <= 6
   if (isMinChaos && isMaxChaos)
     return true
   else {
-    ui.notifications.warn("This rule is based on Mythic Variations #2 Chaos Rank rules. Needs Chaos Range settings between 3 and 6");
-    return false
+    let dialogue = new Dialog({
+      title: windowTitle,
+      content: `<div>This rule is based on Mythic Variations #2 Chaos Factor rules and needs Chaos Range settings between <b>3</b> and <b>6</b>.</div>
+                <br>
+                <div><b>Would you like me to change these settings for you?</b></div>
+                <br>
+                <div>Note: This can be configured in Module Settings.</div>`,
+      buttons: {
+        submit: {
+          icon: '',
+          label: 'Yes, Please',
+          callback: async () => {
+            await game.settings.set('mythic-gme-tools', 'minChaos', 3);
+            await game.settings.set('mythic-gme-tools', 'maxChaos', 6);
+            macroCallback();
+          }
+        },
+        cancel: {
+          icon: '',
+          label: 'No, Thanks'
+        }
+      },
+      default: "submit"
+    });
+    dialogue.render(true);
+    return false;
   }
 }
 
@@ -135,6 +159,28 @@ Hooks.once('ready', async () => {
     .filter(e => e.name.startsWith('Mythic'))
     .map(e => [e.name, e.name]));
 
+  const dieColors = {
+    'red': 'Red',
+    'green': 'Green',
+    'blue': 'Blue',
+    'purple': 'Purple',
+    'black': 'Black',
+    'acid': 'Acid',
+    'air': 'Air',
+    'cold': 'Cold',
+    'earth': 'Earth',
+    'fire': 'Fire',
+    'force': 'Force',
+    'ice': 'Ice',
+    'lightning': 'Lightning',
+    'necrotic': 'Necrotic',
+    'poison': 'Poison',
+    'psychic': 'Psychic',
+    'radiant': 'Radiant',
+    'thunder': 'Thunder',
+    'water': 'Water'
+  }
+
   game.settings.register('mythic-gme-tools', 'currentChaos', {
     name: 'Chaos Rank',
     hint: 'Current Mythic GME Chaos Rank',
@@ -146,8 +192,8 @@ Hooks.once('ready', async () => {
 
   if (game.dice3d) {
     game.settings.register('mythic-gme-tools', 'randomEvents3DDelay', {
-      name: 'Simulate Slow Dice Rolling Oracle Questions',
-      hint: 'Rolls Mythic questions slowly, simulating sequential answers as we roll 3D dice. 0 Disables the feature. Larger numbers make it even slower',
+      name: 'Simulate Slow Dice Rolling',
+      hint: 'Rolls Mythic questions slowly, showing the answers as the dice roll. Set to 0 to disable. Larger numbers make it even slower',
       scope: 'world',
       config: true,
       type: Number,
@@ -157,6 +203,15 @@ Hooks.once('ready', async () => {
         max: 10,
         step: 1
       }
+    });
+    game.settings.register('mythic-gme-tools', 'v2ChaosDieColor', {
+      name: 'Color for Chaos 3D Die',
+      hint: 'Customize the color of your Chaos Die (Dice so Nice!) for Variations #2 rolls',
+      scope: 'world',
+      config: true,
+      type: String,
+      default: 'cold',
+      choices: dieColors
     });
   }
 
@@ -280,7 +335,7 @@ Hooks.once('ready', async () => {
 
   game.settings.register("mythic-gme-tools", "deckPath", {
     name: "Deck Path Location",
-    hint: "Folder where you store you card decks. Relative to User Data directory.",
+    hint: "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
     scope: "world",
     config: true,
     type: String,
@@ -573,7 +628,7 @@ function mgeFateChart() {
 
 // Variations #2 Rule!
 function mgeFateCheck() {
-  if (!_mgeEnsureV2Chaos())
+  if (!_mgeEnsureV2Chaos('Fate Check', mgeFateCheck))
     return;
   const currentChaosFactor = game.settings.get('mythic-gme-tools', 'currentChaos')
   const fateCheckDialog = `
@@ -642,10 +697,14 @@ function mgeFateCheck() {
           color = 'blueviolet';
         else
           color = 'orangered';
-      } else if (fateDice1 % 2 === 0 && fateDice2 % 2 === 0) { // both are even - Exceptional
+      } else if (fateDice1 % 2 === 0 && fateDice2 % 2 === 0) { // both are even - Random Event
         randomEvent = true;
         outcome = outcome + ' With Random Event'
-      } else if (fateDice1 % 2 !== 0 && fateDice2 % 2 !== 0) { // both are odd - Random Event
+        if (checkYes)
+          color = 'lightseagreen';
+        else
+          color = 'darkred';
+      } else if (fateDice1 % 2 !== 0 && fateDice2 % 2 !== 0) { // both are odd - Exceptional
         outcome = 'Exceptional ' + outcome;
         if (checkYes)
           color = 'lightseagreen';
@@ -1050,7 +1109,7 @@ function mgeFormattedChat() {
 
 // Variations #2 Rule!
 async function mgeDetailCheck() {
-  if (!_mgeEnsureV2Chaos())
+  if (!_mgeEnsureV2Chaos(`Detail Check`, mgeDetailCheck))
     return;
 
   const detailQuestionDialog = `
