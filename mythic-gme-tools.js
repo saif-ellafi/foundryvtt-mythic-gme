@@ -99,6 +99,10 @@ async function _mgeSimulateRoll(targetRoll) {
 async function _mgeUpdateChatSimulation(baseChat, newMessage) {
   await baseChat.update({content: baseChat.data.content + newMessage});
   ui.chat.scrollBottom();
+  const popOutChat = Object.values(ui.windows).find(w => w.constructor.name === 'ChatLog')
+  if (popOutChat) {
+    popOutChat.scrollBottom();
+  }
   const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
   if (randomEventsIn3D) {
     await new Promise(r => setTimeout(r, game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000));
@@ -805,7 +809,7 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
   let oldHide;
   if (game.dice3d) {
     oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
-    game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000;
+    game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000*1.1;
   }
   if (randomAnswers.focusResult !== '_') // Special exception for non-focus based oracle questions
     await _mgeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b> (${(await _mgeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*'})</div>`);
@@ -1199,21 +1203,27 @@ async function mgeBackstoryGenerator() {
 }
 
 function _mgeSaveActorBehaviorFromHTML(html, actor) {
+  const elem = $(html);
   const actorBehavior = {
-    theme: html.find("#mgme_behavior_theme").val(),
-    identity: html.find("#mgme_behavior_identity").val(),
-    identityMod: parseInt(html.find("#mgme_behavior_identity_mod").val()),
-    identityActive: html.find("#mgme_behavior_identity_active").prop('checked'),
-    personality: html.find("#mgme_behavior_personality").val(),
-    personalityMod: parseInt(html.find("#mgme_behavior_personality_mod").val()),
-    personalityActive: html.find("#mgme_behavior_personality_active").prop('checked'),
-    activity: html.find("#mgme_behavior_activity").val(),
-    activityMod: parseInt(html.find("#mgme_behavior_activity_mod").val()),
-    activityActive: html.find("#mgme_behavior_activity_active").prop('checked'),
-    dispositionRank: html.find("#mgme_behavior_disposition").val(),
-    dispositionValue: parseInt(html.find("#mgme_behavior_disposition_value").val()),
+    theme: elem.find("#mgme_behavior_theme").val(),
+    identity: elem.find("#mgme_behavior_identity").val(),
+    identityMod: parseInt(elem.find("#mgme_behavior_identity_mod").val()),
+    identityActive: elem.find("#mgme_behavior_identity_active").prop('checked'),
+    personality: elem.find("#mgme_behavior_personality").val(),
+    personalityMod: parseInt(elem.find("#mgme_behavior_personality_mod").val()),
+    personalityActive: elem.find("#mgme_behavior_personality_active").prop('checked'),
+    activity: elem.find("#mgme_behavior_activity").val(),
+    activityMod: parseInt(elem.find("#mgme_behavior_activity_mod").val()),
+    activityActive: elem.find("#mgme_behavior_activity_active").prop('checked'),
+    dispositionRank: elem.find("#mgme_behavior_disposition").val(),
+    dispositionValue: parseInt(elem.find("#mgme_behavior_disposition_value").val()),
   };
-  _mgeUpdateActorBehavior(actor ?? canvas.tokens.controlled[0].actor, actorBehavior);
+  const target = actor ?? canvas.tokens.controlled[0].actor;
+  if (!target) {
+    ui.notifications.warn("Mythic GME: No tokens selected!");
+    return;
+  }
+  _mgeUpdateActorBehavior(target, actorBehavior);
   return actorBehavior;
 }
 
@@ -1245,7 +1255,13 @@ function _mgeUpdateActorBehavior(actor, behavior) {
 
 async function _mgeFillRefreshDisposition(html) {
   const selectedToken = canvas.tokens.controlled[0];
+  if (!selectedToken) {
+    ui.notifications.warn("No Token selected!");
+    return;
+  }
   const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+  if (!behavior)
+    return;
   const baseDisposition = behavior.dispositionValue -
     (behavior.identityActive ? behavior.identityMod : 0) -
     (behavior.personalityActive ? behavior.personalityMod : 0) -
@@ -1254,7 +1270,7 @@ async function _mgeFillRefreshDisposition(html) {
   const newRank = $(html).find('#mgme_behavior_disposition').val();
   if (behavior.dispositionRank !== newRank)
     _mgeNotifyBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newRank);
-  _mgeSaveActorBehaviorFromHTML($(html))
+  _mgeSaveActorBehaviorFromHTML(html)
 }
 
 async function _mgeFillRandomDisposition(html, baseValue) {
@@ -1271,7 +1287,7 @@ async function _mgeFillRandomDisposition(html, baseValue) {
   const dispositionTotal = dispositionRoll.total;
   element.find('#mgme_behavior_disposition').val(dispositionResult);
   element.find('#mgme_behavior_disposition_value').val(dispositionTotal);
-  _mgeSaveActorBehaviorFromHTML($(html));
+  _mgeSaveActorBehaviorFromHTML(html);
 }
 
 function _mgeNotifyBehaviorRankShift(actorName, oldBehavior, newBehavior) {
@@ -1288,8 +1304,14 @@ function _mgeNotifyBehaviorRankShift(actorName, oldBehavior, newBehavior) {
 
 async function _mgeAdjustDisposition(mod, actor) {
   const selectedToken = actor ?? canvas.tokens.controlled[0];
+  if (!selectedToken) {
+    ui.notifications.warn("Mythic GME: No tokens selected!");
+    return;
+  }
   const tableDispositions = await _mgeFindTableByName('Mythic GME: Disposition Table');
   const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+  if (!behavior)
+    return;
   behavior.dispositionValue += mod;
   const dispositionRankRoll = await tableDispositions.draw({roll: Roll.create(behavior.dispositionValue.toString()), displayChat: false});
   const newDispositionRank = dispositionRankRoll.results[0].getChatText();
@@ -1303,9 +1325,11 @@ async function _mgeAdjustDisposition(mod, actor) {
 
 async function _mgeFillAdjustedDisposition(html, mod) {
   const newBehavior = await _mgeAdjustDisposition(parseInt(mod));
+  if (!newBehavior)
+    return;
   $(html).find("#mgme_behavior_disposition").val(newBehavior.dispositionRank);
   $(html).find("#mgme_behavior_disposition_value").val(newBehavior.dispositionValue);
-  _mgeSaveActorBehaviorFromHTML($(html));
+  _mgeSaveActorBehaviorFromHTML(html);
 }
 
 async function _mgeBehaviorAction(actor, behavior) {
@@ -1320,7 +1344,7 @@ async function _mgeBehaviorAction(actor, behavior) {
     const tableTwoResult = (await tableTwo.draw({roll: `2d10 + ${dispositionMod} + ${tableOneMod}`, displayChat: false})).results[0].getChatText();
     const messageContent = `
     <div><h1>${actor.name}</h1></div>
-    <div>Performs an unexpected Action!</div>
+    <div>Performs an <b>unexpected</b> Action!</div>
     <div><b>Action:</b> ${tableTwoResult} (${dispositionMod})+(${tableOneMod})</div>
     `
     ChatMessage.create({content: messageContent});
@@ -1349,11 +1373,11 @@ function mgeBehaviorCheck() {
     <label for="behaviorName">Character:</label>
     <input disabled name="behaviorName" id="mgme_actor_name" style="margin-bottom: 10px;width:315px" value="${selectedToken.name}">
     <label for="behaviorTheme">Current Theme:</label>
-    <input name="behaviorTheme" id="mgme_behavior_theme" style="margin-bottom: 10px;width:285px" placeholder="Current Scene">
+    <input name="behaviorTheme" id="mgme_behavior_theme" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom: 10px;width:285px" placeholder="Current Scene">
 
     <div>
     <label for="behaviorIdentity">Identity:</label>
-    <input name="behaviorIdentity" id="mgme_behavior_identity" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:20px;" required placeholder="Descriptor">
+    <input name="behaviorIdentity" id="mgme_behavior_identity" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:20px;" required placeholder="Descriptor">
     <label for="behaviorIdentityMod">Mod:</label>
     <select name="behaviorIdentityMod" id="mgme_behavior_identity_mod" style="margin-bottom:10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
       <option value="-2">-2</option>
@@ -1365,7 +1389,7 @@ function mgeBehaviorCheck() {
 
     <div>
     <label for="behaviorPersonality">Personality:</label>
-    <input name="behaviorPersonality" id="mgme_behavior_personality" style="margin-bottom:10px;width:168px" placeholder="Descriptor">
+    <input name="behaviorPersonality" id="mgme_behavior_personality" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px" placeholder="Descriptor">
     <i style="width:auto;height:25px;" class="fas fa-dice" onclick="_mgeFillRandomBehavior('#mgme_behavior_personality')"></i>
     <label for="behaviorPersonalityMod">Mod:</label>
     <select name="behaviorPersonalityMod" id="mgme_behavior_personality_mod" style="margin-bottom:10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
@@ -1378,7 +1402,7 @@ function mgeBehaviorCheck() {
 
     <div>
     <label for="behaviorActivity">Activity:</label>
-    <input name="behaviorActivity" id="mgme_behavior_activity" style="margin-bottom:10px;width:168px;margin-left:21px;" placeholder="Descriptor">
+    <input name="behaviorActivity" id="mgme_behavior_activity" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;" placeholder="Descriptor">
     <i style="width:auto;height:25px;" class="fas fa-dice" onclick="_mgeFillRandomActivity('#mgme_behavior_activity')"></i>
     <label for="behaviorActivityMod">Mod:</label>
     <select name="behaviorActivityMod" id="mgme_behavior_activity_mod" style="margin-bottom: 10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
@@ -1392,7 +1416,7 @@ function mgeBehaviorCheck() {
     <div>
     <label for="behaviorDisposition">Disposition:</label>
     <input disabled name="behaviorDisposition" id="mgme_behavior_disposition" style="margin-bottom: 10px;width:148px">
-    <input disabled type="number" name="behaviorDispositionValue" id="mgme_behavior_disposition_value" style="margin-bottom: 10px;width:20px;height:17px" value="10">
+    <input disabled type="number" name="behaviorDispositionValue" id="mgme_behavior_disposition_value" style="margin-bottom: 10px;width:20px;height:17px">
     <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-dice" onclick="_mgeFillRandomDisposition(this.parentElement.parentElement)"></i>
     <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-arrow-up" onclick="_mgeFillAdjustedDisposition(this.parentElement.parentElement, 2)"></i>
     <i style="width:auto;height:25px;" class="fas fa-arrow-down" onclick="_mgeFillAdjustedDisposition(this.parentElement.parentElement, -2)"></i>
@@ -1428,13 +1452,6 @@ function mgeBehaviorCheck() {
       }
     },
     buttons: {
-      save: {
-        icon: '<i class="fas fa-atlas"></i>',
-        label: 'Save',
-        callback: (html) => {
-          _mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
-        }
-      },
       rollAction: {
         icon: '<i class="fas fa-fist-raised"></i>',
         label: 'Action!',
@@ -1464,7 +1481,7 @@ function mgeBehaviorCheck() {
         }
       }
     },
-    default: "save"
+    default: "sendChat"
   })
 
   dialogue.render(true)
