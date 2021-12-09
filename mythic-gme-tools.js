@@ -354,7 +354,7 @@ function mgeIncreaseChaos() {
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   if (currentChaos < maxChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
-    let chat = {
+    const chat = {
       content: `<h2>Chaos Increased to ${currentChaos + 1}</h2>`,
       whisper: whisper
     };
@@ -592,8 +592,8 @@ function mgeFateChart() {
     render: html => html[0].getElementsByTagName("input").mgme_question.focus(),
     buttons: {
       submit: {
-        icon: '',
-        label: 'Submit',
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
         callback: async (html) => {
           const question = html.find("#mgme_question").val() === '' ? "Fate Chart Question" : `<h2><b>${html.find("#mgme_question").val()}</b></h2>`;
           const odds = html.find("#mgme_odds").val();
@@ -730,8 +730,8 @@ function mgeFateCheck() {
     render: html => html[0].getElementsByTagName("input").mgme_v2_question.focus(),
     buttons: {
       submit: {
-        icon: '',
-        label: 'Submit',
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
         callback: async (html) => {
           const question = html.find("#mgme_v2_question").val() === '' ? "Fate Chart Question" : `<h2><b>${html.find("#mgme_v2_question").val()}</b></h2>`;
           const odds = html.find("#mgme_v2_odds").val();
@@ -824,7 +824,7 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
 
 async function _mgePrepareOracleQuestion(questionProps) {
   if (!questionProps.purpose) {
-    const complexQuestionDialog = `
+    const questionDialog = `
       <form>
       <label for="reQuestion">${questionProps.label} (optional):</label>
       <input name="reQuestion" id="mgme_re_question" style="margin-bottom: 10px" placeholder="${questionProps.placeholder}"/>
@@ -836,7 +836,7 @@ async function _mgePrepareOracleQuestion(questionProps) {
     `
     let dialogue = new Dialog({
       title: questionProps.label,
-      content: complexQuestionDialog,
+      content: questionDialog,
       render: async function (html) {
         if (questionProps.useFocusTable) {
           const eFocusElement = $("#mgme_re_efocus");
@@ -851,8 +851,8 @@ async function _mgePrepareOracleQuestion(questionProps) {
       },
       buttons: {
         submit: {
-          icon: '',
-          label: 'Submit',
+          icon: '<i class="fas fa-comments"></i>',
+          label: 'To Chat',
           callback: (html) => {
             let text = html[0].getElementsByTagName("input").mgme_re_question.value;
             const focusValue = $("#mgme_re_efocus");
@@ -896,8 +896,8 @@ function mgeSceneAlteration() {
     content: sceneAlterationDialogue,
     buttons: {
       submit: {
-        icon: '',
-        label: 'Submit',
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
         callback: async (html) => {
           const chaos = parseInt(html.find("#mgme_chaos").val());
           const useD8 = game.settings.get('mythic-gme-tools', 'useD8ForSceneCheck');
@@ -1054,8 +1054,8 @@ function mgeFormattedChat() {
     },
     buttons: {
       submit: {
-        icon: '',
-        label: 'Submit',
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
         callback: () => {
           let message;
           let color = $("#mgme_format_color").val();
@@ -1132,13 +1132,13 @@ async function mgeDetailCheck() {
     render: html => html[0].getElementsByTagName("input").mgme_v2_detail_check.focus(),
     buttons: {
       submit: {
-        icon: '',
-        label: 'Submit',
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
         callback: async (html) => {
           const speaker = ChatMessage.getSpeaker();
           const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
           const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
-          const detailCheckTable = await _mgeFindTableByName('Mythic GME: Detail Check Table');
+          const detailCheckTable = await _mgeFindTableByName('Mythic GME: Detail Check');
           const detailCheckRoll = new Roll(`2d10 + ${currentChaos === 3 ? 2 : 0} + ${currentChaos === 6 ? -2 : 0}`);
           const detailCheckResult = (await detailCheckTable.draw({roll: detailCheckRoll, displayChat: false})).results[0].getChatText();
           const includeDescription = html.find("#mgme_v2_include_desc_detail").prop('checked');
@@ -1178,28 +1178,73 @@ async function mgeDetailCheck() {
 
 // Variations #1 Rule!
 async function mgeBackstoryGenerator() {
-  const speaker = ChatMessage.getSpeaker();
-  const eventsCountTable = await _mgeFindTableByName('Mythic GME: Backstory Events');
-  const drawed = await eventsCountTable.roll();
-  const eventsCount = parseInt(drawed.results[0].getChatText());
-  let triggerMsg = await drawed.roll.toMessage({
-    content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
-  });
-  await _mgeWaitFor3DDice(triggerMsg.id);
-  const backstoryFocusTable = await _mgeFindTableByName('Mythic GME: Backstory Focus')
-  const backstoryLabels = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
-  let i = 0;
-  while (i < eventsCount) {
-    const backstoryFocus = (await backstoryFocusTable.roll()).results[0].getChatText();
-    await _mgeSubmitOracleQuestion(
-      `<h2>${backstoryLabels[i] ?? i+1} Backstory Event</h2>`,
-      false,
-      backstoryFocus,
-      'actionTable',
-      'subjectTable'
-    )
-    i++
-  }
+  const selectedToken = canvas.tokens.controlled[0]?.name;
+
+  const backstoryDialog = `
+    <form>
+    <div>
+    <label for="backstoryCheck">Question (optional):</label>
+    <select name="backstoryCheck" id="mgme_backstory_count" style="margin-bottom:10px;width:260px"">
+        <option value="table" selected>Mythic GME: Backstory Events</option>
+        <option value="1">One Backstory</option>
+        <option value="2">Two Backstories</option>
+        <option value="3">Three Backstories</option>
+        <option value="4">Four Backstories</option>
+        <option value="5">Five Backstories</option>
+        <option value="6">Six Backstories</option>
+        <option value="7">Seven Backstories</option>
+    </select>
+    </div>
+    </form>
+    `
+
+  let dialogue = new Dialog({
+    title: `Backstory Generator`,
+    content: backstoryDialog,
+    buttons: {
+      submit: {
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
+        callback: async (html) => {
+          const speaker = ChatMessage.getSpeaker();
+          let eventsCount;
+          const choice = html.find("#mgme_backstory_count").val();
+          if (choice === 'table') {
+            const eventsCountTable = await _mgeFindTableByName('Mythic GME: Backstory Events');
+            const backstoryDraw = await eventsCountTable.roll();
+            eventsCount = parseInt(backstoryDraw.results[0].getChatText());
+            let triggerMsg = await backstoryDraw.roll.toMessage({
+              content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
+            });
+            await _mgeWaitFor3DDice(triggerMsg.id);
+          } else {
+            eventsCount = parseInt(choice);
+            ChatMessage.create({
+              content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
+            })
+          }
+          const backstoryFocusTable = await _mgeFindTableByName('Mythic GME: Backstory Focus')
+          const backstoryLabels = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
+          let i = 0;
+          while (i < eventsCount) {
+            const backstoryFocus = (await backstoryFocusTable.roll()).results[0].getChatText();
+            await _mgeSubmitOracleQuestion(
+              `<h2>${backstoryLabels[i] ?? i+1} Backstory Event</h2>`,
+              false,
+              backstoryFocus,
+              'actionTable',
+              'subjectTable'
+            )
+            i++
+          }
+        }
+      }
+    },
+    default: "submit"
+  })
+
+  dialogue.render(true)
+
 }
 
 function _mgeSaveActorBehaviorFromHTML(html, actor) {
@@ -1245,7 +1290,7 @@ async function _mgeFillRandomActivity(elementId) {
   $(elementId).val(`${descriptors.descriptor1Result} ${descriptors.descriptor2Result}`);
 }
 
-function _mgeParseModFromText(tableOutcome) {
+function _mgeParseNumberFromText(tableOutcome) {
   return parseInt(tableOutcome.match(/[-\d+]+/)[0]);
 }
 
@@ -1280,7 +1325,7 @@ async function _mgeFillRandomDisposition(html, baseValue) {
     element.find('#mgme_behavior_personality_active').prop('checked') ? element.find('#mgme_behavior_personality_mod').val() : 0,
     element.find('#mgme_behavior_activity_active').prop('checked') ? element.find('#mgme_behavior_activity_mod').val() : 0
   ];
-  const dispositionTable = await _mgeFindTableByName('Mythic GME: Disposition Table');
+  const dispositionTable = await _mgeFindTableByName('Mythic GME: Behavior Check');
   const formula = `${baseValue ?? '2d10'} + ${mod1} + ${mod2} + ${mod3}`;
   const dispositionRoll = await new Roll(formula).roll({async:false});
   const dispositionResult = (await dispositionTable.draw({roll: dispositionRoll, displayChat: false})).results[0].getChatText();
@@ -1308,7 +1353,7 @@ async function _mgeAdjustDisposition(mod, actor) {
     ui.notifications.warn("Mythic GME: No tokens selected!");
     return;
   }
-  const tableDispositions = await _mgeFindTableByName('Mythic GME: Disposition Table');
+  const tableDispositions = await _mgeFindTableByName('Mythic GME: Behavior Check');
   const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
   if (!behavior)
     return;
@@ -1333,15 +1378,16 @@ async function _mgeFillAdjustedDisposition(html, mod) {
 }
 
 async function _mgeBehaviorAction(actor, behavior) {
-  const dispositionMod = _mgeParseModFromText(behavior.dispositionRank);
+  const dispositionMod = _mgeParseNumberFromText(behavior.dispositionRank);
   console.log(dispositionMod);
   const tableOne = await _mgeFindTableByName('Mythic GME: NPC Action Table 1');
   const tableOneResult = (await tableOne.draw({displayChat: false})).results[0].getChatText();
-  const tableOneMod = _mgeParseModFromText(tableOneResult);
+  const tableOneMod = _mgeParseNumberFromText(tableOneResult);
   // This is tricky, NPC action does NOT shift disposition
   if (tableOneResult.includes('NPC Action')) {
     const tableTwo = await _mgeFindTableByName('Mythic GME: NPC Action Table 2');
-    const tableTwoResult = (await tableTwo.draw({roll: `2d10 + ${dispositionMod} + ${tableOneMod}`, displayChat: false})).results[0].getChatText();
+    const tableTwoResult = (await tableTwo.draw({roll: new Roll(`2d10 + ${dispositionMod} + ${tableOneMod}`), displayChat: false})).results[0].getChatText();
+    console.log(tableTwoResult);
     const messageContent = `
     <div><h1>${actor.name}</h1></div>
     <div>Performs an <b>unexpected</b> Action!</div>
@@ -1484,5 +1530,125 @@ function mgeBehaviorCheck() {
     default: "sendChat"
   })
 
+  dialogue.render(true)
+}
+
+function _mgeStatisticsEntryAdd(html) {
+  const elem = $(html);
+  elem.find(".stat-hidden").first().removeClass('stat-hidden');
+}
+
+function mgeStatisticCheck() {
+  const statisticDialog = `
+      <form>
+      
+      <div>
+      <label for="statisticTarget">Statistic Target:</label>
+      <input name="statisticTarget" id="mgme_statistic_target" style="margin-bottom:10px;width:285px;" placeholder="Target"/>
+      </div>
+      
+      <div id="mgme_stats_container"></div>
+      <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="_mgeStatisticsEntryAdd(this.parentElement.parentElement)"> Add</i></div>
+      
+      <div>
+        <label for="isImportant">is important:</label>
+        <input name="isImportant" id="mgme_statistic_important" type="checkbox" style="vertical-align:middle">
+      </div>
+        
+      </div>
+      
+      <style>
+        i:hover {
+            text-shadow: 0 0 8px red;
+        }
+        .stat-hidden {
+            visibility: hidden;
+        }
+      </style>
+      
+      </form>
+      `
+  const tokenName = canvas.tokens.controlled[0]?.name;
+  let dialogue = new Dialog({
+    title: 'Statistic Check',
+    content: statisticDialog,
+    render: async function (html) {
+      // in the future we can consider saving the baselines?
+      // const savedBaseline = game.user.getFlag('mythic-gme-tools', 'mgeStatisticBaseline');
+      if (tokenName)
+        html.find("#mgme_statistic_target").val(tokenName);
+      const entriesOpen = 3; // Configurable???
+      let i = 1;
+      while (i <= 5) {
+        let cls = i <= entriesOpen ? '' : 'stat-hidden';
+        html.find("#mgme_stats_container").append(
+          `
+          <div id="stats_${i}" class="${cls}">
+            <input id="mgme_statistic_attribute_${i}" required style="margin-bottom:10px;width:140px;height:25px;" placeholder="Attribute #${i}"/>
+            <input id="mgme_statistic_baseline_${i}" placeholder="Baseline" style="width:60px" type="number">
+            <select id="mgme_statistic_mod_${i}" style="width:110px;margin-bottom:10px;">
+              <option value="-2">Weak (-2)</option>
+              <option value="0" selected>No Modifier</option>
+              <option value="2">Strong (+2)</option>
+              <option value="4">Prime (+4)</option>
+            </select>
+            <span title="Important" class="fas fa-exclamation-triangle" style="margin-left:5px;vertical-align:middle;"></span>
+          </div>
+          `
+        )
+        i += 1;
+      }
+
+      html[0].getElementsByTagName("input").mgme_statistic_attribute_1.focus();
+    },
+    buttons: {
+      submit: {
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
+        callback: async (html) => {
+          const attribute = html.find(`#mgme_statistic_attribute_1`).val();
+          if (!attribute)
+            return;
+          const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+          const isImportant = html.find("#mgme_statistic_important").prop('checked');
+          let statisticChat = {
+            content: `
+            <h1>${tokenName ?? 'Statistic Check'}</h1>
+            <div><b style="color:darkred">${isImportant ? 'IMPORTANT' : ''}</b></div>
+            `,
+            whisper: whisper,
+            speaker: ChatMessage.getSpeaker()
+          };
+          let i = 0;
+          while (i < 5) {
+            i += 1;
+            if (html.find(`#stats_${i}`).hasClass('stat-hidden'))
+              continue
+            const attribute = html.find(`#mgme_statistic_attribute_${i}`).val();
+            if (!attribute.length)
+              continue;
+            const baseline = parseInt(html.find(`#mgme_statistic_baseline_${i}`).val());
+            const baselineValue = isNaN(baseline) ? 0 : baseline;
+            const mod = _mgeParseNumberFromText(html.find(`#mgme_statistic_mod_${i}`).val());
+            const modText = html.find(`#mgme_statistic_mod_${i} option:selected`).text();
+            const statTable = await _mgeFindTableByName('Mythic GME: Statistic Check');
+            const targetRoll = new Roll(`2d10 + ${mod} + ${isImportant ? 2 : 0}`);
+            const statResult = (await statTable.draw({roll: targetRoll, displayChat: false})).results[0].getChatText();
+            // In most RPGs this stat calculation is probably off on the default table (+100%) - But leaving in case players override table
+            const statMultiplier = (_mgeParseNumberFromText(statResult)/100)+1;
+            const statFinal = baselineValue * statMultiplier;
+            statisticChat.content += `
+              <div><h2>${attribute}</h2></div>
+              ${isNaN(baseline) ? '' : `<div><b>Baseline:</b> ${baselineValue}</div>`}
+              <div><b>Reference:</b> ${modText}</div>
+              <div><b>Statistic:</b> ${statResult}${statFinal === 0 ? '' : ` -> ${statFinal}`}</div>
+            `
+          }
+          ChatMessage.create(statisticChat);
+        }
+      }
+    },
+    default: "submit"
+  })
   dialogue.render(true)
 }

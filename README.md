@@ -1,7 +1,11 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/total?logo=GitHub) ![GitHub release (latest by date)](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/latest/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/saif-ellafi/foundryvtt-mythic-gme) ![GitHub issues](https://img.shields.io/github/issues-raw/saif-ellafi/foundryvtt-mythic-gme)
 # Mythic GME Tools for FoundryVTT
 
-Provides Script Macros and Roll Tables for Playing any RPG system with Mythic GM Emulator
+Mythic GM Emulator is an RPG ruleset designed for unprepared GMs, playing without GM at all, or solo players.
+
+It is a system agnostic module meant to be played together with your favorite RPGs.
+
+Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulator series in Foundry VTT.
 
 ### [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
 

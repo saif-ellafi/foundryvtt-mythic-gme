@@ -1,9 +1,14 @@
-### 1.7.0
+### 2.0.0
 * Feature: Mythic GME Variations #2 Support!!!
-* Feature: Privacy for group play: Macros will follow dice roll privacy setting
-* Feature: Macro to check current Chaos Rank
-* Feature: Improved settings and configuration
-* Fixed: Random Tables are now set to privately roll by default when rolled manually
+* Feature: Advanced Behavior Check Macro
+* Feature: Advanced Statistics Check Macro
+* Feature: Advanced Details Check Macro
+* Feature: Variations #2 Tables Included
+* Feature: Privacy for group play, Macros will follow GMs dice roll privacy setting
+* Enhancement: Many more Macros now interact with selected tokens for flavor!
+* Enhancement: Improved settings and configuration
+* Enhancement: Backstory Check now can take fixed amount of backstories to generate
+* Fixed: All Random Tables are now set to privately roll by default when rolled manually
 * Fixed: Improved waiting events for 3D dice to finish (if enabled)
 * Fixed: Only available Chaos Ranks are shown in macro dropdowns
 * Compatibility: Major internal code overhaul should improve overall behavior
