@@ -763,39 +763,38 @@ function mgeFateCheck() {
   dialogue.render(true)
 }
 
-async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tableSetting1, tableSetting2) {
+async function _mgeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2) {
+  let focusResult;
+  let focusRoll;
 
-  async function getOracleAnswers() {
-    let focusResult;
-    let focusRoll;
-
-    if (eventFocus)
-      focusResult = eventFocus;
-    else {
-      const focusTable = await _mgeFindTableBySetting('focusTable');
-      focusRoll = await focusTable.roll();
-      focusResult = focusRoll.results[0].getChatText();
-    }
-
-    const descriptor1Table = await _mgeFindTableBySetting(tableSetting1);
-    const descriptor1Roll = await descriptor1Table.roll();
-    const descriptor1Result = descriptor1Roll.results[0].getChatText();
-
-    const descriptor2Table = await _mgeFindTableBySetting(tableSetting2);
-    const descriptor2Roll = await descriptor2Table.roll();
-    const descriptor2Result = descriptor2Roll.results[0].getChatText();
-
-    return {
-      focusResult: focusResult,
-      focusRoll: focusRoll,
-      descriptor1Result: descriptor1Result,
-      descriptor1Roll: descriptor1Roll,
-      descriptor2Result: descriptor2Result,
-      descriptor2Roll: descriptor2Roll
-    };
+  if (eventFocus)
+    focusResult = eventFocus;
+  else {
+    const focusTable = await _mgeFindTableBySetting('focusTable');
+    focusRoll = await focusTable.roll();
+    focusResult = focusRoll.results[0].getChatText();
   }
 
-  const randomEvent = await getOracleAnswers(eventFocus);
+  const descriptor1Table = await _mgeFindTableBySetting(tableSetting1);
+  const descriptor1Roll = await descriptor1Table.roll();
+  const descriptor1Result = descriptor1Roll.results[0].getChatText();
+
+  const descriptor2Table = await _mgeFindTableBySetting(tableSetting2);
+  const descriptor2Roll = await descriptor2Table.roll();
+  const descriptor2Result = descriptor2Roll.results[0].getChatText();
+
+  return {
+    focusResult: focusResult,
+    focusRoll: focusRoll,
+    descriptor1Result: descriptor1Result,
+    descriptor1Roll: descriptor1Roll,
+    descriptor2Result: descriptor2Result,
+    descriptor2Roll: descriptor2Roll
+  };
+}
+
+async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tableSetting1, tableSetting2) {
+  const randomAnswers = await _mgeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2);
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   let chatConfig = {
     content: eventTitle,
@@ -808,31 +807,15 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
     oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
     game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000;
   }
-  if (randomEvent.focusResult !== '_') // Special exception for non-focus based oracle questions
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b><u>${randomEvent.focusResult}</u></b> (${(await _mgeSimulateRoll(randomEvent.focusRoll?.roll))?.total ?? '*'})</div>`);
-  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomEvent.descriptor1Result} (${(await _mgeSimulateRoll(randomEvent.descriptor1Roll.roll)).total})</div>`);
-  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomEvent.descriptor2Result} (${(await _mgeSimulateRoll(randomEvent.descriptor2Roll.roll)).total})</div>`);
+  if (randomAnswers.focusResult !== '_') // Special exception for non-focus based oracle questions
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b> (${(await _mgeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*'})</div>`);
+  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result} (${(await _mgeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total})</div>`);
+  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result} (${(await _mgeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total})</div>`);
   if (game.dice3d && oldHide) {
     Hooks.once('diceSoNiceRollComplete', async () => {
       game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = oldHide;
     })
   }
-}
-
-async function mgeRandomEvent() {
-  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.EVENT_QUESTION);
-}
-
-async function mgeEventCheck() {
-  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.EVENT_CHECK);
-}
-
-async function mgeDetailDescriptionCheck() {
-  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION);
-}
-
-async function mgeDetailActionCheck() {
-  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.ACTION_QUESTION);
 }
 
 async function _mgePrepareOracleQuestion(questionProps) {
@@ -942,6 +925,22 @@ function mgeSceneAlteration() {
   })
 
   dialogue.render(true)
+}
+
+async function mgeRandomEvent() {
+  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.EVENT_QUESTION);
+}
+
+async function mgeEventCheck() {
+  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.EVENT_CHECK);
+}
+
+async function mgeDetailDescriptionCheck() {
+  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION);
+}
+
+async function mgeDetailActionCheck() {
+  await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.ACTION_QUESTION);
 }
 
 // Variations #1 Rule!
@@ -1197,4 +1196,276 @@ async function mgeBackstoryGenerator() {
     )
     i++
   }
+}
+
+function _mgeSaveActorBehaviorFromHTML(html, actor) {
+  const actorBehavior = {
+    theme: html.find("#mgme_behavior_theme").val(),
+    identity: html.find("#mgme_behavior_identity").val(),
+    identityMod: parseInt(html.find("#mgme_behavior_identity_mod").val()),
+    identityActive: html.find("#mgme_behavior_identity_active").prop('checked'),
+    personality: html.find("#mgme_behavior_personality").val(),
+    personalityMod: parseInt(html.find("#mgme_behavior_personality_mod").val()),
+    personalityActive: html.find("#mgme_behavior_personality_active").prop('checked'),
+    activity: html.find("#mgme_behavior_activity").val(),
+    activityMod: parseInt(html.find("#mgme_behavior_activity_mod").val()),
+    activityActive: html.find("#mgme_behavior_activity_active").prop('checked'),
+    dispositionRank: html.find("#mgme_behavior_disposition").val(),
+    dispositionValue: parseInt(html.find("#mgme_behavior_disposition_value").val()),
+  };
+  _mgeUpdateActorBehavior(actor ?? canvas.tokens.controlled[0].actor, actorBehavior);
+  return actorBehavior;
+}
+
+async function _mgeFillRandomBehavior(elementId) {
+  const descriptors = await _mgeGetOracleAnswers(
+    'Behavior Personality',
+    MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting1,
+    MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting2
+  )
+  $(elementId).val(`${descriptors.descriptor1Result} ${descriptors.descriptor2Result}`);
+}
+
+async function _mgeFillRandomActivity(elementId) {
+  const descriptors = await _mgeGetOracleAnswers(
+    'Behavior Activity',
+    MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting1,
+    MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting2
+  )
+  $(elementId).val(`${descriptors.descriptor1Result} ${descriptors.descriptor2Result}`);
+}
+
+function _mgeParseModFromText(tableOutcome) {
+  return parseInt(tableOutcome.match(/[-\d+]+/)[0]);
+}
+
+function _mgeUpdateActorBehavior(actor, behavior) {
+  actor.setFlag('mythic-gme-tools', 'mgeBehavior', behavior)
+}
+
+async function _mgeFillRefreshDisposition(html) {
+  const selectedToken = canvas.tokens.controlled[0];
+  const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+  const baseDisposition = behavior.dispositionValue -
+    (behavior.identityActive ? behavior.identityMod : 0) -
+    (behavior.personalityActive ? behavior.personalityMod : 0) -
+    (behavior.activityActive ? behavior.activityMod : 0);
+  await _mgeFillRandomDisposition(html, baseDisposition);
+  const newRank = $(html).find('#mgme_behavior_disposition').val();
+  if (behavior.dispositionRank !== newRank)
+    _mgeNotifyBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newRank);
+  _mgeSaveActorBehaviorFromHTML($(html))
+}
+
+async function _mgeFillRandomDisposition(html, baseValue) {
+  const element = $(html)
+  let [mod1, mod2, mod3] = [
+    element.find('#mgme_behavior_identity_active').prop('checked') ? element.find('#mgme_behavior_identity_mod').val() : 0,
+    element.find('#mgme_behavior_personality_active').prop('checked') ? element.find('#mgme_behavior_personality_mod').val() : 0,
+    element.find('#mgme_behavior_activity_active').prop('checked') ? element.find('#mgme_behavior_activity_mod').val() : 0
+  ];
+  const dispositionTable = await _mgeFindTableByName('Mythic GME: Disposition Table');
+  const formula = `${baseValue ?? '2d10'} + ${mod1} + ${mod2} + ${mod3}`;
+  const dispositionRoll = await new Roll(formula).roll({async:false});
+  const dispositionResult = (await dispositionTable.draw({roll: dispositionRoll, displayChat: false})).results[0].getChatText();
+  const dispositionTotal = dispositionRoll.total;
+  element.find('#mgme_behavior_disposition').val(dispositionResult);
+  element.find('#mgme_behavior_disposition_value').val(dispositionTotal);
+  _mgeSaveActorBehaviorFromHTML($(html));
+}
+
+function _mgeNotifyBehaviorRankShift(actorName, oldBehavior, newBehavior) {
+  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+  let chatBehavior = {
+    content: `
+            <div><h2>Disposition Shifted!</h2></div>
+            <div><b>${actorName}</b> shifted from <em>${oldBehavior}</em> to <em>${newBehavior}</em></div>
+            `,
+    whisper: whisper
+  };
+  ChatMessage.create(chatBehavior);
+}
+
+async function _mgeAdjustDisposition(mod, actor) {
+  const selectedToken = actor ?? canvas.tokens.controlled[0];
+  const tableDispositions = await _mgeFindTableByName('Mythic GME: Disposition Table');
+  const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+  behavior.dispositionValue += mod;
+  const dispositionRankRoll = await tableDispositions.draw({roll: Roll.create(behavior.dispositionValue.toString()), displayChat: false});
+  const newDispositionRank = dispositionRankRoll.results[0].getChatText();
+  if (newDispositionRank !== behavior.dispositionRank) {
+    _mgeNotifyBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newDispositionRank);
+  }
+  behavior.dispositionRank = newDispositionRank;
+  _mgeUpdateActorBehavior(selectedToken.actor, behavior);
+  return behavior;
+}
+
+async function _mgeFillAdjustedDisposition(html, mod) {
+  const newBehavior = await _mgeAdjustDisposition(parseInt(mod));
+  $(html).find("#mgme_behavior_disposition").val(newBehavior.dispositionRank);
+  $(html).find("#mgme_behavior_disposition_value").val(newBehavior.dispositionValue);
+  _mgeSaveActorBehaviorFromHTML($(html));
+}
+
+async function _mgeBehaviorAction(actor, behavior) {
+  const dispositionMod = _mgeParseModFromText(behavior.dispositionRank);
+  console.log(dispositionMod);
+  const tableOne = await _mgeFindTableByName('Mythic GME: NPC Action Table 1');
+  const tableOneResult = (await tableOne.draw({displayChat: false})).results[0].getChatText();
+  const tableOneMod = _mgeParseModFromText(tableOneResult);
+  // This is tricky, NPC action does NOT shift disposition
+  if (tableOneResult.includes('NPC Action')) {
+    const tableTwo = await _mgeFindTableByName('Mythic GME: NPC Action Table 2');
+    const tableTwoResult = (await tableTwo.draw({roll: `2d10 + ${dispositionMod} + ${tableOneMod}`, displayChat: false})).results[0].getChatText();
+    const messageContent = `
+    <div><h1>${actor.name}</h1></div>
+    <div>Performs an unexpected Action!</div>
+    <div><b>Action:</b> ${tableTwoResult} (${dispositionMod})+(${tableOneMod})</div>
+    `
+    ChatMessage.create({content: messageContent});
+  } else {
+    await _mgeAdjustDisposition(tableOneMod, actor);
+    const messageContent = `
+    <div><h1>${actor.name}</h1></div>
+    <div>${tableOneMod !== 0 ? `Disposition Shift: ${tableOneMod}` : 'No changes in disposition'}</div>
+    <div>Performs an expected Action!</div>
+    <div><b>Action:</b> ${tableOneResult}</div>
+    `
+    ChatMessage.create({content: messageContent});
+  }
+}
+
+function mgeBehaviorCheck() {
+  const selectedToken = canvas.tokens.controlled[0];
+
+  if (!selectedToken) {
+    ui.notifications.warn("Behavior Checks only work with a selected Token");
+    return
+  }
+
+  const behaviorCheckDialog = `
+    <form>
+    <label for="behaviorName">Character:</label>
+    <input disabled name="behaviorName" id="mgme_actor_name" style="margin-bottom: 10px;width:315px" value="${selectedToken.name}">
+    <label for="behaviorTheme">Current Theme:</label>
+    <input name="behaviorTheme" id="mgme_behavior_theme" style="margin-bottom: 10px;width:285px" placeholder="Current Scene">
+
+    <div>
+    <label for="behaviorIdentity">Identity:</label>
+    <input name="behaviorIdentity" id="mgme_behavior_identity" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:20px;" required placeholder="Descriptor">
+    <label for="behaviorIdentityMod">Mod:</label>
+    <select name="behaviorIdentityMod" id="mgme_behavior_identity_mod" style="margin-bottom:10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+      <option value="-2">-2</option>
+      <option value="0" selected>0</option>
+      <option value="2">+2</option>
+    </select>
+    <input style="vertical-align:middle;" type="checkbox" id="mgme_behavior_identity_active" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    </div>
+
+    <div>
+    <label for="behaviorPersonality">Personality:</label>
+    <input name="behaviorPersonality" id="mgme_behavior_personality" style="margin-bottom:10px;width:168px" placeholder="Descriptor">
+    <i style="width:auto;height:25px;" class="fas fa-dice" onclick="_mgeFillRandomBehavior('#mgme_behavior_personality')"></i>
+    <label for="behaviorPersonalityMod">Mod:</label>
+    <select name="behaviorPersonalityMod" id="mgme_behavior_personality_mod" style="margin-bottom:10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+      <option value="-2">-2</option>
+      <option value="0" selected>0</option>
+      <option value="2">+2</option>
+    </select>
+    <input style="vertical-align:middle;" type="checkbox" id="mgme_behavior_personality_active" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    </div>
+
+    <div>
+    <label for="behaviorActivity">Activity:</label>
+    <input name="behaviorActivity" id="mgme_behavior_activity" style="margin-bottom:10px;width:168px;margin-left:21px;" placeholder="Descriptor">
+    <i style="width:auto;height:25px;" class="fas fa-dice" onclick="_mgeFillRandomActivity('#mgme_behavior_activity')"></i>
+    <label for="behaviorActivityMod">Mod:</label>
+    <select name="behaviorActivityMod" id="mgme_behavior_activity_mod" style="margin-bottom: 10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+      <option value="-2">-2</option>
+      <option value="0" selected>0</option>
+      <option value="2">+2</option>
+    </select>
+    <input style="vertical-align:middle;" type="checkbox" id="mgme_behavior_activity_active" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    </div>
+
+    <div>
+    <label for="behaviorDisposition">Disposition:</label>
+    <input disabled name="behaviorDisposition" id="mgme_behavior_disposition" style="margin-bottom: 10px;width:148px">
+    <input disabled type="number" name="behaviorDispositionValue" id="mgme_behavior_disposition_value" style="margin-bottom: 10px;width:20px;height:17px" value="10">
+    <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-dice" onclick="_mgeFillRandomDisposition(this.parentElement.parentElement)"></i>
+    <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-arrow-up" onclick="_mgeFillAdjustedDisposition(this.parentElement.parentElement, 2)"></i>
+    <i style="width:auto;height:25px;" class="fas fa-arrow-down" onclick="_mgeFillAdjustedDisposition(this.parentElement.parentElement, -2)"></i>
+    </div>
+
+    </form>
+
+    <style>
+    i:hover {
+        text-shadow: 0 0 8px red;
+    }
+    </style>
+    `
+
+  let dialogue = new Dialog({
+    title: `Behavior Check`,
+    content: behaviorCheckDialog,
+    render: html => {
+      const tokenBehavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+      if (tokenBehavior) {
+        html.find("#mgme_behavior_theme").val(tokenBehavior.theme);
+        html.find("#mgme_behavior_identity").val(tokenBehavior.identity);
+        html.find("#mgme_behavior_identity_mod").val(tokenBehavior.identityMod);
+        html.find("#mgme_behavior_identity_active").prop('checked', tokenBehavior.identityActive);
+        html.find("#mgme_behavior_personality").val(tokenBehavior.personality);
+        html.find("#mgme_behavior_personality_mod").val(tokenBehavior.personalityMod);
+        html.find("#mgme_behavior_personality_active").prop('checked', tokenBehavior.personalityActive);
+        html.find("#mgme_behavior_activity").val(tokenBehavior.activity);
+        html.find("#mgme_behavior_activity_mod").val(tokenBehavior.activityMod);
+        html.find("#mgme_behavior_activity_active").prop('checked', tokenBehavior.activityActive);
+        html.find("#mgme_behavior_disposition").val(tokenBehavior.dispositionRank)
+        html.find("#mgme_behavior_disposition_value").val(tokenBehavior.dispositionValue)
+      }
+    },
+    buttons: {
+      save: {
+        icon: '<i class="fas fa-atlas"></i>',
+        label: 'Save',
+        callback: (html) => {
+          _mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
+        }
+      },
+      rollAction: {
+        icon: '<i class="fas fa-fist-raised"></i>',
+        label: 'Action!',
+        callback: async (html) => {
+          const actorBehavior = _mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
+          await _mgeBehaviorAction(selectedToken, actorBehavior);
+        }
+      },
+      sendChat: {
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'To Chat',
+        callback: (html) => {
+          const actorBehavior = _mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
+          const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+          let chatBehavior = {
+            content: `
+            <div><h1>${selectedToken.name}</h1></div>
+            <div><b>Theme:</b> ${actorBehavior.theme}</div>
+            <div><b>Identity:</b> ${actorBehavior.identity} (${actorBehavior.identityActive ? actorBehavior.identityMod : 'inactive'})</div>
+            <div><b>Personality:</b> ${actorBehavior.personality} (${actorBehavior.personalityActive ? actorBehavior.personalityMod : 'inactive'})</div>
+            <div><b>Activity:</b> ${actorBehavior.activity} (${actorBehavior.activityActive ? actorBehavior.activityMod : 'inactive'})</div>
+            <div><b>Disposition:</b> ${actorBehavior.dispositionRank} [${actorBehavior.dispositionValue}]</div>
+            `,
+            whisper: whisper
+          };
+          ChatMessage.create(chatBehavior);
+        }
+      }
+    },
+    default: "save"
+  })
+
+  dialogue.render(true)
 }

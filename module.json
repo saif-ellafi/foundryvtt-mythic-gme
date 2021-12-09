@@ -52,6 +52,13 @@
       "entity": "Macro"
     },
     {
+      "name": "mythic-gme-v2-macros",
+      "label": "Mythic GME V2 Macros",
+      "path": "packs/mythic-gme-v2-macros.db",
+      "module": "mythic-gme-tools",
+      "entity": "Macro"
+    },
+    {
       "name": "mythic-decks-macros",
       "label": "Mythic Deck Macros",
       "path": "packs/mythic-decks-macros.db",
