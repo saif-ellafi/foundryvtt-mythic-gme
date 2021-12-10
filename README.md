@@ -95,7 +95,7 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 ### The mighty chat
 
-![img.png](img.png)
+![img.png](mighty-chat.png)
 
 ### Customizing your playstyle
 
