@@ -9,6 +9,7 @@
 * Enhancement: Many more Macros now interact with selected tokens for flavor!
 * Enhancement: Improved settings and configuration
 * Enhancement: Backstory Check now can take fixed amount of backstories to generate
+* Enhancement: Overall Flavor and event descriptions in Chat have improved formatting
 * Fixed: All Random Tables are now set to privately roll by default when rolled manually
 * Fixed: Improved waiting events for 3D dice to finish (if enabled)
 * Fixed: Only available Chaos Ranks are shown in macro dropdowns
