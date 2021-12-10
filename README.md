@@ -95,6 +95,14 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 ### The mighty chat
 
+Every Macro and Roll Table available in the Mythic GME Tools produce a flavor-centered, self-explanatory chat message.
+
+Rolling dice with Dice so Nice! module enabled will flavor and slowly produce results as the 3D dice give away their outcomes.
+
+This will help keep track of your emulator's guidance and your game!
+
+Please note that no instructions or game rules are included, meaning the books are needed for a player to make sense out of the information provided.
+
 ![img.png](mighty-chat.png)
 
 ### Customizing your playstyle
