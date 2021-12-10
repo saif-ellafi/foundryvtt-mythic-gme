@@ -7,17 +7,18 @@ It is a system agnostic module meant to be played together with your favorite RP
 
 Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulator series in Foundry VTT.
 
+Below you can find detailed instructions and features for how to play and use this module.
+
 ### [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
 
 [![YouTube Video](video-img.png)](https://youtu.be/bSzZbTvXPuw)
 
 ## Word Mill Games
 
-**Mythic GM Emulator Rulebook** is REQUIRED to use and understand this content. Variations 1 and 2 books are needed for
+**Mythic GM Emulator Rulebook** is _REQUIRED_ to use and understand this content. Variations 1 and 2 books are needed for
 the optional rules!.
 
-All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and this module is redistributed with _
-appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUTED FURTHER without CONSENT
+All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and this module is redistributed with appropriate permission from author **Tana Pigeon** - And may NOT be REDISTRIBUTED FURTHER without CONSENT
 
 [Get Mythic GME Book](https://www.drivethrurpg.com/product/20798/Mythic-Game-Master-Emulator)
 
@@ -25,56 +26,89 @@ appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUT
 
 ## Features
 
+### Overview
+
+* One-Click Macros for Mythic GME basic components: Fate Charts, Scene Alteration, Events and Chaos Level
+* **Mythic Variations #1** Macros for Complex Questions and Backstory Generation plus selectable themed focus tables
+* **Mythic Variations #2** Macros for Event Checks, Detail and Action questions, Behavior checks and Statistic Checks!
+* Saves progress for Chaos Level, Behavior Disposition, Statistic Checks
+* Customize all Roll Tables and the Macros will automatically use them!
+* Built-in Support for **Dice so Nice!** taking 3D dice to a flavor-narrative oriented experience
+* All Actions translate into the chat for keeping a log and **history of your game**
+
 ![](example-mythic-tools.png)
 
-* Scripts for rolling Fate Charts, Random Event and Scene Chaos Checks with configurable parameters
-* Scripts for Complex Questions, Backstory Generation and themed focus tables (Mythics Variations #1)
-* Persistently records current Chaos Rank
-* Allows Increasing and Decreasing Chaos Rank with a button
-* Roll Tables for manual use in Foundry
-* Configuration to point to custom Roll Tables to the Macros to customize your fate
-* Formatted Message macro allows styling a chat message (color, title, bold, etc)
-* Integration recommended with Dice So Nice! module for 3D dice support waits and builds up tension with them
-
-### Persisted Configuration
-
-* Chaos Rank: When changing Chaos Rank, the value will be saved and reused across all functions
-* Minimum and Maximum Chaos Rank is configurable
-* Optional setting for ignoring Chaos Factor in Doubles (Variations #1)
-
 ### Macros
+These macros provide complex functionalities summarized in a one-click event.
+Most of them bring up a Dialog in which the player customizes or elaborates the event.
 
-* Increase Chaos Rank
-* Decrease Chaos Rank
+Selecting a Token will cause the Macros to interact with a Foundry VTT actor, 
+speak on his behalf or even sometimes use its information for better flavor!
+
+#### Customizing your playstyle
+
+**Macros use Roll Tables**. Going to **Module Settings** lets you choose which tables are being used. Table names must begin 
+with **Mythic** in order to be eligible. By default, Macros pick up Tables **by their name**, so also importing the  Tables 
+from the Compendium and making modifications on them, will automatically apply to the Macros looking for them.
+Try to keep the same format of the tables to avoid issues. Delete imported tables to revert Macros to use the original ones.
+
+#### GM Emulator Blue Book
 * Fate Chart: Rolls on the Fate Chart. Triggers Random Events when appropriate.
 * Random Event: Generates a random event.
 * Scene Alteration: Checks if the proposed event is still valid. Rolls Random Events when appropriate.
-* Complex Questions (Mythic Variations #1)
-* Backstory Generator (Mythic Variations #1)
+* Increase Chaos Rank
+* Decrease Chaos Rank
+
+![img.png](blue-book-macros.png)
+
+#### Variations #1 Orange Book
+* Complex Questions
+* Backstory Generator
+
+![img.png](orange-book-macros.png)
+
+#### Variations #2 Green Book
+
+* Fate Check
+* Event Check
+* Detail Check
+* Description Question
+* Action Question
+* Behavior Check - Advanced: This Macro stores disposition information within Tokens!
+* Statistic Check - Advanced: This Macro stores the last used Attributes in your game!
+
+![img.png](green-book-macros.png)
 
 ### Roll Tables
 
-* Event Focus
-* Action Meaning
-* Subject Meaning
-* Event Focus Themes from Variations #1
-* Descriptions from Variations #2
-* Actions from Variations #2
+* All Tables that are necessary to execute the aforementioned macros are included and may also be used independently.
+
+### Saved Progress
+
+* Chaos Rank: When changing Chaos Rank, the value will be saved and reused across all functions
+
+### Configurable
+* Minimum and Maximum Chaos Rank is configurable
+* Customizable Chaos Level range
+* Custom color for Chaos Die in Variations #2
+* Optional setting rules from Variations #1 and #2
+* Define your own default tables for Subject, Adverb and Adjective tables
 
 ### Card Decks
 
-![](example-decks.png)
-
 **NOTE** - Deck Images are not included and can be purchased from DriveThruRPG or similar outlets.
 
-* Includes presets for GME Deck, TAC Deck and some of the GMA Decks
-* Add your own decks
-* Set your default Deck folder
-* Optional rotate cards feature (Mythic and TAC need this)
-* Toggle shuffle off if required
-* Set image file type to match your card image files.
+#### Overview
 
-## How to use
+* Includes presets for GME Deck, TAC Deck and the GMA Decks
+* Configure your Deck folder for the Macros to be able to pull them into the game (See instructions below)
+* Optionally rotate cards feature (Mythic and TAC need this) - **Note: Must be changed within the Macro Script**
+* Toggle shuffle off if required - **Note: Must be changed within the Macro Script**
+* Set image file type to match your card image files. - **Note: Must be changed within the Macro Script**
+  
+![](example-decks.png)
+
+#### How to use
 
 1. Install and Enable Mythic GME Tools in FoundryVTT
 2. Enter any game (This module is system agnostic!)
@@ -94,12 +128,6 @@ appropriate permission from author_ **Tana Pigeon** - And may NOT be REDISTRIBUT
     7. Import mythic deck Macros for your preset game (or use these as guidance)
     8. If everything works, you can delete the zip file from there. It is not needed.
 5. Say thanks if you like this :)
-
-**CUSTOMIZATION** - Macros use Roll Tables! Going to **Module Settings** lets you choose which tables are being used and
-can be configured. Table names must begin with **Mythic** in order to be eligible (this is to avoid dropdown crowding).
-
-**WARNING** - If you installed pre-release builds from manifest links, please uninstall and reinstall the module from
-Foundry! Important scripts have changed since.
 
 ## Author
 
@@ -125,8 +153,7 @@ for the support
 
 ## To do
 
-* Mythic Variations #2
-* Optional Rules and Magazine Variations
+* Anything you may propose :D Feedback always welcome
 
 ## By JeansenVaars
 

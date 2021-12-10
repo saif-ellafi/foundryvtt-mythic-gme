@@ -5,6 +5,7 @@
 * Feature: Advanced Details Check Macro
 * Feature: Variations #2 Tables Included
 * Feature: Privacy for group play, Macros will follow GMs dice roll privacy setting
+* Enhancement: 3D Dice if enabled will play with tons more of tension!
 * Enhancement: Many more Macros now interact with selected tokens for flavor!
 * Enhancement: Improved settings and configuration
 * Enhancement: Backstory Check now can take fixed amount of backstories to generate
