@@ -25,7 +25,7 @@ const MGE_PROPS_TEMPLATES = {
   },
   COMPLEX_QUESTION: {
     label: 'Complex Question',
-    placeholder: '???',
+    placeholder: 'Question',
     useFocusTable: false,
     tableSetting1: 'actionTable',
     tableSetting2: 'subjectTable'
@@ -39,7 +39,7 @@ const MGE_PROPS_TEMPLATES = {
   },
   ACTION_QUESTION: {
     label: 'Action Question',
-    placeholder: 'Does what...',
+    placeholder: 'Action...',
     useFocusTable: false,
     tableSetting1: 'actionTable',
     tableSetting2: 'subjectTable'
@@ -58,7 +58,7 @@ function _mgeEnsureV2Chaos(windowTitle, macroCallback) {
                 <br>
                 <div><b>Would you like me to change these settings for you?</b></div>
                 <br>
-                <div>Note: This can be configured in Module Settings.</div>`,
+                <div style="margin-bottom:5px;">Note: This can be configured in Module Settings.</div>`,
       buttons: {
         submit: {
           icon: '',
@@ -422,7 +422,7 @@ function mgeFateChart() {
     ${_mgeGenerateChaosRankOptions()}
     </select><br>
     <label for="question">Question (optional):</label>
-    <input id="mgme_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask the Oracle..."/>
+    <input id="mgme_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask a Questison..."/>
     </form>
     `
 
@@ -658,9 +658,10 @@ function mgeFateCheck() {
     </select><br>
     <label for="question">Question (optional):</label>
     <input name="question" id="mgme_v2_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask the Oracle..."/>
-    <br>
+    <div style="margin-bottom: 5px">
     <input name="yesfav" type="checkbox" id="mgme_v2_yesfav">
     <label for="yesfav" style="vertical-align:super;">Yes is a favorable answer</label>
+    </div>
     </form>
     `
 
@@ -797,15 +798,20 @@ async function _mgeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2) {
   };
 }
 
-async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tableSetting1, tableSetting2) {
+async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tableSetting1, tableSetting2, baseChat) {
   const randomAnswers = await _mgeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2);
-  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
-  let chatConfig = {
-    content: eventTitle,
-    speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
-    whisper: whisper
-  };
-  let chatMessage = await ChatMessage.create(chatConfig);
+  let chatMessage;
+  if (baseChat) {
+    chatMessage = baseChat;
+  } else {
+    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+    let chatConfig = {
+      content: eventTitle,
+      speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
+      whisper: whisper
+    };
+    chatMessage = await ChatMessage.create(chatConfig);
+  }
   let oldHide;
   if (game.dice3d) {
     oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
@@ -822,16 +828,21 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
   }
 }
 
-async function _mgePrepareOracleQuestion(questionProps) {
+async function _mgePrepareOracleQuestion(questionProps, baseChat) {
   if (!questionProps.purpose) {
     const questionDialog = `
       <form>
+      <div>
       <label for="reQuestion">${questionProps.label} (optional):</label>
-      <input name="reQuestion" id="mgme_re_question" style="margin-bottom: 10px" placeholder="${questionProps.placeholder}"/>
+      <input name="reQuestion" id="mgme_re_question" style="margin-bottom:10px;width:220px" placeholder="${questionProps.placeholder}"/>
+      </div>
+      
+      <div>
       ${questionProps.useFocusTable ? `
         <label for="reFocus" style="display:inline-block;">Event Focus:</label>
-        <select name="reFocus" id="mgme_re_efocus" style="width:250px;margin-bottom: 10px;"></select>
+        <select name="reFocus" id="mgme_re_efocus" style="width:312px;margin-bottom: 10px;"></select>
       ` : ''}
+      </div>
       </form>
     `
     let dialogue = new Dialog({
@@ -862,7 +873,8 @@ async function _mgePrepareOracleQuestion(questionProps) {
               true,
               eventFocus,
               questionProps.tableSetting1,
-              questionProps.tableSetting2
+              questionProps.tableSetting2,
+              baseChat
             );
           }
         }
@@ -876,7 +888,8 @@ async function _mgePrepareOracleQuestion(questionProps) {
       false,
       questionProps.focusValue,
       questionProps.tableSetting1,
-      questionProps.tableSetting2
+      questionProps.tableSetting2,
+      baseChat
     );
   }
 }
@@ -1119,10 +1132,12 @@ async function mgeDetailCheck() {
     <form>
     <label for="detailCheck">Question (optional):</label>
     <input name="detailCheck" id="mgme_v2_detail_check" style="margin-bottom:10px;width: 260px;" placeholder="Detail Question"/>
+    <div style="margin-bottom:5px">
     <input name="includeDescriptionDetail" type="checkbox" id="mgme_v2_include_desc_detail">
     <label for="includeDescriptionDetail" style="vertical-align:super;">Include Description Detail</label>
     <input name="includeActionDetail" type="checkbox" id="mgme_v2_include_act_detail">
     <label for="includeActionDetail" style="vertical-align:super;">Include Action Detail</label>
+    </div>
     </form>
     `
 
@@ -1143,21 +1158,22 @@ async function mgeDetailCheck() {
           const detailCheckResult = (await detailCheckTable.draw({roll: detailCheckRoll, displayChat: false})).results[0].getChatText();
           const includeDescription = html.find("#mgme_v2_include_desc_detail").prop('checked');
           const includeAction = html.find("#mgme_v2_include_act_detail").prop('checked');
-          let content = html.find("#mgme_v2_detail_check").val() === '' ? 'Detail Check' : `<h1><b>${html.find("#mgme_v2_detail_check").val()}</b></h1>`
-          content += `<div><h2>${detailCheckResult}</h2></div>`;
+          let content = html.find("#mgme_v2_detail_check").val() === '' ? 'Detail Check' : `<h1>${html.find("#mgme_v2_detail_check").val()}</h1>`
+          if (!includeDescription && !includeAction)
+            content += `<div><h2>${detailCheckResult}</h2></div>`;
           let chatConfig = {
             content: content,
             speaker: speaker,
             whisper: whisper
           };
-          await ChatMessage.create(chatConfig);
+          let baseDetailChat = await ChatMessage.create(chatConfig);
           if (includeDescription) {
             await _mgePrepareOracleQuestion({
               purpose: '<h2>Description Detail Check</h2>',
               focusValue: detailCheckResult,
               tableSetting1: 'descriptionsAdvTable',
               tableSetting2: 'descriptionsAdjTable'
-            });
+            }, baseDetailChat);
           }
           if (includeAction) {
             await _mgePrepareOracleQuestion({
@@ -1165,7 +1181,7 @@ async function mgeDetailCheck() {
               focusValue: detailCheckResult,
               tableSetting1: 'actionTable',
               tableSetting2: 'subjectTable'
-            });
+            }, baseDetailChat);
           }
         }
       }
@@ -1424,7 +1440,7 @@ function mgeBehaviorCheck() {
 
     <div>
     <label for="behaviorIdentity">Identity:</label>
-    <input name="behaviorIdentity" id="mgme_behavior_identity" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:20px;" required placeholder="Descriptor">
+    <input name="behaviorIdentity" id="mgme_behavior_identity" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:18px;" required placeholder="Descriptor">
     <label for="behaviorIdentityMod">Mod:</label>
     <select name="behaviorIdentityMod" id="mgme_behavior_identity_mod" style="margin-bottom:10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
       <option value="-2">-2</option>
