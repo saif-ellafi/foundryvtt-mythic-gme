@@ -13,6 +13,7 @@
 * Fixed: Improved waiting events for 3D dice to finish (if enabled)
 * Fixed: Only available Chaos Ranks are shown in macro dropdowns
 * Compatibility: Major internal code overhaul should improve overall behavior
+* Documentation: Revamped README
 
 ### 1.6.0
 * Feature: Variations #1 Background Stories Generator (V1 is now feature complete)

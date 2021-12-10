@@ -1603,12 +1603,14 @@ function mgeStatisticCheck() {
       const lastPersistedStats = game.user.getFlag('mythic-gme-tools', 'mgeLastStatistics');
       let i = 1;
       while (i <= 5) {
-        let cls = i <= entriesOpen ? '' : 'stat-hidden';
+        const lastPersistedName = lastPersistedStats ? (lastPersistedStats[i-1]?.statName ?? '') : '';
+        const lastPersistedBaseline = lastPersistedStats ? (lastPersistedStats[i-1]?.statBaseline ?? '') : '';
+        let cls = (i <= entriesOpen || lastPersistedName.length) ? '' : 'stat-hidden';
         html.find("#mgme_stats_container").append(
           `
           <div id="stats_${i}" class="${cls}">
-            <input id="mgme_statistic_attribute_${i}" value="${lastPersistedStats ? (lastPersistedStats[i-1]?.statName ?? '') : ''}" required style="margin-bottom:10px;width:198px;height:25px;" placeholder="Attribute #${i}"/>
-            <input id="mgme_statistic_baseline_${i}" value="${lastPersistedStats ? (lastPersistedStats[i-1]?.statBaseline ?? '') : ''}" placeholder="Baseline" style="width:60px" type="number">
+            <input id="mgme_statistic_attribute_${i}" value="${lastPersistedName}" required style="margin-bottom:10px;width:198px;height:25px;" placeholder="Attribute #${i}"/>
+            <input id="mgme_statistic_baseline_${i}" value="${lastPersistedBaseline}" placeholder="Baseline" style="width:60px" type="number">
             <select id="mgme_statistic_mod_${i}" style="width:110px;margin-bottom:10px;">
               <option value="-2">Weak (-2)</option>
               <option value="0" selected>No Modifier</option>

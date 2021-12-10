@@ -11,6 +11,27 @@ Below you can find detailed instructions and features for how to play and use th
 
 ### [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
 
+# Table of Contents
+1. [What is Mythic - Video](#what-is-mythic-video)
+2. [Word Mill Games - License](#word-mill-games)
+3. [Features](#features)
+   1. [Overview](#overview)
+   2. [Macros](#macros)
+      1. [GM Emulator Blue Book](#gm-emulator-blue-book)
+      2. [Variations 1 Orange Book](#variations-1-orange-book)
+      3. [Variations 2 Green Book](#variations-2-green-book)
+   3. [The Mighty Chat](#the-mighty-chat)
+   4. [Customizing your playstyle](#customizing-your-playstyle)
+   5. [Roll Tables](#roll-tables) 
+   6. [Saved Progress](#saved-progress)
+   7. [Configurable Settings](#configurable-settings)
+   8. [Card Decks](#card-decks)
+4. [Author](#author)
+5. [My other modules](#my-other-modules)
+6. [License](#license)
+
+## What is Mythic Video
+
 [![YouTube Video](video-img.png)](https://youtu.be/bSzZbTvXPuw)
 
 ## Word Mill Games
@@ -45,13 +66,6 @@ Most of them bring up a Dialog in which the player customizes or elaborates the 
 Selecting a Token will cause the Macros to interact with a Foundry VTT actor, 
 speak on his behalf or even sometimes use its information for better flavor!
 
-#### Customizing your playstyle
-
-**Macros use Roll Tables**. Going to **Module Settings** lets you choose which tables are being used. Table names must begin 
-with **Mythic** in order to be eligible. By default, Macros pick up Tables **by their name**, so also importing the  Tables 
-from the Compendium and making modifications on them, will automatically apply to the Macros looking for them.
-Try to keep the same format of the tables to avoid issues. Delete imported tables to revert Macros to use the original ones.
-
 #### GM Emulator Blue Book
 * Fate Chart: Rolls on the Fate Chart. Triggers Random Events when appropriate.
 * Random Event: Generates a random event.
@@ -61,13 +75,13 @@ Try to keep the same format of the tables to avoid issues. Delete imported table
 
 ![img.png](blue-book-macros.png)
 
-#### Variations #1 Orange Book
+#### Variations 1 Orange Book
 * Complex Questions
 * Backstory Generator
 
 ![img.png](orange-book-macros.png)
 
-#### Variations #2 Green Book
+#### Variations 2 Green Book
 
 * Fate Check
 * Event Check
@@ -79,6 +93,17 @@ Try to keep the same format of the tables to avoid issues. Delete imported table
 
 ![img.png](green-book-macros.png)
 
+### The mighty chat
+
+![img.png](img.png)
+
+### Customizing your playstyle
+
+**Macros use Roll Tables**. Going to **Module Settings** lets you choose which tables are being used. Table names must begin
+with **Mythic** in order to be eligible. By default, Macros pick up Tables **by their name**, so also importing the  Tables
+from the Compendium and making modifications on them, will automatically apply to the Macros looking for them.
+Try to keep the same format of the tables to avoid issues. Delete imported tables to revert Macros to use the original ones.
+
 ### Roll Tables
 
 * All Tables that are necessary to execute the aforementioned macros are included and may also be used independently.
@@ -86,8 +111,11 @@ Try to keep the same format of the tables to avoid issues. Delete imported table
 ### Saved Progress
 
 * Chaos Rank: When changing Chaos Rank, the value will be saved and reused across all functions
+* Behavior Actor Disposition: Tokens and Actors on which Behavior Check was used, will save their information in your game.
+Running Behavior Checks on the same tokens will bring up their current disposition data!
+* Statistic Checks Macro will store the last utilized Attributes for more convenience playthrough!
 
-### Configurable
+### Configurable Settings
 * Minimum and Maximum Chaos Rank is configurable
 * Customizable Chaos Level range
 * Custom color for Chaos Die in Variations #2
@@ -137,6 +165,12 @@ CONSENT of non-commercial distribution within Foundry VTT only.
 
 However you can still [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
 
+### By JeansenVaars
+
+![JVLogo](logo-small-black.png)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
+
 ### Contributors
 
 Thanks to [spacegiant](https://github.com/spacegiant) (GitHub username) - We can enjoy a set of Macros destined to use
@@ -151,29 +185,21 @@ and [TAC](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice
 Special thanks to the Community at the Discord Channel from [Mythic Game Master Emulator](https://discord.gg/hyHUuZEt)
 for the support
 
-## To do
-
-* Anything you may propose :D Feedback always welcome
-
-## By JeansenVaars
-
-![JVLogo](logo-small-black.png)
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
-
-## Check out my other modules!
-
-* [Minimal UI](https://github.com/saif-ellafi/foundryvtt-minimal-ui)
-* [Window Controls](https://github.com/saif-ellafi/foundryvtt-window-controls)
-* [Scene Preview](https://github.com/saif-ellafi/foundryvtt-scene-preview)
-* [Super Select](https://github.com/saif-ellafi/foundryvtt-super-select)
-
-# License
-
-[MIT License](./LICENSE.md)
-
-# Powered By
+### Powered By
 
 [![JetBrains](./jetbrains.svg)](https://www.jetbrains.com)
 
 Thanks to JetBrains I can work on this project using **WebStorm**.
+
+## My other modules!
+
+* [Minimal UI](https://github.com/saif-ellafi/foundryvtt-minimal-ui)
+* [Window Controls](https://github.com/saif-ellafi/foundryvtt-window-controls)
+* [Terrain Randomizer](https://github.com/saif-ellafi/foundryvtt-terrain-randomizer)
+* [Scene Preview](https://github.com/saif-ellafi/foundryvtt-scene-preview)
+* [Actor Link Indicator](https://github.com/saif-ellafi/foundryvtt-actor-link-indicator)
+* [Super Select](https://github.com/saif-ellafi/foundryvtt-super-select)
+
+## License
+
+[Custom License](./LICENSE.md)
