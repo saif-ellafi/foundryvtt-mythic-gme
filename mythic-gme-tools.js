@@ -1339,7 +1339,7 @@ function _mgeNotifyBehaviorRankShift(actorName, oldBehavior, newBehavior) {
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   let chatBehavior = {
     content: `
-            <div><h2>Disposition Shifted!</h2></div>
+            <div><h2>Disposition Shift!</h2></div>
             <div><b>${actorName}</b> shifted from <em>${oldBehavior}</em> to <em>${newBehavior}</em></div>
             `,
     whisper: whisper
@@ -1378,29 +1378,30 @@ async function _mgeFillAdjustedDisposition(html, mod) {
 }
 
 async function _mgeBehaviorAction(actor, behavior) {
+  if (!behavior.dispositionRank)
+    return;
   const dispositionMod = _mgeParseNumberFromText(behavior.dispositionRank);
-  console.log(dispositionMod);
-  const tableOne = await _mgeFindTableByName('Mythic GME: NPC Action Table 1');
+  const tableOne = await _mgeFindTableByName('Mythic GME: NPC Action 1');
   const tableOneResult = (await tableOne.draw({displayChat: false})).results[0].getChatText();
   const tableOneMod = _mgeParseNumberFromText(tableOneResult);
   // This is tricky, NPC action does NOT shift disposition
   if (tableOneResult.includes('NPC Action')) {
-    const tableTwo = await _mgeFindTableByName('Mythic GME: NPC Action Table 2');
+    const tableTwo = await _mgeFindTableByName('Mythic GME: NPC Action 2');
     const tableTwoResult = (await tableTwo.draw({roll: new Roll(`2d10 + ${dispositionMod} + ${tableOneMod}`), displayChat: false})).results[0].getChatText();
-    console.log(tableTwoResult);
     const messageContent = `
     <div><h1>${actor.name}</h1></div>
-    <div>Performs an <b>unexpected</b> Action!</div>
-    <div><b>Action:</b> ${tableTwoResult} (${dispositionMod})+(${tableOneMod})</div>
+    <div>With disposition: ${behavior.dispositionRank}</div>
+    <div>Performs an <b>unexpected ${tableOneResult}</b></div>
+    <div><b>${tableTwoResult}</b></div>
     `
     ChatMessage.create({content: messageContent});
   } else {
     await _mgeAdjustDisposition(tableOneMod, actor);
     const messageContent = `
     <div><h1>${actor.name}</h1></div>
-    <div>${tableOneMod !== 0 ? `Disposition Shift: ${tableOneMod}` : 'No changes in disposition'}</div>
-    <div>Performs an expected Action!</div>
-    <div><b>Action:</b> ${tableOneResult}</div>
+    <div>With disposition: ${behavior.dispositionRank}</div>
+    <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : 'No changes in disposition'}</div>
+    <div>Performs an expected <b>${tableOneResult}</b></div>
     `
     ChatMessage.create({content: messageContent});
   }
@@ -1460,10 +1461,10 @@ function mgeBehaviorCheck() {
     </div>
 
     <div>
-    <label for="behaviorDisposition">Disposition:</label>
+    <label style="color:darkred;" for="behaviorDisposition">Disposition:</label>
     <input disabled name="behaviorDisposition" id="mgme_behavior_disposition" style="margin-bottom: 10px;width:148px">
     <input disabled type="number" name="behaviorDispositionValue" id="mgme_behavior_disposition_value" style="margin-bottom: 10px;width:20px;height:17px">
-    <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-dice" onclick="_mgeFillRandomDisposition(this.parentElement.parentElement)"></i>
+    <i style="width:auto;height:25px;margin-right:10px;color:darkred" class="fas fa-dice" onclick="_mgeFillRandomDisposition(this.parentElement.parentElement)"></i>
     <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-arrow-up" onclick="_mgeFillAdjustedDisposition(this.parentElement.parentElement, 2)"></i>
     <i style="width:auto;height:25px;" class="fas fa-arrow-down" onclick="_mgeFillAdjustedDisposition(this.parentElement.parentElement, -2)"></i>
     </div>
@@ -1502,6 +1503,8 @@ function mgeBehaviorCheck() {
         icon: '<i class="fas fa-fist-raised"></i>',
         label: 'Action!',
         callback: async (html) => {
+          if (!html.find("#mgme_behavior_disposition").val())
+            await _mgeFillRandomDisposition(html);
           const actorBehavior = _mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
           await _mgeBehaviorAction(selectedToken, actorBehavior);
         }
@@ -1509,7 +1512,9 @@ function mgeBehaviorCheck() {
       sendChat: {
         icon: '<i class="fas fa-comments"></i>',
         label: 'To Chat',
-        callback: (html) => {
+        callback: async (html) => {
+          if (!html.find("#mgme_behavior_disposition").val())
+            await _mgeFillRandomDisposition(html);
           const actorBehavior = _mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
           const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
           let chatBehavior = {
@@ -1551,7 +1556,8 @@ function mgeStatisticCheck() {
       <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="_mgeStatisticsEntryAdd(this.parentElement.parentElement)"> Add</i></div>
       
       <div>
-        <label for="isImportant">is important:</label>
+        <span title="Important" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
+        <label for="isImportant">Is important:</label>
         <input name="isImportant" id="mgme_statistic_important" type="checkbox" style="vertical-align:middle">
       </div>
         
@@ -1578,21 +1584,21 @@ function mgeStatisticCheck() {
       if (tokenName)
         html.find("#mgme_statistic_target").val(tokenName);
       const entriesOpen = 3; // Configurable???
+      const lastPersistedStats = game.user.getFlag('mythic-gme-tools', 'mgeLastStatistics');
       let i = 1;
       while (i <= 5) {
         let cls = i <= entriesOpen ? '' : 'stat-hidden';
         html.find("#mgme_stats_container").append(
           `
           <div id="stats_${i}" class="${cls}">
-            <input id="mgme_statistic_attribute_${i}" required style="margin-bottom:10px;width:140px;height:25px;" placeholder="Attribute #${i}"/>
-            <input id="mgme_statistic_baseline_${i}" placeholder="Baseline" style="width:60px" type="number">
+            <input id="mgme_statistic_attribute_${i}" value="${lastPersistedStats ? (lastPersistedStats[i-1]?.statName ?? '') : ''}" required style="margin-bottom:10px;width:198px;height:25px;" placeholder="Attribute #${i}"/>
+            <input id="mgme_statistic_baseline_${i}" value="${lastPersistedStats ? (lastPersistedStats[i-1]?.statBaseline ?? '') : ''}" placeholder="Baseline" style="width:60px" type="number">
             <select id="mgme_statistic_mod_${i}" style="width:110px;margin-bottom:10px;">
               <option value="-2">Weak (-2)</option>
               <option value="0" selected>No Modifier</option>
               <option value="2">Strong (+2)</option>
               <option value="4">Prime (+4)</option>
             </select>
-            <span title="Important" class="fas fa-exclamation-triangle" style="margin-left:5px;vertical-align:middle;"></span>
           </div>
           `
         )
@@ -1620,6 +1626,7 @@ function mgeStatisticCheck() {
             speaker: ChatMessage.getSpeaker()
           };
           let i = 0;
+          const persistedStats = [];
           while (i < 5) {
             i += 1;
             if (html.find(`#stats_${i}`).hasClass('stat-hidden'))
@@ -1628,6 +1635,10 @@ function mgeStatisticCheck() {
             if (!attribute.length)
               continue;
             const baseline = parseInt(html.find(`#mgme_statistic_baseline_${i}`).val());
+            persistedStats.push({
+              statName: attribute,
+              statBaseline: baseline
+            });
             const baselineValue = isNaN(baseline) ? 0 : baseline;
             const mod = _mgeParseNumberFromText(html.find(`#mgme_statistic_mod_${i}`).val());
             const modText = html.find(`#mgme_statistic_mod_${i} option:selected`).text();
@@ -1644,6 +1655,7 @@ function mgeStatisticCheck() {
               <div><b>Statistic:</b> ${statResult}${statFinal === 0 ? '' : ` -> ${statFinal}`}</div>
             `
           }
+          game.user.setFlag('mythic-gme-tools', 'mgeLastStatistics', persistedStats)
           ChatMessage.create(statisticChat);
         }
       }
