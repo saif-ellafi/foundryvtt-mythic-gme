@@ -12,9 +12,8 @@ Below you can find detailed instructions and features for how to play and use th
 ### [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy my work!
 
 # Table of Contents
-1. [What is Mythic - Video](#what-is-mythic-video)
-2. [Word Mill Games - License](#word-mill-games)
-3. [Features](#features)
+1. [Word Mill Games - License](#word-mill-games)
+2. [Features](#features)
    1. [Overview](#overview)
    2. [Macros](#macros)
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
@@ -26,13 +25,9 @@ Below you can find detailed instructions and features for how to play and use th
    6. [Saved Progress](#saved-progress)
    7. [Configurable Settings](#configurable-settings)
    8. [Card Decks](#card-decks)
-4. [Author](#author)
-5. [My other modules](#my-other-modules)
-6. [License](#license)
-
-## What is Mythic Video
-
-[![YouTube Video](video-img.png)](https://youtu.be/bSzZbTvXPuw)
+3. [Author](#author)
+4. [My other modules](#my-other-modules)
+5. [License](#license)
 
 ## Word Mill Games
 
