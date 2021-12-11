@@ -1,3 +1,9 @@
+### 2.0.1
+* Fixed: Resolved an issue in the first roll of behavior checks leading to incorrect behavior rank
+* Fixed: Added missing Disposition shift chat when re-rolling behavior check on the same token
+* Fixed: Added missing Privacy Roll consideration for behavior check
+* Fixed: Added dash when behavior descriptors are empty in behavior checks 
+
 ### 2.0.0
 * Feature: Mythic GME Variations #2 Support!!!
 * Feature: Advanced Behavior Check Macro

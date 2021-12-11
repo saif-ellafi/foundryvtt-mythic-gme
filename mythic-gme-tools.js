@@ -1194,8 +1194,6 @@ async function mgeDetailCheck() {
 
 // Variations #1 Rule!
 async function mgeBackstoryGenerator() {
-  const selectedToken = canvas.tokens.controlled[0]?.name;
-
   const backstoryDialog = `
     <form>
     <div>
@@ -1314,6 +1312,20 @@ function _mgeUpdateActorBehavior(actor, behavior) {
   actor.setFlag('mythic-gme-tools', 'mgeBehavior', behavior)
 }
 
+function _mgeCheckBehaviorRankShift(actorName, oldRank, newRank) {
+  if (oldRank && newRank && oldRank !== newRank) {
+    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+    let chatBehavior = {
+      content: `
+              <div><h2>Disposition Shift!</h2></div>
+              <div><b>${actorName}</b> shifted from <em>${oldRank}</em> to <em>${newRank}</em></div>
+              `,
+      whisper: whisper
+    };
+    ChatMessage.create(chatBehavior);
+  }
+}
+
 async function _mgeFillRefreshDisposition(html) {
   const selectedToken = canvas.tokens.controlled[0];
   if (!selectedToken) {
@@ -1328,13 +1340,13 @@ async function _mgeFillRefreshDisposition(html) {
     (behavior.personalityActive ? behavior.personalityMod : 0) -
     (behavior.activityActive ? behavior.activityMod : 0);
   await _mgeFillRandomDisposition(html, baseDisposition);
-  const newRank = $(html).find('#mgme_behavior_disposition').val();
-  if (behavior.dispositionRank !== newRank)
-    _mgeNotifyBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newRank);
   _mgeSaveActorBehaviorFromHTML(html)
 }
 
 async function _mgeFillRandomDisposition(html, baseValue) {
+  const selectedToken = canvas.tokens.controlled[0];
+  if (!selectedToken)
+    return;
   const element = $(html)
   let [mod1, mod2, mod3] = [
     element.find('#mgme_behavior_identity_active').prop('checked') ? element.find('#mgme_behavior_identity_mod').val() : 0,
@@ -1344,23 +1356,12 @@ async function _mgeFillRandomDisposition(html, baseValue) {
   const dispositionTable = await _mgeFindTableByName('Mythic GME: Behavior Check');
   const formula = `${baseValue ?? '2d10'} + ${mod1} + ${mod2} + ${mod3}`;
   const dispositionRoll = await new Roll(formula).roll({async:false});
-  const dispositionResult = (await dispositionTable.draw({roll: dispositionRoll, displayChat: false})).results[0].getChatText();
   const dispositionTotal = dispositionRoll.total;
+  const dispositionResult = (await dispositionTable.draw({roll: Roll.create(dispositionTotal.toString()), displayChat: false})).results[0].getChatText();
+  _mgeCheckBehaviorRankShift(selectedToken.name, element.find('#mgme_behavior_disposition').val(), dispositionResult);
   element.find('#mgme_behavior_disposition').val(dispositionResult);
   element.find('#mgme_behavior_disposition_value').val(dispositionTotal);
   _mgeSaveActorBehaviorFromHTML(html);
-}
-
-function _mgeNotifyBehaviorRankShift(actorName, oldBehavior, newBehavior) {
-  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
-  let chatBehavior = {
-    content: `
-            <div><h2>Disposition Shift!</h2></div>
-            <div><b>${actorName}</b> shifted from <em>${oldBehavior}</em> to <em>${newBehavior}</em></div>
-            `,
-    whisper: whisper
-  };
-  ChatMessage.create(chatBehavior);
 }
 
 async function _mgeAdjustDisposition(mod, actor) {
@@ -1376,9 +1377,7 @@ async function _mgeAdjustDisposition(mod, actor) {
   behavior.dispositionValue += mod;
   const dispositionRankRoll = await tableDispositions.draw({roll: Roll.create(behavior.dispositionValue.toString()), displayChat: false});
   const newDispositionRank = dispositionRankRoll.results[0].getChatText();
-  if (newDispositionRank !== behavior.dispositionRank) {
-    _mgeNotifyBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newDispositionRank);
-  }
+  _mgeCheckBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newDispositionRank);
   behavior.dispositionRank = newDispositionRank;
   _mgeUpdateActorBehavior(selectedToken.actor, behavior);
   return behavior;
@@ -1400,6 +1399,7 @@ async function _mgeBehaviorAction(actor, behavior) {
   const tableOne = await _mgeFindTableByName('Mythic GME: NPC Action 1');
   const tableOneResult = (await tableOne.draw({displayChat: false})).results[0].getChatText();
   const tableOneMod = _mgeParseNumberFromText(tableOneResult);
+  const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   // This is tricky, NPC action does NOT shift disposition
   if (tableOneResult.includes('NPC Action')) {
     const tableTwo = await _mgeFindTableByName('Mythic GME: NPC Action 2');
@@ -1410,7 +1410,7 @@ async function _mgeBehaviorAction(actor, behavior) {
     <div>Performs an <b>unexpected ${tableOneResult}</b></div>
     <div><b>${tableTwoResult}</b></div>
     `
-    ChatMessage.create({content: messageContent});
+    ChatMessage.create({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
   } else {
     await _mgeAdjustDisposition(tableOneMod, actor);
     const messageContent = `
@@ -1419,7 +1419,7 @@ async function _mgeBehaviorAction(actor, behavior) {
     <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : 'No changes in disposition'}</div>
     <div>Performs an expected <b>${tableOneResult}</b></div>
     `
-    ChatMessage.create({content: messageContent});
+    ChatMessage.create({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
   }
 }
 
@@ -1536,11 +1536,11 @@ function mgeBehaviorCheck() {
           let chatBehavior = {
             content: `
             <div><h1>${selectedToken.name}</h1></div>
-            <div><b>Theme:</b> ${actorBehavior.theme}</div>
-            <div><b>Identity:</b> ${actorBehavior.identity} (${actorBehavior.identityActive ? actorBehavior.identityMod : 'inactive'})</div>
-            <div><b>Personality:</b> ${actorBehavior.personality} (${actorBehavior.personalityActive ? actorBehavior.personalityMod : 'inactive'})</div>
-            <div><b>Activity:</b> ${actorBehavior.activity} (${actorBehavior.activityActive ? actorBehavior.activityMod : 'inactive'})</div>
-            <div><b>Disposition:</b> ${actorBehavior.dispositionRank} [${actorBehavior.dispositionValue}]</div>
+            <div><b>Theme:</b> ${actorBehavior.theme ? actorBehavior.theme : '-'}</div>
+            <div><b>Identity:</b> ${actorBehavior.identity ? actorBehavior.identity : '-'} (${actorBehavior.identityActive ? actorBehavior.identityMod : 'inactive'})</div>
+            <div><b>Personality:</b> ${actorBehavior.personality ? actorBehavior.personality : '-'} (${actorBehavior.personalityActive ? actorBehavior.personalityMod : 'inactive'})</div>
+            <div><b>Activity:</b> ${actorBehavior.activity ? actorBehavior.activity : '-'} (${actorBehavior.activityActive ? actorBehavior.activityMod : 'inactive'})</div>
+            <div><b>Disposition:</b> ${actorBehavior.dispositionRank ? actorBehavior.dispositionRank : '-'} [${actorBehavior.dispositionValue}]</div>
             `,
             whisper: whisper
           };
