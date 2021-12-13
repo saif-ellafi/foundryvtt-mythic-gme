@@ -344,6 +344,7 @@ Hooks.once('ready', async () => {
     config: true,
     type: String,
     default: "decks",
+    filePicker: 'folder'
   });
 
 });

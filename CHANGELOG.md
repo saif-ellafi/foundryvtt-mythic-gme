@@ -1,3 +1,6 @@
+### 2.0.2
+* Enhancement: Decks setting now uses a file picker
+
 ### 2.0.1
 * Fixed: Resolved an issue in the first roll of behavior checks leading to incorrect behavior rank
 * Fixed: Added missing Disposition shift chat when re-rolling behavior check on the same token
