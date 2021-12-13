@@ -1,5 +1,10 @@
-### 2.0.2
-* Enhancement: Decks setting now uses a file picker
+### 2.1.0
+* Feature: New Macro "Export Chat to Journal" allows dumping current chat to a Journal Entry
+* Feature: New Setting "Automatic Adventure Logging" enables automatic log of all Mythic events to a Journal Entry (per calendar day)
+* Feature: New Setting "Show Dice Roll Details" allows for toggle of showing the dice roll values (flavor)
+* Enhancement: Decks settings now uses a file picker to point to directory
+* Fixed: Set default Chaos Rank to 4 when accepting the switch to V2 Chaos Range
+* Fixed: A few typos and styling issues
 
 ### 2.0.1
 * Fixed: Resolved an issue in the first roll of behavior checks leading to incorrect behavior rank

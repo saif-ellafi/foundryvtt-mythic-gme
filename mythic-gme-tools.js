@@ -1,3 +1,5 @@
+let MGE_JOURNAL_LOG_PROPS;
+
 const MGE_PROPS_TEMPLATES = {
   UNEXPECTED_EVENT: {
     purpose: '<h2>Unexpected Random Event</h2>',
@@ -66,6 +68,7 @@ function _mgeEnsureV2Chaos(windowTitle, macroCallback) {
           callback: async () => {
             await game.settings.set('mythic-gme-tools', 'minChaos', 3);
             await game.settings.set('mythic-gme-tools', 'maxChaos', 6);
+            await game.settings.set('mythic-gme-tools', 'currentChaos', 4)
             macroCallback();
           }
         },
@@ -94,6 +97,51 @@ async function _mgeSimulateRoll(targetRoll) {
     await game.dice3d.showForRoll(targetRoll);
   }
   return targetRoll;
+}
+
+async function _mgeCreateAutologJournal() {
+  if (!MGE_JOURNAL_LOG_PROPS)
+    return;
+  let journal = game.journal.contents.find(j => j.name === MGE_JOURNAL_LOG_PROPS.name && j.folder?.name === MGE_JOURNAL_LOG_PROPS.folder);
+  if (!journal) {
+    let folder = game.folders.contents.find(f => f.name === MGE_JOURNAL_LOG_PROPS.folder);
+    if (!folder)
+      folder = await Folder.create({name: MGE_JOURNAL_LOG_PROPS.folder, type: 'JournalEntry'});
+    journal = await JournalEntry.create({name: MGE_JOURNAL_LOG_PROPS.name, folder: folder});
+  }
+  return journal;
+}
+
+async function _mgeLogChatToJournal(chat) {
+  if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
+    const journal = await _mgeCreateAutologJournal();
+    let content = journal.data.content;
+    content += chat.data.speaker.alias ? `<div><b>${chat.data.speaker.alias}</b></div>` : '';
+    content += chat.data.flavor ? `<div>${chat.data.flavor}</div>` : '';
+    content += chat.data.content;
+    await journal.update({content: content + '<hr style="border: 1px dashed black;">'});
+  }
+}
+
+async function mgeExportChatToJournal() {
+  let content = '';
+  for (const chat of ui.chat.collection.contents) {
+    content += '<div><h4>';
+    content += chat.data.speaker.alias ? `<em>${chat.data.speaker.alias}</em>` : `<em>${game.user.name}</em>`;
+    content += ` - ${new Date(chat.data.timestamp).toTimeInputString()}</h4></div>`;
+    content += chat.data.flavor ? `<div>${chat.data.flavor}</div>` : '';
+    content += chat.data.content;
+    content += '<hr style="border: 1px dashed black;">';
+  }
+  JournalEntry.create({name: `Mythic Adventure Log ${new Date().toDateInputString()}`, content: content});
+}
+
+async function _mgeCreateChatAndLog(props) {
+  const chatMsg = ChatMessage.create(props);
+  chatMsg.then(createdChat => {
+    _mgeLogChatToJournal(createdChat)
+  });
+  return chatMsg;
 }
 
 async function _mgeUpdateChatSimulation(baseChat, newMessage) {
@@ -237,6 +285,24 @@ Hooks.once('ready', async () => {
     default: false
   });
 
+  game.settings.register('mythic-gme-tools', 'mythicRollDebug', {
+    name: 'Show dice roll details',
+    hint: 'Whether to show the dice rolled in the checks. Useful when you don\'t trust me :)',
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
+  game.settings.register('mythic-gme-tools', 'mythicAutolog', {
+    name: 'Automatic Adventure Logging',
+    hint: 'Automatically send all Mythic GM Emulator outputs to a Journal Entry',
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   game.settings.register('mythic-gme-tools', 'minChaos', {
     name: 'Minimum Chaos Factor',
     hint: 'Minimum value for Chaos Factor. Cannot be smaller than 1 or larger than the Maximum Chaos value.',
@@ -347,6 +413,15 @@ Hooks.once('ready', async () => {
     filePicker: 'folder'
   });
 
+
+  if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
+    const folderName = "Mythic Journal";
+    const date = new Date().toDateInputString();
+    const journalName = 'Adventure Notes ' + date;
+    MGE_JOURNAL_LOG_PROPS = {name: journalName, folder: folderName};
+    _mgeCreateAutologJournal();
+  }
+
 });
 
 function mgeIncreaseChaos() {
@@ -356,17 +431,17 @@ function mgeIncreaseChaos() {
   if (currentChaos < maxChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
     const chat = {
-      content: `<h2>Chaos Increased to ${currentChaos + 1}</h2>`,
+      content: `<h3>Chaos Increased to ${currentChaos + 1}</h3>`,
       whisper: whisper
     };
     $("#mgme_chaos").val(currentChaos + 1);
-    ChatMessage.create(chat);
+    _mgeCreateChatAndLog(chat);
   } else {
     let chat = {
-      content: `<h2>Chaos Maximum! (${currentChaos})</h2>`,
+      content: `<h3>Chaos Maximum! (${currentChaos})</h3>`,
       whisper: whisper
     };
-    ChatMessage.create(chat);
+    _mgeCreateChatAndLog(chat);
   }
 }
 
@@ -377,17 +452,17 @@ function mgeDecreaseChaos() {
   if (currentChaos > minChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos - 1);
     let chat = {
-      content: `<h2>Chaos Decreased to ${currentChaos - 1}</h2>`,
+      content: `<h3>Chaos Decreased to ${currentChaos - 1}</h3>`,
       whisper: whisper
     };
     $("#mgme_chaos").val(currentChaos - 1);
-    ChatMessage.create(chat);
+    _mgeCreateChatAndLog(chat);
   } else {
     let chat = {
-      content: `<h2>Chaos Minimum! (${currentChaos})</h2>`,
+      content: `<h3>Chaos Minimum! (${currentChaos})</h3>`,
       whisper: whisper
     };
-    ChatMessage.create(chat);
+    _mgeCreateChatAndLog(chat);
   }
 }
 
@@ -395,10 +470,10 @@ function mgeCheckChaos() {
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   let chat = {
-    content: `<h2>Chaos Rank (${currentChaos})</h2>`,
+    content: `<h3>Chaos Rank (${currentChaos})</h3>`,
     whisper: whisper
   };
-  ChatMessage.create(chat);
+  _mgeCreateChatAndLog(chat);
 }
 
 function mgeFateChart() {
@@ -423,7 +498,7 @@ function mgeFateChart() {
     ${_mgeGenerateChaosRankOptions()}
     </select><br>
     <label for="question">Question (optional):</label>
-    <input id="mgme_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask a Questison..."/>
+    <input id="mgme_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask a Question..."/>
     </form>
     `
 
@@ -581,8 +656,9 @@ function mgeFateChart() {
       color = 'darkred';
       outcome = 'No!';
     }
+    const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
     return `
-  <div><b>Roll:</b> ${result} at <em>${odds_id_map[odds]}</em> with Chaos Rank[${chaos}]</div>
+  ${debug ? `<div><b>Roll:</b> ${result} at <em>${odds_id_map[odds]}</em> with Chaos Rank[${chaos}]</div>` : ''}
   <b style="color: ${color}">${outcome}</b>
   `
   }
@@ -611,11 +687,11 @@ function mgeFateChart() {
               doubles = true;
             }
           }
-          await roll.toMessage({
+          roll.toMessage({
             flavor: question,
             content: content,
             speaker: ChatMessage.getSpeaker()
-          })
+          }).then(chat => _mgeLogChatToJournal(chat));
           if (doubles) {
             if (game.dice3d)
               Hooks.once('diceSoNiceRollComplete', () => _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
@@ -745,15 +821,16 @@ function mgeFateCheck() {
           const fateRight = roll.terms[0].results[1].result;
           const chaosResult = roll.terms[2].total;
           let output = generateOutput(oddsMap[odds].mod, chaosFactor, yesFavorable, fateResult, fateLeft, fateRight, chaosResult);
+          const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
           const content = `
-          <div><b>Roll:</b> ${output.checkTotal} at <em>${oddsMap[odds].label}</em> with Chaos Factor[${chaosFactor}]</div>
+          ${debug ? `<div><b>Roll:</b> ${fateLeft}+${fateRight} (${chaosResult}) at <em>${oddsMap[odds].label}</em> with Chaos[${chaosFactor}]</div>` : ''}
           <b style="color: ${output.outcomeColor}">${output.outcomeText}</b>
           `;
-          await roll.toMessage({
+          roll.toMessage({
             flavor: question,
             content: content,
             speaker: ChatMessage.getSpeaker()
-          })
+          }).then(chat => _mgeLogChatToJournal(chat));
           if (output.randomEvent) {
             if (game.dice3d)
               Hooks.once('diceSoNiceRollComplete', () => _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
@@ -818,10 +895,16 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
     oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
     game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000*1.1;
   }
-  if (randomAnswers.focusResult !== '_') // Special exception for non-focus based oracle questions
-    await _mgeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b> (${(await _mgeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*'})</div>`);
-  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result} (${(await _mgeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total})</div>`);
-  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result} (${(await _mgeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total})</div>`);
+  const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+  if (randomAnswers.focusResult !== '_') {// Special exception for non-focus based oracle questions
+    const focusDebug = debug ? `(${(await _mgeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*'})` : '';
+    await _mgeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b>${focusDebug}</div>`);
+  }
+  const desc1debug = debug ? ` (${(await _mgeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total})</div>` : '';
+  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result}${desc1debug}`);
+  const desc2debug = debug ? ` (${(await _mgeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total})` : '';
+  await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result}${desc2debug}</div>`);
+  _mgeLogChatToJournal(chatMessage);
   if (game.dice3d && oldHide) {
     Hooks.once('diceSoNiceRollComplete', async () => {
       game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = oldHide;
@@ -837,7 +920,7 @@ async function _mgePrepareOracleQuestion(questionProps, baseChat) {
       <label for="reQuestion">${questionProps.label} (optional):</label>
       <input name="reQuestion" id="mgme_re_question" style="margin-bottom:10px;width:220px" placeholder="${questionProps.placeholder}"/>
       </div>
-      
+
       <div>
       ${questionProps.useFocusTable ? `
         <label for="reFocus" style="display:inline-block;">Event Focus:</label>
@@ -917,10 +1000,11 @@ function mgeSceneAlteration() {
           const useD8 = game.settings.get('mythic-gme-tools', 'useD8ForSceneCheck');
           const roll = new Roll(`${useD8 ? '1d8' : '1d10'}`);
           const result = roll.evaluate({async: false}).total;
+          const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
           if (result <= chaos) {
             if (result % 2 === 0) {
-              await roll.toMessage({
-                content: `<b style="color: darkred">Scene was interrupted!</b> (${result})`
+              roll.toMessage({
+                content: `<b style="color: darkred">Scene was interrupted!</b>${debug ? ' ('+result+')' : ''}`
               });
               if (game.dice3d)
                 Hooks.once('diceSoNiceRollComplete', () => _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT))
@@ -928,13 +1012,13 @@ function mgeSceneAlteration() {
                 await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT);
             } else {
               return roll.toMessage({
-                content: `<b style="color: darkred">Scene was altered!</b> (${result})`
-              });
+                content: `<b style="color: darkred">Scene was altered!</b>${debug ? ' ('+result+')' : ''}`
+              }).then(chat => {_mgeLogChatToJournal(chat);return chat});
             }
           } else {
             return roll.toMessage({
-              content: `<b style="color: darkgreen">Scene Proceeds Normally!</b> (${result})`
-            });
+              content: `<b style="color: darkgreen">Scene Proceeds Normally!</b>${debug ? ' ('+result+')' : ''}`
+            }).then(chat => {_mgeLogChatToJournal(chat);return chat});
           }
         }
       }
@@ -1115,7 +1199,7 @@ function mgeFormattedChat() {
             content: message,
             speaker: selectedSpeaker
           };
-          ChatMessage.create(chatConfig);
+          _mgeCreateChatAndLog(chatConfig);
         }
       }
     },
@@ -1167,7 +1251,11 @@ async function mgeDetailCheck() {
             speaker: speaker,
             whisper: whisper
           };
-          let baseDetailChat = await ChatMessage.create(chatConfig);
+          let baseDetailChat;
+          if (includeDescription || includeAction)
+            baseDetailChat = await ChatMessage.create(chatConfig);
+          else
+            baseDetailChat = await _mgeCreateChatAndLog(chatConfig);
           if (includeDescription) {
             await _mgePrepareOracleQuestion({
               purpose: '<h2>Description Detail Check</h2>',
@@ -1231,10 +1319,11 @@ async function mgeBackstoryGenerator() {
             let triggerMsg = await backstoryDraw.roll.toMessage({
               content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
             });
+            _mgeLogChatToJournal(triggerMsg);
             await _mgeWaitFor3DDice(triggerMsg.id);
           } else {
             eventsCount = parseInt(choice);
-            ChatMessage.create({
+            _mgeCreateChatAndLog({
               content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
             })
           }
@@ -1323,7 +1412,7 @@ function _mgeCheckBehaviorRankShift(actorName, oldRank, newRank) {
               `,
       whisper: whisper
     };
-    ChatMessage.create(chatBehavior);
+    _mgeCreateChatAndLog(chatBehavior);
   }
 }
 
@@ -1411,7 +1500,7 @@ async function _mgeBehaviorAction(actor, behavior) {
     <div>Performs an <b>unexpected ${tableOneResult}</b></div>
     <div><b>${tableTwoResult}</b></div>
     `
-    ChatMessage.create({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+    _mgeCreateChatAndLog({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
   } else {
     await _mgeAdjustDisposition(tableOneMod, actor);
     const messageContent = `
@@ -1420,7 +1509,7 @@ async function _mgeBehaviorAction(actor, behavior) {
     <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : 'No changes in disposition'}</div>
     <div>Performs an expected <b>${tableOneResult}</b></div>
     `
-    ChatMessage.create({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+    _mgeCreateChatAndLog({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
   }
 }
 
@@ -1534,18 +1623,19 @@ function mgeBehaviorCheck() {
             await _mgeFillRandomDisposition(html);
           const actorBehavior = _mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
           const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+          const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
           let chatBehavior = {
             content: `
             <div><h1>${selectedToken.name}</h1></div>
             <div><b>Theme:</b> ${actorBehavior.theme ? actorBehavior.theme : '-'}</div>
-            <div><b>Identity:</b> ${actorBehavior.identity ? actorBehavior.identity : '-'} (${actorBehavior.identityActive ? actorBehavior.identityMod : 'inactive'})</div>
-            <div><b>Personality:</b> ${actorBehavior.personality ? actorBehavior.personality : '-'} (${actorBehavior.personalityActive ? actorBehavior.personalityMod : 'inactive'})</div>
-            <div><b>Activity:</b> ${actorBehavior.activity ? actorBehavior.activity : '-'} (${actorBehavior.activityActive ? actorBehavior.activityMod : 'inactive'})</div>
-            <div><b>Disposition:</b> ${actorBehavior.dispositionRank ? actorBehavior.dispositionRank : '-'} [${actorBehavior.dispositionValue}]</div>
+            <div><b>Identity:</b> ${actorBehavior.identity ? actorBehavior.identity : '-'} ${actorBehavior.identityActive ? (actorBehavior.identityMod > 0 ? '(+2)' : (actorBehavior.identityMod === 0 ? '(+0)' : '(-2)')) : '(inactive)'}</div>
+            <div><b>Personality:</b> ${actorBehavior.personality ? actorBehavior.personality : '-'} ${actorBehavior.personalityActive ? (actorBehavior.personalityMod > 0 ? '(+2)' : (actorBehavior.personalityMod === 0 ? '(+0)' : '(-2)')) : '(inactive)'}</div>
+            <div><b>Activity:</b> ${actorBehavior.activity ? actorBehavior.activity : '-'} ${actorBehavior.activityActive ? (actorBehavior.activityMod > 0 ? '(+2)' : (actorBehavior.activityMod === 0 ? '(+0)' : '(-2)')) : '(inactive)'}</div>
+            <div><b>Disposition:</b> ${actorBehavior.dispositionRank ? actorBehavior.dispositionRank : '-'}${debug ? ' [' + actorBehavior.dispositionValue + ']' : ''}</div>
             `,
             whisper: whisper
           };
-          ChatMessage.create(chatBehavior);
+          _mgeCreateChatAndLog(chatBehavior);
         }
       }
     },
@@ -1563,23 +1653,23 @@ function _mgeStatisticsEntryAdd(html) {
 function mgeStatisticCheck() {
   const statisticDialog = `
       <form>
-      
+
       <div>
       <label for="statisticTarget">Statistic Target:</label>
       <input name="statisticTarget" id="mgme_statistic_target" style="margin-bottom:10px;width:285px;" placeholder="Target"/>
       </div>
-      
+
       <div id="mgme_stats_container"></div>
       <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="_mgeStatisticsEntryAdd(this.parentElement.parentElement)"> Add</i></div>
-      
+
       <div>
         <span title="Important" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
         <label for="isImportant">Is important:</label>
         <input name="isImportant" id="mgme_statistic_important" type="checkbox" style="vertical-align:middle">
       </div>
-        
+
       </div>
-      
+
       <style>
         i:hover {
             text-shadow: 0 0 8px red;
@@ -1588,7 +1678,7 @@ function mgeStatisticCheck() {
             visibility: hidden;
         }
       </style>
-      
+
       </form>
       `
   const tokenName = canvas.tokens.controlled[0]?.name;
@@ -1675,7 +1765,7 @@ function mgeStatisticCheck() {
             `
           }
           game.user.setFlag('mythic-gme-tools', 'mgeLastStatistics', persistedStats)
-          ChatMessage.create(statisticChat);
+          _mgeCreateChatAndLog(statisticChat);
         }
       }
     },

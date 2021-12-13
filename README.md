@@ -50,7 +50,7 @@ All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and 
 * Saves progress for Chaos Level, Behavior Disposition, Statistic Checks
 * Customize all Roll Tables and the Macros will automatically use them!
 * Built-in Support for **Dice so Nice!** taking 3D dice to a flavor-narrative oriented experience
-* All Actions translate into the chat for keeping a log and **history of your game**
+* All Actions translate into the chat for keeping a **history of your game**. This may also be exported to a Journal.
 
 ![](example-mythic-tools.png)
 
@@ -90,15 +90,16 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 ### The mighty chat
 
-Every Macro and Roll Table available in the Mythic GME Tools produce a flavor-centered, self-explanatory chat message.
-
-Rolling dice with Dice so Nice! module enabled will flavor and slowly produce results as the 3D dice give away their outcomes.
+* Every Mythic check in Mythic GME Tools produces a flavored, self-explanatory chat message.
+* A setting **Automatic Adventure Logging** (default: disabled) exports all oracle checks **to a journal entry**.
+* A macro **Export Chat to Journal** allows dumping the current chat into a Journal Entry with a single click.
+* Rolling dice with Dice so Nice! module enabled will flavor and slowly produce results as the 3D dice give away their outcomes.
 
 This will help keep track of your emulator's guidance and your game!
 
-Please note that no instructions or game rules are included, meaning the books are needed for a player to make sense out of the information provided.
+![img.png](mighty-chat.png) 
 
-![img.png](mighty-chat.png)
+![img.png](chat-export.png)
 
 ### Customizing your playstyle
 
