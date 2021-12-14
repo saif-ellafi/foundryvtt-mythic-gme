@@ -67,6 +67,7 @@ speak on his behalf or even sometimes use its information for better flavor!
 * Scene Alteration: Checks if the proposed event is still valid. Rolls Random Events when appropriate.
 * Increase Chaos Rank
 * Decrease Chaos Rank
+* Check Chaos Rank
 
 ![img.png](blue-book-macros.png)
 
@@ -87,6 +88,11 @@ speak on his behalf or even sometimes use its information for better flavor!
 * Statistic Check - Advanced: This Macro stores the last used Attributes in your game!
 
 ![img.png](green-book-macros.png)
+
+#### Special Macros
+* Oracle Builder - Create your own Oracles with Random Tables, supporting multiple draw per tables and flavor dialogues
+![Oracle Buuilder](oracle-builder.png)
+* Formatted Message - Send message to the chat with flavor, color and style
 
 ### The mighty chat
 
