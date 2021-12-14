@@ -1,5 +1,5 @@
 ### 2.2.0
-* Feature: New Macro "Oracle Builder" let's you create your own Oracles using random tables and flavor!
+* Feature: New Macro "Oracle Builder" lets you create your own Oracles using random tables and flavor! (Thank you klaas1979 for the discussion ideas!)
 
 ### 2.1.0
 * Feature: New Macro "Export Chat to Journal" allows dumping current chat to a Journal Entry

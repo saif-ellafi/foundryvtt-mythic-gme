@@ -19,6 +19,7 @@ Below you can find detailed instructions and features for how to play and use th
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
       2. [Variations 1 Orange Book](#variations-1-orange-book)
       3. [Variations 2 Green Book](#variations-2-green-book)
+      4. [Special Macros](#special-macros)
    3. [The Mighty Chat](#the-mighty-chat)
    4. [Customizing your playstyle](#customizing-your-playstyle)
    5. [Roll Tables](#roll-tables) 
@@ -90,9 +91,13 @@ speak on his behalf or even sometimes use its information for better flavor!
 ![img.png](green-book-macros.png)
 
 #### Special Macros
-* Oracle Builder - Create your own Oracles with Random Tables, supporting multiple draw per tables and flavor dialogues
-![Oracle Buuilder](oracle-builder.png)
+
+These Macros do not belong to Mythic but are crazy ideas that I had of functionalities that could help in the experience. Feedback welcome!
+
+* Oracle Builder - Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
+![Oracle Builder](oracle-builder.png)
 * Formatted Message - Send message to the chat with flavor, color and style
+![img.png](img.png)
 
 ### The mighty chat
 
