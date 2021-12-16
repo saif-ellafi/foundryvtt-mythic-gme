@@ -1,5 +1,6 @@
 ### 2.2.1
-* Fixed: Some decks of cards would not be found 
+* Fixed: Some decks of cards would not be found if not imported
+* Fixed: Typo in the SciFi MGA deck was corrected
 
 ### 2.2.0
 * Feature: New Macro "Oracle Builder" lets you create your own Oracles using random tables and flavor! (Thank you klaas1979 for the discussion ideas!)
