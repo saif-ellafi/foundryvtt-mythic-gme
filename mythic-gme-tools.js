@@ -87,8 +87,9 @@ function _mgeEnsureV2Chaos(windowTitle, macroCallback) {
 async function _mgeGetAllPacks() {
   const packsCore = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
   const packsV1 = await game.packs.get('mythic-gme-tools.mythic-gme-v1-tables').getDocuments();
-  const packsV2 = await game.packs.get('mythic-gme-tools.mythic-gme-v2-tables').getDocuments()
-  return packsCore.concat(packsV1).concat(packsV2)
+  const packsV2 = await game.packs.get('mythic-gme-tools.mythic-gme-v2-tables').getDocuments();
+  const packsDecks = await game.packs.get('mythic-gme-tools.mythic-decks-tables').getDocuments();
+  return packsCore.concat(packsV1).concat(packsV2).concat(packsDecks);
 }
 
 async function _mgeSimulateRoll(targetRoll) {

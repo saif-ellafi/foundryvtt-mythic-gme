@@ -1,3 +1,6 @@
+### 2.2.1
+* Fixed: Some decks of cards would not be found 
+
 ### 2.2.0
 * Feature: New Macro "Oracle Builder" lets you create your own Oracles using random tables and flavor! (Thank you klaas1979 for the discussion ideas!)
 
