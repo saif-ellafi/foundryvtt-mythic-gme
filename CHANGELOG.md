@@ -1,5 +1,5 @@
 ### 2.2.2
-* Enhancement: All chat messages have now consistent flavor subtitle
+* Fixed: All chat messages have now consistent flavor subtitle
 * Fixed: Missing 3D Dice rolls on various random event triggers
 * Fixed: Various formatting event chat messages were corrected
 * Fixed: Format consistency when exporting to Journal and logging automatically
