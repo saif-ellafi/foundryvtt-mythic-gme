@@ -113,28 +113,30 @@ async function _mgeCreateAutologJournal() {
   return journal;
 }
 
+function _mgeBuildLogChatHtml(baseChat) {
+  let content = '';
+  content += baseChat.data.speaker.alias ? `<h4 class="message-sender">
+    <em>${baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`}</em> - ${new Date(baseChat.data.timestamp).toTimeInputString()}
+  </h4>` : '';
+  content += baseChat.data.flavor ? `<span class="flavor-text">${baseChat.data.flavor}</span>` : '';
+  content += `<div class="message-content">${baseChat.data.content}</div>`;
+  content += '<hr style="border: 1px dashed black;">\n';
+  return content;
+}
+
 async function _mgeLogChatToJournal(chat) {
   if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
     const journal = await _mgeCreateAutologJournal();
-    let content = journal.data.content;
-    content += chat.data.speaker.alias ? `<div><b>${chat.data.speaker.alias}</b></div>` : '';
-    content += chat.data.flavor ? `<div>${chat.data.flavor}</div>` : '';
-    content += chat.data.content;
-    await journal.update({content: content + '<hr style="border: 1px dashed black;">'});
+    await journal.update({content: journal.data.content + _mgeBuildLogChatHtml(chat)});
   }
 }
 
-async function mgeExportChatToJournal() {
-  let content = '';
-  for (const chat of ui.chat.collection.contents) {
-    content += '<div><h4>';
-    content += chat.data.speaker.alias ? `<em>${chat.data.speaker.alias}</em>` : `<em>${game.user.name}</em>`;
-    content += ` - ${new Date(chat.data.timestamp).toTimeInputString()}</h4></div>`;
-    content += chat.data.flavor ? `<div>${chat.data.flavor}</div>` : '';
-    content += chat.data.content;
-    content += '<hr style="border: 1px dashed black;">';
-  }
-  JournalEntry.create({name: `Mythic Adventure Log ${new Date().toDateInputString()}`, content: content});
+function mgeExportChatToJournal() {
+  let entries = [];
+  ui.chat.collection.contents.forEach(chat => {
+    entries.push(_mgeBuildLogChatHtml(chat));
+  });
+  JournalEntry.create({name: `Mythic Adventure Log ${new Date().toDateInputString()}`, content: entries.join('\n')});
 }
 
 async function _mgeCreateChatAndLog(props) {
@@ -436,6 +438,7 @@ function mgeIncreaseChaos() {
   if (currentChaos < maxChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
     const chat = {
+      flavor: 'Chaos Shift',
       content: `<h3>Chaos Increased to ${currentChaos + 1}</h3>`,
       whisper: whisper
     };
@@ -443,6 +446,7 @@ function mgeIncreaseChaos() {
     _mgeCreateChatAndLog(chat);
   } else {
     let chat = {
+      flavor: 'Chaos Shift',
       content: `<h3>Chaos Maximum! (${currentChaos})</h3>`,
       whisper: whisper
     };
@@ -457,6 +461,7 @@ function mgeDecreaseChaos() {
   if (currentChaos > minChaos) {
     game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos - 1);
     let chat = {
+      flavor: 'Chaos Shift',
       content: `<h3>Chaos Decreased to ${currentChaos - 1}</h3>`,
       whisper: whisper
     };
@@ -464,6 +469,7 @@ function mgeDecreaseChaos() {
     _mgeCreateChatAndLog(chat);
   } else {
     let chat = {
+      flavor: 'Chaos Shift',
       content: `<h3>Chaos Minimum! (${currentChaos})</h3>`,
       whisper: whisper
     };
@@ -475,6 +481,7 @@ function mgeCheckChaos() {
   const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   let chat = {
+    flavor: 'Chaos Check',
     content: `<h3>Chaos Rank (${currentChaos})</h3>`,
     whisper: whisper
   };
@@ -645,7 +652,7 @@ function mgeFateChart() {
     }
   }
 
-  function generateOutput(odds, chaos, result) {
+  function generateOutput(question, odds, chaos, result) {
     const target = chart[odds][chaos];
     const ex_yes_bound = target * 0.2;
     const ex_no_bound = 100 - ((100 - target) * 0.2)
@@ -663,9 +670,10 @@ function mgeFateChart() {
     }
     const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
     return `
-  ${debug ? `<div><b>Roll:</b> ${result} at <em>${odds_id_map[odds]}</em> with Chaos Rank[${chaos}]</div>` : ''}
-  <b style="color: ${color}">${outcome}</b>
-  `
+    ${question ? `<h2>${question}</h2>` : ''}
+    ${debug ? `<div><b>Roll:</b> ${result} at <em>${odds_id_map[odds]}</em> with Chaos Rank[${chaos}]</div>` : ''}
+    <b style="color: ${color}">${outcome}</b>
+    `
   }
 
   let dialogue = new Dialog({
@@ -677,12 +685,11 @@ function mgeFateChart() {
         icon: '<i class="fas fa-comments"></i>',
         label: 'To Chat',
         callback: async (html) => {
-          const question = html.find("#mgme_question").val() === '' ? "Fate Chart Question" : `<h2><b>${html.find("#mgme_question").val()}</b></h2>`;
           const odds = html.find("#mgme_odds").val();
           const chaos = html.find("#mgme_chaos").val();
           const roll = new Roll(`1d100`);
           const result = roll.evaluate({async: false}).total;
-          let content = generateOutput(odds, chaos, result);
+          let content = generateOutput(html.find("#mgme_question").val(), odds, chaos, result);
           let doubles = false;
           if (result > 10 && result < 100) {
             const s = result.toString();
@@ -693,7 +700,7 @@ function mgeFateChart() {
             }
           }
           roll.toMessage({
-            flavor: question,
+            flavor: 'Fate Chart Question',
             content: content,
             speaker: ChatMessage.getSpeaker()
           }).then(chat => _mgeLogChatToJournal(chat));
@@ -816,7 +823,6 @@ function mgeFateCheck() {
         icon: '<i class="fas fa-comments"></i>',
         label: 'To Chat',
         callback: async (html) => {
-          const question = html.find("#mgme_v2_question").val() === '' ? "Fate Chart Question" : `<h2><b>${html.find("#mgme_v2_question").val()}</b></h2>`;
           const odds = html.find("#mgme_v2_odds").val();
           const chaosFactor = html.find("#mgme_chaos").val();
           const yesFavorable = html.find("#mgme_v2_yesfav").prop('checked');
@@ -828,11 +834,12 @@ function mgeFateCheck() {
           let output = generateOutput(oddsMap[odds].mod, chaosFactor, yesFavorable, fateResult, fateLeft, fateRight, chaosResult);
           const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
           const content = `
+          ${html.find("#mgme_v2_question").val() ? `<h2>${html.find("#mgme_v2_question").val()}</h2>` : ''}
           ${debug ? `<div><b>Roll:</b> ${fateLeft}+${fateRight} (${chaosResult}) at <em>${oddsMap[odds].label}</em> with Chaos[${chaosFactor}]</div>` : ''}
           <b style="color: ${output.outcomeColor}">${output.outcomeText}</b>
           `;
           roll.toMessage({
-            flavor: question,
+            flavor: "Fate Check Question",
             content: content,
             speaker: ChatMessage.getSpeaker()
           }).then(chat => _mgeLogChatToJournal(chat));
@@ -901,7 +908,7 @@ async function _mgeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2) {
   };
 }
 
-async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tableSetting1, tableSetting2, baseChat) {
+async function _mgeSubmitOracleQuestion(eventTitle, eventFlavor, useSpeaker, eventFocus, tableSetting1, tableSetting2, baseChat) {
   const randomAnswers = await _mgeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2);
   let chatMessage;
   if (baseChat) {
@@ -909,6 +916,7 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
   } else {
     const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
     let chatConfig = {
+      flavor: eventFlavor,
       content: eventTitle,
       speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
       whisper: whisper
@@ -922,12 +930,15 @@ async function _mgeSubmitOracleQuestion(eventTitle, useSpeaker, eventFocus, tabl
   }
   const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
   if (randomAnswers.focusResult !== '_') {// Special exception for non-focus based oracle questions
-    const focusDebug = debug ? `(${(await _mgeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*'})` : '';
+    const focusRoll = (await _mgeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*';
+    const focusDebug = debug ? `(${focusRoll})` : '';
     await _mgeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b>${focusDebug}</div>`);
   }
-  const desc1debug = debug ? ` (${(await _mgeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total})</div>` : '';
+  const desc1roll = (await _mgeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total;
+  const desc1debug = debug ? ` (${desc1roll})</div>` : '';
   await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result}${desc1debug}`);
-  const desc2debug = debug ? ` (${(await _mgeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total})` : '';
+  const desc2roll = (await _mgeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total;
+  const desc2debug = debug ? ` (${desc2roll})` : '';
   await _mgeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result}${desc2debug}</div>`);
   _mgeLogChatToJournal(chatMessage);
   if (game.dice3d && oldHide) {
@@ -978,7 +989,8 @@ async function _mgePrepareOracleQuestion(questionProps, baseChat) {
             const focusValue = $("#mgme_re_efocus");
             const eventFocus = focusValue.val() === 'Random' ? undefined : (focusValue.val() ?? '_');
             _mgeSubmitOracleQuestion(
-              text.length ? `<h2>${text}</h2>` : `<h2>${questionProps.label}</h2>`,
+              text.length ? `<h2>${text}</h2>` : '',
+              questionProps.label,
               true,
               eventFocus,
               questionProps.tableSetting1,
@@ -994,6 +1006,7 @@ async function _mgePrepareOracleQuestion(questionProps, baseChat) {
   } else {
     await _mgeSubmitOracleQuestion(
       questionProps.purpose,
+      questionProps.label,
       false,
       questionProps.focusValue,
       questionProps.tableSetting1,
@@ -1029,6 +1042,7 @@ function mgeSceneAlteration() {
           if (result <= chaos) {
             if (result % 2 === 0) {
               roll.toMessage({
+                flavor: 'Scene Alteration',
                 content: `<b style="color: darkred">Scene was interrupted!</b>${debug ? ' ('+result+')' : ''}`
               });
               if (game.dice3d)
@@ -1037,11 +1051,13 @@ function mgeSceneAlteration() {
                 await _mgePrepareOracleQuestion(MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT);
             } else {
               return roll.toMessage({
+                flavor: 'Scene Alteration',
                 content: `<b style="color: darkred">Scene was altered!</b>${debug ? ' ('+result+')' : ''}`
               }).then(chat => {_mgeLogChatToJournal(chat);return chat});
             }
           } else {
             return roll.toMessage({
+              flavor: 'Scene Alteration Check',
               content: `<b style="color: darkgreen">Scene Proceeds Normally!</b>${debug ? ' ('+result+')' : ''}`
             }).then(chat => {_mgeLogChatToJournal(chat);return chat});
           }
@@ -1268,10 +1284,11 @@ async function mgeDetailCheck() {
           const detailCheckResult = (await detailCheckTable.draw({roll: detailCheckRoll, displayChat: false})).results[0].getChatText();
           const includeDescription = html.find("#mgme_v2_include_desc_detail").prop('checked');
           const includeAction = html.find("#mgme_v2_include_act_detail").prop('checked');
-          let content = html.find("#mgme_v2_detail_check").val() === '' ? 'Detail Check' : `<h1>${html.find("#mgme_v2_detail_check").val()}</h1>`
+          let content = html.find("#mgme_v2_detail_check").val() === '' ? '' : `<h1>${html.find("#mgme_v2_detail_check").val()}</h1>`
           if (!includeDescription && !includeAction)
             content += `<div><h2>${detailCheckResult}</h2></div>`;
           let chatConfig = {
+            flavor: 'Detail Check' + (includeAction ? ' (Action)' : '') + (includeDescription ? ' (Description)' : ''),
             content: content,
             speaker: speaker,
             whisper: whisper
@@ -1358,7 +1375,8 @@ async function mgeBackstoryGenerator() {
           while (i < eventsCount) {
             const backstoryFocus = (await backstoryFocusTable.roll()).results[0].getChatText();
             await _mgeSubmitOracleQuestion(
-              `<h2>${backstoryLabels[i] ?? i+1} Backstory Event</h2>`,
+              `${speaker.alias === 'Gamemaster' ? '' : `<h2>${speaker.alias} - Backstory</h2>`}`,
+              `${eventsCount === 1 ? 'Backstory Event' : (backstoryLabels[i] ?? i+1) + ' Backstory Event'}`,
               false,
               backstoryFocus,
               'actionTable',
@@ -1512,20 +1530,24 @@ async function _mgeBehaviorAction(actor, behavior) {
     return;
   const dispositionMod = _mgeParseNumberFromText(behavior.dispositionRank);
   const tableOne = await _mgeFindTableByName('Mythic GME: NPC Action 1');
-  const tableOneResult = (await tableOne.draw({displayChat: false})).results[0].getChatText();
+  const tableOneDraw = await tableOne.draw({displayChat: false});
+  const tableOneResult = tableOneDraw.results[0].getChatText();
+  await _mgeSimulateRoll(tableOneDraw.roll);
   const tableOneMod = _mgeParseNumberFromText(tableOneResult);
   const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
   // This is tricky, NPC action does NOT shift disposition
   if (tableOneResult.includes('NPC Action')) {
     const tableTwo = await _mgeFindTableByName('Mythic GME: NPC Action 2');
-    const tableTwoResult = (await tableTwo.draw({roll: new Roll(`2d10 + ${dispositionMod} + ${tableOneMod}`), displayChat: false})).results[0].getChatText();
+    const tableTwoDraw = await tableTwo.draw({roll: new Roll(`2d10 + ${dispositionMod} + ${tableOneMod}`), displayChat: false});
+    const tableTwoResult = tableTwoDraw.results[0].getChatText();
+    await _mgeSimulateRoll(tableTwoDraw.roll);
     const messageContent = `
     <div><h1>${actor.name}</h1></div>
     <div>With disposition: ${behavior.dispositionRank}</div>
     <div>Performs an <b>unexpected ${tableOneResult}</b></div>
     <div><b>${tableTwoResult}</b></div>
     `
-    _mgeCreateChatAndLog({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+    _mgeCreateChatAndLog({flavor: 'Behavior Unexpected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
   } else {
     await _mgeAdjustDisposition(tableOneMod, actor);
     const messageContent = `
@@ -1534,7 +1556,7 @@ async function _mgeBehaviorAction(actor, behavior) {
     <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : 'No changes in disposition'}</div>
     <div>Performs an expected <b>${tableOneResult}</b></div>
     `
-    _mgeCreateChatAndLog({content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+    _mgeCreateChatAndLog({flavor: 'Behavior Expected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
   }
 }
 
@@ -1650,6 +1672,7 @@ function mgeBehaviorCheck() {
           const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
           const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
           let chatBehavior = {
+            flavor: 'Behavior Check',
             content: `
             <div><h1>${selectedToken.name}</h1></div>
             <div><b>Theme:</b> ${actorBehavior.theme ? actorBehavior.theme : '-'}</div>
@@ -1752,8 +1775,9 @@ function mgeStatisticCheck() {
           const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
           const isImportant = html.find("#mgme_statistic_important").prop('checked');
           let statisticChat = {
+            flavor: 'Statistic Check',
             content: `
-            <h1>${tokenName ?? 'Statistic Check'}</h1>
+            ${tokenName ? `<h1>${tokenName}</h1>` : ''}
             <div><b style="color:darkred">${isImportant ? 'IMPORTANT' : ''}</b></div>
             `,
             whisper: whisper,
@@ -1778,7 +1802,9 @@ function mgeStatisticCheck() {
             const modText = html.find(`#mgme_statistic_mod_${i} option:selected`).text();
             const statTable = await _mgeFindTableByName('Mythic GME: Statistic Check');
             const targetRoll = new Roll(`2d10 + ${mod} + ${isImportant ? 2 : 0}`);
-            const statResult = (await statTable.draw({roll: targetRoll, displayChat: false})).results[0].getChatText();
+            const statDraw = await statTable.draw({roll: targetRoll, displayChat: false});
+            const statResult = statDraw.results[0].getChatText();
+            await _mgeSimulateRoll(statDraw.roll);
             // In most RPGs this stat calculation is probably off on the default table (+100%) - But leaving in case players override table
             const statMultiplier = (_mgeParseNumberFromText(statResult)/100)+1;
             const statFinal = baselineValue * statMultiplier;

@@ -1,3 +1,9 @@
+### 2.2.2
+* Enhancement: All chat messages have now consistent flavor subtitle
+* Fixed: Missing 3D Dice rolls on various random event triggers
+* Fixed: Various formatting event chat messages were corrected
+* Fixed: Format consistency when exporting to Journal and logging automatically
+
 ### 2.2.1
 * Fixed: Some decks of cards would not be found if not imported
 * Fixed: Typo in the SciFi MGA deck was corrected
