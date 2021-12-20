@@ -98,6 +98,7 @@ These Macros do not belong to Mythic but are crazy ideas that I had of functiona
 ![Oracle Builder](oracle-builder.png)
 * Formatted Message - Send message to the chat with flavor, color and style
 ![img.png](img.png)
+* Export current Chat to Journal - Either for backup or for history tracking
 
 ### The mighty chat
 
@@ -132,10 +133,11 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
 
 ### Configurable Settings
 * Minimum and Maximum Chaos Rank is configurable
-* Customizable Chaos Level range
 * Custom color for Chaos Die in Variations #2
 * Optional setting rules from Variations #1 and #2
-* Define your own default tables for Subject, Adverb and Adjective tables
+* Globally select Focus, subject, action and descriptor tables for all Macros (i.e. for a Variations #1 Theme)
+* Automatic logging into Journal Entries
+* Configure different levels of speed and tension when interacting with 3D Dice (Dice so Nice!)
 
 ### Card Decks
 
