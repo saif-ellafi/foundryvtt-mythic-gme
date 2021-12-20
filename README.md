@@ -26,9 +26,10 @@ Below you can find detailed instructions and features for how to play and use th
    6. [Saved Progress](#saved-progress)
    7. [Configurable Settings](#configurable-settings)
    8. [Card Decks](#card-decks)
-3. [Author](#author)
-4. [My other modules](#my-other-modules)
-5. [License](#license)
+3. [Recommended Optional Modules](#recommended-optional-modules)
+4. [Author](#author)
+5. [My other modules](#my-other-modules)
+6. [License](#license)
 
 ## Word Mill Games
 
@@ -173,6 +174,20 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
     7. Import mythic deck Macros for your preset game (or use these as guidance)
     8. If everything works, you can delete the zip file from there. It is not needed.
 5. Say thanks if you like this :)
+
+## Recommended Optional Modules
+This is an opinionated list of other Foundry VTT modules that may improve your experience and play well together with Mythic GME Tools and Solo in General
+
+* [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice) - Adds 3D Dice. Mythic GME Tools makes use of them improving the dice rolling experience
+* [DF Chat Enhancements](https://foundryvtt.com/packages/df-chat-enhance) - Expands chat features, including message editing and chart archiving
+* [Drag Anything to Hotbar](https://foundryvtt.com/packages/drag-all-to-hotbar) - Drag & Drop characters, journal entries and roll tables, to have handy
+* [Monk's Hotbar Expansion](https://foundryvtt.com/packages/monks-hotbar-expansion) - With Mythic GME Tools, you will run out of Macros. This helps.
+* [PDFoundry](https://foundryvtt.com/packages/pdfoundry) - Not only it enables PDF journal entries, but also works with form-fillable PDFs!
+* [Quick Insert](https://foundryvtt.com/packages/quick-insert) - Find things quickly and insert them in the chat or in a journal as a link
+* [Terrain Randomizer](https://foundryvtt.com/packages/terrain-randomizer) - If you are into Solo tools in general, this one is for generating area layouts
+* [Dice Tray](https://foundryvtt.com/packages/dice-calculator) - For quick dice rolling, adds above the chat a bar of multiple dice types, handy.
+* [Window Controls](https://foundryvtt.com/packages/window-controls) - Pin and minimize windows, will help organizing all those open journal entries
+* [EasyTable](https://foundryvtt.com/packages/EasyTable) - If you have random tables in text format or got Regex skills, quickly load random tables into Foundry
 
 ## Author
 
