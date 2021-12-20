@@ -179,7 +179,7 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
 This is an opinionated list of other Foundry VTT modules that may improve your experience and play well together with Mythic GME Tools and Solo in General
 
 * [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice) - Adds 3D Dice. Mythic GME Tools makes use of them improving the dice rolling experience
-* [DF Chat Enhancements](https://foundryvtt.com/packages/df-chat-enhance) - Expands chat features, including message editing and chart archiving
+* [DF Chat Enhancements](https://foundryvtt.com/packages/df-chat-enhance) - Expands chat features, including message editing and chat archiving
 * [Drag Anything to Hotbar](https://foundryvtt.com/packages/drag-all-to-hotbar) - Drag & Drop characters, journal entries and roll tables, to have handy
 * [Monk's Hotbar Expansion](https://foundryvtt.com/packages/monks-hotbar-expansion) - With Mythic GME Tools, you will run out of Macros. This helps.
 * [PDFoundry](https://foundryvtt.com/packages/pdfoundry) - Not only it enables PDF journal entries, but also works with form-fillable PDFs!
