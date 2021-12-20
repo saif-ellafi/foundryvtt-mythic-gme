@@ -113,11 +113,13 @@ async function _mgeCreateAutologJournal() {
   return journal;
 }
 
-function _mgeBuildLogChatHtml(baseChat) {
+function _mgeBuildLogChatHtml(baseChat, includeAuthor) {
   let content = '';
-  content += baseChat.data.speaker.alias ? `<h4 class="message-sender">
-    <em>${baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`}</em> - ${new Date(baseChat.data.timestamp).toTimeInputString()}
-  </h4>` : '';
+  if (includeAuthor) {
+    content += baseChat.data.speaker.alias ? `<h4 class="message-sender">
+        <em>${baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`}</em> - ${new Date(baseChat.data.timestamp).toTimeInputString()}
+      </h4>` : '';
+  }
   content += baseChat.data.flavor ? `<span class="flavor-text">${baseChat.data.flavor}</span>` : '';
   content += `<div class="message-content">${baseChat.data.content}</div>`;
   content += '<hr style="border: 1px dashed black;">\n';
@@ -127,16 +129,61 @@ function _mgeBuildLogChatHtml(baseChat) {
 async function _mgeLogChatToJournal(chat) {
   if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
     const journal = await _mgeCreateAutologJournal();
-    await journal.update({content: journal.data.content + _mgeBuildLogChatHtml(chat)});
+    await journal.update({content: journal.data.content + _mgeBuildLogChatHtml(chat, true)});
   }
 }
 
 function mgeExportChatToJournal() {
-  let entries = [];
-  ui.chat.collection.contents.forEach(chat => {
-    entries.push(_mgeBuildLogChatHtml(chat));
-  });
-  JournalEntry.create({name: `Mythic Adventure Log ${new Date().toDateInputString()}`, content: entries.join('\n')});
+  const defaultJournalName = `Mythic Adventure Log ${new Date().toDateInputString()}`;
+  const exportDialog = `
+      <form>
+      <div>
+      <label for="journalName" style="vertical-align:super;">Journal Entry Name (Append if exists)</label>
+      <input name="journalName" type="text" id="mgme_export_journal_name" placeholder="${defaultJournalName}">
+      </div>
+      <div>
+      <label for="includeAuthorTimestamp" style="vertical-align:super;">Include Author and Timestamp</label>
+      <input checked name="includeAuthorTimestamp" type="checkbox" id="mgme_export_include_meta">
+      </div>
+      <div>
+      <label for="clearChatAfterExport" style="vertical-align:super;">Clear Chat after Export</label>
+      <input name="clearChatAfterExport" type="checkbox" id="mgme_export_clear_chat">
+      </div>
+      </form>
+    `
+  let dialogue = new Dialog({
+    title: 'Export all Chat to Journal',
+    content: exportDialog,
+    buttons: {
+      submit: {
+        icon: '<i class="fas fa-comments"></i>',
+        label: 'Export',
+        callback: (html) => {
+          const journalName = html.find("#mgme_export_journal_name").val();
+          const includeAuthor = html.find("#mgme_export_include_meta").prop('checked');
+          const clearChat = html.find("#mgme_export_clear_chat").prop('checked');
+          let entries = [];
+          ui.chat.collection.contents.forEach(chat => {
+            entries.push(_mgeBuildLogChatHtml(chat, includeAuthor));
+          });
+          const targetJournal = game.journal.contents.find(j => j.name === journalName);
+          let journalCreation;
+          if (journalName.length && targetJournal) {
+            journalCreation = targetJournal.update({content: targetJournal.data.content + '\n' + entries.join('\n')});
+          } else {
+            journalCreation = JournalEntry.create({
+              name: `${journalName.length ? journalName : defaultJournalName}`,
+              content: entries.join('\n')
+            });
+          }
+          if (clearChat)
+            journalCreation.then(() => game.messages.flush());
+        }
+      }
+    },
+    default: "submit"
+  })
+  dialogue.render(true)
 }
 
 async function _mgeCreateChatAndLog(props) {
@@ -748,8 +795,8 @@ function mgeFateCheck() {
     <label for="question">Question (optional):</label>
     <input name="question" id="mgme_v2_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask the Oracle..."/>
     <div style="margin-bottom: 5px">
-    <input name="yesfav" type="checkbox" id="mgme_v2_yesfav">
     <label for="yesfav" style="vertical-align:super;">Yes is a favorable answer</label>
+    <input name="yesfav" type="checkbox" id="mgme_v2_yesfav">
     </div>
     </form>
     `
@@ -1577,9 +1624,9 @@ function mgeBehaviorCheck() {
 
     <div>
     <label for="behaviorIdentity">Identity:</label>
-    <input name="behaviorIdentity" id="mgme_behavior_identity" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:18px;" required placeholder="Descriptor">
+    <input name="behaviorIdentity" id="mgme_behavior_identity" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:20px;" required placeholder="Descriptor">
     <label for="behaviorIdentityMod">Mod:</label>
-    <select name="behaviorIdentityMod" id="mgme_behavior_identity_mod" style="margin-bottom:10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    <select name="behaviorIdentityMod" id="mgme_behavior_identity_mod" style="margin-bottom:10px;width:50px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
       <option value="-2">-2</option>
       <option value="0" selected>0</option>
       <option value="2">+2</option>
@@ -1592,7 +1639,7 @@ function mgeBehaviorCheck() {
     <input name="behaviorPersonality" id="mgme_behavior_personality" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px" placeholder="Descriptor">
     <i style="width:auto;height:25px;" class="fas fa-dice" onclick="_mgeFillRandomBehavior('#mgme_behavior_personality')"></i>
     <label for="behaviorPersonalityMod">Mod:</label>
-    <select name="behaviorPersonalityMod" id="mgme_behavior_personality_mod" style="margin-bottom:10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    <select name="behaviorPersonalityMod" id="mgme_behavior_personality_mod" style="margin-bottom:10px;width:50px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
       <option value="-2">-2</option>
       <option value="0" selected>0</option>
       <option value="2">+2</option>
@@ -1605,7 +1652,7 @@ function mgeBehaviorCheck() {
     <input name="behaviorActivity" id="mgme_behavior_activity" onchange="_mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;" placeholder="Descriptor">
     <i style="width:auto;height:25px;" class="fas fa-dice" onclick="_mgeFillRandomActivity('#mgme_behavior_activity')"></i>
     <label for="behaviorActivityMod">Mod:</label>
-    <select name="behaviorActivityMod" id="mgme_behavior_activity_mod" style="margin-bottom: 10px;width:45px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    <select name="behaviorActivityMod" id="mgme_behavior_activity_mod" style="margin-bottom: 10px;width:50px" onchange="_mgeFillRefreshDisposition(this.parentElement.parentElement)">
       <option value="-2">-2</option>
       <option value="0" selected>0</option>
       <option value="2">+2</option>
@@ -1615,7 +1662,7 @@ function mgeBehaviorCheck() {
 
     <div>
     <label style="color:darkred;" for="behaviorDisposition">Disposition:</label>
-    <input disabled name="behaviorDisposition" id="mgme_behavior_disposition" style="margin-bottom: 10px;width:148px">
+    <input disabled name="behaviorDisposition" id="mgme_behavior_disposition" style="margin-bottom: 10px;width:205px">
     <input disabled type="number" name="behaviorDispositionValue" id="mgme_behavior_disposition_value" style="margin-bottom: 10px;width:20px;height:17px">
     <i style="width:auto;height:25px;margin-right:10px;color:darkred" class="fas fa-dice" onclick="_mgeFillRandomDisposition(this.parentElement.parentElement)"></i>
     <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-arrow-up" onclick="_mgeFillAdjustedDisposition(this.parentElement.parentElement, 2)"></i>

@@ -1,3 +1,7 @@
+### 2.2.3
+* Enhancement: Export chat to Journal now offers customization options
+* Fixed: Styling in Behavior Check macros
+
 ### 2.2.2
 * Fixed: All chat messages have now consistent flavor subtitle
 * Fixed: Missing 3D Dice rolls on various random event triggers
