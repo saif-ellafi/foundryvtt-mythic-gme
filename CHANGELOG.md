@@ -1,3 +1,7 @@
+### 2.2.5
+* Bugfix: Fixed broken macros when using 3D Dice in release 2.2.4 (Sorry!)
+* Bugfix: Oracle Builder macro flavor dialogs now show an appropriate properties
+
 ### 2.2.4
 * Feature: New setting "Enable Sidebar Resize" allows for wider thicker Chat sidebars
 

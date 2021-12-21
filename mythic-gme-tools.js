@@ -330,28 +330,6 @@ Hooks.once('init', async () => {
 
   const debouncedReload = debounce(() => window.location.reload(), 100);
 
-  const dieColors = {
-    'red': 'Red',
-    'green': 'Green',
-    'blue': 'Blue',
-    'purple': 'Purple',
-    'black': 'Black',
-    'acid': 'Acid',
-    'air': 'Air',
-    'cold': 'Cold',
-    'earth': 'Earth',
-    'fire': 'Fire',
-    'force': 'Force',
-    'ice': 'Ice',
-    'lightning': 'Lightning',
-    'necrotic': 'Necrotic',
-    'poison': 'Poison',
-    'psychic': 'Psychic',
-    'radiant': 'Radiant',
-    'thunder': 'Thunder',
-    'water': 'Water'
-  }
-
   game.settings.register('mythic-gme-tools', 'currentChaos', {
     name: 'Chaos Rank',
     hint: 'Current Mythic GME Chaos Rank',
@@ -360,31 +338,6 @@ Hooks.once('init', async () => {
     type: Number,
     default: 5
   });
-
-  if (game.dice3d) {
-    game.settings.register('mythic-gme-tools', 'randomEvents3DDelay', {
-      name: 'Simulate Slow Dice Rolling',
-      hint: 'Rolls Mythic questions slowly, showing the answers as the dice roll. Set to 0 to disable. Larger numbers make it even slower',
-      scope: 'world',
-      config: true,
-      type: Number,
-      default: 1,
-      range: {
-        min: 0,
-        max: 10,
-        step: 1
-      }
-    });
-    game.settings.register('mythic-gme-tools', 'v2ChaosDieColor', {
-      name: 'Color for Chaos 3D Die',
-      hint: 'Customize the color of your Chaos Die (Dice so Nice!) for Variations #2 rolls',
-      scope: 'world',
-      config: true,
-      type: String,
-      default: 'cold',
-      choices: dieColors
-    });
-  }
 
   game.settings.register('mythic-gme-tools', 'doublesIgnoreChaos', {
     name: 'Double Ignores Chaos Factor',
@@ -486,24 +439,6 @@ Hooks.once('init', async () => {
     }
   });
 
-  game.settings.register("mythic-gme-tools", "deckPath", {
-    name: "Deck Path Location",
-    hint: "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
-    scope: "world",
-    config: true,
-    type: String,
-    default: "decks",
-    filePicker: 'folder'
-  });
-
-  if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
-    const folderName = "Mythic Journal";
-    const date = new Date().toDateInputString();
-    const journalName = 'Adventure Notes ' + date;
-    MGE_JOURNAL_LOG_PROPS = {name: journalName, folder: folderName};
-    _mgeCreateAutologJournal();
-  }
-
   if (!game.modules.get('vance-sidebar-resizer')?.active && game.settings.get('mythic-gme-tools', 'enableSidebarResize')) {
     _mgeEnableSidebarResize();
   }
@@ -513,6 +448,60 @@ Hooks.once('init', async () => {
 Hooks.once('ready', async function() {
 
   const tables = await _mgeGetAllMythicTables();
+
+  if (game.dice3d) {
+    const dieColors = {
+      'red': 'Red',
+      'green': 'Green',
+      'blue': 'Blue',
+      'purple': 'Purple',
+      'black': 'Black',
+      'acid': 'Acid',
+      'air': 'Air',
+      'cold': 'Cold',
+      'earth': 'Earth',
+      'fire': 'Fire',
+      'force': 'Force',
+      'ice': 'Ice',
+      'lightning': 'Lightning',
+      'necrotic': 'Necrotic',
+      'poison': 'Poison',
+      'psychic': 'Psychic',
+      'radiant': 'Radiant',
+      'thunder': 'Thunder',
+      'water': 'Water'
+    }
+    game.settings.register('mythic-gme-tools', 'randomEvents3DDelay', {
+      name: 'Simulate Slow Dice Rolling',
+      hint: 'Rolls Mythic questions slowly, showing the answers as the dice roll. Set to 0 to disable. Larger numbers make it even slower',
+      scope: 'world',
+      config: true,
+      type: Number,
+      default: 1,
+      range: {
+        min: 0,
+        max: 10,
+        step: 1
+      }
+    });
+    game.settings.register('mythic-gme-tools', 'v2ChaosDieColor', {
+      name: 'Color for Chaos 3D Die',
+      hint: 'Customize the color of your Chaos Die (Dice so Nice!) for Variations #2 rolls',
+      scope: 'world',
+      config: true,
+      type: String,
+      default: 'cold',
+      choices: dieColors
+    });
+  }
+
+  if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
+    const folderName = "Mythic Journal";
+    const date = new Date().toDateInputString();
+    const journalName = 'Adventure Notes ' + date;
+    MGE_JOURNAL_LOG_PROPS = {name: journalName, folder: folderName};
+    _mgeCreateAutologJournal();
+  }
 
   game.settings.register('mythic-gme-tools', 'focusTable', {
     name: 'Focus Table',
@@ -562,6 +551,16 @@ Hooks.once('ready', async function() {
     type: String,
     choices: tables,
     default: "Mythic GME: Descriptions 2"
+  });
+
+  game.settings.register("mythic-gme-tools", "deckPath", {
+    name: "Deck Path Location",
+    hint: "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "decks",
+    filePicker: 'folder'
   });
 });
 
@@ -2087,13 +2086,13 @@ async function _mgePrepareCustomOracleQuestion(oracle) {
     const questionDialog = `
       <form>
         <div>
-        <label for="customQuestion">Question (optional):</label>
-        <input name="customQuestion" id="mgme_custom_oracle_question" style="margin-bottom:10px;width:220px" placeholder="Questions, Questions..."/>
+        <label for="customQuestion">Flavor:</label>
+        <input name="customQuestion" id="mgme_custom_oracle_question" style="margin-bottom:10px;width:220px"/>
         </div>
       </form>
     `
     let dialogue = new Dialog({
-      title: oracle.label,
+      title: oracle.name,
       content: questionDialog,
       render: (html) => html[0].getElementsByTagName("input").mgme_custom_oracle_question.focus(),
       buttons: {
