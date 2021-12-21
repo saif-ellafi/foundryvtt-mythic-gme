@@ -25,7 +25,7 @@ Below you can find detailed instructions and features for how to play and use th
    6. [Saved Progress](#saved-progress)
    7. [Configurable Settings](#configurable-settings)
    8. [Card Decks](#card-decks)
-3. [Recommended Optional Modules](#recommended-optional-modules)
+3. [Recommended Knowledge and Modules](#recommended-knowledge-and-modules)
 4. [Author](#author)
 5. [My other modules](#my-other-modules)
 6. [License](#license)
@@ -174,7 +174,32 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
     8. If everything works, you can delete the zip file from there. It is not needed.
 5. Say thanks if you like this :)
 
-## Recommended Optional Modules
+## Recommended Knowledge and Modules
+Playing without a GM, Solo or story telling in Foundry requires some practice. The following tips might boost your learning process.
+
+### Learn to use Foundry's Chat
+Try this on the chat:
+```
+Plot Point 1: [[1d100]]
+Plot Point 2: [[1d100]]
+<b>Plot Point 3:</b> [[1d100]]
+Plot Point 4: [[1d100]]
+Plot Point 5: [[1d100]]
+```
+The dice formula within double brackets on each side will roll for you the dice and print it alongside the rest of the text. With `Shift+Enter` you can insert new lines on the same chat dialogue. The `<b>text</b>` styling format will give you a **bold** text! Check out some other basic tags like `<em>...</em>` for italic format or `<h2>...</h2>` for subtitles. Check for more tags [here](https://www.w3schools.com/html/html_formatting.asp)
+
+### Install Inline Table Rolls module
+With `Inline Table Rolls` module, you can do the same of the above, but including drawing from random tables, look:
+```
+Plot Point 1: [[1d100]] - Theme: [[#Plotline Theme]]
+Plot Point 2: [[1d100]] - Theme: [[#Plotline Theme]]
+Plot Point 3: [[1d100]] - Theme: <b>[[#Plotline Theme]]</b>
+Plot Point 4: [[1d100]] - Theme: [[#Plotline Theme]]
+Plot Point 5: [[1d100]] - Theme: [[#Plotline Theme]]
+```
+
+### Other awesome companion modules
+
 This is an opinionated list of other Foundry VTT modules that may improve your experience and play well together with Mythic GME Tools and Solo in General
 
 * [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice) - Adds 3D Dice. Mythic GME Tools makes use of them improving the dice rolling experience
