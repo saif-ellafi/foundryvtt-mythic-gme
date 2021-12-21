@@ -104,7 +104,7 @@ These Macros do not belong to Mythic but are crazy ideas that I had of functiona
 
 * Every Mythic check in Mythic GME Tools produces a flavored, self-explanatory chat message.
 * A setting **Automatic Adventure Logging** (default: disabled) exports all oracle checks **to a journal entry**.
-* A setting **Enable Sidebar Resize** allows for wider right sidebar to get a Huge Fat Chat screen! Resize the sidebar with your mouse on the border
+* A setting **Enable Sidebar Resize** allows for wider right sidebar to get a Huge Fat Chat screen! Resize the sidebar with your mouse on the border. Inspired on now obsolete module `vance-sidebar-resizer`
 ![thick-chat.png](thick-chat.png)
 * A macro **Export Chat to Journal** allows dumping the current chat into a Journal Entry with a single click.
 * Rolling dice with Dice so Nice! module enabled will flavor and slowly produce results as the 3D dice give away their outcomes.
