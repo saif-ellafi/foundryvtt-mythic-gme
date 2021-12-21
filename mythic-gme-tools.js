@@ -261,9 +261,75 @@ async function _mgeGetAllMythicTables() {
     .map(e => [e.name, e.name]));
 }
 
-Hooks.once('ready', async () => {
+function _mgeAssignSidebarResizer(sidebar) {
+  let minSize = 300;
+  let mouseStart, startSize, newSize;
 
-  const tables = await _mgeGetAllMythicTables();
+  // Create a resizer handle
+  const resizer = document.createElement('div');
+  resizer.style.width = '6px';
+  resizer.style.height = '100%';
+  resizer.style.position = 'absolute';
+  resizer.style.left = '0';
+  resizer.style.top = '0';
+  resizer.style.cursor = 'col-resize';
+  sidebar.appendChild(resizer);
+
+  // Listen for mousedown on resizer
+  resizer.addEventListener('mousedown', startResize, false);
+
+  // React to user resizing
+  function startResize(e) {
+    mouseStart = e.clientX;
+    startSize = sidebar.offsetWidth;
+    window.addEventListener('mousemove', resize, false);
+    window.addEventListener('mouseup', stopResize, false);
+  }
+
+  // Perform the resize operation
+  function resize(e) {
+    newSize = Math.round(startSize + mouseStart - e.clientX);
+    if (newSize >= minSize) {
+      sidebar.setAttribute('style', `width: ${newSize}px`);
+    } else {
+      sidebar.setAttribute('style', `width: ${minSize}px$`);
+    }
+  }
+
+  // On mouseup remove listeners & save final size
+  function stopResize(e) {
+    game.user.setFlag('vance-sidebar-resizer', 'sidebar-init-size', sidebar.offsetWidth);
+    window.removeEventListener('mousemove', resize, false);
+    window.removeEventListener('mouseup', stopResize, false);
+  }
+}
+
+function _mgeEnableSidebarResize() {
+
+  Hooks.once('ready', function() {
+    // Setup vars
+    const sidebar = document.querySelector('#sidebar');
+    _mgeAssignSidebarResizer(sidebar);
+  });
+
+  // Restore sidebar size
+  Hooks.on('renderSidebarTab', function(targetTab) {
+    const lastSidebarSize = game.user.getFlag('vance-sidebar-resizer', 'sidebar-init-size');
+    if (targetTab.popOut) {
+      targetTab.setPosition({width: lastSidebarSize});
+      return;
+    } else {
+      if (Number.isInteger(+lastSidebarSize)) {
+        const sidebar = document.querySelector('#sidebar');
+        sidebar.setAttribute('style', `width: ${lastSidebarSize}px`);
+      }
+    }
+  });
+}
+
+Hooks.once('init', async () => {
+
+  const debouncedReload = debounce(() => window.location.reload(), 100);
 
   const dieColors = {
     'red': 'Red',
@@ -354,7 +420,21 @@ Hooks.once('ready', async () => {
     scope: 'world',
     config: true,
     type: Boolean,
-    default: false
+    default: false,
+    onChange: debouncedReload
+  });
+
+  game.settings.register('mythic-gme-tools', 'enableSidebarResize', {
+    name: 'Enable Sidebar Resize',
+    hint: 'Resize the Sidebar with your mouse for a larger chat',
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: true,
+    onChange: async function() {
+      await game.user.unsetFlag('vance-sidebar-resizer', 'sidebar-init-size');
+      debouncedReload();
+    }
   });
 
   game.settings.register('mythic-gme-tools', 'minChaos', {
@@ -407,6 +487,34 @@ Hooks.once('ready', async () => {
     }
   });
 
+  game.settings.register("mythic-gme-tools", "deckPath", {
+    name: "Deck Path Location",
+    hint: "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "decks",
+    filePicker: 'folder'
+  });
+
+  if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
+    const folderName = "Mythic Journal";
+    const date = new Date().toDateInputString();
+    const journalName = 'Adventure Notes ' + date;
+    MGE_JOURNAL_LOG_PROPS = {name: journalName, folder: folderName};
+    _mgeCreateAutologJournal();
+  }
+
+  if (game.settings.get('mythic-gme-tools', 'enableSidebarResize')) {
+    _mgeEnableSidebarResize();
+  }
+
+});
+
+Hooks.once('ready', async function() {
+
+  const tables = await _mgeGetAllMythicTables();
+
   game.settings.register('mythic-gme-tools', 'focusTable', {
     name: 'Focus Table',
     hint: 'Table to use for Random Event focus. Only table names starting with Mythic are listed.',
@@ -456,26 +564,6 @@ Hooks.once('ready', async () => {
     choices: tables,
     default: "Mythic GME: Descriptions 2"
   });
-
-  game.settings.register("mythic-gme-tools", "deckPath", {
-    name: "Deck Path Location",
-    hint: "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
-    scope: "world",
-    config: true,
-    type: String,
-    default: "decks",
-    filePicker: 'folder'
-  });
-
-
-  if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
-    const folderName = "Mythic Journal";
-    const date = new Date().toDateInputString();
-    const journalName = 'Adventure Notes ' + date;
-    MGE_JOURNAL_LOG_PROPS = {name: journalName, folder: folderName};
-    _mgeCreateAutologJournal();
-  }
-
 });
 
 function mgeIncreaseChaos() {

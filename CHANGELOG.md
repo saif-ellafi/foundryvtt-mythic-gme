@@ -1,3 +1,6 @@
+### 2.2.4
+* Feature: New setting "Enable Sidebar Resize" allows for wider thicker Chat sidebars
+
 ### 2.2.3
 * Enhancement: Export chat to Journal now offers customization options
 * Fixed: Styling in Behavior Check macros
