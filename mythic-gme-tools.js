@@ -298,7 +298,7 @@ function _mgeAssignSidebarResizer(sidebar) {
 
   // On mouseup remove listeners & save final size
   function stopResize(e) {
-    game.user.setFlag('vance-sidebar-resizer', 'sidebar-init-size', sidebar.offsetWidth);
+    game.user.setFlag('mythic-gme-tools', 'sidebar-init-size', sidebar.offsetWidth);
     window.removeEventListener('mousemove', resize, false);
     window.removeEventListener('mouseup', stopResize, false);
   }
@@ -314,7 +314,7 @@ function _mgeEnableSidebarResize() {
 
   // Restore sidebar size
   Hooks.on('renderSidebarTab', function(targetTab) {
-    const lastSidebarSize = game.user.getFlag('vance-sidebar-resizer', 'sidebar-init-size');
+    const lastSidebarSize = game.user.getFlag('mythic-gme-tools', 'sidebar-init-size');
     if (targetTab.popOut) {
       targetTab.setPosition({width: lastSidebarSize});
     } else {
@@ -429,9 +429,9 @@ Hooks.once('init', async () => {
     scope: 'world',
     config: true,
     type: Boolean,
-    default: true,
+    default: false,
     onChange: async function() {
-      await game.user.unsetFlag('vance-sidebar-resizer', 'sidebar-init-size');
+      await game.user.unsetFlag('mythic-gme-tools', 'sidebar-init-size');
       debouncedReload();
     }
   });

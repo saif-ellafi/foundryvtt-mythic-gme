@@ -97,21 +97,23 @@ These Macros do not belong to Mythic but are crazy ideas that I had of functiona
 * Oracle Builder - Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
 ![Oracle Builder](oracle-builder.png)
 * Formatted Message - Send message to the chat with flavor, color and style
-![img.png](img.png)
+![formatted-message.png](formatted-message.png)
 * Export current Chat to Journal - Either for backup or for history tracking
 
 ### The mighty chat
 
 * Every Mythic check in Mythic GME Tools produces a flavored, self-explanatory chat message.
 * A setting **Automatic Adventure Logging** (default: disabled) exports all oracle checks **to a journal entry**.
+* A setting **Enable Sidebar Resize** allows for wider right sidebar to get a Huge Fat Chat screen! Resize the sidebar with your mouse on the border
+![thick-chat.png](thick-chat.png)
 * A macro **Export Chat to Journal** allows dumping the current chat into a Journal Entry with a single click.
 * Rolling dice with Dice so Nice! module enabled will flavor and slowly produce results as the 3D dice give away their outcomes.
 
 This will help keep track of your emulator's guidance and your game!
 
-![img.png](mighty-chat.png) 
+![mighty-chat.png](mighty-chat.png) 
 
-![img.png](chat-export.png)
+![chat-export.png](chat-export.png)
 
 ### Customizing your playstyle
 
