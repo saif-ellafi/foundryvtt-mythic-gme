@@ -317,7 +317,6 @@ function _mgeEnableSidebarResize() {
     const lastSidebarSize = game.user.getFlag('vance-sidebar-resizer', 'sidebar-init-size');
     if (targetTab.popOut) {
       targetTab.setPosition({width: lastSidebarSize});
-      return;
     } else {
       if (Number.isInteger(+lastSidebarSize)) {
         const sidebar = document.querySelector('#sidebar');
@@ -505,7 +504,7 @@ Hooks.once('init', async () => {
     _mgeCreateAutologJournal();
   }
 
-  if (game.settings.get('mythic-gme-tools', 'enableSidebarResize')) {
+  if (!game.modules.get('vance-sidebar-resizer')?.active && game.settings.get('mythic-gme-tools', 'enableSidebarResize')) {
     _mgeEnableSidebarResize();
   }
 

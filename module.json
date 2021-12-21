@@ -6,11 +6,11 @@
     "JeansenVaars",
     "Tana Pigeon (Word Mill Games)"
   ],
-  "version": "2.2.3",
+  "version": "2.2.4",
   "minimumCoreVersion": "0.8.9",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
-  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.2.3/foundryvtt-mythic-gme_2.2.3.zip",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.2.4/foundryvtt-mythic-gme_2.2.4.zip",
   "compatibleCoreVersion": "9.236",
   "scripts": [
     "mythic-gme-tools.js"
