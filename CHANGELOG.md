@@ -1,3 +1,7 @@
+### 2.2.6
+* Bugfix: Fixed missing table description keys causing undefined
+* Bugfix: Adjusted variations 2 tables to not show dice rolls by default
+
 ### 2.2.5
 * Bugfix: Fixed broken macros when using 3D Dice in release 2.2.4 (Sorry!)
 * Bugfix: Oracle Builder macro flavor dialogs now show an appropriate properties

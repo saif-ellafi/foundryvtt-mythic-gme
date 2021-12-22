@@ -261,71 +261,6 @@ async function _mgeGetAllMythicTables() {
     .map(e => [e.name, e.name]));
 }
 
-function _mgeAssignSidebarResizer(sidebar) {
-  let minSize = 300;
-  let mouseStart, startSize, newSize;
-
-  // Create a resizer handle
-  const resizer = document.createElement('div');
-  resizer.style.width = '6px';
-  resizer.style.height = '100%';
-  resizer.style.position = 'absolute';
-  resizer.style.left = '0';
-  resizer.style.top = '0';
-  resizer.style.cursor = 'col-resize';
-  sidebar.appendChild(resizer);
-
-  // Listen for mousedown on resizer
-  resizer.addEventListener('mousedown', startResize, false);
-
-  // React to user resizing
-  function startResize(e) {
-    mouseStart = e.clientX;
-    startSize = sidebar.offsetWidth;
-    window.addEventListener('mousemove', resize, false);
-    window.addEventListener('mouseup', stopResize, false);
-  }
-
-  // Perform the resize operation
-  function resize(e) {
-    newSize = Math.round(startSize + mouseStart - e.clientX);
-    if (newSize >= minSize) {
-      sidebar.setAttribute('style', `width: ${newSize}px`);
-    } else {
-      sidebar.setAttribute('style', `width: ${minSize}px$`);
-    }
-  }
-
-  // On mouseup remove listeners & save final size
-  function stopResize(e) {
-    game.user.setFlag('mythic-gme-tools', 'sidebar-init-size', sidebar.offsetWidth);
-    window.removeEventListener('mousemove', resize, false);
-    window.removeEventListener('mouseup', stopResize, false);
-  }
-}
-
-function _mgeEnableSidebarResize() {
-
-  Hooks.once('ready', function() {
-    // Setup vars
-    const sidebar = document.querySelector('#sidebar');
-    _mgeAssignSidebarResizer(sidebar);
-  });
-
-  // Restore sidebar size
-  Hooks.on('renderSidebarTab', function(targetTab) {
-    const lastSidebarSize = game.user.getFlag('mythic-gme-tools', 'sidebar-init-size');
-    if (targetTab.popOut) {
-      targetTab.setPosition({width: lastSidebarSize});
-    } else {
-      if (Number.isInteger(+lastSidebarSize)) {
-        const sidebar = document.querySelector('#sidebar');
-        sidebar.setAttribute('style', `width: ${lastSidebarSize}px`);
-      }
-    }
-  });
-}
-
 Hooks.once('init', async () => {
 
   const debouncedReload = debounce(() => window.location.reload(), 100);
@@ -374,19 +309,6 @@ Hooks.once('init', async () => {
     type: Boolean,
     default: false,
     onChange: debouncedReload
-  });
-
-  game.settings.register('mythic-gme-tools', 'enableSidebarResize', {
-    name: 'Enable Sidebar Resize',
-    hint: 'Resize the Sidebar with your mouse for a larger chat',
-    scope: 'world',
-    config: true,
-    type: Boolean,
-    default: false,
-    onChange: async function() {
-      await game.user.unsetFlag('mythic-gme-tools', 'sidebar-init-size');
-      debouncedReload();
-    }
   });
 
   game.settings.register('mythic-gme-tools', 'minChaos', {
@@ -438,10 +360,6 @@ Hooks.once('init', async () => {
         game.settings.set('mythic-gme-tools', 'currentChaos', newMaxChaos)
     }
   });
-
-  if (!game.modules.get('vance-sidebar-resizer')?.active && game.settings.get('mythic-gme-tools', 'enableSidebarResize')) {
-    _mgeEnableSidebarResize();
-  }
 
 });
 
