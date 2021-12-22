@@ -12,7 +12,8 @@ Below you can find detailed instructions and features for how to play and use th
 
 # Table of Contents
 1. [Word Mill Games - License](#word-mill-games)
-2. [Features](#features)
+2. [Video Guide to Mythic GME Tools](#video-guide-to-mythic-gme-in-foundry)
+3. [Features](#features)
    1. [Overview](#overview)
    2. [Macros](#macros)
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
@@ -25,10 +26,10 @@ Below you can find detailed instructions and features for how to play and use th
    6. [Saved Progress](#saved-progress)
    7. [Configurable Settings](#configurable-settings)
    8. [Card Decks](#card-decks)
-3. [Recommended Knowledge and Modules](#recommended-knowledge-and-modules)
-4. [Author](#author)
-5. [My other modules](#my-other-modules)
-6. [License](#license)
+4. [Recommended Knowledge and Modules](#recommended-knowledge-and-modules)
+5. [Author](#author)
+6. [My other modules](#my-other-modules)
+7. [License](#license)
 
 ## Word Mill Games
 
@@ -40,6 +41,10 @@ All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and 
 [Get Mythic GME Book](https://www.drivethrurpg.com/product/20798/Mythic-Game-Master-Emulator)
 
 [Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
+
+## Video Guide to Mythic GME in Foundry
+
+[![img.png](video-image.png)](https://www.youtube.com/watch?v=XCU0nbfaAmo)
 
 ## Features
 
