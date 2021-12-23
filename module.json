@@ -12,7 +12,7 @@
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
   "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.2.6/foundryvtt-mythic-gme_2.2.6.zip",
   "compatibleCoreVersion": "9.238",
-  "scripts": [
+  "esmodules": [
     "mythic-gme-tools.js"
   ],
   "packs": [

@@ -1,4 +1,4 @@
-import MGMECommon from "./utils/mgme-common";
+import MGMECommon from "../utils/mgme-common";
 
 export default class MGMECards {
   static initSettings() {

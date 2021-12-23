@@ -119,7 +119,7 @@ export default class MGMEOracleUtils {
             const eFocusElement = $("#mgme_re_efocus");
             const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
             eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
-            const focusResults = (await _mgeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
+            const focusResults = (await MGMECommon._mgeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
             focusResults.forEach(focus => {
               eFocusElement.append(`<option value="${focus}">${focus}</option>`);
             });

@@ -1,7 +1,7 @@
-import MGMEReference from "./utils/mgme-reference";
-import MGMECommon from "./utils/mgme-common";
-import MGMEOracleUtils from "./utils/mgme-oracle-utils";
-import MGMEChatJournal from "./utils/mgme-chat-journal";
+import MGMEReference from "../utils/mgme-reference";
+import MGMECommon from "../utils/mgme-common";
+import MGMEOracleUtils from "../utils/mgme-oracle-utils";
+import MGMEChatJournal from "../utils/mgme-chat-journal";
 
 export default class MGMECore {
 
@@ -24,13 +24,6 @@ export default class MGMECore {
       default: false,
       onChange: MGMECommon.DEBOUNCED_RELOAD
     });
-
-    if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
-      const folderName = "Mythic Journal";
-      const date = new Date().toDateInputString();
-      const journalName = 'Adventure Notes ' + date;
-      MGMEChatJournal._mgeFindOrCreateJournal({name: journalName, folder: folderName});
-    }
 
     game.settings.register('mythic-gme-tools', 'currentChaos', {
       name: 'Chaos Rank',
@@ -196,7 +189,7 @@ export default class MGMECore {
       `
     }
 
-    const fateChartDialog = await renderTemplate('templates/core-fatechart-dialog.hbs', {chaosRankOptions: MGMECommon._mgeGenerateChaosRankOptions()});
+    const fateChartDialog = await renderTemplate('./modules/mythic-gme-tools/template/core-fatechart-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgeGenerateChaosRankOptions())});
 
     let dialogue = new Dialog({ // ToDo: Replace with template
       title: `Fate Chart`,
@@ -303,7 +296,7 @@ export default class MGMECore {
   }
 
   static async mgeSceneAlteration() {
-    const sceneAlterationDialogue = await renderTemplate('templates/core-scenealteration-dialog.hbs', {chaosRankOptions: MGMECommon._mgeGenerateChaosRankOptions()});
+    const sceneAlterationDialogue = await renderTemplate('./modules/mythic-gme-tools/template/core-scenealteration-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgeGenerateChaosRankOptions())});
 
     let dialogue = new Dialog({
       title: `Scene Alteration Check`,

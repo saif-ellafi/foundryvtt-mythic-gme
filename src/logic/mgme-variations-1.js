@@ -1,7 +1,7 @@
-import MGMEChatJournal from "./utils/mgme-chat-journal";
-import MGMECommon from "./utils/mgme-common";
-import MGMEOracleUtils from "./utils/mgme-oracle-utils";
-import MGMEReference from "./utils/mgme-reference";
+import MGMEChatJournal from "../utils/mgme-chat-journal";
+import MGMECommon from "../utils/mgme-common";
+import MGMEOracleUtils from "../utils/mgme-oracle-utils";
+import MGMEReference from "../utils/mgme-reference";
 
 export default class MGMEVariations1 {
 
@@ -21,7 +21,7 @@ export default class MGMEVariations1 {
   }
 
   static async mgeBackstoryGenerator() {
-    const backstoryDialog = await renderTemplate('templates/variations1-backstory-dialog.hbs', {})
+    const backstoryDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations1-backstory-dialog.hbs', {})
 
     let dialogue = new Dialog({
       title: `Backstory Generator`,

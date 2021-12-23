@@ -1,4 +1,5 @@
 import MGMECommon from "../utils/mgme-common";
+import MGMEChatJournal from "../utils/mgme-chat-journal";
 
 export default class MGMEOracleBuilder {
   static _mgeOracleBuilderParse(html) {
@@ -42,41 +43,12 @@ export default class MGMEOracleBuilder {
       speaker: ChatMessage.getSpeaker(),
       whisper: whisper
     };
-    ChatMessage.create(chatConfig);
+    ChatMessage.create(chatConfig).then(chat => {if (!oracle.test) MGMEChatJournal._mgeLogChatToJournal(chat)});
   }
 
-  static mgeOracleBuilder() {
+  static async mgeOracleBuilder() {
     if (!game.tables.contents.length) {ui.notifications.warn("Mythic GME Tools: No RollTables find in your World. Please create or import some first."); return}
-    const builderDialog = `
-      <form>
-
-      <div>
-      <label for="questionTarget">Oracle Name:</label>
-      <input name="questionTarget" id="mgme_question_target" style="margin-bottom:10px;width:290px;"/>
-      </div>
-
-      <div id="mgme_builder_container"></div>
-      <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="MGMECommon.addRevealNextEntry(this.parentElement.parentElement)"> Add</i></div>
-
-      <div>
-        <span title="Flavor" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
-        <label for="askFlavor">Ask for Flavor</label>
-        <input name="askFlavor" id="mgme_question_flavor" type="checkbox" style="vertical-align:middle">
-      </div>
-
-      </div>
-
-      <style>
-        i:hover {
-            text-shadow: 0 0 8px red;
-        }
-        .stat-hidden {
-            visibility: hidden;
-        }
-      </style>
-
-      </form>
-      `
+    const builderDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-oraclebuilder-dialog.hbs', {})
 
     let dialogue = new Dialog({
       title: 'Oracle Question Builder',
@@ -122,8 +94,10 @@ export default class MGMEOracleBuilder {
           label: 'Test Oracle',
           callback: (html) => {
             const oracle = MGMEOracleBuilder._mgeOracleBuilderParse(html);
-            if (oracle)
-              MGMEOracleBuilder._mgePrepareCustomOracleQuestion(oracle);
+            if (oracle) {
+              oracle.test = true;
+              MGMEOracleBuilder.mgePrepareCustomOracleQuestion(oracle);
+            }
           }
         },
         toMacro: {
@@ -132,7 +106,7 @@ export default class MGMEOracleBuilder {
           callback: (html) => {
             const oracle = MGMEOracleBuilder._mgeOracleBuilderParse(html);
             if (oracle) {
-              const command = `_mgePrepareCustomOracleQuestion(${JSON.stringify(oracle)}, "What kind of Question is this?");`;
+              const command = `game.modules.get('mythic-gme-tools').api.mgePrepareCustomOracleQuestion(${JSON.stringify(oracle)});`;
               Macro.create({name: oracle.name, type: 'script', command: command, img: 'icons/svg/cowled.svg'});
               ui.notifications.info(`Mythic GME Tools: Oracle saved as Macro "${oracle.name}"`);
             }
@@ -144,7 +118,7 @@ export default class MGMEOracleBuilder {
     dialogue.render(true)
   }
 
-  static async _mgePrepareCustomOracleQuestion(oracle) {
+  static async mgePrepareCustomOracleQuestion(oracle) {
     if (oracle.askFlavor) {
       const questionDialog = `
       <form>

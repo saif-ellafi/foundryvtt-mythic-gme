@@ -1,0 +1,26 @@
+<form>
+
+    <div>
+        <label for="mgme_question_target">Oracle Name:</label>
+        <input name="Target" id="mgme_question_target" style="margin-bottom:10px;width:290px;"/>
+    </div>
+
+    <div id="mgme_builder_container"></div>
+    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="MGMECommon.addRevealNextEntry(this.parentElement.parentElement)"> Add</i></div>
+
+    <div>
+        <span title="Flavor" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
+        <label for="mgme_question_flavor">Ask for Flavor</label>
+        <input name="Ask Flavor" id="mgme_question_flavor" type="checkbox" style="vertical-align:middle">
+    </div>
+
+    <style>
+        i:hover {
+            text-shadow: 0 0 8px red;
+        }
+        .stat-hidden {
+            visibility: hidden;
+        }
+    </style>
+
+</form>

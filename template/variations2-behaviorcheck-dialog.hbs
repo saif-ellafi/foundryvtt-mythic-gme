@@ -1,0 +1,60 @@
+<form>
+    <label for="mgme_actor_name">Character:</label>
+    <input disabled name="Actor" id="mgme_actor_name" style="margin-bottom: 10px;width:315px" value="tokenName">
+    <label for="mgme_behavior_theme">Current Theme:</label>
+    <input name="Theme" id="mgme_behavior_theme" onchange="MGMEVariations2._mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom: 10px;width:285px" placeholder="Current Scene">
+
+    <div>
+        <label for="mgme_behavior_identity">Identity:</label>
+        <input name="Identity" id="mgme_behavior_identity" onchange="MGMEVariations2._mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;margin-right:20px;" required placeholder="Descriptor">
+        <label for="mgme_behavior_identity_mod">Mod:</label>
+        <select name="Identity Mod" id="mgme_behavior_identity_mod" style="margin-bottom:10px;width:50px" onchange="MGMEVariations2._mgeFillRefreshDisposition(this.parentElement.parentElement)">
+            <option value="-2">-2</option>
+            <option value="0" selected>0</option>
+            <option value="2">+2</option>
+        </select>
+        <input style="vertical-align:middle;" type="checkbox" id="mgme_behavior_identity_active" onchange="MGMEVariations2._mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    </div>
+
+    <div>
+        <label for="mgme_behavior_personality">Personality:</label>
+        <input name="Personality" id="mgme_behavior_personality" onchange="MGMEVariations2._mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px" placeholder="Descriptor">
+        <i style="width:auto;height:25px;" class="fas fa-dice" onclick="MGMEVariations2._mgeFillRandomBehavior('#mgme_behavior_personality')"></i>
+        <label for="mgme_behavior_personality_mod">Mod:</label>
+        <select name="Personality Mod" id="mgme_behavior_personality_mod" style="margin-bottom:10px;width:50px" onchange="MGMEVariations2._mgeFillRefreshDisposition(this.parentElement.parentElement)">
+            <option value="-2">-2</option>
+            <option value="0" selected>0</option>
+            <option value="2">+2</option>
+        </select>
+        <input style="vertical-align:middle;" type="checkbox" id="mgme_behavior_personality_active" onchange="MGMEVariations2._mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    </div>
+
+    <div>
+        <label for="mgme_behavior_activity">Activity:</label>
+        <input name="Activity" id="mgme_behavior_activity" onchange="MGMEVariations2._mgeSaveActorBehaviorFromHTML(this.parentElement.parentElement)" style="margin-bottom:10px;width:168px;margin-left:21px;" placeholder="Descriptor">
+        <i style="width:auto;height:25px;" class="fas fa-dice" onclick="MGMEVariations2._mgeFillRandomActivity('#mgme_behavior_activity')"></i>
+        <label for="mgme_behavior_activity_mod">Mod:</label>
+        <select name="Activity Mod" id="mgme_behavior_activity_mod" style="margin-bottom: 10px;width:50px" onchange="MGMEVariations2._mgeFillRefreshDisposition(this.parentElement.parentElement)">
+            <option value="-2">-2</option>
+            <option value="0" selected>0</option>
+            <option value="2">+2</option>
+        </select>
+        <input style="vertical-align:middle;" type="checkbox" id="mgme_behavior_activity_active" onchange="MGMEVariations2._mgeFillRefreshDisposition(this.parentElement.parentElement)">
+    </div>
+
+    <div>
+        <label style="color:darkred;" for="mgme_behavior_disposition">Disposition:</label>
+        <input disabled name="Behavior Disposition" id="mgme_behavior_disposition" style="margin-bottom: 10px;width:205px">
+        <input disabled type="number" name="Behavior Disposition Value" id="mgme_behavior_disposition_value" style="margin-bottom: 10px;width:20px;height:17px">
+        <i style="width:auto;height:25px;margin-right:10px;color:darkred" class="fas fa-dice" onclick="MGMEVariations2._mgeFillRandomDisposition(this.parentElement.parentElement)"></i>
+        <i style="width:auto;height:25px;margin-right:10px;" class="fas fa-arrow-up" onclick="MGMEVariations2._mgeFillAdjustedDisposition(this.parentElement.parentElement, 2)"></i>
+        <i style="width:auto;height:25px;" class="fas fa-arrow-down" onclick="MGMEVariations2._mgeFillAdjustedDisposition(this.parentElement.parentElement, -2)"></i>
+    </div>
+
+</form>
+
+<style>
+    i:hover {
+        text-shadow: 0 0 8px red;
+    }
+</style>

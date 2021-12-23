@@ -1,13 +1,14 @@
 export default class MGMEChatJournal {
-  static async _mgeFindOrCreateJournal(journalProps) {
-    if (!journalProps)
-      return;
-    let journal = game.journal.contents.find(j => j.name === journalProps.name && j.folder?.name === journalProps.folder);
+  static async _mgeFindOrCreateJournal() {
+    const date = new Date().toDateInputString();
+    const folderName = "Mythic Journal";
+    const journalName = 'Adventure Notes ' + date;
+    let journal = game.journal.contents.find(j => j.name === journalName && j.folder?.name === folderName);
     if (!journal) {
-      let folder = game.folders.contents.find(f => f.name === journalProps.folder);
+      let folder = game.folders.contents.find(f => f.name === folderName);
       if (!folder)
-        folder = await Folder.create({name: journalProps.folder, type: 'JournalEntry'});
-      journal = await JournalEntry.create({name: journalProps.name, folder: folder});
+        folder = await Folder.create({name: folderName, type: 'JournalEntry'});
+      journal = await JournalEntry.create({name: journalName, folder: folder});
     }
     return journal;
   }

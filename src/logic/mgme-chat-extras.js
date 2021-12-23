@@ -4,7 +4,7 @@ export default class MGMEChatExtras {
 
   static async mgeExportChatToJournal() {
     const defaultJournalName = `Mythic Adventure Log ${new Date().toDateInputString()}`;
-    const exportDialog = await renderTemplate('templates/extras-exportchat-dialog.hbs', {defaultJournalName: defaultJournalName});
+    const exportDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-exportchat-dialog.hbs', {defaultJournalName: defaultJournalName});
     let dialogue = new Dialog({
       title: 'Export all Chat to Journal',
       content: exportDialog,
@@ -126,7 +126,7 @@ export default class MGMEChatExtras {
               content: message,
               speaker: selectedSpeaker
             };
-            _mgeCreateChatAndLog(chatConfig);
+            MGMEChatJournal._mgeCreateChatAndLog(chatConfig);
           }
         }
       },
