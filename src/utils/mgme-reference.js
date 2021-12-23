@@ -124,73 +124,73 @@ export default class MGMEReference {
   }
 
   static CORE_ODDS_MAP = {
-    'i': 'Impossible',
-    'nw': 'No way',
-    'vu': 'Very unlikely',
-    'u': 'Unlikely',
-    'ff': '50/50',
-    'sl': 'Somewhat likely',
-    'l': 'Likely',
-    'vl': 'Very likely',
-    'nst': 'Near sure thing',
-    'ast': 'A sure thing',
-    'htb': 'Has to be'
+    'i': game.i18n.localize('MGME.Impossible'),
+    'nw': game.i18n.localize('MGME.NoWay'),
+    'vu': game.i18n.localize('MGME.VeryUnlikely'),
+    'u': game.i18n.localize('MGME.Unlikely'),
+    'ff': game.i18n.localize('MGME.fiftyfifty'),
+    'sl': game.i18n.localize('MGME.SomewhatLikely'),
+    'l': game.i18n.localize('MGME.Likely'),
+    'vl': game.i18n.localize('MGME.VeryLikely'),
+    'nst': game.i18n.localize('MGME.NearSureThing'),
+    'ast': game.i18n.localize('MGME.SureThing'),
+    'htb': game.i18n.localize('MGME.HasToBe')
   }
 
   static VARIATIONS2_ODDS_MAP = {
-    'imp': {label: 'Impossible', mod: -8},
-    'nw': {label: 'No way', mod: -6},
-    'vu': {label: 'Very unlikely', mod: -4},
-    'u': {label: 'Unlikely', mod: -2},
-    'ff': {label: '50/50', mod: 0},
-    'l': {label: 'Likely', mod: 2},
-    'vl': {label: 'Very likely', mod: 4},
-    'st': {label: 'Sure thing', mod: 6},
-    'htb': {label: 'Has to be', mod: 8}
+    'imp': {label: game.i18n.localize('MGME.Impossible'), mod: -8},
+    'nw': {label: game.i18n.localize('MGME.NoWay'), mod: -6},
+    'vu': {label: game.i18n.localize('MGME.VeryUnlikely'), mod: -4},
+    'u': {label: game.i18n.localize('MGME.Unlikely'), mod: -2},
+    'ff': {label: game.i18n.localize('MGME.fiftyfifty'), mod: 0},
+    'l': {label: game.i18n.localize('MGME.Likely'), mod: 2},
+    'vl': {label: game.i18n.localize('MGME.VeryLikely'), mod: 4},
+    'st': {label: game.i18n.localize('MGME.SureThing'), mod: 6},
+    'htb': {label: game.i18n.localize('MGME.HasToBe'), mod: 8}
   }
 
   static MGE_PROPS_TEMPLATES = {
     UNEXPECTED_EVENT: {
-      purpose: 'Unexpected Random Event',
+      purpose: game.i18n.localize('MGME.UnexpectedRandomEvent'),
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     },
     INTERRUPTION_EVENT: {
-      purpose: 'Interruption Event>',
+      purpose: game.i18n.localize('MGME.UnexpectedInterruptionEvent'),
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     },
     EVENT_QUESTION: {
-      label: 'Random Event',
-      placeholder: 'Reason',
+      label: game.i18n.localize('MGME.RandomEvent'),
+      placeholder: game.i18n.localize('MGME.Reason'),
       useFocusTable: true,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     },
     EVENT_CHECK: {
-      label: 'Event Check',
-      placeholder: 'Reason',
+      label: game.i18n.localize('MGME.EventCheck'),
+      placeholder: game.i18n.localize('MGME.Reason'),
       useFocusTable: true,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     },
     COMPLEX_QUESTION: {
-      label: 'Complex Question',
-      placeholder: 'Question',
+      label: game.i18n.localize('MGME.ComplexQuestion'),
+      placeholder: game.i18n.localize('MGME.Question'),
       useFocusTable: false,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     },
     DESCRIPTION_QUESTION: {
-      label: 'Detail Question',
-      placeholder: 'Describe...',
+      label: game.i18n.localize('MGME.DetailQuestion'),
+      placeholder: game.i18n.localize('MGME.Describe'),
       useFocusTable: false,
       tableSetting1: 'descriptionsAdvTable',
       tableSetting2: 'descriptionsAdjTable'
     },
     ACTION_QUESTION: {
-      label: 'Action Question',
-      placeholder: 'Action...',
+      label: game.i18n.localize('MGME.ActionQuestion'),
+      placeholder: game.i18n.localize('MGME.Action'),
       useFocusTable: false,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'

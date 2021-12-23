@@ -15,6 +15,13 @@
   "esmodules": [
     "mythic-gme-tools.js"
   ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
   "packs": [
     {
       "name": "mythic-gme-tables",

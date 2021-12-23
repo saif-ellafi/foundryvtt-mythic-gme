@@ -7,8 +7,8 @@ export default class MGMEVariations1 {
 
   static initSettings() {
     game.settings.register('mythic-gme-tools', 'doublesIgnoreChaos', {
-      name: 'Double Ignores Chaos Factor',
-      hint: 'Whether to ignore CF and always hit a random event regardless',
+      name: game.i18n.localize('GME.SettingsDoubleIgnoreChaosName'),
+      hint: game.i18n.localize('GME.SettingsDoubleIgnoreChaosHint'),
       scope: 'world',
       config: true,
       type: Boolean,
@@ -24,12 +24,12 @@ export default class MGMEVariations1 {
     const backstoryDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations1-backstory-dialog.hbs', {})
 
     let dialogue = new Dialog({
-      title: `Backstory Generator`,
+      title: game.i18n.localize('MGME.BackstoryGenerator'),
       content: backstoryDialog,
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const speaker = ChatMessage.getSpeaker();
             let eventsCount;
@@ -39,24 +39,32 @@ export default class MGMEVariations1 {
               const backstoryDraw = await eventsCountTable.roll();
               eventsCount = parseInt(backstoryDraw.results[0].getChatText());
               let triggerMsg = await backstoryDraw.roll.toMessage({
-                content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
+                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
               });
               await MGMEChatJournal._mgmeLogChatToJournal(triggerMsg);
               await MGMECommon._mgmeWaitFor3DDice(triggerMsg.id);
             } else {
               eventsCount = parseInt(choice);
               await MGMEChatJournal._mgmeCreateChatAndLog({
-                content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
+                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
               })
             }
             const backstoryFocusTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Backstory Focus')
-            const backstoryLabels = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
+            const backstoryLabels = [
+              game.i18n.localize('MGME.BackstoryFirst'),
+              game.i18n.localize('MGME.BackstorySecond'),
+              game.i18n.localize('MGME.BackstoryThird'),
+              game.i18n.localize('MGME.BackstoryFourth'),
+              game.i18n.localize('MGME.BackstoryFifth'),
+              game.i18n.localize('MGME.BackstorySixth'),
+              game.i18n.localize('MGME.BackstorySeventh')
+            ];
             let i = 0;
             while (i < eventsCount) {
               const backstoryFocus = (await backstoryFocusTable.roll()).results[0].getChatText();
               await MGMEOracleUtils._mgmeSubmitOracleQuestion(
-                `${speaker.alias === 'Gamemaster' ? '' : `<h2>${speaker.alias} - Backstory</h2>`}`,
-                `${eventsCount === 1 ? 'Backstory Event' : (backstoryLabels[i] ?? i+1) + ' Backstory Event'}`,
+                `${speaker.alias === 'Gamemaster' ? '' : `<h2>${speaker.alias} - ${game.i18n.localize('MGME.Backstory')}</h2>`}`,
+                `${eventsCount === 1 ? game.i18n.localize('MGME.BackstoryEvent') : (backstoryLabels[i] ?? i+1) + ' Backstory Event'}`,
                 false,
                 backstoryFocus,
                 'actionTable',

@@ -7,8 +7,8 @@ export default class MGMEVariations2 {
 
   static initSettings() {
     game.settings.register('mythic-gme-tools', 'useD8ForSceneCheck', {
-      name: 'Use D8 for Scene Alteration checks',
-      hint: 'A special rule for Variations #2 changing scene alteration probabilities',
+      name: game.i18n.localize('MGME.SettingsD8ForSceneCheckName'),
+      hint: game.i18n.localize('MGME.SettingsD8ForSceneCheckHint'),
       scope: 'world',
       config: true,
       type: Boolean,
@@ -24,15 +24,15 @@ export default class MGMEVariations2 {
     else {
       let dialogue = new Dialog({
         title: windowTitle,
-        content: `<div>This rule is based on Mythic Variations #2 Chaos Factor rules and needs Chaos Range settings between <b>3</b> and <b>6</b>.</div>
+        content: `<div>${game.i18n.localize('MGME.DialogV2Conversion1')}</div>
                 <br>
-                <div><b>Would you like me to change these settings for you?</b></div>
+                <div><b>${game.i18n.localize('MGME.DialogV2Conversion2')}</b></div>
                 <br>
-                <div style="margin-bottom:5px;">Note: This can be configured in Module Settings.</div>`,
+                <div style="margin-bottom:5px;">${game.i18n.localize('MGME.DialogV2Conversion3')}</div>`,
         buttons: {
           submit: {
             icon: '',
-            label: 'Yes, Please',
+            label: game.i18n.localize('MGME.DialogV2ConversionYes'),
             callback: async () => {
               await game.settings.set('mythic-gme-tools', 'minChaos', 3);
               await game.settings.set('mythic-gme-tools', 'maxChaos', 6);
@@ -42,7 +42,7 @@ export default class MGMEVariations2 {
           },
           cancel: {
             icon: '',
-            label: 'No, Thanks'
+            label: game.i18n.localize('MGME.DialogV2ConversionNo')
           }
         },
         default: "submit"
@@ -56,7 +56,7 @@ export default class MGMEVariations2 {
     const statisticDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-statisticscheck-dialog.hbs', {})
     const tokenName = canvas.tokens.controlled[0]?.name;
     let dialogue = new Dialog({
-      title: 'Statistic Check',
+      title: game.i18n.localize('MGME.StatisticCheck'),
       content: statisticDialog,
       render: function (html) {
         // in the future we can consider saving the baselines?
@@ -76,10 +76,10 @@ export default class MGMEVariations2 {
               <input id="mgme_statistic_attribute_${i}" value="${lastPersistedName}" required style="margin-bottom:10px;width:198px;height:25px;" placeholder="Attribute #${i}"/>
               <input id="mgme_statistic_baseline_${i}" value="${lastPersistedBaseline}" placeholder="Baseline" style="width:60px" type="number">
               <select id="mgme_statistic_mod_${i}" style="width:110px;margin-bottom:10px;">
-                <option value="-2">Weak (-2)</option>
-                <option value="0" selected>No Modifier</option>
-                <option value="2">Strong (+2)</option>
-                <option value="4">Prime (+4)</option>
+                <option value="-2">${game.i18n.localize('MGME.StatisticWeak')} (-2)</option>
+                <option value="0" selected>${game.i18n.localize('MGME.StatisticNoMod')}</option>
+                <option value="2">${game.i18n.localize('MGME.StatisticStrong')} (+2)</option>
+                <option value="4">${game.i18n.localize('MGME.StatisticPrime')} (+4)</option>
               </select>
             </div>
             `
@@ -92,7 +92,7 @@ export default class MGMEVariations2 {
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const attribute = html.find(`#mgme_statistic_attribute_1`).val();
             if (!attribute)
@@ -100,10 +100,10 @@ export default class MGMEVariations2 {
             const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
             const isImportant = html.find("#mgme_statistic_important").prop('checked');
             let statisticChat = {
-              flavor: 'Statistic Check',
+              flavor: game.i18n.localize('MGME.StatisticCheck'),
               content: `
             ${tokenName ? `<h1>${tokenName}</h1>` : ''}
-            <div><b style="color:darkred">${isImportant ? 'IMPORTANT' : ''}</b></div>
+            <div><b style="color:darkred">${isImportant ? game.i18n.localize('MGME.Important') : ''}</b></div>
             `,
               whisper: whisper,
               speaker: ChatMessage.getSpeaker()
@@ -135,9 +135,9 @@ export default class MGMEVariations2 {
               const statFinal = baselineValue * statMultiplier;
               statisticChat.content += `
               <div><h2>${attribute}</h2></div>
-              ${isNaN(baseline) ? '' : `<div><b>Baseline:</b> ${baselineValue}</div>`}
-              <div><b>Reference:</b> ${modText}</div>
-              <div><b>Statistic:</b> ${statResult}${statFinal === 0 ? '' : ` -> ${statFinal}`}</div>
+              ${isNaN(baseline) ? '' : `<div><b>${game.i18n.localize('MGME.StatisticBaseline')}:</b> ${baselineValue}</div>`}
+              <div><b>${game.i18n.localize('MGME.StatisticReference')}:</b> ${modText}</div>
+              <div><b>${game.i18n.localize('MGME.StatisticStatistic')}:</b> ${statResult}${statFinal === 0 ? '' : ` -> ${statFinal}`}</div>
             `
             }
             game.user.setFlag('mythic-gme-tools', 'mgmeLastStatistics', persistedStats)
@@ -153,7 +153,7 @@ export default class MGMEVariations2 {
   static async _mgmeFillRefreshDisposition(html) {
     const selectedToken = canvas.tokens.controlled[0];
     if (!selectedToken) {
-      ui.notifications.warn("No Token selected!");
+      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
       return;
     }
     const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
@@ -191,7 +191,7 @@ export default class MGMEVariations2 {
   static async _mgmeAdjustDisposition(mod, actor) {
     const selectedToken = actor ?? canvas.tokens.controlled[0];
     if (!selectedToken) {
-      ui.notifications.warn("Mythic GME: No tokens selected!");
+      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
       return;
     }
     const tableDispositions = await MGMECommon._mgmeFindTableByName('Mythic GME: Behavior Check');
@@ -217,8 +217,8 @@ export default class MGMEVariations2 {
       const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
       let chatBehavior = {
         content: `
-              <div><h2>Disposition Shift!</h2></div>
-              <div><b>${actorName}</b> shifted from <em>${oldRank}</em> to <em>${newRank}</em></div>
+              <div><h2>${game.i18n.localize('MGME.BehaviorDispositionShift')}</h2></div>
+              <div><b>${actorName}</b> - ${game.i18n.localize('MGME.From')} <em>${oldRank}</em> ${game.i18n.localize('MGME.To')} <em>${newRank}</em></div>
               `,
         whisper: whisper
       };
@@ -253,7 +253,7 @@ export default class MGMEVariations2 {
     };
     const target = actor ?? canvas.tokens.controlled[0].actor;
     if (!target) {
-      ui.notifications.warn("Mythic GME: No tokens selected!");
+      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
       return;
     }
     MGMEVariations2._mgmeUpdateActorBehavior(target, actorBehavior);
@@ -262,7 +262,7 @@ export default class MGMEVariations2 {
 
   static async _mgmeFillRandomBehavior(elementId) {
     const descriptors = await MGMEOracleUtils._mgmeGetOracleAnswers(
-      'Behavior Personality',
+      game.i18n.localize('MGME.BehaviorPersonality'),
       MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting1,
       MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting2
     )
@@ -271,7 +271,7 @@ export default class MGMEVariations2 {
 
   static async _mgmeFillRandomActivity(elementId) {
     const descriptors = await MGMEOracleUtils._mgmeGetOracleAnswers(
-      'Behavior Activity',
+      game.i18n.localize('MGME.BehaviorActivity'),
       MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting1,
       MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting2
     )
@@ -288,33 +288,33 @@ export default class MGMEVariations2 {
     await MGMEOracleUtils._mgmeSimulateRoll(tableOneDraw.roll);
     const tableOneMod = MGMECommon._mgmeParseNumberFromText(tableOneResult);
     const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
-    // This is tricky, NPC action does NOT shift disposition
-    if (tableOneResult.includes('NPC Action')) {
+    // This is tricky, NPC action does NOT shift disposition - 8 or more hardcoded to be an NPC Action
+    if (tableOneDraw.roll.total >= 8) { // ToDo: Test Me!!!
       const tableTwo = await MGMECommon._mgmeFindTableByName('Mythic GME: NPC Action 2');
       const tableTwoDraw = await tableTwo.draw({roll: new Roll(`2d10 + ${dispositionMod} + ${tableOneMod}`), displayChat: false});
       const tableTwoResult = tableTwoDraw.results[0].getChatText();
       await MGMEOracleUtils._mgmeSimulateRoll(tableTwoDraw.roll);
       const messageContent = `
     <div><h1>${actor.name}</h1></div>
-    <div>With disposition: ${behavior.dispositionRank}</div>
-    <div>Performs an <b>unexpected ${tableOneResult}</b></div>
+    <div>${game.i18n.localize('MGME.BehaviorWithDisposition')}: ${behavior.dispositionRank}</div>
+    <div>${game.i18n.localize('MGME.PerformsUnexpected')}: <b>${tableOneResult}</b></div>
     <div><b>${tableTwoResult}</b></div>
     `
-      await MGMEChatJournal._mgmeCreateChatAndLog({flavor: 'Behavior Unexpected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+      await MGMEChatJournal._mgmeCreateChatAndLog({flavor: game.i18n.localize('MGME.BehaviorUnexpected'), content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
     } else {
       await _mgmeAdjustDisposition(tableOneMod, actor);
       const messageContent = `
     <div><h1>${actor.name}</h1></div>
-    <div>With disposition: ${behavior.dispositionRank}</div>
-    <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : 'No changes in disposition'}</div>
-    <div>Performs an expected <b>${tableOneResult}</b></div>
+    <div>${game.i18n.localize('MGME.BehaviorWithDisposition')}: ${behavior.dispositionRank}</div>
+    <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : game.i18n.localize('MGME.BehaviorNoChange')}</div>
+    <div>${game.i18n.localize('MGME.PerformsExpected')} <b>${tableOneResult}</b></div>
     `
-      await MGMEChatJournal._mgmeCreateChatAndLog({flavor: 'Behavior Expected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+      await MGMEChatJournal._mgmeCreateChatAndLog({flavor: game.i18n.localize('MGME.BehaviorExpected'), content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
     }
   }
 
   static async mgmeFateCheck() {
-    if (!MGMEVariations2._mgmeEnsureV2Chaos('Fate Check', MGMEVariations2.mgmeFateCheck))
+    if (!MGMEVariations2._mgmeEnsureV2Chaos(game.i18n.localize('MGME.FateCheck'), MGMEVariations2.mgmeFateCheck))
       return;
     const currentChaosFactor = game.settings.get('mythic-gme-tools', 'currentChaos')
     const fateCheckDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-fatecheck-dialog.hbs', {})
@@ -330,29 +330,29 @@ export default class MGMEVariations2 {
       );
       const checkYes = checkTotal >= 11;
       if (checkYes) {
-        outcome = 'Yes!';
+        outcome = game.i18n.localize('MGME.Yes');
         color = 'green';
       } else {
-        outcome = 'No!';
+        outcome = game.i18n.localize('MGME.No');
         color = 'red';
       }
       if (chaosDie <= chaosFactor) {
         if (fateDice1 === fateDice2) { // both are the same - Exceptional + Random Event
           randomEvent = true;
-          outcome = 'Exceptional ' + outcome + ' With Random Event';
+          outcome = `${game.i18n.localize('MGME.Exceptional')} ${outcome} ${game.i18n.localize('MGME.WithRandomEvent')}`;
           if (checkYes)
             color = 'blueviolet';
           else
             color = 'orangered';
         } else if (fateDice1 % 2 === 0 && fateDice2 % 2 === 0) { // both are even - Random Event
           randomEvent = true;
-          outcome = outcome + ' With Random Event'
+          outcome = `${outcome} ${game.i18n.localize('MGME.WithRandomEvent')}`
           if (checkYes)
             color = 'lightseagreen';
           else
             color = 'darkred';
         } else if (fateDice1 % 2 !== 0 && fateDice2 % 2 !== 0) { // both are odd - Exceptional
-          outcome = 'Exceptional ' + outcome;
+          outcome = `${game.i18n.localize('MGME.Exceptional')}  ${outcome}`;
           if (checkYes)
             color = 'lightseagreen';
           else
@@ -368,7 +368,7 @@ export default class MGMEVariations2 {
     }
 
     let dialogue = new Dialog({
-      title: `Fate Check`,
+      title: game.i18n.localize('MGME.FateCheck'),
       content: fateCheckDialog,
       render: html => {
         html.find("#mgme_chaos").val(currentChaosFactor.toString()); // ToDo: test this
@@ -377,7 +377,7 @@ export default class MGMEVariations2 {
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const odds = html.find("#mgme_v2_odds").val();
             const chaosFactor = html.find("#mgme_chaos").val();
@@ -395,7 +395,7 @@ export default class MGMEVariations2 {
               <b style="color: ${output.outcomeColor}">${output.outcomeText}</b>
             `;
             roll.toMessage({
-              flavor: "Fate Check Question",
+              flavor: game.i18n.localize('MGME.FateCheckQuestion'),
               content: content,
               speaker: ChatMessage.getSpeaker()
             }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
@@ -430,14 +430,14 @@ export default class MGMEVariations2 {
     const selectedToken = canvas.tokens.controlled[0];
 
     if (!selectedToken) {
-      ui.notifications.warn("Behavior Checks only work with a selected Token");
+      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
       return
     }
 
     const behaviorCheckDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-behaviorcheck-dialog.hbs', {tokenName: selectedToken.name})
 
     let dialogue = new Dialog({
-      title: `Behavior Check`,
+      title: game.i18n.localize('MGME.BehaviorCheck'),
       content: behaviorCheckDialog,
       render: html => {
         const tokenBehavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
@@ -459,7 +459,7 @@ export default class MGMEVariations2 {
       buttons: {
         rollAction: {
           icon: '<i class="fas fa-fist-raised"></i>',
-          label: 'Action!',
+          label: `${game.i18n.localize('MGME.Action')}!`,
           callback: async (html) => {
             if (!html.find("#mgme_behavior_disposition").val())
               await MGMEVariations2._mgmeFillRandomDisposition(html);
@@ -469,7 +469,7 @@ export default class MGMEVariations2 {
         },
         sendChat: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             if (!html.find("#mgme_behavior_disposition").val())
               await MGMEVariations2._mgmeFillRandomDisposition(html);
@@ -477,14 +477,14 @@ export default class MGMEVariations2 {
             const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             let chatBehavior = {
-              flavor: 'Behavior Check',
+              flavor: game.i18n.localize('MGME.BehaviorCheck'),
               content: `
             <div><h1>${selectedToken.name}</h1></div>
-            <div><b>Theme:</b> ${actorBehavior.theme ? actorBehavior.theme : '-'}</div>
-            <div><b>Identity:</b> ${actorBehavior.identity ? actorBehavior.identity : '-'} ${actorBehavior.identityActive ? (actorBehavior.identityMod > 0 ? '(+2)' : (actorBehavior.identityMod === 0 ? '(+0)' : '(-2)')) : '(inactive)'}</div>
-            <div><b>Personality:</b> ${actorBehavior.personality ? actorBehavior.personality : '-'} ${actorBehavior.personalityActive ? (actorBehavior.personalityMod > 0 ? '(+2)' : (actorBehavior.personalityMod === 0 ? '(+0)' : '(-2)')) : '(inactive)'}</div>
-            <div><b>Activity:</b> ${actorBehavior.activity ? actorBehavior.activity : '-'} ${actorBehavior.activityActive ? (actorBehavior.activityMod > 0 ? '(+2)' : (actorBehavior.activityMod === 0 ? '(+0)' : '(-2)')) : '(inactive)'}</div>
-            <div><b>Disposition:</b> ${actorBehavior.dispositionRank ? actorBehavior.dispositionRank : '-'}${debug ? ' [' + actorBehavior.dispositionValue + ']' : ''}</div>
+            <div><b>${game.i18n.localize('MGME.Theme')}:</b> ${actorBehavior.theme ? actorBehavior.theme : '-'}</div>
+            <div><b>${game.i18n.localize('MGME.Identity')}:</b> ${actorBehavior.identity ? actorBehavior.identity : '-'} ${actorBehavior.identityActive ? (actorBehavior.identityMod > 0 ? '(+2)' : (actorBehavior.identityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Active')})`}</div>
+            <div><b>${game.i18n.localize('MGME.Personality')}:</b> ${actorBehavior.personality ? actorBehavior.personality : '-'} ${actorBehavior.personalityActive ? (actorBehavior.personalityMod > 0 ? '(+2)' : (actorBehavior.personalityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+            <div><b>${game.i18n.localize('MGME.Activity')}:</b> ${actorBehavior.activity ? actorBehavior.activity : '-'} ${actorBehavior.activityActive ? (actorBehavior.activityMod > 0 ? '(+2)' : (actorBehavior.activityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+            <div><b>${game.i18n.localize('MGME.Disposition')}:</b> ${actorBehavior.dispositionRank ? actorBehavior.dispositionRank : '-'}${debug ? ' [' + actorBehavior.dispositionValue + ']' : ''}</div>
             `,
               whisper: whisper
             };
@@ -499,19 +499,19 @@ export default class MGMEVariations2 {
   }
 
   static async mgmeDetailCheck() {
-    if (!MGMEVariations2._mgmeEnsureV2Chaos(`Detail Check`, mgmeDetailCheck))
+    if (!MGMEVariations2._mgmeEnsureV2Chaos(game.i18n.localize('MGME.DetailCheck'), mgmeDetailCheck))
       return;
 
     const detailQuestionDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-detailcheck-dialog.hbs', {});
 
     let dialogue = new Dialog({
-      title: `Detail Check`,
+      title: game.i18n.localize('MGME.DetailCheck'),
       content: detailQuestionDialog,
       render: html => html[0].getElementsByTagName("input").mgme_v2_detail_check.focus(),
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const speaker = ChatMessage.getSpeaker();
             const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
@@ -525,7 +525,7 @@ export default class MGMEVariations2 {
             if (!includeDescription && !includeAction)
               content += `<div><h2>${detailCheckResult}</h2></div>`;
             let chatConfig = {
-              flavor: 'Detail Check' + (includeAction ? ' (Action)' : '') + (includeDescription ? ' (Description)' : ''),
+              flavor: game.i18n.localize('MGME.DetailCheck') + (includeAction ? ` (${game.i18n.localize('MGME.Action')})` : '') + (includeDescription ? ` (${game.i18n.localize('MGME.Description')})` : ''),
               content: content,
               speaker: speaker,
               whisper: whisper

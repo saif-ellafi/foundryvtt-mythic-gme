@@ -6,25 +6,7 @@ import MGMEChatJournal from "../utils/mgme-chat-journal";
 export default class MGMECore {
 
   static initSettings() {
-    game.settings.register('mythic-gme-tools', 'mythicRollDebug', {
-      name: 'Show dice roll details',
-      hint: 'Whether to show the dice rolled in the checks. Useful when you don\'t trust me :)',
-      scope: 'world',
-      config: true,
-      type: Boolean,
-      default: false
-    });
-
-    game.settings.register('mythic-gme-tools', 'mythicAutolog', {
-      name: 'Automatic Adventure Logging',
-      hint: 'Automatically send all Mythic GM Emulator outputs to a Journal Entry',
-      scope: 'world',
-      config: true,
-      type: Boolean,
-      default: false,
-      onChange: MGMECommon.DEBOUNCED_RELOAD
-    });
-
+    /** Not a Config */
     game.settings.register('mythic-gme-tools', 'currentChaos', {
       name: 'Chaos Rank',
       hint: 'Current Mythic GME Chaos Rank',
@@ -34,9 +16,28 @@ export default class MGMECore {
       default: 5
     });
 
+    game.settings.register('mythic-gme-tools', 'mythicRollDebug', {
+      name: game.i18n.localize('MGME.SettingsRollDebugName'),
+      hint: game.i18n.localize('MGME.SettingsRollDebugHint'),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false
+    });
+
+    game.settings.register('mythic-gme-tools', 'mythicAutolog', {
+      name: game.i18n.localize('MGME.SettingsAutologName'),
+      hint: game.i18n.localize('MGME.SettingsAutologHint'),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false,
+      onChange: MGMECommon.DEBOUNCED_RELOAD
+    });
+
     game.settings.register('mythic-gme-tools', 'minChaos', {
-      name: 'Minimum Chaos Factor',
-      hint: 'Minimum value for Chaos Factor. Cannot be smaller than 1 or larger than the Maximum Chaos value.',
+      name: game.i18n.localize('MGME.SettingsMinChaosName'),
+      hint: game.i18n.localize('MGME.SettingsMinChaosHint'),
       scope: 'world',
       config: true,
       type: Number,
@@ -60,8 +61,8 @@ export default class MGMECore {
     });
 
     game.settings.register('mythic-gme-tools', 'maxChaos', {
-      name: 'Maximum Chaos Factor',
-      hint: 'Maximum value for Chaos Factor. Maximum is 9 and may not be smaller than Minimum Chaos value.',
+      name: game.i18n.localize('MGME.SettingsMaxChaosName'),
+      hint: game.i18n.localize('MGME.SettingsMaxChaosHint'),
       scope: 'world',
       config: true,
       type: Number,
@@ -86,8 +87,8 @@ export default class MGMECore {
 
     if (game.dice3d) {
       game.settings.register('mythic-gme-tools', 'randomEvents3DDelay', {
-        name: 'Simulate Slow Dice Rolling',
-        hint: 'Rolls Mythic questions slowly, showing the answers as the dice roll. Set to 0 to disable. Larger numbers make it even slower',
+        name: game.i18n.localize('MGME.Settings3DDelayName'),
+        hint: game.i18n.localize('MGME.Settings3DDelayHint'),
         scope: 'world',
         config: true,
         type: Number,
@@ -99,8 +100,8 @@ export default class MGMECore {
         }
       });
       game.settings.register('mythic-gme-tools', 'v2ChaosDieColor', {
-        name: 'Color for Chaos 3D Die',
-        hint: 'Customize the color of your Chaos Die (Dice so Nice!) for Variations #2 rolls',
+        name: game.i18n.localize('MGME.Settings3DChaosColorName'),
+        hint: game.i18n.localize('MGME.Settings3DChaosColorHint'),
         scope: 'world',
         config: true,
         type: String,
@@ -111,8 +112,8 @@ export default class MGMECore {
 
     MGMECommon._mgmeGetAllMythicTables().then(tables => {
       game.settings.register('mythic-gme-tools', 'focusTable', {
-        name: 'Focus Table',
-        hint: 'Table to use for Random Event focus. Only table names starting with Mythic are listed.',
+        name: game.i18n.localize('MGME.SettingsFocusTableName'),
+        hint: game.i18n.localize('MGME.SettingsFocusTableHint'),
         scope: 'world',
         config: true,
         type: String,
@@ -121,8 +122,8 @@ export default class MGMECore {
       });
 
       game.settings.register('mythic-gme-tools', 'actionTable', {
-        name: 'Action Table',
-        hint: 'Table to use for Mythic GME Random Event action meaning. Only table names starting with Mythic are listed.',
+        name: game.i18n.localize('MGME.SettingsActionTableName'),
+        hint: game.i18n.localize('MGME.SettingsActionTableHint'),
         scope: 'world',
         config: true,
         type: String,
@@ -131,8 +132,8 @@ export default class MGMECore {
       });
 
       game.settings.register('mythic-gme-tools', 'subjectTable', {
-        name: 'Subject Table',
-        hint: 'Table to use for Mythic GME Random Event subject meaning. Only table names starting with Mythic are listed.',
+        name: game.i18n.localize('MGME.SettingsSubjectTableName'),
+        hint: game.i18n.localize('MGME.SettingsSubjectTableHint'),
         scope: 'world',
         config: true,
         type: String,
@@ -141,8 +142,8 @@ export default class MGMECore {
       });
 
       game.settings.register('mythic-gme-tools', 'descriptionsAdvTable', {
-        name: 'Descriptions Adverbs Table',
-        hint: 'Table to use for Mythic GME V2 Detail Check Descriptor 1 Meaning. Only table names starting with Mythic are listed.',
+        name: game.i18n.localize('MGME.SettingsAdverbsTableName'),
+        hint: game.i18n.localize('MGME.SettingsAdverbsTableHint'),
         scope: 'world',
         config: true,
         type: String,
@@ -151,8 +152,8 @@ export default class MGMECore {
       });
 
       game.settings.register('mythic-gme-tools', 'descriptionsAdjTable', {
-        name: 'Descriptions Adjectives Table',
-        hint: 'Table to use for Mythic GME V2 Detail Check Descriptor 2 Meaning. Only table names starting with Mythic are listed.',
+        name: game.i18n.localize('MGME.SettingsAdjectivesTableName'),
+        hint: game.i18n.localize('MGME.SettingsAdjectivesTableHint'),
         scope: 'world',
         config: true,
         type: String,
@@ -169,22 +170,22 @@ export default class MGMECore {
       const target = MGMEReference.FATE_CHART[odds][chaos];
       const ex_yes_bound = target * 0.2;
       const ex_no_bound = 100 - ((100 - target) * 0.2)
-      let outcome = 'Yes!';
+      let outcome = game.i18n.localize('MGME.Yes');
       let color = 'green';
       if (result <= ex_yes_bound) {
         color = 'lightseagreen';
-        outcome = 'Exceptional Yes!';
+        outcome = game.i18n.localize('MGME.ExceptionalYes');
       } else if (result > ex_no_bound) {
         color = 'red';
-        outcome = 'Exceptional No!';
+        outcome = game.i18n.localize('MGME.ExceptionalNo');
       } else if (result > target) {
         color = 'darkred';
-        outcome = 'No!';
+        outcome = game.i18n.localize('MGME.No');
       }
       const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
       return `
         ${question ? `<h2>${question}</h2>` : ''}
-        ${debug ? `<div><b>Roll:</b> ${result} at <em>${MGMEReference.CORE_ODDS_MAP[odds]}</em> with Chaos Rank[${chaos}]</div>` : ''}
+        ${debug ? `<div><b>Roll:</b> ${result} <em>${MGMEReference.CORE_ODDS_MAP[odds]}</em> Chaos [${chaos}]</div>` : ''}
         <b style="color: ${color}">${outcome}</b>
       `
     }
@@ -192,13 +193,13 @@ export default class MGMECore {
     const fateChartDialog = await renderTemplate('./modules/mythic-gme-tools/template/core-fatechart-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
 
     let dialogue = new Dialog({ // ToDo: Replace with template
-      title: `Fate Chart`,
+      title: game.i18n.localize('MGME.FateChart'),
       content: fateChartDialog,
       render: html => html[0].getElementsByTagName("input").mgme_question.focus(),
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const odds = html.find("#mgme_odds").val();
             const chaos = html.find("#mgme_chaos").val();
@@ -210,12 +211,12 @@ export default class MGMECore {
               const s = result.toString();
               const ignoreDoubles = game.settings.get("mythic-gme-tools", "doublesIgnoreChaos");
               if (s[0] === s[1] && (ignoreDoubles || s[0] <= parseInt(chaos))) {
-                content += `<div><b>Doubles!</b></div>`
+                content += `<div><b>${game.i18n.localize('MGME.Doubles')}</b></div>`
                 doubles = true;
               }
             }
             roll.toMessage({
-              flavor: 'Fate Chart Question',
+              flavor: game.i18n.localize('MGME.FateChartQuestion'),
               content: content,
               speaker: ChatMessage.getSpeaker()
             }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
@@ -245,16 +246,16 @@ export default class MGMECore {
     if (currentChaos < maxChaos) {
       game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
       const chat = {
-        flavor: 'Chaos Shift',
-        content: `<h3>Chaos Increased to ${currentChaos + 1}</h3>`,
+        flavor: game.i18n.localize('MGME.ChaosShift'),
+        content: `<h3>${game.i18n.localize('MGME.ChaosIncreasedTo')} ${currentChaos + 1}</h3>`,
         whisper: whisper
       };
       $("#mgme_chaos").val(currentChaos + 1);
       MGMEChatJournal._mgmeCreateChatAndLog(chat);
     } else {
       let chat = {
-        flavor: 'Chaos Shift',
-        content: `<h3>Chaos Maximum! (${currentChaos})</h3>`,
+        flavor: game.i18n.localize('MGME.ChaosShift'),
+        content: `<h3>${game.i18n.localize('MGME.ChaosIsMax')} (${currentChaos})</h3>`,
         whisper: whisper
       };
       MGMEChatJournal._mgmeCreateChatAndLog(chat);
@@ -268,16 +269,16 @@ export default class MGMECore {
     if (currentChaos > minChaos) {
       game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos - 1);
       let chat = {
-        flavor: 'Chaos Shift',
-        content: `<h3>Chaos Decreased to ${currentChaos - 1}</h3>`,
+        flavor: game.i18n.localize('MGME.ChaosShift'),
+        content: `<h3>${game.i18n.localize('MGME.ChaosDecreasedTo')} ${currentChaos - 1}</h3>`,
         whisper: whisper
       };
       $("#mgme_chaos").val(currentChaos - 1);
       MGMEChatJournal._mgmeCreateChatAndLog(chat);
     } else {
       let chat = {
-        flavor: 'Chaos Shift',
-        content: `<h3>Chaos Minimum! (${currentChaos})</h3>`,
+        flavor: game.i18n.localize('MGME.ChaosShift'),
+        content: `<h3>${game.i18n.localize('MGME.ChaosIsMin')} (${currentChaos})</h3>`,
         whisper: whisper
       };
       MGMEChatJournal._mgmeCreateChatAndLog(chat);
@@ -288,8 +289,8 @@ export default class MGMECore {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
     const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
     let chat = {
-      flavor: 'Chaos Check',
-      content: `<h3>Chaos Rank (${currentChaos})</h3>`,
+      flavor: game.i18n.localize('MGME.ChaosCheck'),
+      content: `<h3>${game.i18n.localize('MGME.ChaosRank')} (${currentChaos})</h3>`,
       whisper: whisper
     };
     MGMEChatJournal._mgmeCreateChatAndLog(chat);
@@ -299,12 +300,12 @@ export default class MGMECore {
     const sceneAlterationDialogue = await renderTemplate('./modules/mythic-gme-tools/template/core-scenealteration-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
 
     let dialogue = new Dialog({
-      title: `Scene Alteration Check`,
+      title: game.i18n.localize('MGME.SceneAlterationCheck'),
       content: sceneAlterationDialogue,
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const chaos = parseInt(html.find("#mgme_chaos").val());
             const useD8 = game.settings.get('mythic-gme-tools', 'useD8ForSceneCheck');
@@ -314,8 +315,8 @@ export default class MGMECore {
             if (result <= chaos) {
               if (result % 2 === 0) {
                 roll.toMessage({
-                  flavor: 'Scene Alteration',
-                  content: `<b style="color: darkred">Scene was interrupted!</b>${debug ? ' ('+result+')' : ''}`
+                  flavor: game.i18n.localize('MGME.SceneAlteration'),
+                  content: `<b style="color: darkred">${game.i18n.localize("MGME.SceneInterrupted")}</b>${debug ? ' ('+result+')' : ''}`
                 });
                 if (game.dice3d)
                   Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT))
@@ -323,14 +324,14 @@ export default class MGMECore {
                   await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT);
               } else {
                 return roll.toMessage({
-                  flavor: 'Scene Alteration',
-                  content: `<b style="color: darkred">Scene was altered!</b>${debug ? ' ('+result+')' : ''}`
+                  flavor: game.i18n.localize('MGME.SceneAlteration'),
+                  content: `<b style="color: darkred">${game.i18n.localize('MGME.SceneAltered')}</b>${debug ? ' ('+result+')' : ''}`
                 }).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
               }
             } else {
               return roll.toMessage({
-                flavor: 'Scene Alteration Check',
-                content: `<b style="color: darkgreen">Scene Proceeds Normally!</b>${debug ? ' ('+result+')' : ''}`
+                flavor: game.i18n.localize('MGME.SceneAlterationCheck'),
+                content: `<b style="color: darkgreen">${game.i18n.localize('MGME.SceneNormal')}</b>${debug ? ' ('+result+')' : ''}`
               }).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
             }
           }
