@@ -17,7 +17,7 @@ export default class MGMEVariations1 {
   }
 
   static async mgmeComplexQuestion() {
-    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.COMPLEX_QUESTION)
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.COMPLEX_QUESTION())
   }
 
   static async mgmeBackstoryGenerator() {

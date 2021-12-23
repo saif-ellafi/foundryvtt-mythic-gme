@@ -143,81 +143,79 @@ export default class MGMEReference {
     'water': 'Water'
   }
 
-  static _mgmeGetCoreOdds() {
-    return {
-      'i': game.i18n.localize('MGME.Impossible'),
-      'nw': game.i18n.localize('MGME.NoWay'),
-      'vu': game.i18n.localize('MGME.VeryUnlikely'),
-      'u': game.i18n.localize('MGME.Unlikely'),
-      'ff': game.i18n.localize('MGME.fiftyfifty'),
-      'sl': game.i18n.localize('MGME.SomewhatLikely'),
-      'l': game.i18n.localize('MGME.Likely'),
-      'vl': game.i18n.localize('MGME.VeryLikely'),
-      'nst': game.i18n.localize('MGME.NearSureThing'),
-      'ast': game.i18n.localize('MGME.SureThing'),
-      'htb': game.i18n.localize('MGME.HasToBe')
-    }
+  static ODDS_MAP_CORE = {
+    'i': 'MGME.Impossible',
+    'nw': 'MGME.NoWay',
+    'vu': 'MGME.VeryUnlikely',
+    'u': 'MGME.Unlikely',
+    'ff': 'MGME.fiftyfifty',
+    'sl': 'MGME.SomewhatLikely',
+    'l': 'MGME.Likely',
+    'vl': 'MGME.VeryLikely',
+    'nst': 'MGME.NearSureThing',
+    'ast': 'MGME.SureThing',
+    'htb': 'MGME.HasToBe'
   }
 
-  static _mgmeGetVars2Odds() {
-    return {
-      'imp': {label: game.i18n.localize('MGME.Impossible'), mod: -8},
-      'nw': {label: game.i18n.localize('MGME.NoWay'), mod: -6},
-      'vu': {label: game.i18n.localize('MGME.VeryUnlikely'), mod: -4},
-      'u': {label: game.i18n.localize('MGME.Unlikely'), mod: -2},
-      'ff': {label: game.i18n.localize('MGME.fiftyfifty'), mod: 0},
-      'l': {label: game.i18n.localize('MGME.Likely'), mod: 2},
-      'vl': {label: game.i18n.localize('MGME.VeryLikely'), mod: 4},
-      'st': {label: game.i18n.localize('MGME.SureThing'), mod: 6},
-      'htb': {label: game.i18n.localize('MGME.HasToBe'), mod: 8}
-    }
+  static ODDS_MAP_VARS2 = {
+    'imp': {key: 'MGME.Impossible', mod: -8},
+    'nw': {key: 'MGME.NoWay', mod: -6},
+    'vu': {key: 'MGME.VeryUnlikely', mod: -4},
+    'u': {key: 'MGME.Unlikely', mod: -2},
+    'ff': {key: 'MGME.fiftyfifty', mod: 0},
+    'l': {key: 'MGME.Likely', mod: 2},
+    'vl': {key: 'MGME.VeryLikely', mod: 4},
+    'st': {key: 'MGME.SureThing', mod: 6},
+    'htb': {key: 'MGME.HasToBe', mod: 8}
   }
 
   static PROPS_TEMPLATES = {
-    UNEXPECTED_EVENT: {
+    UNEXPECTED_EVENT: () => { return {
+      label: undefined,
       purpose: game.i18n.localize('MGME.UnexpectedRandomEvent'),
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
-    },
-    INTERRUPTION_EVENT: {
+    }},
+    INTERRUPTION_EVENT: () => { return {
+      label: undefined,
       purpose: game.i18n.localize('MGME.UnexpectedInterruptionEvent'),
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
-    },
-    EVENT_QUESTION: {
+    }},
+    EVENT_QUESTION: () => { return {
       label: game.i18n.localize('MGME.RandomEvent'),
       placeholder: game.i18n.localize('MGME.Reason'),
       useFocusTable: true,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
-    },
-    EVENT_CHECK: {
+    }},
+    EVENT_CHECK: () => { return {
       label: game.i18n.localize('MGME.EventCheck'),
       placeholder: game.i18n.localize('MGME.Reason'),
       useFocusTable: true,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
-    },
-    COMPLEX_QUESTION: {
+    }},
+    COMPLEX_QUESTION: () => { return {
       label: game.i18n.localize('MGME.ComplexQuestion'),
       placeholder: game.i18n.localize('MGME.Question'),
       useFocusTable: false,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
-    },
-    DESCRIPTION_QUESTION: {
+    }},
+    DESCRIPTION_QUESTION: () => { return {
       label: game.i18n.localize('MGME.DetailQuestion'),
       placeholder: game.i18n.localize('MGME.Describe'),
       useFocusTable: false,
       tableSetting1: 'descriptionsAdvTable',
       tableSetting2: 'descriptionsAdjTable'
-    },
-    ACTION_QUESTION: {
+    }},
+    ACTION_QUESTION: () => { return {
       label: game.i18n.localize('MGME.ActionQuestion'),
       placeholder: game.i18n.localize('MGME.Action'),
       useFocusTable: false,
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
-    }
+    }}
   }
 }
