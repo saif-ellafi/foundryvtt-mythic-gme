@@ -84,7 +84,7 @@
   "MGME.ShuffleDeck": "Shuffle Deck",
   "MGME.DeckClose": "Close",
 
-  "MGME.RandomEvent": "Unexpected Random Event",
+  "MGME.RandomEvent": "Random Event",
   "MGME.EventFocus": "Event Focus",
   "MGME.UnexpectedRandomEvent": "Unexpected Random Event",
   "MGME.UnexpectedInterruptionEvent": "Interruption Event",
@@ -136,8 +136,7 @@
   "MGME.Underline": "Underline",
   "MGME.Normal": "Normal",
 
-
-  "MGME.MythicAdventureLog": "MythicAdventureLog",
+  "MGME.MythicAdventureLog": "Mythic Adventure Log",
   "MGME.ExportAllToJournal": "Export all Chat to Journal",
   "MGME.Export": "Export",
   "MGME.JournalEntryName": "Journal Entry Name",
@@ -187,7 +186,7 @@
   "MGME.BackstoryTwo": "Two Backstories",
   "MGME.BackstoryThree": "Three Backstories",
   "MGME.BackstoryFour": "Four Backstories",
-  "MGME.BackstoryFive": "Five",
+  "MGME.BackstoryFive": "Five Backstories",
   "MGME.BackstorySix": "Six Backstories",
   "MGME.BackstorySeven": "Seven Backstories",
 
