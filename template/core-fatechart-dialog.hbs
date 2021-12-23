@@ -1,22 +1,22 @@
 <form>
-    <label for="odds">Odds:</label>
-    <select name="odds" id="mgme_odds" style="margin-bottom: 10px;">
-        <option value="i">Impossible</option>
-        <option value="nw">No way</option>
-        <option value="vu">Very unlikely</option>
-        <option value="u">Unlikely</option>
-        <option value="ff" selected>50/50</option>
-        <option value="sl">Somewhat likely</option>
-        <option value="l">Likely</option>
-        <option value="vl">Very likely</option>
-        <option value="nst">Near sure thing</option>
-        <option value="ast">A sure thing</option>
-        <option value="htb">Has to be</option>
+    <label for="mgme_odds">Odds:</label>
+    <select name="Odds" id="mgme_odds" style="margin-bottom: 10px;">
+        <option value="i">{{localize "MGME.Impossible"}}</option>
+        <option value="nw">{{localize "MGME.NoWay"}}</option>
+        <option value="vu">{{localize "MGME.VeryUnlikely"}}</option>
+        <option value="u">{{localize "MGME.Unlikely"}}</option>
+        <option value="ff" selected>{{localize "MGME.fiftyfifty"}}</option>
+        <option value="sl">{{localize "MGME.SomewhatLikely"}}</option>
+        <option value="l">{{localize "MGME.Likely"}}</option>
+        <option value="vl">{{localize "MGME.VeryLikely"}}</option>
+        <option value="nst">{{localize "MGME.NearSureThing"}}</option>
+        <option value="ast">{{localize "MGME.SureThing"}}</option>
+        <option value="htb">{{localize "MGME.HasToBe"}}</option>
     </select>
-    <label for="chaos" style="margin-left: 5px;">Chaos Rank:</label>
-    <select name="chaos" id="mgme_chaos" style="margin-bottom: 10px;">
+    <label for="mgme_chaos" style="margin-left: 5px;">{{localize "MGME.ChaosRank"}}:</label>
+    <select name="Chaos" id="mgme_chaos" style="margin-bottom: 10px;">
         {{chaosRankOptions}}
     </select><br>
-    <label for="question">Question (optional):</label>
-    <input id="mgme_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask a Question..."/>
+    <label for="mgme_question">{{localize "MGME.Question"}} ({{localize "MGME.Optional"}}):</label>
+    <input id="mgme_question" style="margin-bottom:10px;width: 260px;" placeholder="{{localize "MGME.Question"}}"/>
 </form>

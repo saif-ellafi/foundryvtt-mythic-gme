@@ -1,16 +1,16 @@
 <form>
 
     <div>
-        <label for="mgme_statistic_target">Statistic Target:</label>
-        <input name="Statistics Target" id="mgme_statistic_target" style="margin-bottom:10px;width:285px;" placeholder="Target"/>
+        <label for="mgme_statistic_target">{{localize "MGME.StatisticTarget"}}:</label>
+        <input name="Statistics Target" id="mgme_statistic_target" style="margin-bottom:10px;width:285px;" placeholder="{{localize "MGME.StatisticTarget"}}"/>
     </div>
 
     <div id="mgme_stats_container"></div>
-    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="addRevealNextEntry(this.parentElement.parentElement)"> Add</i></div>
+    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="addRevealNextEntry(this.parentElement.parentElement)"> {{localize "MGME.Add"}}</i></div>
 
     <div>
         <span title="Important" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
-        <label for="mgme_statistic_important">Is important:</label>
+        <label for="mgme_statistic_important">{{localize "MGME.IsImportant"}}:</label>
         <input name="Is important" id="mgme_statistic_important" type="checkbox" style="vertical-align:middle">
     </div>
 

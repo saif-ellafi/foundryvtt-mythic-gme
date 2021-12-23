@@ -1,18 +1,18 @@
 <form>
   <div>
-  <label for="mgme_v2_odds">Odds:</label>
+  <label for="mgme_v2_odds">{{localize "MGME.Odds"}}:</label>
   <select name="Odds" id="mgme_v2_odds" style="margin-bottom: 10px;">
-    <option value="imp">Impossible</option>
-    <option value="nw">No way</option>
-    <option value="vu">Very unlikely</option>
-    <option value="u">Unlikely</option>
-    <option value="ff" selected>50/50</option>
-    <option value="l">Likely</option>
-    <option value="vl">Very likely</option>
-    <option value="st">Sure thing</option>
-    <option value="htb">Has to be</option>
+    <option value="imp">{{localize "MGME.Impossible"}}</option>
+    <option value="nw">{{localize "MGME.NoWay"}}</option>
+    <option value="vu">{{localize "MGME.VeryUnlikely"}}</option>
+    <option value="u">{{localize "MGME.Unlikely"}}</option>
+    <option value="ff" selected>{{localize "MGME.fiftyfifty"}}</option>
+    <option value="l">{{localize "MGME.Likely"}}</option>
+    <option value="vl">{{localize "MGME.VeryLikely"}}</option>
+    <option value="st">{{localize "MGME.SureThing"}}</option>
+    <option value="htb">{{localize "MGME.HasToBe"}}</option>
   </select>
-  <label for="mgme_chaos" style="margin-left: 5px;">Chaos Factor:</label>
+  <label for="mgme_chaos" style="margin-left: 5px;">{{localize "MGME.ChaosFactor"}}:</label>
   <select name="Chaos" id="mgme_chaos" style="margin-bottom: 10px;">
     <option value="6">6</option>
     <option value="5">5</option>
@@ -21,11 +21,11 @@
   </select>
   </div>
   <div>
-  <label for="mgme_v2_question">Question (optional):</label>
-  <input name="Question" id="mgme_v2_question" style="margin-bottom:10px;width: 260px;" placeholder="Ask the Oracle..."/>
+  <label for="mgme_v2_question">{{localize "MGME.Question"}} ({{localize "MGME.Optional"}}):</label>
+  <input name="Question" id="mgme_v2_question" style="margin-bottom:10px;width: 260px;" placeholder="{{localize "MGME.Question"}}"/>
   </div>
   <div style="margin-bottom: 5px">
-    <label for="mgme_v2_yesfav" style="vertical-align:super;">Yes is a favorable answer</label>
+    <label for="mgme_v2_yesfav" style="vertical-align:super;">{{localize "MGME.YesIsFavorable"}}</label>
     <input name="Yes is Favorable" type="checkbox" id="mgme_v2_yesfav">
   </div>
 </form>

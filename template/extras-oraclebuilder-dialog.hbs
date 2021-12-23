@@ -1,16 +1,16 @@
 <form>
 
     <div>
-        <label for="mgme_question_target">Oracle Name:</label>
+        <label for="mgme_question_target">{{localize "MGME.OracleName"}}:</label>
         <input name="Target" id="mgme_question_target" style="margin-bottom:10px;width:290px;"/>
     </div>
 
     <div id="mgme_builder_container"></div>
-    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="addRevealNextEntry(this.parentElement.parentElement)"> Add</i></div>
+    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="addRevealNextEntry(this.parentElement.parentElement)"> {{localize "MGME.Add"}}</i></div>
 
     <div>
         <span title="Flavor" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
-        <label for="mgme_question_flavor">Ask for Flavor</label>
+        <label for="mgme_question_flavor">{{localize "MGME.AskForFlavor"}}</label>
         <input name="Ask Flavor" id="mgme_question_flavor" type="checkbox" style="vertical-align:middle">
     </div>
 

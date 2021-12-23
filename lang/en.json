@@ -42,6 +42,7 @@
   "MGME.Doubles": "Doubles!",
   "MGME.Exceptional": "Exceptional",
   "MGME.WithRandomEvent": "With a Random Event",
+  "MGME.Odds": "Odds",
 
   "MGME.FateChart": "Fate Chart",
   "MGME.FateChartQuestion": "Fate Chart Question",
@@ -56,9 +57,10 @@
   "MGME.StatisticStrong": "Strong",
   "MGME.StatisticPrime": "Prime",
 
-  "MGME.StatisticBaseline": "",
-  "MGME.StatisticReference": "",
-  "MGME.StatisticStatistic": "",
+  "MGME.StatisticTarget": "Target",
+  "MGME.StatisticBaseline": "Baseline",
+  "MGME.StatisticReference": "Reference",
+  "MGME.StatisticStatistic": "Statistic",
 
   "MGME.Impossible": "Impossible",
   "MGME.NoWay": "No way",
@@ -81,8 +83,10 @@
   "MGME.EventCheck": "Event Check",
 
   "MGME.OracleBuilder": "Oracle Builder",
+  "MGME.OracleName": "Oracle Name",
   "MGME.TestOracle": "Test Oracle",
   "MGME.SaveOracle": "Save Oracle as Macro",
+  "MGME.AskForFlavor": "Ask for Flavor",
   "MGME.OracleInfo": "Mythic GME Tools: Oracle saved as Macro",
 
   "MGME.Reason": "Reason",
@@ -91,18 +95,29 @@
   "MGME.Action": "Action",
   "MGME.Description": "Description",
   "MGME.Important": "IMPORTANT",
+  "MGME.Optional": "optional",
+  "MGME.Add": "Add",
 
   "MGME.ComplexQuestion": "Complex Question",
   "MGME.DetailQuestion": "Detail Question",
   "MGME.ActionQuestion": "Action Question",
+  "MGME.IncludeDetailQuestion": "Include Description Detail",
+  "MGME.IncludeActionQuestion": "Include Action Detail",
 
   "MGME.ChaosRank": "Chaos Rank",
+  "MGME.ChaosFactor": "Chaos Factor",
   "MGME.ChaosCheck": "Chaos Check",
   "MGME.ChaosIncreasedTo": "Chaos Increased to",
   "MGME.ChaosDecreasedTo": "Chaos Decreased to",
   "MGME.ChaosIsMax": "Chaos Maximum!",
   "MGME.ChaosIsMin": "Chaos Minimum!",
   "MGME.ChaosShift": "Chaos Shift",
+  "MGME.YesIsFavorable": "Yes is a favorable answer",
+  "MGME.IsImportant": "Is important",
+
+  "MGME.JournalEntryName": "Journal Entry Name",
+  "MGME.JournalIncludeMeta": "include author and timestamp",
+  "MGME.ClearChatAfterExport": "Clear Chat after Export",
 
   "MGME.BehaviorCheck": "Behavior Check",
   "MGME.BehaviorDispositionShift": "Disposition Shift!",
@@ -114,6 +129,7 @@
   "MGME.BehaviorNoChange": "No changes in disposition",
   "MGME.PerformsExpected": "Performs an expected",
   "MGME.PerformsUnexpected": "Performs an unexpected",
+  "MGME.Descriptor": "Descriptor",
   "MGME.Theme": "Theme",
   "MGME.Identity": "Identity",
   "MGME.Personality": "Personality",
@@ -142,6 +158,13 @@
   "MGME.BackstoryFifth": "Fifth",
   "MGME.BackstorySixth": "Sixth",
   "MGME.BackstorySeventh": "Seventh",
+  "MGME.BackstoryOne": "One Backstory",
+  "MGME.BackstoryTwo": "Two Backstories",
+  "MGME.BackstoryThree": "Three Backstories",
+  "MGME.BackstoryFour": "Four Backstories",
+  "MGME.BackstoryFive": "Five",
+  "MGME.BackstorySix": "Six Backstories",
+  "MGME.BackstorySeven": "Seven Backstories",
 
   "MGME.ToChat": "To Chat"
 

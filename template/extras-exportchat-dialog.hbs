@@ -1,14 +1,14 @@
 <form>
     <div>
-        <label for="mgme_export_journal_name" style="vertical-align:super;">Journal Entry Name (Append if exists)</label>
+        <label for="mgme_export_journal_name" style="vertical-align:super;"></label>
         <input name="Journal Name" type="text" id="mgme_export_journal_name" placeholder="{{defaultJournalName}}">
     </div>
     <div>
-        <label for="mgme_export_include_meta" style="vertical-align:super;">Include Author and Timestamp</label>
-        <input checked name="Include Author and Timestamp" type="checkbox" id="mgme_export_include_meta">
+        <label for="mgme_export_include_meta" style="vertical-align:super;">{{localize "MGME.JournalEntryName"}}</label>
+        <input checked name="Include Metadata" type="checkbox" id="mgme_export_include_meta">
     </div>
     <div>
-        <label for="mgme_export_clear_chat" style="vertical-align:super;">Clear Chat after Export</label>
-        <input name="Clear chat after Export" type="checkbox" id="mgme_export_clear_chat">
+        <label for="mgme_export_clear_chat" style="vertical-align:super;">{{localize "MGME.ClearChatAfterExport"}}</label>
+        <input name="Clear Chat" type="checkbox" id="mgme_export_clear_chat">
     </div>
 </form>
