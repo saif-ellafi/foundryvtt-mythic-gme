@@ -164,7 +164,6 @@ export default class MGMEVariations2 {
       (behavior.personalityActive ? behavior.personalityMod : 0) -
       (behavior.activityActive ? behavior.activityMod : 0);
     await MGMEVariations2._mgmeFillRandomDisposition(html, baseDisposition);
-    MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html)
   }
 
   static async _mgmeFillRandomDisposition(html, baseValue) {
@@ -251,7 +250,7 @@ export default class MGMEVariations2 {
       dispositionRank: elem.find("#mgme_behavior_disposition").val(),
       dispositionValue: parseInt(elem.find("#mgme_behavior_disposition_value").val()),
     };
-    const target = actor ?? canvas.tokens.controlled[0].actor;
+    const target = actor ?? canvas.tokens.controlled[0]?.actor;
     if (!target) {
       ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
       return;
@@ -304,7 +303,7 @@ export default class MGMEVariations2 {
     `
       await MGMEChatJournal._mgmeCreateChatAndLog({flavor: game.i18n.localize('MGME.BehaviorUnexpected'), content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
     } else {
-      await _mgmeAdjustDisposition(tableOneMod, actor);
+      await MGMEVariations2._mgmeAdjustDisposition(tableOneMod, actor);
       const messageContent = `
     <div><h1>${actor.name}</h1></div>
     <div>${game.i18n.localize('MGME.BehaviorWithDisposition')}: ${behavior.dispositionRank}</div>
@@ -458,6 +457,15 @@ export default class MGMEVariations2 {
           html.find("#mgme_behavior_disposition").val(tokenBehavior.dispositionRank)
           html.find("#mgme_behavior_disposition_value").val(tokenBehavior.dispositionValue)
         }
+        html.find(".mgme_change_save").change(() => MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html));
+        html.find(".mgme_change_refresh").change(() => MGMEVariations2._mgmeFillRefreshDisposition(html));
+
+        html.find("#mgme_behavior_rng").click(() => MGMEVariations2._mgmeFillRandomBehavior("#mgme_behavior_personality"));
+        html.find("#mgme_activity_rng").click(() => MGMEVariations2._mgmeFillRandomActivity("#mgme_behavior_activity"));
+
+        html.find("#mgme_disposition_rng").click(() => MGMEVariations2._mgmeFillRandomDisposition(html));
+        html.find("#mgme_disposition_up").click(() => MGMEVariations2._mgmeFillAdjustedDisposition(html, 2));
+        html.find("#mgme_disposition_down").click(() => MGMEVariations2._mgmeFillAdjustedDisposition(html, -2));
       },
       buttons: {
         rollAction: {
@@ -502,7 +510,7 @@ export default class MGMEVariations2 {
   }
 
   static async mgmeDetailCheck() {
-    if (!MGMEVariations2._mgmeEnsureV2Chaos(game.i18n.localize('MGME.DetailCheck'), mgmeDetailCheck))
+    if (!MGMEVariations2._mgmeEnsureV2Chaos(game.i18n.localize('MGME.DetailCheck'), MGMEVariations2.mgmeDetailCheck))
       return;
 
     const detailQuestionDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-detailcheck-dialog.hbs', {});

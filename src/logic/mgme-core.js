@@ -85,7 +85,7 @@ export default class MGMECore {
       }
     });
 
-    if (game.dice3d) {
+    if (game.modules.get('dice-so-nice')?.active) {
       game.settings.register('mythic-gme-tools', 'randomEvents3DDelay', {
         name: game.i18n.localize('MGME.Settings3DDelayName'),
         hint: game.i18n.localize('MGME.Settings3DDelayHint'),
