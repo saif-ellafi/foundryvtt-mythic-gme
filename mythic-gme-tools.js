@@ -18,35 +18,35 @@ Hooks.once('ready', () => {
 /** DEPRECATION DANGER - This is just here for retrcompatibility - Delete by V10? */
 
 // Core Macros
-globalThis.mgeIncreaseChaos = MGMEMacroAPI.mgeIncreaseChaos;
-globalThis.mgeDecreaseChaos = MGMEMacroAPI.mgeDecreaseChaos;
-globalThis.mgeCheckChaos = MGMEMacroAPI.mgeCheckChaos;
-globalThis.mgeFateChart = MGMEMacroAPI.mgeFateChart;
-globalThis.mgeRandomEvent = MGMEMacroAPI.mgeRandomEvent;
-globalThis.mgeSceneAlteration = MGMEMacroAPI.mgeSceneAlteration;
+globalThis.mgeIncreaseChaos = MGMEMacroAPI.mgmeIncreaseChaos;
+globalThis.mgeDecreaseChaos = MGMEMacroAPI.mgmeDecreaseChaos;
+globalThis.mgeCheckChaos = MGMEMacroAPI.mgmeCheckChaos;
+globalThis.mgeFateChart = MGMEMacroAPI.mgmeFateChart;
+globalThis.mgeRandomEvent = MGMEMacroAPI.mgmeRandomEvent;
+globalThis.mgeSceneAlteration = MGMEMacroAPI.mgmeSceneAlteration;
 
 // Variations 1 Macros
-globalThis.mgeComplexQuestion = MGMEMacroAPI.mgeComplexQuestion;
-globalThis.mgeBackstoryGenerator = MGMEMacroAPI.mgeBackstoryGenerator;
+globalThis.mgeComplexQuestion = MGMEMacroAPI.mgmeComplexQuestion;
+globalThis.mgeBackstoryGenerator = MGMEMacroAPI.mgmeBackstoryGenerator;
 
 // Variations 2 Macros
-globalThis.mgeFateCheck = MGMEMacroAPI.mgeFateCheck;
-globalThis.mgeEventCheck = MGMEMacroAPI.mgeEventCheck;
-globalThis.mgeDetailDescriptionCheck = MGMEMacroAPI.mgeDetailDescriptionCheck;
-globalThis.mgeDetailActionCheck = MGMEMacroAPI.mgeDetailActionCheck;
-globalThis.mgeStatisticCheck = MGMEMacroAPI.mgeStatisticCheck;
-globalThis.mgeBehaviorCheck = MGMEMacroAPI.mgeBehaviorCheck;
-globalThis.mgeDetailCheck = MGMEMacroAPI.mgeDetailCheck;
+globalThis.mgeFateCheck = MGMEMacroAPI.mgmeFateCheck;
+globalThis.mgeEventCheck = MGMEMacroAPI.mgmeEventCheck;
+globalThis.mgeDetailDescriptionCheck = MGMEMacroAPI.mgmeDetailDescriptionCheck;
+globalThis.mgeDetailActionCheck = MGMEMacroAPI.mgmeDetailActionCheck;
+globalThis.mgeStatisticCheck = MGMEMacroAPI.mgmeStatisticCheck;
+globalThis.mgeBehaviorCheck = MGMEMacroAPI.mgmeBehaviorCheck;
+globalThis.mgeDetailCheck = MGMEMacroAPI.mgmeDetailCheck;
 
 // Cards
-globalThis.mgeDealCard = MGMEMacroAPI.mgeDealCard;
+globalThis.mgeDealCard = MGMEMacroAPI.mgmeDealCard;
 
 // Extras
-globalThis.mgeExportChatToJournal = MGMEMacroAPI.mgeExportChatToJournal;
-globalThis.mgeFormattedChat = MGMEMacroAPI.mgeFormattedChat;
+globalThis.mgeExportChatToJournal = MGMEMacroAPI.mgmeExportChatToJournal;
+globalThis.mgeFormattedChat = MGMEMacroAPI.mgmeFormattedChat;
 
 // Oracle Builder
-globalThis.mgeOracleBuilder = MGMEMacroAPI.mgeOracleBuilder;
-globalThis.mgePrepareCustomOracleQuestion = MGMEMacroAPI.mgePrepareCustomOracleQuestion;
+globalThis.mgeOracleBuilder = MGMEMacroAPI.mgmeOracleBuilder;
+globalThis.mgePrepareCustomOracleQuestion = MGMEMacroAPI.mgmePrepareCustomOracleQuestion;
 
 /** --- */

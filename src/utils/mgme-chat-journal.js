@@ -1,5 +1,5 @@
 export default class MGMEChatJournal {
-  static async _mgeFindOrCreateJournal() {
+  static async _mgmeFindOrCreateJournal() {
     const date = new Date().toDateInputString();
     const folderName = "Mythic Journal";
     const journalName = 'Adventure Notes ' + date;
@@ -13,7 +13,7 @@ export default class MGMEChatJournal {
     return journal;
   }
 
-  static _mgeBuildLogChatHtml(baseChat, includeAuthor) {
+  static _mgmeBuildLogChatHtml(baseChat, includeAuthor) {
     let content = '';
     if (includeAuthor) {
       content += baseChat.data.speaker.alias ? `<h4 class="message-sender">
@@ -26,17 +26,17 @@ export default class MGMEChatJournal {
     return content;
   }
 
-  static async _mgeLogChatToJournal(chat) {
+  static async _mgmeLogChatToJournal(chat) {
     if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
-      const journal = await MGMEChatJournal._mgeFindOrCreateJournal();
-      await journal.update({content: journal.data.content + MGMEChatJournal._mgeBuildLogChatHtml(chat, true)});
+      const journal = await MGMEChatJournal._mgmeFindOrCreateJournal();
+      await journal.update({content: journal.data.content + MGMEChatJournal._mgmeBuildLogChatHtml(chat, true)});
     }
   }
 
-  static async _mgeCreateChatAndLog(props) {
+  static async _mgmeCreateChatAndLog(props) {
     const chatMsg = ChatMessage.create(props);
     chatMsg.then(createdChat => {
-      MGMEChatJournal._mgeLogChatToJournal(createdChat)
+      MGMEChatJournal._mgmeLogChatToJournal(createdChat)
     });
     return chatMsg;
   }

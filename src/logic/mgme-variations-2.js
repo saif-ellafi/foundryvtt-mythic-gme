@@ -16,7 +16,7 @@ export default class MGMEVariations2 {
     });
   }
 
-  static _mgeEnsureV2Chaos(windowTitle, macroCallback) {
+  static _mgmeEnsureV2Chaos(windowTitle, macroCallback) {
     const isMinChaos = game.settings.get('mythic-gme-tools', 'minChaos') >= 3
     const isMaxChaos = game.settings.get('mythic-gme-tools', 'maxChaos') <= 6
     if (isMinChaos && isMaxChaos)
@@ -52,7 +52,7 @@ export default class MGMEVariations2 {
     }
   }
 
-  static async mgeStatisticCheck() {
+  static async mgmeStatisticCheck() {
     const statisticDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-statisticscheck-dialog.hbs', {})
     const tokenName = canvas.tokens.controlled[0]?.name;
     let dialogue = new Dialog({
@@ -60,11 +60,11 @@ export default class MGMEVariations2 {
       content: statisticDialog,
       render: function (html) {
         // in the future we can consider saving the baselines?
-        // const savedBaseline = game.user.getFlag('mythic-gme-tools', 'mgeStatisticBaseline');
+        // const savedBaseline = game.user.getFlag('mythic-gme-tools', 'mgmeStatisticBaseline');
         if (tokenName)
           html.find("#mgme_statistic_target").val(tokenName);
         const entriesOpen = 3; // Configurable???
-        const lastPersistedStats = game.user.getFlag('mythic-gme-tools', 'mgeLastStatistics');
+        const lastPersistedStats = game.user.getFlag('mythic-gme-tools', 'mgmeLastStatistics');
         let i = 1;
         while (i <= 5) {
           const lastPersistedName = lastPersistedStats ? (lastPersistedStats[i-1]?.statName ?? '') : '';
@@ -123,15 +123,15 @@ export default class MGMEVariations2 {
                 statBaseline: baseline
               });
               const baselineValue = isNaN(baseline) ? 0 : baseline;
-              const mod = MGMECommon._mgeParseNumberFromText(html.find(`#mgme_statistic_mod_${i}`).val());
+              const mod = MGMECommon._mgmeParseNumberFromText(html.find(`#mgme_statistic_mod_${i}`).val());
               const modText = html.find(`#mgme_statistic_mod_${i} option:selected`).text();
-              const statTable = await MGMECommon._mgeFindTableByName('Mythic GME: Statistic Check');
+              const statTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Statistic Check');
               const targetRoll = new Roll(`2d10 + ${mod} + ${isImportant ? 2 : 0}`);
               const statDraw = await statTable.draw({roll: targetRoll, displayChat: false});
               const statResult = statDraw.results[0].getChatText();
-              await MGMEOracleUtils._mgeSimulateRoll(statDraw.roll);
+              await MGMEOracleUtils._mgmeSimulateRoll(statDraw.roll);
               // In most RPGs this stat calculation is probably off on the default table (+100%) - But leaving in case players override table
-              const statMultiplier = (MGMECommon._mgeParseNumberFromText(statResult)/100)+1;
+              const statMultiplier = (MGMECommon._mgmeParseNumberFromText(statResult)/100)+1;
               const statFinal = baselineValue * statMultiplier;
               statisticChat.content += `
               <div><h2>${attribute}</h2></div>
@@ -140,8 +140,8 @@ export default class MGMEVariations2 {
               <div><b>Statistic:</b> ${statResult}${statFinal === 0 ? '' : ` -> ${statFinal}`}</div>
             `
             }
-            game.user.setFlag('mythic-gme-tools', 'mgeLastStatistics', persistedStats)
-            await MGMEChatJournal._mgeCreateChatAndLog(statisticChat);
+            game.user.setFlag('mythic-gme-tools', 'mgmeLastStatistics', persistedStats)
+            await MGMEChatJournal._mgmeCreateChatAndLog(statisticChat);
           }
         }
       },
@@ -150,24 +150,24 @@ export default class MGMEVariations2 {
     dialogue.render(true)
   }
 
-  static async _mgeFillRefreshDisposition(html) {
+  static async _mgmeFillRefreshDisposition(html) {
     const selectedToken = canvas.tokens.controlled[0];
     if (!selectedToken) {
       ui.notifications.warn("No Token selected!");
       return;
     }
-    const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+    const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
     if (!behavior)
       return;
     const baseDisposition = behavior.dispositionValue -
       (behavior.identityActive ? behavior.identityMod : 0) -
       (behavior.personalityActive ? behavior.personalityMod : 0) -
       (behavior.activityActive ? behavior.activityMod : 0);
-    await MGMEVariations2._mgeFillRandomDisposition(html, baseDisposition);
-    MGMEVariations2._mgeSaveActorBehaviorFromHTML(html)
+    await MGMEVariations2._mgmeFillRandomDisposition(html, baseDisposition);
+    MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html)
   }
 
-  static async _mgeFillRandomDisposition(html, baseValue) {
+  static async _mgmeFillRandomDisposition(html, baseValue) {
     const selectedToken = canvas.tokens.controlled[0];
     if (!selectedToken)
       return;
@@ -177,42 +177,42 @@ export default class MGMEVariations2 {
       element.find('#mgme_behavior_personality_active').prop('checked') ? element.find('#mgme_behavior_personality_mod').val() : 0,
       element.find('#mgme_behavior_activity_active').prop('checked') ? element.find('#mgme_behavior_activity_mod').val() : 0
     ];
-    const dispositionTable = await MGMECommon._mgeFindTableByName('Mythic GME: Behavior Check');
+    const dispositionTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Behavior Check');
     const formula = `${baseValue ?? '2d10'} + ${mod1} + ${mod2} + ${mod3}`;
     const dispositionRoll = await new Roll(formula).roll({async:false});
     const dispositionTotal = dispositionRoll.total;
     const dispositionResult = (await dispositionTable.draw({roll: Roll.create(dispositionTotal.toString()), displayChat: false})).results[0].getChatText();
-    MGMEVariations2._mgeCheckBehaviorRankShift(selectedToken.name, element.find('#mgme_behavior_disposition').val(), dispositionResult);
+    MGMEVariations2._mgmeCheckBehaviorRankShift(selectedToken.name, element.find('#mgme_behavior_disposition').val(), dispositionResult);
     element.find('#mgme_behavior_disposition').val(dispositionResult);
     element.find('#mgme_behavior_disposition_value').val(dispositionTotal);
-    MGMEVariations2._mgeSaveActorBehaviorFromHTML(html);
+    MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html);
   }
 
-  static async _mgeAdjustDisposition(mod, actor) {
+  static async _mgmeAdjustDisposition(mod, actor) {
     const selectedToken = actor ?? canvas.tokens.controlled[0];
     if (!selectedToken) {
       ui.notifications.warn("Mythic GME: No tokens selected!");
       return;
     }
-    const tableDispositions = await MGMECommon._mgeFindTableByName('Mythic GME: Behavior Check');
-    const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+    const tableDispositions = await MGMECommon._mgmeFindTableByName('Mythic GME: Behavior Check');
+    const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
     if (!behavior)
       return;
     behavior.dispositionValue += mod;
     const dispositionRankRoll = await tableDispositions.draw({roll: Roll.create(behavior.dispositionValue.toString()), displayChat: false});
     const newDispositionRank = dispositionRankRoll.results[0].getChatText();
-    MGMEVariations2._mgeCheckBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newDispositionRank);
+    MGMEVariations2._mgmeCheckBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newDispositionRank);
     behavior.dispositionRank = newDispositionRank;
-    MGMEVariations2._mgeUpdateActorBehavior(selectedToken.actor, behavior);
+    MGMEVariations2._mgmeUpdateActorBehavior(selectedToken.actor, behavior);
     return behavior;
   }
 
 
-  static _mgeUpdateActorBehavior(actor, behavior) {
-    actor.setFlag('mythic-gme-tools', 'mgeBehavior', behavior)
+  static _mgmeUpdateActorBehavior(actor, behavior) {
+    actor.setFlag('mythic-gme-tools', 'mgmeBehavior', behavior)
   }
 
-  static _mgeCheckBehaviorRankShift(actorName, oldRank, newRank) {
+  static _mgmeCheckBehaviorRankShift(actorName, oldRank, newRank) {
     if (oldRank && newRank && oldRank !== newRank) {
       const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
       let chatBehavior = {
@@ -222,20 +222,20 @@ export default class MGMEVariations2 {
               `,
         whisper: whisper
       };
-      MGMEChatJournal._mgeCreateChatAndLog(chatBehavior);
+      MGMEChatJournal._mgmeCreateChatAndLog(chatBehavior);
     }
   }
 
-  static async _mgeFillAdjustedDisposition(html, mod) {
-    const newBehavior = await MGMEVariations2._mgeAdjustDisposition(parseInt(mod));
+  static async _mgmeFillAdjustedDisposition(html, mod) {
+    const newBehavior = await MGMEVariations2._mgmeAdjustDisposition(parseInt(mod));
     if (!newBehavior)
       return;
     $(html).find("#mgme_behavior_disposition").val(newBehavior.dispositionRank);
     $(html).find("#mgme_behavior_disposition_value").val(newBehavior.dispositionValue);
-    MGMEVariations2._mgeSaveActorBehaviorFromHTML(html);
+    MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html);
   }
 
-  static _mgeSaveActorBehaviorFromHTML(html, actor) {
+  static _mgmeSaveActorBehaviorFromHTML(html, actor) {
     const elem = $(html);
     const actorBehavior = {
       theme: elem.find("#mgme_behavior_theme").val(),
@@ -256,12 +256,12 @@ export default class MGMEVariations2 {
       ui.notifications.warn("Mythic GME: No tokens selected!");
       return;
     }
-    MGMEVariations2._mgeUpdateActorBehavior(target, actorBehavior);
+    MGMEVariations2._mgmeUpdateActorBehavior(target, actorBehavior);
     return actorBehavior;
   }
 
-  static async _mgeFillRandomBehavior(elementId) {
-    const descriptors = await MGMEOracleUtils._mgeGetOracleAnswers(
+  static async _mgmeFillRandomBehavior(elementId) {
+    const descriptors = await MGMEOracleUtils._mgmeGetOracleAnswers(
       'Behavior Personality',
       MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting1,
       MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting2
@@ -269,8 +269,8 @@ export default class MGMEVariations2 {
     $(elementId).val(`${descriptors.descriptor1Result} ${descriptors.descriptor2Result}`);
   }
 
-  static async _mgeFillRandomActivity(elementId) {
-    const descriptors = await MGMEOracleUtils._mgeGetOracleAnswers(
+  static async _mgmeFillRandomActivity(elementId) {
+    const descriptors = await MGMEOracleUtils._mgmeGetOracleAnswers(
       'Behavior Activity',
       MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting1,
       MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting2
@@ -278,43 +278,43 @@ export default class MGMEVariations2 {
     $(elementId).val(`${descriptors.descriptor1Result} ${descriptors.descriptor2Result}`);
   }
 
-  static async _mgeBehaviorAction(actor, behavior) {
+  static async _mgmeBehaviorAction(actor, behavior) {
     if (!behavior.dispositionRank)
       return;
-    const dispositionMod = MGMECommon._mgeParseNumberFromText(behavior.dispositionRank);
-    const tableOne = await MGMECommon._mgeFindTableByName('Mythic GME: NPC Action 1');
+    const dispositionMod = MGMECommon._mgmeParseNumberFromText(behavior.dispositionRank);
+    const tableOne = await MGMECommon._mgmeFindTableByName('Mythic GME: NPC Action 1');
     const tableOneDraw = await tableOne.draw({displayChat: false});
     const tableOneResult = tableOneDraw.results[0].getChatText();
-    await MGMEOracleUtils._mgeSimulateRoll(tableOneDraw.roll);
-    const tableOneMod = MGMECommon._mgeParseNumberFromText(tableOneResult);
+    await MGMEOracleUtils._mgmeSimulateRoll(tableOneDraw.roll);
+    const tableOneMod = MGMECommon._mgmeParseNumberFromText(tableOneResult);
     const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
     // This is tricky, NPC action does NOT shift disposition
     if (tableOneResult.includes('NPC Action')) {
-      const tableTwo = await MGMECommon._mgeFindTableByName('Mythic GME: NPC Action 2');
+      const tableTwo = await MGMECommon._mgmeFindTableByName('Mythic GME: NPC Action 2');
       const tableTwoDraw = await tableTwo.draw({roll: new Roll(`2d10 + ${dispositionMod} + ${tableOneMod}`), displayChat: false});
       const tableTwoResult = tableTwoDraw.results[0].getChatText();
-      await MGMEOracleUtils._mgeSimulateRoll(tableTwoDraw.roll);
+      await MGMEOracleUtils._mgmeSimulateRoll(tableTwoDraw.roll);
       const messageContent = `
     <div><h1>${actor.name}</h1></div>
     <div>With disposition: ${behavior.dispositionRank}</div>
     <div>Performs an <b>unexpected ${tableOneResult}</b></div>
     <div><b>${tableTwoResult}</b></div>
     `
-      await MGMEChatJournal._mgeCreateChatAndLog({flavor: 'Behavior Unexpected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+      await MGMEChatJournal._mgmeCreateChatAndLog({flavor: 'Behavior Unexpected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
     } else {
-      await _mgeAdjustDisposition(tableOneMod, actor);
+      await _mgmeAdjustDisposition(tableOneMod, actor);
       const messageContent = `
     <div><h1>${actor.name}</h1></div>
     <div>With disposition: ${behavior.dispositionRank}</div>
     <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : 'No changes in disposition'}</div>
     <div>Performs an expected <b>${tableOneResult}</b></div>
     `
-      await MGMEChatJournal._mgeCreateChatAndLog({flavor: 'Behavior Expected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
+      await MGMEChatJournal._mgmeCreateChatAndLog({flavor: 'Behavior Expected Action', content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
     }
   }
 
-  static async mgeFateCheck() {
-    if (!MGMEVariations2._mgeEnsureV2Chaos('Fate Check', MGMEVariations2.mgeFateCheck))
+  static async mgmeFateCheck() {
+    if (!MGMEVariations2._mgmeEnsureV2Chaos('Fate Check', MGMEVariations2.mgmeFateCheck))
       return;
     const currentChaosFactor = game.settings.get('mythic-gme-tools', 'currentChaos')
     const fateCheckDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-fatecheck-dialog.hbs', {})
@@ -398,12 +398,12 @@ export default class MGMEVariations2 {
               flavor: "Fate Check Question",
               content: content,
               speaker: ChatMessage.getSpeaker()
-            }).then(chat => MGMEChatJournal._mgeLogChatToJournal(chat));
+            }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
             if (output.randomEvent) {
               if (game.dice3d)
-                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
+                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
               else
-                await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
+                await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
             }
           }
         }
@@ -414,19 +414,19 @@ export default class MGMEVariations2 {
     dialogue.render(true)
   }
 
-  static async mgeEventCheck() {
-    await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.EVENT_CHECK);
+  static async mgmeEventCheck() {
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.EVENT_CHECK);
   }
 
-  static async mgeDetailDescriptionCheck() {
-    await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION);
+  static async mgmeDetailDescriptionCheck() {
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION);
   }
 
-  static async mgeDetailActionCheck() {
-    await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION);
+  static async mgmeDetailActionCheck() {
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION);
   }
 
-  static async mgeBehaviorCheck() {
+  static async mgmeBehaviorCheck() {
     const selectedToken = canvas.tokens.controlled[0];
 
     if (!selectedToken) {
@@ -440,7 +440,7 @@ export default class MGMEVariations2 {
       title: `Behavior Check`,
       content: behaviorCheckDialog,
       render: html => {
-        const tokenBehavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgeBehavior');
+        const tokenBehavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
         if (tokenBehavior) {
           html.find("#mgme_behavior_theme").val(tokenBehavior.theme);
           html.find("#mgme_behavior_identity").val(tokenBehavior.identity);
@@ -462,9 +462,9 @@ export default class MGMEVariations2 {
           label: 'Action!',
           callback: async (html) => {
             if (!html.find("#mgme_behavior_disposition").val())
-              await MGMEVariations2._mgeFillRandomDisposition(html);
-            const actorBehavior = MGMEVariations2._mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
-            await MGMEVariations2._mgeBehaviorAction(selectedToken, actorBehavior);
+              await MGMEVariations2._mgmeFillRandomDisposition(html);
+            const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken.actor);
+            await MGMEVariations2._mgmeBehaviorAction(selectedToken, actorBehavior);
           }
         },
         sendChat: {
@@ -472,8 +472,8 @@ export default class MGMEVariations2 {
           label: 'To Chat',
           callback: async (html) => {
             if (!html.find("#mgme_behavior_disposition").val())
-              await MGMEVariations2._mgeFillRandomDisposition(html);
-            const actorBehavior = MGMEVariations2._mgeSaveActorBehaviorFromHTML(html, selectedToken.actor);
+              await MGMEVariations2._mgmeFillRandomDisposition(html);
+            const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken.actor);
             const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             let chatBehavior = {
@@ -488,7 +488,7 @@ export default class MGMEVariations2 {
             `,
               whisper: whisper
             };
-            await MGMEChatJournal._mgeCreateChatAndLog(chatBehavior);
+            await MGMEChatJournal._mgmeCreateChatAndLog(chatBehavior);
           }
         }
       },
@@ -498,8 +498,8 @@ export default class MGMEVariations2 {
     dialogue.render(true)
   }
 
-  static async mgeDetailCheck() {
-    if (!MGMEVariations2._mgeEnsureV2Chaos(`Detail Check`, mgeDetailCheck))
+  static async mgmeDetailCheck() {
+    if (!MGMEVariations2._mgmeEnsureV2Chaos(`Detail Check`, mgmeDetailCheck))
       return;
 
     const detailQuestionDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-detailcheck-dialog.hbs', {});
@@ -516,7 +516,7 @@ export default class MGMEVariations2 {
             const speaker = ChatMessage.getSpeaker();
             const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
             const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
-            const detailCheckTable = await MGMECommon._mgeFindTableByName('Mythic GME: Detail Check');
+            const detailCheckTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Detail Check');
             const detailCheckRoll = new Roll(`2d10 + ${currentChaos === 3 ? 2 : 0} + ${currentChaos === 6 ? -2 : 0}`);
             const detailCheckResult = (await detailCheckTable.draw({roll: detailCheckRoll, displayChat: false})).results[0].getChatText();
             const includeDescription = html.find("#mgme_v2_include_desc_detail").prop('checked');
@@ -534,9 +534,9 @@ export default class MGMEVariations2 {
             if (includeDescription || includeAction)
               baseDetailChat = await ChatMessage.create(chatConfig);
             else
-              baseDetailChat = await MGMEChatJournal._mgeCreateChatAndLog(chatConfig);
+              baseDetailChat = await MGMEChatJournal._mgmeCreateChatAndLog(chatConfig);
             if (includeDescription) {
-              await MGMEOracleUtils._mgePrepareOracleQuestion({
+              await MGMEOracleUtils._mgmePrepareOracleQuestion({
                 purpose: '<h2>Description Detail Check</h2>',
                 focusValue: detailCheckResult,
                 tableSetting1: 'descriptionsAdvTable',
@@ -544,7 +544,7 @@ export default class MGMEVariations2 {
               }, baseDetailChat);
             }
             if (includeAction) {
-              await MGMEOracleUtils._mgePrepareOracleQuestion({
+              await MGMEOracleUtils._mgmePrepareOracleQuestion({
                 purpose: '<h2>Action Detail Check</h2>',
                 focusValue: detailCheckResult,
                 tableSetting1: 'actionTable',

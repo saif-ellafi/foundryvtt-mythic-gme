@@ -16,11 +16,11 @@ export default class MGMEVariations1 {
     });
   }
 
-  static async mgeComplexQuestion() {
-    await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.COMPLEX_QUESTION)
+  static async mgmeComplexQuestion() {
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.COMPLEX_QUESTION)
   }
 
-  static async mgeBackstoryGenerator() {
+  static async mgmeBackstoryGenerator() {
     const backstoryDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations1-backstory-dialog.hbs', {})
 
     let dialogue = new Dialog({
@@ -35,26 +35,26 @@ export default class MGMEVariations1 {
             let eventsCount;
             const choice = html.find("#mgme_backstory_count").val();
             if (choice === 'table') {
-              const eventsCountTable = await MGMECommon._mgeFindTableByName('Mythic GME: Backstory Events');
+              const eventsCountTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Backstory Events');
               const backstoryDraw = await eventsCountTable.roll();
               eventsCount = parseInt(backstoryDraw.results[0].getChatText());
               let triggerMsg = await backstoryDraw.roll.toMessage({
                 content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
               });
-              await MGMEChatJournal._mgeLogChatToJournal(triggerMsg);
-              await MGMECommon._mgeWaitFor3DDice(triggerMsg.id);
+              await MGMEChatJournal._mgmeLogChatToJournal(triggerMsg);
+              await MGMECommon._mgmeWaitFor3DDice(triggerMsg.id);
             } else {
               eventsCount = parseInt(choice);
-              await MGMEChatJournal._mgeCreateChatAndLog({
+              await MGMEChatJournal._mgmeCreateChatAndLog({
                 content: `<b>${eventsCount}</b> Backstory Events${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
               })
             }
-            const backstoryFocusTable = await MGMECommon._mgeFindTableByName('Mythic GME: Backstory Focus')
+            const backstoryFocusTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Backstory Focus')
             const backstoryLabels = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh'];
             let i = 0;
             while (i < eventsCount) {
               const backstoryFocus = (await backstoryFocusTable.roll()).results[0].getChatText();
-              await MGMEOracleUtils._mgeSubmitOracleQuestion(
+              await MGMEOracleUtils._mgmeSubmitOracleQuestion(
                 `${speaker.alias === 'Gamemaster' ? '' : `<h2>${speaker.alias} - Backstory</h2>`}`,
                 `${eventsCount === 1 ? 'Backstory Event' : (backstoryLabels[i] ?? i+1) + ' Backstory Event'}`,
                 false,

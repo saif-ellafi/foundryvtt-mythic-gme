@@ -109,7 +109,7 @@ export default class MGMECore {
       });
     }
 
-    MGMECommon._mgeGetAllMythicTables().then(tables => {
+    MGMECommon._mgmeGetAllMythicTables().then(tables => {
       game.settings.register('mythic-gme-tools', 'focusTable', {
         name: 'Focus Table',
         hint: 'Table to use for Random Event focus. Only table names starting with Mythic are listed.',
@@ -163,7 +163,7 @@ export default class MGMECore {
 
   }
 
-  static async mgeFateChart() {
+  static async mgmeFateChart() {
 
     function generateOutput(question, odds, chaos, result) {
       const target = MGMEReference.FATE_CHART[odds][chaos];
@@ -189,7 +189,7 @@ export default class MGMECore {
       `
     }
 
-    const fateChartDialog = await renderTemplate('./modules/mythic-gme-tools/template/core-fatechart-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgeGenerateChaosRankOptions())});
+    const fateChartDialog = await renderTemplate('./modules/mythic-gme-tools/template/core-fatechart-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
 
     let dialogue = new Dialog({ // ToDo: Replace with template
       title: `Fate Chart`,
@@ -218,12 +218,12 @@ export default class MGMECore {
               flavor: 'Fate Chart Question',
               content: content,
               speaker: ChatMessage.getSpeaker()
-            }).then(chat => MGMEChatJournal._mgeLogChatToJournal(chat));
+            }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
             if (doubles) {
               if (game.dice3d)
-                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
+                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
               else
-                await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
+                await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
             }
           }
         }
@@ -234,11 +234,11 @@ export default class MGMECore {
     dialogue.render(true)
   }
 
-  static async mgeRandomEvent() {
-    await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.EVENT_QUESTION);
+  static async mgmeRandomEvent() {
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.EVENT_QUESTION);
   }
 
-  static mgeIncreaseChaos() {
+  static mgmeIncreaseChaos() {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
     const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
     const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
@@ -250,18 +250,18 @@ export default class MGMECore {
         whisper: whisper
       };
       $("#mgme_chaos").val(currentChaos + 1);
-      MGMEChatJournal._mgeCreateChatAndLog(chat);
+      MGMEChatJournal._mgmeCreateChatAndLog(chat);
     } else {
       let chat = {
         flavor: 'Chaos Shift',
         content: `<h3>Chaos Maximum! (${currentChaos})</h3>`,
         whisper: whisper
       };
-      MGMEChatJournal._mgeCreateChatAndLog(chat);
+      MGMEChatJournal._mgmeCreateChatAndLog(chat);
     }
   }
 
-  static mgeDecreaseChaos() {
+  static mgmeDecreaseChaos() {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
     const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
     const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
@@ -273,18 +273,18 @@ export default class MGMECore {
         whisper: whisper
       };
       $("#mgme_chaos").val(currentChaos - 1);
-      MGMEChatJournal._mgeCreateChatAndLog(chat);
+      MGMEChatJournal._mgmeCreateChatAndLog(chat);
     } else {
       let chat = {
         flavor: 'Chaos Shift',
         content: `<h3>Chaos Minimum! (${currentChaos})</h3>`,
         whisper: whisper
       };
-      MGMEChatJournal._mgeCreateChatAndLog(chat);
+      MGMEChatJournal._mgmeCreateChatAndLog(chat);
     }
   }
 
-  static mgeCheckChaos() {
+  static mgmeCheckChaos() {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
     const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
     let chat = {
@@ -292,11 +292,11 @@ export default class MGMECore {
       content: `<h3>Chaos Rank (${currentChaos})</h3>`,
       whisper: whisper
     };
-    MGMEChatJournal._mgeCreateChatAndLog(chat);
+    MGMEChatJournal._mgmeCreateChatAndLog(chat);
   }
 
-  static async mgeSceneAlteration() {
-    const sceneAlterationDialogue = await renderTemplate('./modules/mythic-gme-tools/template/core-scenealteration-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgeGenerateChaosRankOptions())});
+  static async mgmeSceneAlteration() {
+    const sceneAlterationDialogue = await renderTemplate('./modules/mythic-gme-tools/template/core-scenealteration-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
 
     let dialogue = new Dialog({
       title: `Scene Alteration Check`,
@@ -318,20 +318,20 @@ export default class MGMECore {
                   content: `<b style="color: darkred">Scene was interrupted!</b>${debug ? ' ('+result+')' : ''}`
                 });
                 if (game.dice3d)
-                  Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT))
+                  Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT))
                 else
-                  await MGMEOracleUtils._mgePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT);
+                  await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT);
               } else {
                 return roll.toMessage({
                   flavor: 'Scene Alteration',
                   content: `<b style="color: darkred">Scene was altered!</b>${debug ? ' ('+result+')' : ''}`
-                }).then(chat => {MGMEChatJournal._mgeLogChatToJournal(chat);return chat});
+                }).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
               }
             } else {
               return roll.toMessage({
                 flavor: 'Scene Alteration Check',
                 content: `<b style="color: darkgreen">Scene Proceeds Normally!</b>${debug ? ' ('+result+')' : ''}`
-              }).then(chat => {MGMEChatJournal._mgeLogChatToJournal(chat);return chat});
+              }).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
             }
           }
         }

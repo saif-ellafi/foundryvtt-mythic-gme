@@ -13,7 +13,7 @@ export default class MGMECards {
     });
   }
 
-  static async mgeDealCard({
+  static async mgmeDealCard({
                                tableName,
                                fileExtension = 'jpg',
                                useRotate = false,
@@ -22,7 +22,7 @@ export default class MGMECards {
                                shuffle = true
                              }) {
     const projectRoot = game.settings.get("mythic-gme-tools", "deckPath");
-    const fallbackTables = await MGMECommon._mgeGetAllPacks();
+    const fallbackTables = await MGMECommon._mgmeGetAllPacks();
     const table = game.tables.find(t => t.name === tableName) ??
       fallbackTables.find(t => t.name === tableName)
 

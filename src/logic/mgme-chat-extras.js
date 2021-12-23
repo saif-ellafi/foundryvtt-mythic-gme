@@ -2,7 +2,7 @@ import MGMEChatJournal from "../utils/mgme-chat-journal";
 
 export default class MGMEChatExtras {
 
-  static async mgeExportChatToJournal() {
+  static async mgmeExportChatToJournal() {
     const defaultJournalName = `Mythic Adventure Log ${new Date().toDateInputString()}`;
     const exportDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-exportchat-dialog.hbs', {defaultJournalName: defaultJournalName});
     let dialogue = new Dialog({
@@ -18,7 +18,7 @@ export default class MGMEChatExtras {
             const clearChat = html.find("#mgme_export_clear_chat").prop('checked');
             let entries = [];
             ui.chat.collection.contents.forEach(chat => {
-              entries.push(MGMEChatJournal._mgeBuildLogChatHtml(chat, includeAuthor));
+              entries.push(MGMEChatJournal._mgmeBuildLogChatHtml(chat, includeAuthor));
             });
             const targetJournal = game.journal.contents.find(j => j.name === journalName);
             let journalCreation;
@@ -40,7 +40,7 @@ export default class MGMEChatExtras {
     dialogue.render(true)
   }
 
-  static mgeFormattedChat() {
+  static mgmeFormattedChat() {
     const tokens = game.scenes.active.tokens.contents;
 
     const formattedChatDialog = `
@@ -126,7 +126,7 @@ export default class MGMEChatExtras {
               content: message,
               speaker: selectedSpeaker
             };
-            MGMEChatJournal._mgeCreateChatAndLog(chatConfig);
+            MGMEChatJournal._mgmeCreateChatAndLog(chatConfig);
           }
         }
       },

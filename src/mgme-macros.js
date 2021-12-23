@@ -6,29 +6,29 @@ import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
 
 export default class MGMEMacroAPI {
-  static mgeIncreaseChaos = MGMECore.mgeIncreaseChaos;
-  static mgeDecreaseChaos = MGMECore.mgeDecreaseChaos;
-  static mgeCheckChaos = MGMECore.mgeCheckChaos;
-  static mgeFateChart = MGMECore.mgeFateChart;
-  static mgeRandomEvent = MGMECore.mgeRandomEvent;
-  static mgeSceneAlteration = MGMECore.mgeSceneAlteration;
+  static mgmeIncreaseChaos = MGMECore.mgmeIncreaseChaos;
+  static mgmeDecreaseChaos = MGMECore.mgmeDecreaseChaos;
+  static mgmeCheckChaos = MGMECore.mgmeCheckChaos;
+  static mgmeFateChart = MGMECore.mgmeFateChart;
+  static mgmeRandomEvent = MGMECore.mgmeRandomEvent;
+  static mgmeSceneAlteration = MGMECore.mgmeSceneAlteration;
 
-  static mgeComplexQuestion = MGMEVariations1.mgeComplexQuestion;
-  static mgeBackstoryGenerator = MGMEVariations1.mgeBackstoryGenerator;
+  static mgmeComplexQuestion = MGMEVariations1.mgmeComplexQuestion;
+  static mgmeBackstoryGenerator = MGMEVariations1.mgmeBackstoryGenerator;
 
-  static mgeFateCheck = MGMEVariations2.mgeFateCheck;
-  static mgeEventCheck = MGMEVariations2.mgeEventCheck;
-  static mgeDetailDescriptionCheck = MGMEVariations2.mgeDetailDescriptionCheck;
-  static mgeDetailActionCheck = MGMEVariations2.mgeDetailActionCheck;
-  static mgeStatisticCheck = MGMEVariations2.mgeStatisticCheck;
-  static mgeBehaviorCheck = MGMEVariations2.mgeBehaviorCheck;
-  static mgeDetailCheck = MGMEVariations2.mgeDetailCheck;
+  static mgmeFateCheck = MGMEVariations2.mgmeFateCheck;
+  static mgmeEventCheck = MGMEVariations2.mgmeEventCheck;
+  static mgmeDetailDescriptionCheck = MGMEVariations2.mgmeDetailDescriptionCheck;
+  static mgmeDetailActionCheck = MGMEVariations2.mgmeDetailActionCheck;
+  static mgmeStatisticCheck = MGMEVariations2.mgmeStatisticCheck;
+  static mgmeBehaviorCheck = MGMEVariations2.mgmeBehaviorCheck;
+  static mgmeDetailCheck = MGMEVariations2.mgmeDetailCheck;
 
-  static mgeDealCard = MGMECards.mgeDealCard;
+  static mgmeDealCard = MGMECards.mgmeDealCard;
 
-  static mgeExportChatToJournal = MGMEChatExtras.mgeExportChatToJournal;
-  static mgeFormattedChat = MGMEChatExtras.mgeFormattedChat;
+  static mgmeExportChatToJournal = MGMEChatExtras.mgmeExportChatToJournal;
+  static mgmeFormattedChat = MGMEChatExtras.mgmeFormattedChat;
 
-  static mgeOracleBuilder = MGMEOracleBuilder.mgeOracleBuilder;
-  static mgePrepareCustomOracleQuestion = MGMEOracleBuilder.mgePrepareCustomOracleQuestion;
+  static mgmeOracleBuilder = MGMEOracleBuilder.mgmeOracleBuilder;
+  static mgmePrepareCustomOracleQuestion = MGMEOracleBuilder.mgmePrepareCustomOracleQuestion;
 }

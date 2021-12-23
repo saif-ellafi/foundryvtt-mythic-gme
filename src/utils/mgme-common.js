@@ -2,7 +2,7 @@ export default class MGMECommon {
 
   static DEBOUNCED_RELOAD = debounce(() => window.location.reload(), 100);
 
-  static async _mgeGetAllPacks() {
+  static async _mgmeGetAllPacks() {
     const packsCore = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
     const packsV1 = await game.packs.get('mythic-gme-tools.mythic-gme-v1-tables').getDocuments();
     const packsV2 = await game.packs.get('mythic-gme-tools.mythic-gme-v2-tables').getDocuments();
@@ -10,8 +10,8 @@ export default class MGMECommon {
     return packsCore.concat(packsV1).concat(packsV2).concat(packsDecks);
   }
 
-  static async _mgeFindTableBySetting(setting) {
-    const fallbackTables = await MGMECommon._mgeGetAllPacks();
+  static async _mgmeFindTableBySetting(setting) {
+    const fallbackTables = await MGMECommon._mgmeGetAllPacks();
     const name = game.settings.get('mythic-gme-tools', setting);
     const baseSetting = game.settings.settings.get(`mythic-gme-tools.${setting}`);
     return game.tables.contents.find(t => t.name === name) ??
@@ -19,13 +19,13 @@ export default class MGMECommon {
       fallbackTables.find(t => t.name === baseSetting.default);
   }
 
-  static async _mgeFindTableByName(tableName) {
+  static async _mgmeFindTableByName(tableName) {
     return Object.values(
-      game.tables.contents.concat((await MGMECommon._mgeGetAllPacks()))
+      game.tables.contents.concat((await MGMECommon._mgmeGetAllPacks()))
     ).find(t => t.name === tableName);
   }
 
-  static _mgeWaitFor3DDice(targetMessageId) {
+  static _mgmeWaitFor3DDice(targetMessageId) {
     function buildHook(resolve) {
       Hooks.once('diceSoNiceRollComplete', (messageId) => {
         if (targetMessageId === messageId)
@@ -43,7 +43,7 @@ export default class MGMECommon {
     });
   }
 
-  static _mgeGenerateChaosRankOptions() {
+  static _mgmeGenerateChaosRankOptions() {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
     const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
     const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
@@ -57,14 +57,14 @@ export default class MGMECommon {
     return options
   }
 
-  static async _mgeGetAllMythicTables() {
-    return Object.fromEntries((await MGMECommon._mgeGetAllPacks())
+  static async _mgmeGetAllMythicTables() {
+    return Object.fromEntries((await MGMECommon._mgmeGetAllPacks())
       .concat(game.tables.contents)
       .filter(e => e.name.startsWith('Mythic'))
       .map(e => [e.name, e.name]));
   }
 
-  static _mgeParseNumberFromText(tableOutcome) {
+  static _mgmeParseNumberFromText(tableOutcome) {
     return parseInt(tableOutcome.match(/[-\d+]+/)[0]);
   }
 

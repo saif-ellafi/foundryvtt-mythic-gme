@@ -2,7 +2,7 @@ import MGMECommon from "../utils/mgme-common";
 import MGMEChatJournal from "../utils/mgme-chat-journal";
 
 export default class MGMEOracleBuilder {
-  static _mgeOracleBuilderParse(html) {
+  static _mgmeOracleBuilderParse(html) {
     const question = html.find(`#mgme_question_target`).val();
     const questionFlavor = html.find("#mgme_question_flavor").prop('checked');
     if (!question)
@@ -22,14 +22,14 @@ export default class MGMEOracleBuilder {
         draws: parseInt(html.find(`#mgme_builder_draws_${i}`).val())
       })
     }
-    game.user.setFlag('mythic-gme-tools', 'mgeLastCustomOracle', oracle);
+    game.user.setFlag('mythic-gme-tools', 'mgmeLastCustomOracle', oracle);
     return oracle
   }
 
-  static async _mgeGetCustomOracleAnswers(oracle, questionFlavor) {
+  static async _mgmeGetCustomOracleAnswers(oracle, questionFlavor) {
     let content = questionFlavor?.length ? `<h2>${questionFlavor}</h2>` : '';
     for (const prop of oracle.props) {
-      const descriptorTable = await MGMECommon._mgeFindTableByName(prop.table);
+      const descriptorTable = await MGMECommon._mgmeFindTableByName(prop.table);
       const descriptorResults = await descriptorTable.drawMany(prop.draws, {displayChat: false});
 
       descriptorResults.results.forEach(result => {
@@ -43,10 +43,10 @@ export default class MGMEOracleBuilder {
       speaker: ChatMessage.getSpeaker(),
       whisper: whisper
     };
-    ChatMessage.create(chatConfig).then(chat => {if (!oracle.test) MGMEChatJournal._mgeLogChatToJournal(chat)});
+    ChatMessage.create(chatConfig).then(chat => {if (!oracle.test) MGMEChatJournal._mgmeLogChatToJournal(chat)});
   }
 
-  static async mgeOracleBuilder() {
+  static async mgmeOracleBuilder() {
     if (!game.tables.contents.length) {ui.notifications.warn("Mythic GME Tools: No RollTables find in your World. Please create or import some first."); return}
     const builderDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-oraclebuilder-dialog.hbs', {})
 
@@ -55,7 +55,7 @@ export default class MGMEOracleBuilder {
       content: builderDialog,
       render: function (html) {
         const entriesOpen = 1; // Configurable???
-        const lastOracle = game.user.getFlag('mythic-gme-tools', 'mgeLastCustomOracle');
+        const lastOracle = game.user.getFlag('mythic-gme-tools', 'mgmeLastCustomOracle');
         if (lastOracle) {
           html.find(`#mgme_question_target`).val(lastOracle.name);
           html.find("#mgme_question_flavor").prop('checked', lastOracle.askFlavor);
@@ -93,10 +93,10 @@ export default class MGMEOracleBuilder {
           icon: '<i class="fas fa-comments"></i>',
           label: 'Test Oracle',
           callback: (html) => {
-            const oracle = MGMEOracleBuilder._mgeOracleBuilderParse(html);
+            const oracle = MGMEOracleBuilder._mgmeOracleBuilderParse(html);
             if (oracle) {
               oracle.test = true;
-              MGMEOracleBuilder.mgePrepareCustomOracleQuestion(oracle);
+              MGMEOracleBuilder.mgmePrepareCustomOracleQuestion(oracle);
             }
           }
         },
@@ -104,9 +104,9 @@ export default class MGMEOracleBuilder {
           icon: '<i class="fas fa-save"></i>',
           label: 'Save Oracle as Macro',
           callback: (html) => {
-            const oracle = MGMEOracleBuilder._mgeOracleBuilderParse(html);
+            const oracle = MGMEOracleBuilder._mgmeOracleBuilderParse(html);
             if (oracle) {
-              const command = `game.modules.get('mythic-gme-tools').api.mgePrepareCustomOracleQuestion(${JSON.stringify(oracle)});`;
+              const command = `game.modules.get('mythic-gme-tools').api.mgmePrepareCustomOracleQuestion(${JSON.stringify(oracle)});`;
               Macro.create({name: oracle.name, type: 'script', command: command, img: 'icons/svg/cowled.svg'});
               ui.notifications.info(`Mythic GME Tools: Oracle saved as Macro "${oracle.name}"`);
             }
@@ -118,7 +118,7 @@ export default class MGMEOracleBuilder {
     dialogue.render(true)
   }
 
-  static async mgePrepareCustomOracleQuestion(oracle) {
+  static async mgmePrepareCustomOracleQuestion(oracle) {
     if (oracle.askFlavor) {
       const questionDialog = `
       <form>
@@ -138,7 +138,7 @@ export default class MGMEOracleBuilder {
             label: 'To Chat',
             callback: (html) => {
               let text = html[0].getElementsByTagName("input").mgme_custom_oracle_question.value;
-              MGMEOracleBuilder._mgeGetCustomOracleAnswers(oracle, text)
+              MGMEOracleBuilder._mgmeGetCustomOracleAnswers(oracle, text)
             }
           }
         },
@@ -146,7 +146,7 @@ export default class MGMEOracleBuilder {
       })
       dialogue.render(true)
     } else {
-      MGMEOracleBuilder._mgeGetCustomOracleAnswers(oracle)
+      MGMEOracleBuilder._mgmeGetCustomOracleAnswers(oracle)
     }
   }
 }
