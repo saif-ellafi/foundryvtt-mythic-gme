@@ -78,14 +78,7 @@ export default class MGMEOracleBuilder {
   /** MACRO */
   static async mgmePrepareCustomOracleQuestion(oracle) {
     if (oracle.askFlavor) {
-      const questionDialog = `
-      <form>
-        <div>
-        <label for="customQuestion">Flavor:</label>
-        <input name="customQuestion" id="mgme_custom_oracle_question" style="margin-bottom:10px;width:220px"/>
-        </div>
-      </form>
-    `
+      const questionDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-customoracle-dialog.hbs', {})
       let dialogue = new Dialog({
         title: oracle.name,
         content: questionDialog,

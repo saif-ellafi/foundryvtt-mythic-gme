@@ -3,8 +3,8 @@ import MGMECommon from "../utils/mgme-common";
 export default class MGMECards {
   static initSettings() {
     game.settings.register("mythic-gme-tools", "deckPath", {
-      name: "Deck Path Location",
-      hint: "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
+      name: game.i18n.localize('MGME.SettingDeckPathName'),
+      hint: game.i18n.localize('MGME.SettingDeckPathHint'),
       scope: "world",
       config: true,
       type: String,
@@ -29,7 +29,7 @@ export default class MGMECards {
     const result = await table.draw();
     if (shuffle && result.results.length === 0) {
       table.reset();
-      ui.notifications.info("The Deck has been shuffled. Please draw again.");
+      ui.notifications.info(game.i18n.localize('MGME.InfoShuffled'));
       return false;
     }
     const image = await result.results[0].data.text;
@@ -43,7 +43,7 @@ export default class MGMECards {
     } catch {
       let errorChat = {
         content: `
-        <div style="color: red">ERROR: Cards not found. Make sure your cards are available in the following path:</div>
+        <div style="color: red">${game.i18n.localize('MGME.ErrNoCards')}:</div>
         <br>
         <div><em>${path}</em></div>
       `
@@ -63,11 +63,11 @@ export default class MGMECards {
       <div>`,
       buttons: {
         reset: {
-          label: "Shuffle Deck",
+          label: game.i18n.localize('MGME.ShuffleDeck'),
           callback: () => table.reset(),
         },
         close: {
-          label: "Close",
+          label: game.i18n.localize('MGME.DeckClose'),
           callback: () => {
           },
         },

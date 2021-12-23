@@ -3,6 +3,7 @@ import MGMEVariations1 from "./src/logic/mgme-variations-1";
 import MGMEVariations2 from "./src/logic/mgme-variations-2";
 import MGMECards from "./src/logic/mgme-cards";
 import MGMEMacroAPI from "./src/mgme-macros";
+import MGMEReference from "./src/utils/mgme-reference";
 
 Hooks.once('ready', () => {
 

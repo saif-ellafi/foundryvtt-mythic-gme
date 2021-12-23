@@ -263,8 +263,8 @@ export default class MGMEVariations2 {
   static async _mgmeFillRandomBehavior(elementId) {
     const descriptors = await MGMEOracleUtils._mgmeGetOracleAnswers(
       game.i18n.localize('MGME.BehaviorPersonality'),
-      MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting1,
-      MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting2
+      MGMEReference.PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting1,
+      MGMEReference.PROPS_TEMPLATES.DESCRIPTION_QUESTION.tableSetting2
     )
     $(elementId).val(`${descriptors.descriptor1Result} ${descriptors.descriptor2Result}`);
   }
@@ -272,8 +272,8 @@ export default class MGMEVariations2 {
   static async _mgmeFillRandomActivity(elementId) {
     const descriptors = await MGMEOracleUtils._mgmeGetOracleAnswers(
       game.i18n.localize('MGME.BehaviorActivity'),
-      MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting1,
-      MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION.tableSetting2
+      MGMEReference.PROPS_TEMPLATES.ACTION_QUESTION.tableSetting1,
+      MGMEReference.PROPS_TEMPLATES.ACTION_QUESTION.tableSetting2
     )
     $(elementId).val(`${descriptors.descriptor1Result} ${descriptors.descriptor2Result}`);
   }
@@ -387,11 +387,11 @@ export default class MGMEVariations2 {
             const fateLeft = roll.terms[0].results[0].result;
             const fateRight = roll.terms[0].results[1].result;
             const chaosResult = roll.terms[2].total;
-            let output = generateOutput(MGMEReference.VARIATIONS2_ODDS_MAP[odds].mod, chaosFactor, yesFavorable, fateResult, fateLeft, fateRight, chaosResult);
+            let output = generateOutput(MGMEReference._mgmeGetVars2Odds[odds].mod, chaosFactor, yesFavorable, fateResult, fateLeft, fateRight, chaosResult);
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             const content = `
               ${html.find("#mgme_v2_question").val() ? `<h2>${html.find("#mgme_v2_question").val()}</h2>` : ''}
-              ${debug ? `<div><b>Roll:</b> ${fateLeft}+${fateRight} (${chaosResult}) at <em>${MGMEReference.VARIATIONS2_ODDS_MAP[odds].label}</em> with Chaos[${chaosFactor}]</div>` : ''}
+              ${debug ? `<div><b>Roll:</b> ${fateLeft}+${fateRight} (${chaosResult}) at <em>${MGMEReference._mgmeGetVars2Odds[odds].label}</em> with Chaos[${chaosFactor}]</div>` : ''}
               <b style="color: ${output.outcomeColor}">${output.outcomeText}</b>
             `;
             roll.toMessage({
@@ -401,9 +401,9 @@ export default class MGMEVariations2 {
             }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
             if (output.randomEvent) {
               if (game.dice3d)
-                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
+                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.UNEXPECTED_EVENT))
               else
-                await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
+                await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.UNEXPECTED_EVENT);
             }
           }
         }
@@ -415,15 +415,15 @@ export default class MGMEVariations2 {
   }
 
   static async mgmeEventCheck() {
-    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.EVENT_CHECK);
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.EVENT_CHECK);
   }
 
   static async mgmeDetailDescriptionCheck() {
-    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.DESCRIPTION_QUESTION);
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.DESCRIPTION_QUESTION);
   }
 
   static async mgmeDetailActionCheck() {
-    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.ACTION_QUESTION);
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.ACTION_QUESTION);
   }
 
   static async mgmeBehaviorCheck() {

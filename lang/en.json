@@ -28,6 +28,8 @@
   "MGME.SettingsDoubleIgnoreChaosHint": "Whether to ignore CF and always hit a random event regardless",
   "MGME.SettingsD8ForSceneCheckName": "Use D8 for Scene Alteration checks",
   "MGME.SettingsD8ForSceneCheckHint": "A special rule for Variations #2 changing scene alteration probabilities",
+  "MGME.SettingDeckPathName": "Deck Path Location",
+  "MGME.SettingDeckPathHint": "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
 
   "MGME.DialogV2Conversion1": "This rule is based on Mythic Variations #2 Chaos Factor rules and needs Chaos Range settings between 3 and 6.",
   "MGME.DialogV2Conversion2": "Would you like me to change these settings for you?",
@@ -77,7 +79,13 @@
   "MGME.WarnNoTokenSelected": "Mythic GME: No Token selected!",
   "MGME.WarnNoTables": "Mythic GME Tools: No RollTables find in your World. Please create or import some first.",
 
+  "MGME.InfoShuffled": "The Deck has been shuffled. Please draw again.",
+  "MGME.ErrNoCards": "ERROR: Cards not found. Make sure your cards are available in the following path",
+  "MGME.ShuffleDeck": "Shuffle Deck",
+  "MGME.DeckClose": "Close",
+
   "MGME.RandomEvent": "Unexpected Random Event",
+  "MGME.EventFocus": "Event Focus",
   "MGME.UnexpectedRandomEvent": "Unexpected Random Event",
   "MGME.UnexpectedInterruptionEvent": "Interruption Event",
   "MGME.EventCheck": "Event Check",
@@ -97,6 +105,7 @@
   "MGME.Important": "IMPORTANT",
   "MGME.Optional": "optional",
   "MGME.Add": "Add",
+  "MGME.Flavor": "Flavor",
 
   "MGME.ComplexQuestion": "Complex Question",
   "MGME.DetailQuestion": "Detail Question",
@@ -115,6 +124,22 @@
   "MGME.YesIsFavorable": "Yes is a favorable answer",
   "MGME.IsImportant": "Is important",
 
+  "MGME.FormattedText": "Formatted Text",
+  "MGME.Speaker": "Speaker",
+  "MGME.Color": "Color",
+  "MGME.Message": "Message",
+  "MGME.Style": "Style",
+  "MGME.Title": "Title",
+  "MGME.Subtitle": "Subtitle",
+  "MGME.Bold": "Bold",
+  "MGME.Italic": "Italic",
+  "MGME.Underline": "Underline",
+  "MGME.Normal": "Normal",
+
+
+  "MGME.MythicAdventureLog": "MythicAdventureLog",
+  "MGME.ExportAllToJournal": "Export all Chat to Journal",
+  "MGME.Export": "Export",
   "MGME.JournalEntryName": "Journal Entry Name",
   "MGME.JournalIncludeMeta": "include author and timestamp",
   "MGME.ClearChatAfterExport": "Clear Chat after Export",

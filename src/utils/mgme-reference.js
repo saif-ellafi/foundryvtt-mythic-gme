@@ -123,33 +123,57 @@ export default class MGMEReference {
     }
   }
 
-  static CORE_ODDS_MAP = {
-    'i': game.i18n.localize('MGME.Impossible'),
-    'nw': game.i18n.localize('MGME.NoWay'),
-    'vu': game.i18n.localize('MGME.VeryUnlikely'),
-    'u': game.i18n.localize('MGME.Unlikely'),
-    'ff': game.i18n.localize('MGME.fiftyfifty'),
-    'sl': game.i18n.localize('MGME.SomewhatLikely'),
-    'l': game.i18n.localize('MGME.Likely'),
-    'vl': game.i18n.localize('MGME.VeryLikely'),
-    'nst': game.i18n.localize('MGME.NearSureThing'),
-    'ast': game.i18n.localize('MGME.SureThing'),
-    'htb': game.i18n.localize('MGME.HasToBe')
+  static DIE_COLORS = {
+    'black': 'Black',
+    'white': 'White',
+    'rainbow': 'Rainbow',
+    'acid': 'Acid',
+    'air': 'Air',
+    'cold': 'Cold',
+    'earth': 'Earth',
+    'fire': 'Fire',
+    'force': 'Force',
+    'ice': 'Ice',
+    'lightning': 'Lightning',
+    'necrotic': 'Necrotic',
+    'poison': 'Poison',
+    'psychic': 'Psychic',
+    'radiant': 'Radiant',
+    'thunder': 'Thunder',
+    'water': 'Water'
   }
 
-  static VARIATIONS2_ODDS_MAP = {
-    'imp': {label: game.i18n.localize('MGME.Impossible'), mod: -8},
-    'nw': {label: game.i18n.localize('MGME.NoWay'), mod: -6},
-    'vu': {label: game.i18n.localize('MGME.VeryUnlikely'), mod: -4},
-    'u': {label: game.i18n.localize('MGME.Unlikely'), mod: -2},
-    'ff': {label: game.i18n.localize('MGME.fiftyfifty'), mod: 0},
-    'l': {label: game.i18n.localize('MGME.Likely'), mod: 2},
-    'vl': {label: game.i18n.localize('MGME.VeryLikely'), mod: 4},
-    'st': {label: game.i18n.localize('MGME.SureThing'), mod: 6},
-    'htb': {label: game.i18n.localize('MGME.HasToBe'), mod: 8}
+  static _mgmeGetCoreOdds() {
+    return {
+      'i': game.i18n.localize('MGME.Impossible'),
+      'nw': game.i18n.localize('MGME.NoWay'),
+      'vu': game.i18n.localize('MGME.VeryUnlikely'),
+      'u': game.i18n.localize('MGME.Unlikely'),
+      'ff': game.i18n.localize('MGME.fiftyfifty'),
+      'sl': game.i18n.localize('MGME.SomewhatLikely'),
+      'l': game.i18n.localize('MGME.Likely'),
+      'vl': game.i18n.localize('MGME.VeryLikely'),
+      'nst': game.i18n.localize('MGME.NearSureThing'),
+      'ast': game.i18n.localize('MGME.SureThing'),
+      'htb': game.i18n.localize('MGME.HasToBe')
+    }
   }
 
-  static MGE_PROPS_TEMPLATES = {
+  static _mgmeGetVars2Odds() {
+    return {
+      'imp': {label: game.i18n.localize('MGME.Impossible'), mod: -8},
+      'nw': {label: game.i18n.localize('MGME.NoWay'), mod: -6},
+      'vu': {label: game.i18n.localize('MGME.VeryUnlikely'), mod: -4},
+      'u': {label: game.i18n.localize('MGME.Unlikely'), mod: -2},
+      'ff': {label: game.i18n.localize('MGME.fiftyfifty'), mod: 0},
+      'l': {label: game.i18n.localize('MGME.Likely'), mod: 2},
+      'vl': {label: game.i18n.localize('MGME.VeryLikely'), mod: 4},
+      'st': {label: game.i18n.localize('MGME.SureThing'), mod: 6},
+      'htb': {label: game.i18n.localize('MGME.HasToBe'), mod: 8}
+    }
+  }
+
+  static PROPS_TEMPLATES = {
     UNEXPECTED_EVENT: {
       purpose: game.i18n.localize('MGME.UnexpectedRandomEvent'),
       tableSetting1: 'actionTable',
@@ -195,25 +219,5 @@ export default class MGMEReference {
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     }
-  }
-
-  static DIE_COLORS = {
-    'black': 'Black',
-    'white': 'White',
-    'rainbow': 'Rainbow',
-    'acid': 'Acid',
-    'air': 'Air',
-    'cold': 'Cold',
-    'earth': 'Earth',
-    'fire': 'Fire',
-    'force': 'Force',
-    'ice': 'Ice',
-    'lightning': 'Lightning',
-    'necrotic': 'Necrotic',
-    'poison': 'Poison',
-    'psychic': 'Psychic',
-    'radiant': 'Radiant',
-    'thunder': 'Thunder',
-    'water': 'Water'
   }
 }

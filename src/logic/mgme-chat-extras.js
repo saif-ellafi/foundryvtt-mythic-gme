@@ -3,15 +3,15 @@ import MGMEChatJournal from "../utils/mgme-chat-journal";
 export default class MGMEChatExtras {
 
   static async mgmeExportChatToJournal() {
-    const defaultJournalName = `Mythic Adventure Log ${new Date().toDateInputString()}`;
+    const defaultJournalName = `${game.i18n.localize('MGME.MythicAdventureLog')} ${new Date().toDateInputString()}`;
     const exportDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-exportchat-dialog.hbs', {defaultJournalName: defaultJournalName});
     let dialogue = new Dialog({
-      title: 'Export all Chat to Journal',
+      title: game.i18n.localize('MGME.ExportAllToJournal'),
       content: exportDialog,
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'Export',
+          label: game.i18n.localize('MGME.Export'),
           callback: (html) => {
             const journalName = html.find("#mgme_export_journal_name").val();
             const includeAuthor = html.find("#mgme_export_include_meta").prop('checked');
@@ -40,31 +40,13 @@ export default class MGMEChatExtras {
     dialogue.render(true)
   }
 
-  static mgmeFormattedChat() {
+  static async mgmeFormattedChat() {
     const tokens = game.scenes.active.tokens.contents;
 
-    const formattedChatDialog = `
-    <form>
-    <label for="mgme_format_style">Style:</label>
-    <select id="mgme_format_style" style="margin-bottom: 10px;">
-      <option value="title" selected>Title</option>
-      <option value="subtitle">Subtitle</option>
-      <option value="bold">Bold</option>
-      <option value="italic">Italic</option>
-      <option value="underline">Underline</option>
-      <option value="normal">Normal</option>
-    </select>
-    <label for="mgme_format_speaker">Speaker:</label>
-    <select id="mgme_format_speaker" style="margin-bottom: 10px;width:180px"></select>
-    <label for="mgme_format_color" style="margin-bottom:10px;">Color:</label>
-    <input id="mgme_format_color" style="margin-bottom:10px;width:60px;" placeholder="default"/>
-    <label for="mgme_format_text">Message:</label>
-    <input id="mgme_format_text" style="margin-bottom:10px;width: 200px;"/>
-    </form>
-    `
+    const formattedChatDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-formattedchat-dialog.hbs', {})
 
     let dialogue = new Dialog({
-      title: `Formatted Text`,
+      title: game.i18n.localize('MGME.FormattedText'),
       content: formattedChatDialog,
       render: html => {
         const curSpeaker = ChatMessage.getSpeaker();
@@ -80,7 +62,7 @@ export default class MGMEChatExtras {
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
-          label: 'To Chat',
+          label: game.i18n.localize('MGME.ToChat'),
           callback: () => {
             let message;
             let color = $("#mgme_format_color").val();

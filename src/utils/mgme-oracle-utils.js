@@ -99,13 +99,13 @@ export default class MGMEOracleUtils {
       const questionDialog = `
       <form>
       <div>
-      <label for="reQuestion">${questionProps.label} (optional):</label>
+      <label for="reQuestion">${questionProps.label} (${game.i18n.localize('MGME.Optional')}):</label>
       <input name="reQuestion" id="mgme_re_question" style="margin-bottom:10px;width:220px" placeholder="${questionProps.placeholder}"/>
       </div>
 
       <div>
       ${questionProps.useFocusTable ? `
-        <label for="reFocus" style="display:inline-block;">Event Focus:</label>
+        <label for="reFocus" style="display:inline-block;">${game.i18n.localize('MGME.EventFocus')}:</label>
         <select name="reFocus" id="mgme_re_efocus" style="width:312px;margin-bottom: 10px;"></select>
       ` : ''}
       </div>
@@ -129,7 +129,7 @@ export default class MGMEOracleUtils {
         buttons: {
           submit: {
             icon: '<i class="fas fa-comments"></i>',
-            label: 'To Chat',
+            label: game.i18n.localize('MGME.ToChat'),
             callback: (html) => {
               let text = html[0].getElementsByTagName("input").mgme_re_question.value;
               const focusValue = $("#mgme_re_efocus");

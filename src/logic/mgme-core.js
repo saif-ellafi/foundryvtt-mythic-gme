@@ -185,7 +185,7 @@ export default class MGMECore {
       const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
       return `
         ${question ? `<h2>${question}</h2>` : ''}
-        ${debug ? `<div><b>Roll:</b> ${result} <em>${MGMEReference.CORE_ODDS_MAP[odds]}</em> Chaos [${chaos}]</div>` : ''}
+        ${debug ? `<div><b>Roll:</b> ${result} <em>${MGMEReference._mgmeGetCoreOdds[odds]}</em> Chaos [${chaos}]</div>` : ''}
         <b style="color: ${color}">${outcome}</b>
       `
     }
@@ -222,9 +222,9 @@ export default class MGMECore {
             }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
             if (doubles) {
               if (game.dice3d)
-                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT))
+                Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.UNEXPECTED_EVENT))
               else
-                await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.UNEXPECTED_EVENT);
+                await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.UNEXPECTED_EVENT);
             }
           }
         }
@@ -236,7 +236,7 @@ export default class MGMECore {
   }
 
   static async mgmeRandomEvent() {
-    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.EVENT_QUESTION);
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.EVENT_QUESTION);
   }
 
   static mgmeIncreaseChaos() {
@@ -319,9 +319,9 @@ export default class MGMECore {
                   content: `<b style="color: darkred">${game.i18n.localize("MGME.SceneInterrupted")}</b>${debug ? ' ('+result+')' : ''}`
                 });
                 if (game.dice3d)
-                  Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT))
+                  Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT))
                 else
-                  await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.MGE_PROPS_TEMPLATES.INTERRUPTION_EVENT);
+                  await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT);
               } else {
                 return roll.toMessage({
                   flavor: game.i18n.localize('MGME.SceneAlteration'),
