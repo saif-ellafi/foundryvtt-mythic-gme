@@ -13,6 +13,13 @@ Below you can find detailed instructions and features for how to play and use th
 
 ### [This module was made for free, with love, hard work and tons of coffee!](https://ko-fi.com/jeansenvaars)
 
+### Early Special Appreciations!
+* **Tana Pigeon** for authorizing the distribution of this module, based on the wonderful Mythic Books
+* **stargolum** for DECKs support, feature loved by the community who plays with GMA cards
+* **KarstenW** for providing German Translations to the UI
+* **FoundryVTT Discord, Die Gießerei and Mythic Discord communities** for supporting with my terrible coding skills and crazy ideas
+* All users who say thanks and the ones who secretly play without letting me know :D
+
 # Table of Contents
 1. [Word Mill Games - License](#word-mill-games)
 2. [Video Guide to Mythic GME Tools](#video-guide-to-mythic-gme-in-foundry)
