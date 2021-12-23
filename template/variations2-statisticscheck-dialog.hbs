@@ -6,13 +6,20 @@
     </div>
 
     <div id="mgme_stats_container"></div>
-    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="entryAdd(this.parentElement.parentElement)"> Add</i></div>
+    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="addRevealNextEntry(this.parentElement.parentElement)"> Add</i></div>
 
     <div>
         <span title="Important" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
         <label for="mgme_statistic_important">Is important:</label>
         <input name="Is important" id="mgme_statistic_important" type="checkbox" style="vertical-align:middle">
     </div>
+
+    <script>
+        function addRevealNextEntry(html) {
+            const elem = $(html);
+            elem.find(".stat-hidden").first().removeClass('stat-hidden');
+        }
+    </script>
 
     <style>
         i:hover {

@@ -1,3 +1,8 @@
+### 3.0.0
+* Enhancement: Clean up and re organization of internal structure
+* Bugfix: Oracle Builder will also register to journal if autolog is enabled
+* Bugfix: All compendiums will be hidden by default to avoid showing them to players
+
 ### 2.2.6
 * Bugfix: Fixed missing table description keys causing undefined
 * Bugfix: Adjusted variations 2 tables to not show dice rolls by default

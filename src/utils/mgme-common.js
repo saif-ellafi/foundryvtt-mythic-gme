@@ -2,7 +2,7 @@ export default class MGMECommon {
 
   static DEBOUNCED_RELOAD = debounce(() => window.location.reload(), 100);
 
-  static async _mgmeGetAllPacks() {
+  static async _mgmeGetAllPackTables() {
     const packsCore = await game.packs.get('mythic-gme-tools.mythic-gme-tables').getDocuments();
     const packsV1 = await game.packs.get('mythic-gme-tools.mythic-gme-v1-tables').getDocuments();
     const packsV2 = await game.packs.get('mythic-gme-tools.mythic-gme-v2-tables').getDocuments();
@@ -11,7 +11,7 @@ export default class MGMECommon {
   }
 
   static async _mgmeFindTableBySetting(setting) {
-    const fallbackTables = await MGMECommon._mgmeGetAllPacks();
+    const fallbackTables = await MGMECommon._mgmeGetAllPackTables();
     const name = game.settings.get('mythic-gme-tools', setting);
     const baseSetting = game.settings.settings.get(`mythic-gme-tools.${setting}`);
     return game.tables.contents.find(t => t.name === name) ??
@@ -21,8 +21,15 @@ export default class MGMECommon {
 
   static async _mgmeFindTableByName(tableName) {
     return Object.values(
-      game.tables.contents.concat((await MGMECommon._mgmeGetAllPacks()))
+      game.tables.contents.concat((await MGMECommon._mgmeGetAllPackTables()))
     ).find(t => t.name === tableName);
+  }
+
+  static async _mgmeGetAllMythicTables() {
+    return Object.fromEntries((await MGMECommon._mgmeGetAllPackTables())
+      .concat(game.tables.contents)
+      .filter(e => e.name.startsWith('Mythic'))
+      .map(e => [e.name, e.name]));
   }
 
   static _mgmeWaitFor3DDice(targetMessageId) {
@@ -57,20 +64,8 @@ export default class MGMECommon {
     return options
   }
 
-  static async _mgmeGetAllMythicTables() {
-    return Object.fromEntries((await MGMECommon._mgmeGetAllPacks())
-      .concat(game.tables.contents)
-      .filter(e => e.name.startsWith('Mythic'))
-      .map(e => [e.name, e.name]));
-  }
-
   static _mgmeParseNumberFromText(tableOutcome) {
     return parseInt(tableOutcome.match(/[-\d+]+/)[0]);
-  }
-
-  static addRevealNextEntry(html) {
-    const elem = $(html);
-    elem.find(".stat-hidden").first().removeClass('stat-hidden');
   }
 
 }

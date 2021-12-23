@@ -6,13 +6,20 @@
     </div>
 
     <div id="mgme_builder_container"></div>
-    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="MGMECommon.addRevealNextEntry(this.parentElement.parentElement)"> Add</i></div>
+    <div><i style="width:auto;height:25px;" class="fas fa-plus" onclick="addRevealNextEntry(this.parentElement.parentElement)"> Add</i></div>
 
     <div>
         <span title="Flavor" class="fas fa-exclamation-triangle" style="margin-left:5px;"></span>
         <label for="mgme_question_flavor">Ask for Flavor</label>
         <input name="Ask Flavor" id="mgme_question_flavor" type="checkbox" style="vertical-align:middle">
     </div>
+
+    <script>
+        function addRevealNextEntry(html) {
+            const elem = $(html);
+            elem.find(".stat-hidden").first().removeClass('stat-hidden');
+        }
+    </script>
 
     <style>
         i:hover {

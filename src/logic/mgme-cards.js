@@ -22,7 +22,7 @@ export default class MGMECards {
                                shuffle = true
                              }) {
     const projectRoot = game.settings.get("mythic-gme-tools", "deckPath");
-    const fallbackTables = await MGMECommon._mgmeGetAllPacks();
+    const fallbackTables = await MGMECommon._mgmeGetAllPackTables();
     const table = game.tables.find(t => t.name === tableName) ??
       fallbackTables.find(t => t.name === tableName)
 
