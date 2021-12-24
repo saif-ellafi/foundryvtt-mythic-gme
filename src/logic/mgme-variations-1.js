@@ -7,8 +7,8 @@ export default class MGMEVariations1 {
 
   static initSettings() {
     game.settings.register('mythic-gme-tools', 'doublesIgnoreChaos', {
-      name: game.i18n.localize('GME.SettingsDoubleIgnoreChaosName'),
-      hint: game.i18n.localize('GME.SettingsDoubleIgnoreChaosHint'),
+      name: game.i18n.localize('MGME.SettingsDoubleIgnoreChaosName'),
+      hint: game.i18n.localize('MGME.SettingsDoubleIgnoreChaosHint'),
       scope: 'world',
       config: true,
       type: Boolean,
