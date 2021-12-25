@@ -1,8 +1,5 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/total?logo=GitHub) ![GitHub release (latest by date)](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/latest/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/saif-ellafi/foundryvtt-mythic-gme) ![GitHub issues](https://img.shields.io/github/issues-raw/saif-ellafi/foundryvtt-mythic-gme)
 # Mythic GME Tools for FoundryVTT
-### _Created by: JeansenVaars_
-#### [Please invite me a Coffee as an appreciation to keep me motivated!](https://ko-fi.com/jeansenvaars)
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
 
 Mythic GM Emulator is an RPG ruleset designed for unprepared GMs, playing without GM at all, or solo players.
 
@@ -10,7 +7,8 @@ It is a system agnostic module meant to be played together with your favorite RP
 
 Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulator series in Foundry VTT.
 
-Below you can find detailed instructions and features for how to play and use this module.
+### _Created by: JeansenVaars_
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
 
 ### [This module was made for free, with love, hard work and tons of coffee!](https://ko-fi.com/jeansenvaars)
 
