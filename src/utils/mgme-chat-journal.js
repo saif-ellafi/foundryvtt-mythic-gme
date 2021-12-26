@@ -23,9 +23,9 @@ export default class MGMEChatJournal {
       content += '</div>';
       content += '<br>';
       if (speaker === 'Gamemaster')
-        content += '<div style="background-color:lightgray">';
+        content += '<div style="background-color:#3a4daf3d">';
       else if (speaker === 'Gamemaster<FLAVOR>')
-        content += '<div style="background-color:darkgrey">';
+        content += '<div style="background-color:#c5926d54">';
       else {
         content += `<div>`;
         let htmlImg;
