@@ -23,19 +23,19 @@ export default class MGMEChatJournal {
       content += '</div>';
       content += '<br>';
       if (speaker === 'Gamemaster')
-        content += '<div style="background-color:darkgray">';
-      else if (speaker === 'Gamemaster<FLAVOR>')
         content += '<div style="background-color:lightgray">';
+      else if (speaker === 'Gamemaster<FLAVOR>')
+        content += '<div style="background-color:darkgrey">';
       else {
         content += `<div>`;
-        if (includeTimestamp)
-          content += `(${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
         let htmlImg;
         if (includeActorImg) {
           const actorImg = game.actors.contents.find(a => a.id === baseChat.data.speaker.actor)?.img;
-          htmlImg = `<img alt="-" src="${actorImg}" width="36" height="36" class="message-portrait" style="border: 2px solid rgb(40, 111, 204);vertical-align: middle;">`
+          htmlImg = `<img alt="-" src="${actorImg}" width="36" height="36" class="message-portrait" style="border: 2px solid rgb(40, 111, 204);vertical-align: middle;">`;
         }
         content += `<b class="message-sender"><em><b>${htmlImg ?? ' •'} ${speaker}</b></em></b>`;
+        if (includeTimestamp)
+          content += ` (${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
       }
     } else if (speaker === 'Gamemaster')
       content += '<br>';
