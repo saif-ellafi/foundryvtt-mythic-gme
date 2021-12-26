@@ -37,7 +37,7 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
    6. [Saved Progress](#saved-progress)
    7. [Configurable Settings](#configurable-settings)
    8. [Card Decks](#card-decks)
-4. [Recommended Knowledge and Modules](#recommended-knowledge-and-modules)
+4. [Things to Know and Modules](#things-to-know-and-modules)
 5. [Author](#author)
 6. [My other modules](#my-other-modules)
 7. [License](#license)
@@ -191,7 +191,7 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
     8. If everything works, you can delete the zip file from there. It is not needed.
 5. Say thanks if you like this :)
 
-## Recommended Knowledge and Modules
+## Things to Know and Modules
 Playing without a GM, Solo or story telling in Foundry requires some practice. The following tips might boost your learning process.
 
 ### Learn to use Foundry's Chat
