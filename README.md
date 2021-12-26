@@ -128,7 +128,7 @@ This will help keep track of your emulator's guidance and your game!
 
 ![mighty-chat.png](mighty-chat.png) 
 
-![chat-export.png](chat-export.png)
+![chat-export.png](img.png)
 
 ### Customizing your playstyle
 
