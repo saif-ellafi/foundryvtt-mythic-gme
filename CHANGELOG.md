@@ -1,7 +1,10 @@
 ### 3.0.0
-* Enhancement: Clean up and re organization of internal structure
+* Enhancement: Clean up and re-organization of internal structure
+* Enhancement: Support for languages, included Spanish and German (Thanks KarstenW)
+* Enhancement: Export Chat to Journal significantly improved with custom formatting and options
 * Bugfix: Oracle Builder will also register to journal if autolog is enabled
 * Bugfix: All compendiums will be hidden by default to avoid showing them to players
+* Bugfix: Odds are now included in Fate Checks and Fate Chart even with debug rolls off
 
 ### 2.2.6
 * Bugfix: Fixed missing table description keys causing undefined

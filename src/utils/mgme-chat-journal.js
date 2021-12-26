@@ -13,23 +13,53 @@ export default class MGMEChatJournal {
     return journal;
   }
 
-  static _mgmeBuildLogChatHtml(baseChat, includeAuthor) {
+  static _mgmeBuildLogChatHtml(baseChat, includeTimestamp, includeActorImg, highlightFlavor) {
     let content = '';
-    if (includeAuthor) {
-      content += baseChat.data.speaker.alias ? `<h4 class="message-sender">
-        <em>${baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`}</em> - ${new Date(baseChat.data.timestamp).toTimeInputString()}
-      </h4>` : '';
+    let speaker = baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`;
+    if (highlightFlavor && baseChat.data.flavor)
+      speaker = 'Gamemaster<FLAVOR>';
+    const speakerChange = MGMEChatJournal._mgmeLastChatExportSpeaker && speaker !== MGMEChatJournal._mgmeLastChatExportSpeaker;
+    if (speakerChange) {
+      content += '</div>';
+      content += '<br>';
+      if (speaker === 'Gamemaster')
+        content += '<div style="background-color:darkgray">';
+      else if (speaker === 'Gamemaster<FLAVOR>')
+        content += '<div style="background-color:lightgray">';
+      else {
+        content += `<div>`;
+        if (includeTimestamp)
+          content += `(${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
+        let htmlImg;
+        if (includeActorImg) {
+          const actorImg = game.actors.contents.find(a => a.id === baseChat.data.speaker.actor)?.img;
+          htmlImg = `<img alt="-" src="${actorImg}" width="36" height="36" class="message-portrait" style="border: 2px solid rgb(40, 111, 204);vertical-align: middle;">`
+        }
+        content += `<b class="message-sender"><em><b>${htmlImg ?? ' •'} ${speaker}</b></em></b>`;
+      }
+    } else if (speaker === 'Gamemaster')
+      content += '<br>';
+    MGMEChatJournal._mgmeLastChatExportSpeaker = speaker;
+    content += baseChat.data.flavor ? `<div><u><span class="flavor-text">${baseChat.data.flavor}</span></u></div>` : '';
+    content += `<div class="message-content">
+    ${baseChat.data.content
+      .replaceAll('<h1>', '<h3><b>')
+      .replaceAll('</h1>', '</h3></b>')
+      .replaceAll('<h2>', '<h3><b>')
+      .replaceAll('</h2>', '</h3></b>')
     }
-    content += baseChat.data.flavor ? `<span class="flavor-text">${baseChat.data.flavor}</span>` : '';
-    content += `<div class="message-content">${baseChat.data.content}</div>`;
-    content += '<hr style="border: 1px dashed black;">\n';
+    </div>`;
+    if (baseChat.id === ui.chat._lastId)
+      content += '</div>';
     return content;
   }
 
   static async _mgmeLogChatToJournal(chat) {
     if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
       const journal = await MGMEChatJournal._mgmeFindOrCreateJournal();
-      await journal.update({content: journal.data.content + MGMEChatJournal._mgmeBuildLogChatHtml(chat, true)});
+      await journal.update({content: journal.data.content + MGMEChatJournal._mgmeBuildLogChatHtml(
+        chat,false, true, true
+      )});
     }
   }
 

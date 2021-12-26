@@ -39,14 +39,16 @@ export default class MGMEVariations1 {
               const backstoryDraw = await eventsCountTable.roll();
               eventsCount = parseInt(backstoryDraw.results[0].getChatText());
               let triggerMsg = await backstoryDraw.roll.toMessage({
-                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
+                flavor: game.i18n.localize('MGME.BackstoryEvents'),
+                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
               });
               await MGMEChatJournal._mgmeLogChatToJournal(triggerMsg);
               await MGMECommon._mgmeWaitFor3DDice(triggerMsg.id);
             } else {
               eventsCount = parseInt(choice);
               await MGMEChatJournal._mgmeCreateChatAndLog({
-                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` for <b>${speaker.alias}</b>`}`
+                flavor: game.i18n.localize('MGME.BackstoryEvents'),
+                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
               })
             }
             const backstoryFocusTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Backstory Focus')

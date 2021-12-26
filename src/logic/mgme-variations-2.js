@@ -215,8 +215,8 @@ export default class MGMEVariations2 {
     if (oldRank && newRank && oldRank !== newRank) {
       const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
       let chatBehavior = {
+        flavor: game.i18n.localize('MGME.BehaviorDispositionShift'),
         content: `
-              <div><h2>${game.i18n.localize('MGME.BehaviorDispositionShift')}</h2></div>
               <div><b>${actorName}</b> - ${game.i18n.localize('MGME.From')} <em>${oldRank}</em> ${game.i18n.localize('MGME.To')} <em>${newRank}</em></div>
               `,
         whisper: whisper
@@ -392,8 +392,8 @@ export default class MGMEVariations2 {
             let output = generateOutput(oddsProps.mod, chaosFactor, yesFavorable, fateResult, fateLeft, fateRight, chaosResult);
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             const content = `
-              ${html.find("#mgme_v2_question").val() ? `<h2>${html.find("#mgme_v2_question").val()}</h2>` : ''}
-              ${debug ? `<div><b>Roll:</b> ${fateLeft}+${fateRight} (${chaosResult}) at <em>${game.i18n.localize(oddsProps.key)}</em> with Chaos[${chaosFactor}]</div>` : ''}
+              ${html.find("#mgme_v2_question").val() ? `<h2>${html.find("#mgme_v2_question").val()} - <em>${game.i18n.localize(oddsProps.key)}</em></h2>` : `<h2><em>${game.i18n.localize(oddsProps.key)}</em></h2>`}
+              ${debug ? `<div><b>Roll:</b> ${fateLeft}+${fateRight} (${chaosResult}) with Chaos[${chaosFactor}]</div>` : ''}
               <b style="color: ${output.outcomeColor}">${output.outcomeText}</b>
             `;
             roll.toMessage({

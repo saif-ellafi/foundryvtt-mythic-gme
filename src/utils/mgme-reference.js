@@ -171,13 +171,13 @@ export default class MGMEReference {
 
   static PROPS_TEMPLATES = {
     UNEXPECTED_EVENT: () => { return {
-      label: undefined,
+      label: game.i18n.localize('MGME.RandomEvent'),
       purpose: game.i18n.localize('MGME.UnexpectedRandomEvent'),
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     }},
     INTERRUPTION_EVENT: () => { return {
-      label: undefined,
+      label: game.i18n.localize('MGME.RandomEvent'),
       purpose: game.i18n.localize('MGME.UnexpectedInterruptionEvent'),
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'

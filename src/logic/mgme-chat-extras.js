@@ -8,17 +8,20 @@ export default class MGMEChatExtras {
     let dialogue = new Dialog({
       title: game.i18n.localize('MGME.ExportAllToJournal'),
       content: exportDialog,
+        render: html => html[0].getElementsByTagName("input").mgme_export_journal_name.focus(),
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
           label: game.i18n.localize('MGME.Export'),
           callback: (html) => {
             const journalName = html.find("#mgme_export_journal_name").val();
-            const includeAuthor = html.find("#mgme_export_include_meta").prop('checked');
+            const includeTimestamp = html.find("#mgme_export_include_meta").prop('checked');
+            const includeActorImg = html.find("#mgme_export_actor_img").prop('checked');
+            const highlightFlavor = html.find("#mgme_export_highlight_flavor").prop('checked');
             const clearChat = html.find("#mgme_export_clear_chat").prop('checked');
             let entries = [];
             ui.chat.collection.contents.forEach(chat => {
-              entries.push(MGMEChatJournal._mgmeBuildLogChatHtml(chat, includeAuthor));
+              entries.push(MGMEChatJournal._mgmeBuildLogChatHtml(chat, includeTimestamp, includeActorImg, highlightFlavor));
             });
             const targetJournal = game.journal.contents.find(j => j.name === journalName);
             let journalCreation;

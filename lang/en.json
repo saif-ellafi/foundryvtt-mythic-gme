@@ -68,7 +68,7 @@
   "MGME.NoWay": "No way",
   "MGME.VeryUnlikely": "Very unlikely",
   "MGME.Unlikely": "Unlikely",
-  "MGME.fiftyfifty": "50/50",
+  "MGME.fiftyfifty": "Unsure",
   "MGME.SomewhatLikely": "Somewhat likely",
   "MGME.Likely": "Likely",
   "MGME.VeryLikely": "Very likely",
@@ -80,7 +80,7 @@
   "MGME.WarnNoTables": "Mythic GME Tools: No RollTables find in your World. Please create or import some first.",
 
   "MGME.InfoShuffled": "The Deck has been shuffled. Please draw again.",
-  "MGME.ErrNoCards": "ERROR: Cards not found. Make sure your cards are available in the following path",
+  "MGME.ErrNoCards": "ERROR: Cards not found. Make sure your cards are in the Data folder, in the following path",
   "MGME.ShuffleDeck": "Shuffle Deck",
   "MGME.DeckClose": "Close",
 
@@ -140,7 +140,9 @@
   "MGME.ExportAllToJournal": "Export all Chat to Journal",
   "MGME.Export": "Export",
   "MGME.JournalEntryName": "Journal Entry Name",
-  "MGME.JournalIncludeMeta": "include author and timestamp",
+  "MGME.JournalHighlightFlavor": "Highlight Mythic Mechanics",
+  "MGME.JournalIncludeActorImg": "Include Actor's Image",
+  "MGME.JournalIncludeMeta": "Include timestamp",
   "MGME.ClearChatAfterExport": "Clear Chat after Export",
 
   "MGME.BehaviorCheck": "Behavior Check",
@@ -170,6 +172,7 @@
 
   "MGME.From": "from",
   "MGME.To": "to",
+  "MGME.For": "for",
 
   "MGME.BackstoryGenerator": "Backstory Generator",
   "MGME.Backstory": "Backstory",

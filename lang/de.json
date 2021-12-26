@@ -68,7 +68,7 @@
   "MGME.NoWay": "Auf keinen Fall",
   "MGME.VeryUnlikely": "Sehr unwahrscheinlich",
   "MGME.Unlikely": "Unwahrscheinlich",
-  "MGME.fiftyfifty": "50/50",
+  "MGME.fiftyfifty": "Unbestimmt",
   "MGME.SomewhatLikely": "Etwas wahrscheinlich",
   "MGME.Likely": "Wahrscheinlich",
   "MGME.VeryLikely": "Sehr wahrscheinlich",
@@ -80,7 +80,7 @@
   "MGME.WarnNoTables": "Mythic GME Tools: Keine RollTables in deiner Welt gefunden. Bitte erstelle oder importiere welche.",
 
   "MGME.InfoShuffled": "Das Kartendeck wurde gemischt. Bitte ziehe erneut.",
-  "MGME.ErrNoCards": "FEHLER: Karten nicht gefunden. Stelle sicher, dass sich deine Kartendecks in folgendem Pfad befinden",
+  "MGME.ErrNoCards": "FEHLER: Karten nicht gefunden. Stelle sicher, dass sich deine Kartendecks in folgendem (Data) Pfad befinden",
   "MGME.ShuffleDeck": "Kartendeck mischen",
   "MGME.DeckClose": "Schließen",
 
@@ -140,7 +140,9 @@
   "MGME.ExportAllToJournal": "Alle Chats ins Journal exportieren",
   "MGME.Export": "Exportieren",
   "MGME.JournalEntryName": "Name des Journaleintrags",
-  "MGME.JournalIncludeMeta": "Autor und Zeitstempel einfügen",
+  "MGME.JournalHighlightFlavor": "Mythic Mechans hervorheben",
+  "MGME.JournalIncludeActorImg": "Bild des Actors einbeziehen",
+  "MGME.JournalIncludeMeta": "Zeitstempel einfügen",
   "MGME.ClearChatAfterExport": "Chat nach dem Export löschen",
 
   "MGME.BehaviorCheck": "Verhaltens-Probe",
@@ -170,6 +172,7 @@
 
   "MGME.From": "von",
   "MGME.To": "zu",
+  "MGME.For": "für",
 
   "MGME.BackstoryGenerator": "Hintergrundgeschichten-Generator",
   "MGME.Backstory": "Hintergrundgeschichte",

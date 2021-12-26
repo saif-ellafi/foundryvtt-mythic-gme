@@ -68,7 +68,7 @@
   "MGME.NoWay": "De ninguna manera",
   "MGME.VeryUnlikely": "Muy improbable",
   "MGME.Unlikely": "Improbable",
-  "MGME.fiftyfifty": "50/50",
+  "MGME.fiftyfifty": "Indeciso",
   "MGME.SomewhatLikely": "Algo probable",
   "MGME.Likely": "Probable",
   "MGME.VeryLikely": "Muy probable",
@@ -80,7 +80,7 @@
   "MGME.WarnNoTables": "Mythic GME Tools: No hay tablas aleatorias en tu munndo!",
 
   "MGME.InfoShuffled": "Se ha mezclado tu mazo. Intenta de nuevo.",
-  "MGME.ErrNoCards": "ERROR: No he podido encontrar tus cartas, he buscado en",
+  "MGME.ErrNoCards": "ERROR: No he podido encontrar tus cartas en el directorio Data, he buscado en",
   "MGME.ShuffleDeck": "Mezclar Mazo",
   "MGME.DeckClose": "Cerrar",
 
@@ -140,7 +140,9 @@
   "MGME.ExportAllToJournal": "Exportar todo a un Journal",
   "MGME.Export": "Exportar",
   "MGME.JournalEntryName": "Nombre de Journal",
-  "MGME.JournalIncludeMeta": "Incluir autor y fecha",
+  "MGME.JournalHighlightFlavor": "Resaltar mecánicas de Mythic",
+  "MGME.JournalIncludeActorImg": "Incluir retrato de Actor",
+  "MGME.JournalIncludeMeta": "Incluir tiempo",
   "MGME.ClearChatAfterExport": "Limpiar chat luego de exportar",
 
   "MGME.BehaviorCheck": "Comprobación de Comportamiento",
@@ -170,6 +172,7 @@
 
   "MGME.From": "de",
   "MGME.To": "a",
+  "MGME.For": "para",
 
   "MGME.BackstoryGenerator": "Generador de Trasfondo",
   "MGME.Backstory": "Trasfondo",

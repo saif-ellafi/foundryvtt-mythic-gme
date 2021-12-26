@@ -184,8 +184,8 @@ export default class MGMECore {
       }
       const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
       return `
-        ${question ? `<h2>${question}</h2>` : ''}
-        ${debug ? `<div><b>Roll:</b> ${result} <em>${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])}</em> Chaos [${chaos}]</div>` : ''}
+        ${question ? `<h2>${question} - <em>${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])}</em></h2>` : `<h2><em>${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])}</em></h2>`}
+        ${debug ? `<div><b>Roll:</b> ${result} Chaos [${chaos}]</div>` : ''}
         <b style="color: ${color}">${outcome}</b>
       `
     }
@@ -315,7 +315,7 @@ export default class MGMECore {
             if (result <= chaos) {
               if (result % 2 === 0) {
                 roll.toMessage({
-                  flavor: game.i18n.localize('MGME.SceneAlteration'),
+                  flavor: game.i18n.localize('MGME.SceneAlterationCheck'),
                   content: `<b style="color: darkred">${game.i18n.localize("MGME.SceneInterrupted")}</b>${debug ? ' ('+result+')' : ''}`
                 });
                 if (game.dice3d)
@@ -324,7 +324,7 @@ export default class MGMECore {
                   await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT());
               } else {
                 return roll.toMessage({
-                  flavor: game.i18n.localize('MGME.SceneAlteration'),
+                  flavor: game.i18n.localize('MGME.SceneAlterationCheck'),
                   content: `<b style="color: darkred">${game.i18n.localize('MGME.SceneAltered')}</b>${debug ? ' ('+result+')' : ''}`
                 }).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
               }
