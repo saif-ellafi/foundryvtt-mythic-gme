@@ -37,16 +37,16 @@ export default class MGMEChatJournal {
         if (includeTimestamp)
           content += ` (${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
       }
-    } else if (speaker === 'Gamemaster')
+    } else if (!speakerChange && baseChat.data.flavor) // Space between repeated rolls
       content += '<br>';
     MGMEChatJournal._mgmeLastChatExportSpeaker = speaker;
     content += baseChat.data.flavor ? `<div><u><span class="flavor-text">${baseChat.data.flavor}</span></u></div>` : '';
     content += `<div class="message-content">
     ${baseChat.data.content
-      .replaceAll('<h1>', '<h3><b>')
-      .replaceAll('</h1>', '</h3></b>')
-      .replaceAll('<h2>', '<h3><b>')
-      .replaceAll('</h2>', '</h3></b>')
+      .replaceAll('<h1>', '<b>')
+      .replaceAll('</h1>', '</b>')
+      .replaceAll('<h2>', '<b>')
+      .replaceAll('</h2>', '</b>')
     }
     </div>`;
     if (baseChat.id === ui.chat._lastId)

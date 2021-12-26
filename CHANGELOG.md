@@ -1,8 +1,9 @@
 ### 3.0.0
-* Enhancement: Clean up and re-organization of internal structure
-* Enhancement: Support for languages, included Spanish and German (Thanks KarstenW)
+* Enhancement: Huge rewrite of code to favor modularity, future features and languages
+* Enhancement: Support for UI languages, included Spanish and German (Thanks KarstenW)
 * Enhancement: Export Chat to Journal significantly improved with custom formatting and options
-* Bugfix: Oracle Builder will also register to journal if autolog is enabled
+* Enhancement: Various improvements to the consistency of the events in the chat
+* Bugfix: Custom Oracle events will also register to journal if autolog setting is enabled
 * Bugfix: All compendiums will be hidden by default to avoid showing them to players
 * Bugfix: Odds are now included in Fate Checks and Fate Chart even with debug rolls off
 

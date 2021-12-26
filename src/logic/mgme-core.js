@@ -184,7 +184,7 @@ export default class MGMECore {
       }
       const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
       return `
-        ${question ? `<h2>${question} - <em>${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])}</em></h2>` : `<h2><em>${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])}</em></h2>`}
+        ${question ? `<h2>${question} <em>(${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])})</em></h2>` : `<h2><em>${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])}</em></h2>`}
         ${debug ? `<div><b>Roll:</b> ${result} Chaos [${chaos}]</div>` : ''}
         <b style="color: ${color}">${outcome}</b>
       `
