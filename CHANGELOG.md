@@ -1,4 +1,4 @@
-### 3.0.0
+### 2.3.0
 * Enhancement: Huge rewrite of code to favor modularity, future features and languages
 * Enhancement: Support for UI languages, included Spanish and German (Thanks KarstenW)
 * Enhancement: Export Chat to Journal significantly improved with custom formatting and options
