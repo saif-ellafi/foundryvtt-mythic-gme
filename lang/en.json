@@ -140,8 +140,8 @@
   "MGME.ExportAllToJournal": "Export all Chat to Journal",
   "MGME.Export": "Export",
   "MGME.JournalEntryName": "Journal Entry Name",
-  "MGME.JournalHighlightFlavor": "Highlight Mythic Mechanics",
-  "MGME.JournalIncludeActorImg": "Include Actor's Image",
+  "MGME.JournalHighlightFlavor": "Differentiate Mythic Events",
+  "MGME.JournalIncludeActorImg": "Include Actors Images",
   "MGME.JournalIncludeMeta": "Include timestamp",
   "MGME.ClearChatAfterExport": "Clear Chat after Export",
 

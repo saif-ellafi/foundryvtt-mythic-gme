@@ -17,14 +17,14 @@ export default class MGMEChatJournal {
     let content = '';
     let speaker = baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`;
     if (highlightFlavor && baseChat.data.flavor)
-      speaker = 'Gamemaster<FLAVOR>';
+      speaker = '<FLAVOR>';
     const speakerChange = MGMEChatJournal._mgmeLastChatExportSpeaker && speaker !== MGMEChatJournal._mgmeLastChatExportSpeaker;
     if (speakerChange) {
       content += '</div>';
       content += '<br>';
       if (speaker === 'Gamemaster')
         content += '<div style="background-color:#3a4daf3d">';
-      else if (speaker === 'Gamemaster<FLAVOR>')
+      else if (speaker === '<FLAVOR>')
         content += '<div style="background-color:#c5926d54">';
       else {
         content += `<div>`;
