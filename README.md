@@ -37,7 +37,7 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
    6. [Saved Progress](#saved-progress)
    7. [Configurable Settings](#configurable-settings)
    8. [Card Decks](#card-decks)
-4. [Recommended Knowledge and Modules](#recommended-knowledge-and-modules)
+4. [Things to Know and Modules](#things-to-know-and-modules)
 5. [Author](#author)
 6. [My other modules](#my-other-modules)
 7. [License](#license)
@@ -199,7 +199,7 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
     8. If everything works, you can delete the zip file from there. It is not needed.
 5. Say thanks if you like this :)
 
-## Recommended Knowledge and Modules
+## Things to Know and Modules
 Playing without a GM, Solo or story telling in Foundry requires some practice. The following tips might boost your learning process.
 
 ### Learn to use Foundry's Chat
@@ -228,7 +228,7 @@ Plot Point 5: [[1d100]] - Theme: [[#Plotline Theme]]
 This is an opinionated list of other Foundry VTT modules that may improve your experience and play well together with Mythic GME Tools and Solo in General
 
 * [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice) - Adds 3D Dice. Mythic GME Tools makes use of them improving the dice rolling experience
-* [DF Chat Enhancements](https://foundryvtt.com/packages/df-chat-enhance) - Expands chat features, including message editing and chat archiving
+* [Tabbed Chatlog](https://foundryvtt.com/packages/tabbed-chatlog) or (not compatible) [DF Chat Enhancements](https://foundryvtt.com/packages/df-chat-enhance) - Expands chat features, including message editing and chat archiving
 * [Drag Anything to Hotbar](https://foundryvtt.com/packages/drag-all-to-hotbar) - Drag & Drop characters, journal entries and roll tables, to have handy
 * [Monk's Hotbar Expansion](https://foundryvtt.com/packages/monks-hotbar-expansion) - With Mythic GME Tools, you will run out of Macros. This helps.
 * [PDFoundry](https://foundryvtt.com/packages/pdfoundry) - Not only it enables PDF journal entries, but also works with form-fillable PDFs!
