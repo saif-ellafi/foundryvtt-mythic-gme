@@ -40,6 +40,7 @@ export default class MGMEOracleBuilder {
           )
           const tableEntries = html.find(`#mgme_builder_table_${i}`);
           const mythicTables = game.tables.contents.map(t => t.name);
+          mythicTables.sort()
           mythicTables.forEach(t => tableEntries.append(`<option value="${t}" ${lastOracleTable === t ? 'selected' : ''}>${t}</option>`));
           i += 1;
         }

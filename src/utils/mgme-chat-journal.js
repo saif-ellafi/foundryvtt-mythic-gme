@@ -18,10 +18,12 @@ export default class MGMEChatJournal {
     let speaker = baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`;
     if (highlightFlavor && baseChat.data.flavor)
       speaker = '<FLAVOR>';
-    const speakerChange = MGMEChatJournal._mgmeLastChatExportSpeaker && speaker !== MGMEChatJournal._mgmeLastChatExportSpeaker;
+    const speakerChange = speaker !== MGMEChatJournal._mgmeLastChatExportSpeaker;
     if (speakerChange) {
-      content += '</div>';
-      content += '<br>';
+      if (MGMEChatJournal._mgmeLastChatExportSpeaker) { // Ignore this step is there was no last speaker
+        content += '</div>';
+        content += '<br>';
+      }
       if (speaker === 'Gamemaster')
         content += '<div style="background-color:#3a4daf3d">';
       else if (speaker === '<FLAVOR>')
@@ -37,7 +39,7 @@ export default class MGMEChatJournal {
         if (includeTimestamp)
           content += ` (${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
       }
-    } else if (!speakerChange && baseChat.data.flavor) // Space between repeated rolls
+    } else // Space between repeated rolls
       content += '<br>';
     MGMEChatJournal._mgmeLastChatExportSpeaker = speaker;
     content += baseChat.data.flavor ? `<div><u><span class="flavor-text">${baseChat.data.flavor}</span></u></div>` : '';
@@ -49,7 +51,7 @@ export default class MGMEChatJournal {
       .replaceAll('</h2>', '</b>')
     }
     </div>`;
-    if (baseChat.id === ui.chat._lastId)
+    if (baseChat.id === ui.chat.collection.contents[ui.chat.collection.contents.length-1].id)
       content += '</div>';
     return content;
   }

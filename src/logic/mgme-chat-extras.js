@@ -120,4 +120,65 @@ export default class MGMEChatExtras {
     dialogue.render(true)
   }
 
+  static async _mgmeExternallRollTableRoll(roll, tableName) {
+    const outputRollDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-externalroll2-dialog.hbs', {rollTotal: roll.total});
+
+    const firstDialog = new Dialog({
+      title: game.i18n.localize('MGME.ExternalRollTableOutcome'),
+      content: outputRollDialog,
+      render: html => {
+        $("#mgme_ext_roll_table_name").val(tableName);
+        html[0].getElementsByTagName("input").mgme_ext_roll_outcome.focus();
+      },
+      buttons: {
+        submit: {
+          icon: '<i class="fas fa-comments"></i>',
+          label: game.i18n.localize('MGME.ToChat'),
+          callback: () => {
+            const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+            const textFlavor = $("#mgme_ext_roll_flavor").val();
+            const textOutcome = $("#mgme_ext_roll_outcome").val();
+            if (textOutcome.length)
+              ChatMessage.create({
+                flavor: tableName.length ? tableName : game.i18n.localize('MGME.ExternalTableCheck'),
+                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${roll.total})` : ''}`
+              });
+          }
+        }
+      },
+      default: "submit"
+    })
+    firstDialog.render(true)
+  }
+
+  static async mgmeExternalRollTable() {
+    const externalRollDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-externalroll1-dialog.hbs', {});
+
+    const firstDialog = new Dialog({
+      title: game.i18n.localize('MGME.ExternalRollTable'),
+      content: externalRollDialog,
+      render: html => {
+        html[0].getElementsByTagName("input").mgme_ext_table_name.focus();
+      },
+      buttons: {
+        submit: {
+          icon: '<i class="fas fa-dice"></i>',
+          label: 'Roll',
+          callback: () => {
+            const tableName = $("#mgme_ext_table_name").val();
+            const formula = $("#mgme_ext_formula").val();
+            const roll = Roll.create(formula.length ? formula : '1d100');
+            roll.roll({async: true}).then(async r => {
+              if (game.dice3d)
+                await game.dice3d.showForRoll(r)
+              MGMEChatExtras._mgmeExternallRollTableRoll(r, tableName)
+            });
+          }
+        }
+      },
+      default: "submit"
+    })
+    firstDialog.render(true)
+  }
+
 }

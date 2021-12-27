@@ -110,9 +110,17 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 These Macros do not belong to Mythic but are crazy ideas that I had of functionalities that could help in the experience. Feedback welcome!
 
-* Oracle Builder - Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
+##### Oracle Builder
+Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
 ![Oracle Builder](oracle-builder.png)
-* Formatted Message - Send message to the chat with flavor, color and style
+
+##### External Roll Table
+Keep chat and overall consistency by rolling tables outside your game as if they belonged here!
+
+![img.png](external-table-prompt.png)
+![External Table](external-table.png)
+
+##### Formatted Message - Send message to the chat with flavor, color and style
 ![formatted-message.png](formatted-message.png)
 * Export current Chat to Journal - Either for backup or for history tracking
 

@@ -136,6 +136,14 @@
   "MGME.Underline": "Underline",
   "MGME.Normal": "Normal",
 
+  "MGME.ExternalRollTable": "Roll on an External Table",
+  "MGME.ExternalRollTableName": "Table Name",
+  "MGME.ExternalRollTableFormula": "Formula to Roll",
+  "MGME.ExternalRollTableFlavor": "Flavor (Optional)",
+  "MGME.ExternalRollTableOutcome": "Table Result",
+  "MGME.ExternalTableCheck": "External Table Check",
+  "MGME.ExternalRollExplain": "Result is:",
+
   "MGME.MythicAdventureLog": "Mythic Adventure Log",
   "MGME.ExportAllToJournal": "Export all Chat to Journal",
   "MGME.Export": "Export",

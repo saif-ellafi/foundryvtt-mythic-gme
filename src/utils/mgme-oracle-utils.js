@@ -16,7 +16,7 @@ export default class MGMEOracleUtils {
     ui.chat.scrollBottom();
     const popOutChat = Object.values(ui.windows).find(w => w.constructor.name === 'ChatLog')
     if (popOutChat) {
-      popOutChat.scrollBottom();
+      setTimeout(() => popOutChat.scrollBottom(), 10); // Don't ask
     }
     const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
     if (randomEventsIn3D) {

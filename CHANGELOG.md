@@ -1,3 +1,12 @@
+### 2.3.1
+* Feature: New Macro 'External Roll Table' helps you keep consistency and tracking of random tables you check outside Foundry
+* Bugfix: Fixed spacing and formatting in exported journal entries
+* Bugfix: Fixed pop out chat not scrolling to the bottom correctly when using 3D Dice
+* Bugfix: Oracle Builder table list now sorts alphabetically
+* Bugfix: Fixed a few styling issues
+
+Invite me a coffee to appreciate this module :) https://ko-fi.com/jeansenvaars
+
 ### 2.3.0
 * Enhancement: Huge rewrite of code to favor modularity, future features and languages
 * Enhancement: Support for UI languages, included Spanish and German (Thanks KarstenW)
