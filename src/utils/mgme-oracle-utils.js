@@ -71,8 +71,12 @@ export default class MGMEOracleUtils {
     }
     let oldHide;
     if (game.dice3d) {
-      oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
-      game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000*1.1;
+      if (!game.user.getFlag('dice-so-nice', 'settings')) {
+        ui.notifications.warn("Dice So Nice! Installed but was never configured. Please go to it's module settings and configure dice for the first time.");
+      } else {
+        oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
+        game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') * 1000 * 1.1;
+      }
     }
     const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
     if (randomAnswers.focusResult !== '_') {// Special exception for non-focus based oracle questions
