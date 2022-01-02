@@ -4,6 +4,7 @@
 * Enhancement: Drawing cards is now resizable
 * Enhancement: Drawing cards no longer displays meaningless chat text or makes dice noise
 * Bugfix: Whispering fixed for Foundry V9+
+* Bugfix: Fixed an issue with 3D dice when configuration was never initialized
 * Bugfix: Further style improvements in exporting journal to chat
 * Bugfix: Added missing German and Spanish translations
 
