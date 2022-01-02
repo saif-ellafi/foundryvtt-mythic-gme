@@ -68,4 +68,10 @@ export default class MGMECommon {
     return parseInt(tableOutcome.match(/[-\d+]+/)[0]);
   }
 
+  static _mgmeGetWhisperMode() {
+    const rollMode = ui.chat.getData().rollMode; // 'roll' and 'publicRoll' for compatibility with both 0.8.x and V9+
+    return rollMode === 'roll' || rollMode === 'publicroll' ? undefined : [game.user];
+  }
 }
+
+

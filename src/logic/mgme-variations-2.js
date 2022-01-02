@@ -97,7 +97,7 @@ export default class MGMEVariations2 {
             const attribute = html.find(`#mgme_statistic_attribute_1`).val();
             if (!attribute)
               return;
-            const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+            const whisper = MGMECommon._mgmeGetWhisperMode();
             const isImportant = html.find("#mgme_statistic_important").prop('checked');
             let statisticChat = {
               flavor: game.i18n.localize('MGME.StatisticCheck'),
@@ -213,7 +213,7 @@ export default class MGMEVariations2 {
 
   static _mgmeCheckBehaviorRankShift(actorName, oldRank, newRank) {
     if (oldRank && newRank && oldRank !== newRank) {
-      const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+      const whisper = MGMECommon._mgmeGetWhisperMode();
       let chatBehavior = {
         flavor: game.i18n.localize('MGME.BehaviorDispositionShift'),
         content: `
@@ -288,7 +288,7 @@ export default class MGMEVariations2 {
     const tableOneResult = tableOneDraw.results[0].getChatText();
     await MGMEOracleUtils._mgmeSimulateRoll(tableOneDraw.roll);
     const tableOneMod = MGMECommon._mgmeParseNumberFromText(tableOneResult);
-    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+    const whisper = MGMECommon._mgmeGetWhisperMode();
     // This is tricky, NPC action does NOT shift disposition - 8 or more hardcoded to be an NPC Action
     if (tableOneDraw.roll.total >= 8) { // ToDo: Test Me!!!
       const tableTwo = await MGMECommon._mgmeFindTableByName('Mythic GME: NPC Action 2');
@@ -485,7 +485,7 @@ export default class MGMEVariations2 {
             if (!html.find("#mgme_behavior_disposition").val())
               await MGMEVariations2._mgmeFillRandomDisposition(html);
             const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken.actor);
-            const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+            const whisper = MGMECommon._mgmeGetWhisperMode();
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             let chatBehavior = {
               flavor: game.i18n.localize('MGME.BehaviorCheck'),
@@ -525,7 +525,7 @@ export default class MGMEVariations2 {
           label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const speaker = ChatMessage.getSpeaker();
-            const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+            const whisper = MGMECommon._mgmeGetWhisperMode();
             const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
             const detailCheckTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Detail Check');
             const detailCheckRoll = new Roll(`2d10 + ${currentChaos === 3 ? 2 : 0} + ${currentChaos === 6 ? -2 : 0}`);

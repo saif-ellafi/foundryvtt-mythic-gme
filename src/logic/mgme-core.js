@@ -242,7 +242,7 @@ export default class MGMECore {
   static mgmeIncreaseChaos() {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
     const maxChaos = game.settings.get('mythic-gme-tools', 'maxChaos');
-    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+    const whisper = MGMECommon._mgmeGetWhisperMode();
     if (currentChaos < maxChaos) {
       game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos + 1);
       const chat = {
@@ -265,7 +265,7 @@ export default class MGMECore {
   static mgmeDecreaseChaos() {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
     const minChaos = game.settings.get('mythic-gme-tools', 'minChaos');
-    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+    const whisper = MGMECommon._mgmeGetWhisperMode();
     if (currentChaos > minChaos) {
       game.settings.set('mythic-gme-tools', 'currentChaos', currentChaos - 1);
       let chat = {
@@ -287,7 +287,7 @@ export default class MGMECore {
 
   static mgmeCheckChaos() {
     const currentChaos = game.settings.get('mythic-gme-tools', 'currentChaos');
-    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+    const whisper = MGMECommon._mgmeGetWhisperMode();
     let chat = {
       flavor: game.i18n.localize('MGME.ChaosCheck'),
       content: `<h3>${game.i18n.localize('MGME.ChaosRank')} (${currentChaos})</h3>`,

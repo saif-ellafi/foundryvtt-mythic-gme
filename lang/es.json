@@ -83,6 +83,7 @@
   "MGME.ErrNoCards": "ERROR: No he podido encontrar tus cartas en el directorio Data, he buscado en",
   "MGME.ShuffleDeck": "Mezclar Mazo",
   "MGME.DeckClose": "Cerrar",
+  "MGME.DeckShare": "Compartir",
 
   "MGME.RandomEvent": "Evento Aleatorio",
   "MGME.EventFocus": "Foco de Evento",
@@ -135,6 +136,16 @@
   "MGME.Italic": "Itálico",
   "MGME.Underline": "Subrayado",
   "MGME.Normal": "Normal",
+
+  "MGME.ExternalRollTable": "Roll en una tabla aleatoria externa",
+  "MGME.ExternalRollTableName": "Nombre de la tabla",
+  "MGME.ExternalRollTableFormula": "Fórmula",
+  "MGME.ExternalRollTableFlavor": "Explicación (opcional)",
+  "MGME.ExternalRollTableOutcome": "Resultado de la tabla",
+  "MGME.ExternalTableCheck": "Comprobación de tabla externa",
+  "MGME.ExternalRollExplain": "Resultado es:",
+
+  "MGME.RollTableFlavorTitle": "Lanzar en tabla aleatoria",
 
   "MGME.MythicAdventureLog": "Log de Aventura Mythic",
   "MGME.ExportAllToJournal": "Exportar todo a un Journal",

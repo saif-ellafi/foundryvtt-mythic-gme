@@ -83,6 +83,7 @@
   "MGME.ErrNoCards": "ERROR: Cards not found. Make sure your cards are in the Data folder, in the following path",
   "MGME.ShuffleDeck": "Shuffle Deck",
   "MGME.DeckClose": "Close",
+  "MGME.DeckShare": "Share",
 
   "MGME.RandomEvent": "Random Event",
   "MGME.EventFocus": "Event Focus",
@@ -143,6 +144,8 @@
   "MGME.ExternalRollTableOutcome": "Table Result",
   "MGME.ExternalTableCheck": "External Table Check",
   "MGME.ExternalRollExplain": "Result is:",
+
+  "MGME.RollTableFlavorTitle": "Roll on a Table",
 
   "MGME.MythicAdventureLog": "Mythic Adventure Log",
   "MGME.ExportAllToJournal": "Export all Chat to Journal",

@@ -15,44 +15,47 @@ export default class MGMEChatJournal {
 
   static _mgmeBuildLogChatHtml(baseChat, includeTimestamp, includeActorImg, highlightFlavor) {
     let content = '';
-    let speaker = baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`;
+    const speaker = baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`;
+    let isFlavor = false;
     if (highlightFlavor && baseChat.data.flavor)
-      speaker = '<FLAVOR>';
+      isFlavor = true;
     const speakerChange = speaker !== MGMEChatJournal._mgmeLastChatExportSpeaker;
-    if (speakerChange) {
-      if (MGMEChatJournal._mgmeLastChatExportSpeaker) { // Ignore this step is there was no last speaker
-        content += '</div>';
-        content += '<br>';
+    if (MGMEChatJournal._mgmeLastChatExportSpeaker && speakerChange)
+      content += '<br>'; // Add spacing between messages before changing speaker
+    if (speaker === 'Gamemaster')
+      content += '<div style="background-color:#3a4daf3d">';
+    else if (isFlavor)
+      content += '<div style="background-color:#c5926d54">';
+    else
+      content += `<div>`;
+    if (!speakerChange)
+      content += '<br>' // Add spacing between messages of same speaker
+    let htmlImg;
+    if (speakerChange && includeActorImg) {
+      if (speaker !== 'Gamemaster') {
+        const actorImg = game.actors.contents.find(a => a.id === baseChat.data.speaker.actor)?.img;
+        htmlImg = `<img alt="-" src="${actorImg}" width="36" height="36" class="message-portrait" style="border: 2px solid rgb(40, 111, 204);vertical-align: middle;">`;
       }
-      if (speaker === 'Gamemaster')
-        content += '<div style="background-color:#3a4daf3d">';
-      else if (speaker === '<FLAVOR>')
-        content += '<div style="background-color:#c5926d54">';
-      else {
-        content += `<div>`;
-        let htmlImg;
-        if (includeActorImg) {
-          const actorImg = game.actors.contents.find(a => a.id === baseChat.data.speaker.actor)?.img;
-          htmlImg = `<img alt="-" src="${actorImg}" width="36" height="36" class="message-portrait" style="border: 2px solid rgb(40, 111, 204);vertical-align: middle;">`;
-        }
-        content += `<b class="message-sender"><em><b>${htmlImg ?? ' •'} ${speaker}</b></em></b>`;
-        if (includeTimestamp)
-          content += ` (${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
-      }
-    } else // Space between repeated rolls
-      content += '<br>';
-    MGMEChatJournal._mgmeLastChatExportSpeaker = speaker;
+      content += `<b class="message-sender"><em><b>${htmlImg ?? ' •'} ${speaker}</b></em></b>`;
+    }
+    if (includeTimestamp)
+      content += ` (${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
     content += baseChat.data.flavor ? `<div><u><span class="flavor-text">${baseChat.data.flavor}</span></u></div>` : '';
     content += `<div class="message-content">
     ${baseChat.data.content
-      .replaceAll('<h1>', '<b>')
-      .replaceAll('</h1>', '</b>')
+      .replaceAll('<h1>', '<b><u>')
+      .replaceAll('</h1>', '</u></b><br>')
       .replaceAll('<h2>', '<b>')
-      .replaceAll('</h2>', '</b>')
+      .replaceAll('</h2>', '</b><br>')
     }
     </div>`;
-    if (baseChat.id === ui.chat.collection.contents[ui.chat.collection.contents.length-1].id)
+    content += '</div>';
+    if (baseChat.id === ui.chat.collection.contents[ui.chat.collection.contents.length-1].id) {
       content += '</div>';
+      MGMEChatJournal._mgmeLastChatExportSpeaker = undefined;
+    } else {
+      MGMEChatJournal._mgmeLastChatExportSpeaker = speaker;
+    }
     return content;
   }
 

@@ -136,7 +136,7 @@ export default class MGMEOracleBuilder {
         content += `<div><b>${prop.label}:</b> ${result.getChatText()}</div>`
       })
     }
-    const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+    const whisper = MGMECommon._mgmeGetWhisperMode();
     let chatConfig = {
       flavor: oracle.name,
       content: content,

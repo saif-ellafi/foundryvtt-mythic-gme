@@ -120,6 +120,9 @@ Keep chat and overall consistency by rolling tables outside your game as if they
 ![img.png](external-table-prompt.png)
 ![External Table](external-table.png)
 
+##### Flavored Roll Table
+Keep chat consistency by rolling from a Random Table normally with a question (flavor) in mind
+
 ##### Formatted Message - Send message to the chat with flavor, color and style
 ![formatted-message.png](formatted-message.png)
 * Export current Chat to Journal - Either for backup or for history tracking

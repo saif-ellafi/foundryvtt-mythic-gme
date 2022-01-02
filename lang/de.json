@@ -83,6 +83,7 @@
   "MGME.ErrNoCards": "FEHLER: Karten nicht gefunden. Stelle sicher, dass sich deine Kartendecks in folgendem (Data) Pfad befinden",
   "MGME.ShuffleDeck": "Kartendeck mischen",
   "MGME.DeckClose": "Schließen",
+  "MGME.DeckShare": "Teilen",
 
   "MGME.RandomEvent": "Zufallsereignis",
   "MGME.EventFocus": "Ereignis Fokus",
@@ -135,6 +136,16 @@
   "MGME.Italic": "Italienisch",
   "MGME.Underline": "Unterstrichen",
   "MGME.Normal": "Normal",
+
+  "MGME.ExternalRollTable": "Rolle auf einer externen Tabelle",
+  "MGME.ExternalRollTableName": "Tabellenname",
+  "MGME.ExternalRollTableFormula": "Formel zum Rollen",
+  "MGME.ExternalRollTableFlavor": "Geschmacksrichtung (Optional)",
+  "MGME.ExternalRollTableOutcome": "Tabellenergebnis",
+  "MGME.ExternalTableCheck": "Externe Tabellenprüfung",
+  "MGME.ExternalRollExplain": "Ergebnis ist:",
+
+  "MGME.RollTableFlavorTitle": "Auf einer Tabelle rollen",
 
   "MGME.MythicAdventureLog": "Mythic Adventure Log",
   "MGME.ExportAllToJournal": "Alle Chats ins Journal exportieren",

@@ -1,3 +1,14 @@
+### 2.3.2
+* Feature: New Macro 'Flavored Roll Table' helps with rolling from random tables with a certain question
+* Enhancement: Drawing cards show a "Share" option to show it to players
+* Enhancement: Drawing cards is now resizable
+* Enhancement: Drawing cards no longer displays meaningless chat text or makes dice noise
+* Bugfix: Whispering fixed for Foundry V9+
+* Bugfix: Further style improvements in exporting journal to chat
+* Bugfix: Added missing German and Spanish translations
+
+Invite me a coffee to appreciate this module :) https://ko-fi.com/jeansenvaars
+
 ### 2.3.1
 * Feature: New Macro 'External Roll Table' helps you keep consistency and tracking of random tables you check outside Foundry
 * Bugfix: Fixed spacing and formatting in exported journal entries

@@ -1,6 +1,9 @@
 import MGMECommon from "../utils/mgme-common";
 
 export default class MGMECards {
+  static CARDS_FOLDER = '_mythicShared';
+
+
   static initSettings() {
     game.settings.register("mythic-gme-tools", "deckPath", {
       name: game.i18n.localize('MGME.SettingDeckPathName'),
@@ -11,6 +14,12 @@ export default class MGMECards {
       default: "decks",
       filePicker: 'folder'
     });
+
+    // Cleanup any previously shown cards
+    const folder = game.folders.contents.find(f => f.name === MGMECards.CARDS_FOLDER);
+    if (folder) {
+      game.journal.contents.filter(j => j.folder === folder).forEach(j => j.delete());
+    }
   }
 
   static async mgmeDealCard({
@@ -26,7 +35,7 @@ export default class MGMECards {
     const table = game.tables.find(t => t.name === tableName) ??
       fallbackTables.find(t => t.name === tableName)
 
-    const result = await table.draw();
+    const result = await table.draw({displayChat: false});
     if (shuffle && result.results.length === 0) {
       table.reset();
       ui.notifications.info(game.i18n.localize('MGME.InfoShuffled'));
@@ -52,7 +61,7 @@ export default class MGMECards {
       return;
     }
 
-    new Dialog({
+    const dialog = new Dialog({
       title: dialogTitle,
       content: `
       <div style="height: ${height};">
@@ -66,13 +75,24 @@ export default class MGMECards {
           label: game.i18n.localize('MGME.ShuffleDeck'),
           callback: () => table.reset(),
         },
+        share: {
+          label: game.i18n.localize('MGME.DeckShare'),
+          callback: async () => {
+            const folder = game.folders.contents.find(f => f.name === MGMECards.CARDS_FOLDER) ?? await Folder.create({name: MGMECards.CARDS_FOLDER, type: 'JournalEntry'});
+            JournalEntry.create({name: 'card_'+new Date().toJSON(), folder: folder, img: path}).then(j => {
+              j.show();
+              j.sheet.render(true);
+            })
+          }
+        },
         close: {
           label: game.i18n.localize('MGME.DeckClose'),
-          callback: () => {
-          },
-        },
+          callback: () => {},
+        }
       },
-      default: "close"
-    }).render(true);
+      default: 'close'
+    });
+    dialog.options.resizable = true;
+    dialog.render(true);
   }
 }

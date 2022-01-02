@@ -60,7 +60,7 @@ export default class MGMEOracleUtils {
     if (baseChat) {
       chatMessage = baseChat;
     } else {
-      const whisper = ui.chat.getData().rollMode !== 'roll' ? [game.user] : undefined;
+      const whisper = MGMECommon._mgmeGetWhisperMode();
       let chatConfig = {
         flavor: eventFlavor,
         content: eventTitle,

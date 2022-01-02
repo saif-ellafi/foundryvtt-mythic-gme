@@ -1,4 +1,5 @@
 import MGMEChatJournal from "../utils/mgme-chat-journal";
+import MGMECommon from "../utils/mgme-common";
 
 export default class MGMEChatExtras {
 
@@ -138,10 +139,12 @@ export default class MGMEChatExtras {
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             const textFlavor = $("#mgme_ext_roll_flavor").val();
             const textOutcome = $("#mgme_ext_roll_outcome").val();
+            const whisper = MGMECommon._mgmeGetWhisperMode();
             if (textOutcome.length)
               ChatMessage.create({
                 flavor: tableName.length ? tableName : game.i18n.localize('MGME.ExternalTableCheck'),
-                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${roll.total})` : ''}`
+                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${roll.total})` : ''}`,
+                whisper: whisper
               });
           }
         }
@@ -173,6 +176,46 @@ export default class MGMEChatExtras {
                 await game.dice3d.showForRoll(r)
               MGMEChatExtras._mgmeExternallRollTableRoll(r, tableName)
             });
+          }
+        }
+      },
+      default: "submit"
+    })
+    firstDialog.render(true)
+  }
+
+  static async mgmeFlavoredRollTable() {
+    const rollDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-flavortable-dialog.hbs', {});
+
+    const firstDialog = new Dialog({
+      title: game.i18n.localize('MGME.RollTableFlavorTitle'),
+      content: rollDialog,
+      render: html => {
+        const tables = game.tables.contents.map(t => t.name);
+        tables.sort()
+        const select = $("#mgme_table_select");
+        tables.forEach(t => select.append(`<option value="${t}">${t}</option>`));
+        html[0].getElementsByTagName("input").mgme_table_question.focus();
+      },
+      buttons: {
+        submit: {
+          icon: '<i class="fas fa-comments"></i>',
+          label: game.i18n.localize('MGME.ToChat'),
+          callback: () => {
+            const selectedTable = $("#mgme_table_select").val();
+            const table = game.tables.contents.find(t => t.name === selectedTable);
+            if (table) {
+              const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+              const tableQuestion = $("#mgme_table_question").val();
+              const whisper = MGMECommon._mgmeGetWhisperMode();
+              table.draw({displayChat: false}).then(draw => {
+                ChatMessage.create({
+                  whisper: whisper,
+                  flavor: game.i18n.localize('MGME.RollTableFlavorTitle'),
+                  content: `${tableQuestion.length ? `<h2>${tableQuestion}</h2>` : ''}${draw.results[0].getChatText()}${debug ? ` (${draw.roll.total})` : ''}`
+                });
+              });
+            }
           }
         }
       },

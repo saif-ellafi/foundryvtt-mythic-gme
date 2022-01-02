@@ -29,6 +29,7 @@ export default class MGMEMacroAPI {
   static mgmeExportChatToJournal = MGMEChatExtras.mgmeExportChatToJournal;
   static mgmeFormattedChat = MGMEChatExtras.mgmeFormattedChat;
   static mgmeExternalRollTable = MGMEChatExtras.mgmeExternalRollTable;
+  static mgmeFlavoredRollTable = MGMEChatExtras.mgmeFlavoredRollTable;
 
   static mgmeOracleBuilder = MGMEOracleBuilder.mgmeOracleBuilder;
   static mgmePrepareCustomOracleQuestion = MGMEOracleBuilder.mgmePrepareCustomOracleQuestion;
