@@ -81,9 +81,9 @@
 
   "MGME.InfoShuffled": "Se ha mezclado tu mazo. Intenta de nuevo.",
   "MGME.ErrNoCards": "ERROR: No he podido encontrar tus cartas en el directorio Data, he buscado en",
-  "MGME.ShuffleDeck": "Mezclar Mazo",
+  "MGME.ShuffleDeck": "Mezclar",
   "MGME.DeckClose": "Cerrar",
-  "MGME.DeckShare": "Compartir",
+  "MGME.DeckShow": "Mostrar",
 
   "MGME.RandomEvent": "Evento Aleatorio",
   "MGME.EventFocus": "Foco de Evento",

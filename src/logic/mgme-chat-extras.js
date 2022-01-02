@@ -143,7 +143,7 @@ export default class MGMEChatExtras {
             if (textOutcome.length)
               ChatMessage.create({
                 flavor: tableName.length ? tableName : game.i18n.localize('MGME.ExternalTableCheck'),
-                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${roll.total})` : ''}`,
+                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${roll.formula}: ${roll.total})` : ''}`,
                 whisper: whisper
               });
           }

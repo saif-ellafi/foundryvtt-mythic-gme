@@ -1,3 +1,8 @@
+### 2.3.3
+* Enhancement: Drawing cards now use Image Popouts for sharing drawn cards
+* Enhancement: Drawing cards now allows 'send to chat' option
+* Bugfix: Added missing roll formula when rolling on external tables macro
+
 ### 2.3.2
 * Feature: New Macro 'Flavored Roll Table' helps with rolling from random tables with a certain question
 * Enhancement: Drawing cards show a "Share" option to show it to players

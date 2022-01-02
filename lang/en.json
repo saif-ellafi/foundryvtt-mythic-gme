@@ -81,9 +81,9 @@
 
   "MGME.InfoShuffled": "The Deck has been shuffled. Please draw again.",
   "MGME.ErrNoCards": "ERROR: Cards not found. Make sure your cards are in the Data folder, in the following path",
-  "MGME.ShuffleDeck": "Shuffle Deck",
+  "MGME.ShuffleDeck": "Shuffle",
   "MGME.DeckClose": "Close",
-  "MGME.DeckShare": "Share",
+  "MGME.DeckShow": "Show",
 
   "MGME.RandomEvent": "Random Event",
   "MGME.EventFocus": "Event Focus",

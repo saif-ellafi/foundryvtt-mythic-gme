@@ -14,12 +14,6 @@ export default class MGMECards {
       default: "decks",
       filePicker: 'folder'
     });
-
-    // Cleanup any previously shown cards
-    const folder = game.folders.contents.find(f => f.name === MGMECards.CARDS_FOLDER);
-    if (folder) {
-      game.journal.contents.filter(j => j.folder === folder).forEach(j => j.delete());
-    }
   }
 
   static async mgmeDealCard({
@@ -71,23 +65,35 @@ export default class MGMECards {
          alt="card"/>
       <div>`,
       buttons: {
-        reset: {
-          label: game.i18n.localize('MGME.ShuffleDeck'),
-          callback: () => table.reset(),
-        },
         share: {
-          label: game.i18n.localize('MGME.DeckShare'),
+          label: game.i18n.localize('MGME.DeckShow'),
+          callback: () => {
+            const ip = new ImagePopout(path, {
+              editable: false,
+              shareable: true
+            });
+            ip._render(true, {title: "Card", height: parseInt(height), width: parseInt(height) / 1.5}).then(() => ip.shareImage());
+          }
+        },
+        chat: {
+          label: game.i18n.localize('MGME.ToChat'),
           callback: async () => {
-            const folder = game.folders.contents.find(f => f.name === MGMECards.CARDS_FOLDER) ?? await Folder.create({name: MGMECards.CARDS_FOLDER, type: 'JournalEntry'});
-            JournalEntry.create({name: 'card_'+new Date().toJSON(), folder: folder, img: path}).then(j => {
-              j.show();
-              j.sheet.render(true);
+            ChatMessage.create({
+              flavor: tableName,
+              content: `
+              <img
+                style="border-radius: 5px; margin-bottom: 1em; ${style}"
+                src="${path}"
+              alt="card"/>`
             })
           }
         },
+        reset: {
+          label: game.i18n.localize('MGME.ShuffleDeck'),
+          callback: () => table.reset()
+        },
         close: {
-          label: game.i18n.localize('MGME.DeckClose'),
-          callback: () => {},
+          label: game.i18n.localize('MGME.DeckClose')
         }
       },
       default: 'close'

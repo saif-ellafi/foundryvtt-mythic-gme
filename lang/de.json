@@ -81,9 +81,9 @@
 
   "MGME.InfoShuffled": "Das Kartendeck wurde gemischt. Bitte ziehe erneut.",
   "MGME.ErrNoCards": "FEHLER: Karten nicht gefunden. Stelle sicher, dass sich deine Kartendecks in folgendem (Data) Pfad befinden",
-  "MGME.ShuffleDeck": "Kartendeck mischen",
+  "MGME.ShuffleDeck": "Mischen",
   "MGME.DeckClose": "Schließen",
-  "MGME.DeckShare": "Teilen",
+  "MGME.DeckShow": "Zeigen",
 
   "MGME.RandomEvent": "Zufallsereignis",
   "MGME.EventFocus": "Ereignis Fokus",
