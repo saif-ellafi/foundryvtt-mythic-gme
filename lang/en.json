@@ -143,7 +143,7 @@
   "MGME.ExternalRollTableFlavor": "Flavor (Optional)",
   "MGME.ExternalRollTableOutcome": "Table Result",
   "MGME.ExternalTableCheck": "External Table Check",
-  "MGME.ExternalRollExplain": "Result is:",
+  "MGME.ExternalRollExplain": "Results:",
 
   "MGME.RollTableFlavorTitle": "Roll on a Table",
 
@@ -204,6 +204,7 @@
   "MGME.BackstorySix": "Six Backstories",
   "MGME.BackstorySeven": "Seven Backstories",
 
-  "MGME.ToChat": "To Chat"
+  "MGME.ToChat": "To Chat",
+  "MGME.HowMany": "How Many"
 
 }

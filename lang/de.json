@@ -143,7 +143,7 @@
   "MGME.ExternalRollTableFlavor": "Geschmacksrichtung (Optional)",
   "MGME.ExternalRollTableOutcome": "Tabellenergebnis",
   "MGME.ExternalTableCheck": "Externe Tabellenprüfung",
-  "MGME.ExternalRollExplain": "Ergebnis ist:",
+  "MGME.ExternalRollExplain": "Ergebnisse:",
 
   "MGME.RollTableFlavorTitle": "Auf einer Tabelle rollen",
 
@@ -204,6 +204,7 @@
   "MGME.BackstorySix": "Sechs Hintergrundgeschichten",
   "MGME.BackstorySeven": "Sieben Hintergrundgeschichten",
 
-  "MGME.ToChat": "Zum Chat"
+  "MGME.ToChat": "Zum Chat",
+  "MGME.ToChat": "Wie viel"
 
 }

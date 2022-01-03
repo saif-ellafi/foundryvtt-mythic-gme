@@ -1,11 +1,22 @@
 <form>
     <div>
-    <label for="mgme_table_question">{{ localize 'MGME.Question' }}:</label>
-    <input id="mgme_table_question" style="margin-bottom:10px"/>
+        <label for="mgme_table_question">{{ localize 'MGME.Question' }}:</label>
+        <input id="mgme_table_question" style="margin-bottom:10px"/>
     </div>
 
     <div>
-    <label for="mgme_table_select">{{ localize 'MGME.ExternalRollTableName' }}:</label>
+        <label for="mgme_table_select">{{ localize 'MGME.ExternalRollTableName' }}:</label>
         <select id="mgme_table_select" style="margin-bottom:10px;"></select>
+    </div>
+
+    <div>
+        <label for="mgme_table_many">{{ localize 'MGME.HowMany' }}:</label>
+        <select id="mgme_table_many" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
     </div>
 </form>

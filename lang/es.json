@@ -143,7 +143,7 @@
   "MGME.ExternalRollTableFlavor": "Explicación (opcional)",
   "MGME.ExternalRollTableOutcome": "Resultado de la tabla",
   "MGME.ExternalTableCheck": "Comprobación de tabla externa",
-  "MGME.ExternalRollExplain": "Resultado es:",
+  "MGME.ExternalRollExplain": "Resultados:",
 
   "MGME.RollTableFlavorTitle": "Lanzar en tabla aleatoria",
 
@@ -204,6 +204,7 @@
   "MGME.BackstorySix": "Séis Trasfondos",
   "MGME.BackstorySeven": "Siete Trasfondos",
 
-  "MGME.ToChat": "Al Chat"
+  "MGME.ToChat": "Al Chat",
+  "MGME.HowMany": "Cuántas veces"
 
 }

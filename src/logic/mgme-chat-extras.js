@@ -121,8 +121,10 @@ export default class MGMEChatExtras {
     dialogue.render(true)
   }
 
-  static async _mgmeExternallRollTableRoll(roll, tableName) {
-    const outputRollDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-externalroll2-dialog.hbs', {rollTotal: roll.total});
+  static async _mgmeExternallRollTableRoll(rolls, tableName) {
+    if (!rolls?.length) return;
+    const rollTotals = rolls.map(r => r.total);
+    const outputRollDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-externalroll2-dialog.hbs', {rollTotals: rollTotals});
 
     const firstDialog = new Dialog({
       title: game.i18n.localize('MGME.ExternalRollTableOutcome'),
@@ -143,7 +145,7 @@ export default class MGMEChatExtras {
             if (textOutcome.length)
               ChatMessage.create({
                 flavor: tableName.length ? tableName : game.i18n.localize('MGME.ExternalTableCheck'),
-                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${roll.formula}: ${roll.total})` : ''}`,
+                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${rolls[0].formula}: ${rollTotals})` : ''}`,
                 whisper: whisper
               });
           }
@@ -167,15 +169,22 @@ export default class MGMEChatExtras {
         submit: {
           icon: '<i class="fas fa-dice"></i>',
           label: 'Roll',
-          callback: () => {
+          callback: async () => {
             const tableName = $("#mgme_ext_table_name").val();
             const formula = $("#mgme_ext_formula").val();
-            const roll = Roll.create(formula.length ? formula : '1d100');
-            roll.roll({async: true}).then(async r => {
-              if (game.dice3d)
-                await game.dice3d.showForRoll(r)
-              MGMEChatExtras._mgmeExternallRollTableRoll(r, tableName)
-            });
+            const howMany = parseInt($("#mgme_ext_many").val());
+            const rolls = [];
+            let i = 0;
+            while (i < howMany) {
+              const roll = Roll.create(formula.length ? formula : '1d100');
+              await roll.roll({async: true}).then(async r => {
+                if (game.dice3d)
+                  await game.dice3d.showForRoll(r);
+                rolls.push(r);
+              });
+              i += 1;
+            }
+            MGMEChatExtras._mgmeExternallRollTableRoll(rolls, tableName);
           }
         }
       },
@@ -203,16 +212,23 @@ export default class MGMEChatExtras {
           label: game.i18n.localize('MGME.ToChat'),
           callback: () => {
             const selectedTable = $("#mgme_table_select").val();
+            const many = parseInt($("#mgme_table_many").val());
             const table = game.tables.contents.find(t => t.name === selectedTable);
             if (table) {
               const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
               const tableQuestion = $("#mgme_table_question").val();
               const whisper = MGMECommon._mgmeGetWhisperMode();
-              table.draw({displayChat: false}).then(draw => {
+              table.drawMany(many, {displayChat: false}).then(draw => {
+                let i = 0;
+                let content = `${tableQuestion.length ? `<h2>${tableQuestion}</h2>` : ''}`
+                draw.results.forEach(result => {
+                  content += `<div>${result.getChatText()}${debug ? ` (${draw.roll.terms[0].results[i].result})` : ''}</div>`
+                  i += 1;
+                });
                 ChatMessage.create({
                   whisper: whisper,
                   flavor: game.i18n.localize('MGME.RollTableFlavorTitle'),
-                  content: `${tableQuestion.length ? `<h2>${tableQuestion}</h2>` : ''}${draw.results[0].getChatText()}${debug ? ` (${draw.roll.total})` : ''}`
+                  content: content
                 });
               });
             }

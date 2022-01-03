@@ -1,3 +1,8 @@
+### 2.3.4
+* Enhancement: Flavored Roll Tables now allows drawing multiple times from a table
+* Enhancement: External Roll Tables now allow multiple dice rolls for the same table
+* Documentation: Updated Readme file
+
 ### 2.3.3
 * Enhancement: Drawing cards now use Image Popouts for sharing drawn cards
 * Enhancement: Drawing cards now allows 'send to chat' option

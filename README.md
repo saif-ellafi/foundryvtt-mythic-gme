@@ -29,13 +29,14 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
       2. [Variations 1 Orange Book](#variations-1-orange-book)
       3. [Variations 2 Green Book](#variations-2-green-book)
-      4. [Special Macros](#special-macros)
-   3. [The Mighty Chat](#the-mighty-chat)
-   4. [Customizing your playstyle](#customizing-your-playstyle)
-   5. [Roll Tables](#roll-tables) 
-   6. [Saved Progress](#saved-progress)
-   7. [Configurable Settings](#configurable-settings)
-   8. [Card Decks](#card-decks)
+   3. [The Oracle Builder](#the-oracle-builder)
+   4. [Rolling your own Tables](#rolling-your-own-tables)
+   5. [Chat and Exporting](#chat-and-exporting)
+   6. [Customizing your playstyle](#customizing-your-playstyle)
+   7. [Roll Tables](#roll-tables) 
+   8. [Saved Progress](#saved-progress)
+   9. [Configurable Settings](#configurable-settings)
+   10. [Card Decks](#card-decks)
 3. [Things to Know and Modules](#things-to-know-and-modules)
 4. [Author](#author)
 5. [My other modules](#my-other-modules)
@@ -101,28 +102,30 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 ![img.png](green-book-macros.png)
 
-#### Special Macros
-
-These Macros do not belong to Mythic but are crazy ideas that I had of functionalities that could help in the experience. Feedback welcome!
-
-##### Oracle Builder
+### The Oracle Builder
 Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
 ![Oracle Builder](oracle-builder.png)
 
-##### External Roll Table
-Keep chat and overall consistency by rolling tables outside your game as if they belonged here!
+### Rolling your own tables
+Either from Foundry Random Tables or Tables you have outside (printed, or in a PDF, etc), these macros will help you stay sharp and consistent!
 
-![img.png](external-table-prompt.png)
-![External Table](external-table.png)
+#### Flavored Roll Table
 
-##### Flavored Roll Table
 Keep chat consistency by rolling from a Random Table normally with a question (flavor) in mind
 
-##### Formatted Message - Send message to the chat with flavor, color and style
-![formatted-message.png](formatted-message.png)
-* Export current Chat to Journal - Either for backup or for history tracking
+![img.png](flavored-table-prompt.png)
 
-### The mighty chat
+#### External Roll Table
+
+Keep chat and overall consistency by rolling tables outside your game as if they belonged here!
+
+![external-table-prompt-2.png](external-table-prompt-2.png)
+
+![External Table](external-table.png)
+
+### Chat and Exporting
+
+#### General Features
 
 * Every Mythic check in Mythic GME Tools produces a flavored, self-explanatory chat message.
 * A setting **Automatic Adventure Logging** (default: disabled) exports all oracle checks **to a journal entry**.
@@ -133,6 +136,18 @@ Keep chat consistency by rolling from a Random Table normally with a question (f
 This will help keep track of your emulator's guidance and your game!
 
 ![mighty-chat.png](mighty-chat.png) 
+
+#### Formatted Message - Send message to the chat with flavor, color and style
+
+Keep your game chat log clear and consistent, add headers, subtitles, and more
+
+![formatted-message.png](formatted-message.png)
+
+#### Exporting your game
+Export current Chat to Journal - Either for backup or for history tracking. You can do this in two ways:
+
+* By using the Macro to export current Chat to a Journal Entry
+* By enabling Auto-Logging setting that automatically puts all your chat in a daily journal
 
 ![chat-export2.png](chat-export2.png)
 
