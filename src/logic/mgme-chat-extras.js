@@ -202,8 +202,9 @@ export default class MGMEChatExtras {
       render: html => {
         const tables = game.tables.contents.map(t => t.name);
         tables.sort()
-        const select = $("#mgme_table_select");
-        tables.forEach(t => select.append(`<option value="${t}">${t}</option>`));
+        tables.forEach(t => $("#mgme_table_select_1").append(`<option value="${t}">${t}</option>`));
+        tables.forEach(t => $("#mgme_table_select_2").append(`<option value="${t}">${t}</option>`));
+        tables.forEach(t => $("#mgme_table_select_3").append(`<option value="${t}">${t}</option>`));
         html[0].getElementsByTagName("input").mgme_table_question.focus();
       },
       buttons: {
@@ -211,26 +212,30 @@ export default class MGMEChatExtras {
           icon: '<i class="fas fa-comments"></i>',
           label: game.i18n.localize('MGME.ToChat'),
           callback: () => {
-            const selectedTable = $("#mgme_table_select").val();
-            const many = parseInt($("#mgme_table_many").val());
-            const table = game.tables.contents.find(t => t.name === selectedTable);
-            if (table) {
-              const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
-              const tableQuestion = $("#mgme_table_question").val();
-              const whisper = MGMECommon._mgmeGetWhisperMode();
-              table.drawMany(many, {displayChat: false}).then(draw => {
-                let i = 0;
-                let content = `${tableQuestion.length ? `<h2>${tableQuestion}</h2>` : ''}`
-                draw.results.forEach(result => {
-                  content += `<div>${result.getChatText()}${debug ? ` (${draw.roll.terms[0].results[i].result})` : ''}</div>`
-                  i += 1;
+            const tableQuestion = $("#mgme_table_question").val();
+            let i = 0;
+            while (i < 3) {
+              const selectedTable = $("#mgme_table_select_"+i).val();
+              const many = parseInt($("#mgme_table_many_"+i).val());
+              const table = game.tables.contents.find(t => t.name === selectedTable);
+              if (selectedTable?.length && table) {
+                const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+                const whisper = MGMECommon._mgmeGetWhisperMode();
+                table.drawMany(many, {displayChat: false}).then(draw => {
+                  let i = 0;
+                  let content = `${tableQuestion.length ? `<h2>${tableQuestion}</h2>` : ''}`
+                  draw.results.forEach(result => {
+                    content += `<div>${result.getChatText()}${debug ? ` (${draw.roll.terms[0].results[i].result})` : ''}</div>`
+                    i += 1;
+                  });
+                  ChatMessage.create({
+                    whisper: whisper,
+                    flavor: game.i18n.localize('MGME.RollTableFlavorTitle'),
+                    content: content
+                  });
                 });
-                ChatMessage.create({
-                  whisper: whisper,
-                  flavor: game.i18n.localize('MGME.RollTableFlavorTitle'),
-                  content: content
-                });
-              });
+              }
+              i += 1;
             }
           }
         }

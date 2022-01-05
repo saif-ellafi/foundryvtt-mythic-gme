@@ -5,13 +5,12 @@
     </div>
 
     <div>
-        <label for="mgme_table_select">{{ localize 'MGME.ExternalRollTableName' }}:</label>
-        <select id="mgme_table_select" style="margin-bottom:10px;"></select>
-    </div>
-
-    <div>
-        <label for="mgme_table_many">{{ localize 'MGME.HowMany' }}:</label>
-        <select id="mgme_table_many" style="margin-bottom:10px;">
+        <label for="mgme_table_select_1">{{ localize 'MGME.ExternalRollTableName' }}:</label>
+        <select id="mgme_table_select_1" onchange="_mgmeGetTableFormula(1)" style="margin-bottom:10px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_1" placeholder="default">
+        <select id="mgme_table_many_1" style="margin-bottom:10px;">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -19,4 +18,42 @@
             <option value="5">5</option>
         </select>
     </div>
+
+    <div>
+        <label for="mgme_table_select_2">{{ localize 'MGME.ExternalRollTableName' }}:</label>
+        <select id="mgme_table_select_2" onchange="_mgmeGetTableFormula(2)" style="margin-bottom:10px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_2" placeholder="default">
+        <select id="mgme_table_many_2" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="mgme_table_select_3">{{ localize 'MGME.ExternalRollTableName' }}:</label>
+        <select id="mgme_table_select_3" onchange="_mgmeGetTableFormula(3)" style="margin-bottom:10px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_3" placeholder="default">
+        <select id="mgme_table_many_3" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <script>
+        function _mgmeGetTableFormula(idx) {
+          const table = game.tables.contents.find(t => t.name === $(`#mgme_table_select_${idx}`).val());
+          if (!table) return;
+          $(`#mgme_table_formula_${idx}`).val(table.data.formula);
+        }
+    </script>
 </form>
