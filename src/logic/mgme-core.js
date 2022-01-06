@@ -192,7 +192,7 @@ export default class MGMECore {
 
     const fateChartDialog = await renderTemplate('./modules/mythic-gme-tools/template/core-fatechart-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
 
-    let dialogue = new Dialog({ // ToDo: Replace with template
+    let dialogue = new Dialog({
       title: game.i18n.localize('MGME.FateChart'),
       content: fateChartDialog,
       render: html => html[0].getElementsByTagName("input").mgme_question.focus(),
@@ -205,7 +205,7 @@ export default class MGMECore {
             const chaos = html.find("#mgme_chaos").val();
             const roll = new Roll(`1d100`);
             const result = roll.evaluate({async: false}).total;
-            let content = generateOutput(html.find("#mgme_question").val(), odds, chaos, result);
+            let content = generateOutput(html.find("#mgme_question").val()?.trim(), odds, chaos, result);
             let doubles = false;
             if (result > 10 && result < 100) {
               const s = result.toString();

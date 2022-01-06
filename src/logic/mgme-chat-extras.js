@@ -15,7 +15,7 @@ export default class MGMEChatExtras {
           icon: '<i class="fas fa-comments"></i>',
           label: game.i18n.localize('MGME.Export'),
           callback: (html) => {
-            const journalName = html.find("#mgme_export_journal_name").val();
+            const journalName = html.find("#mgme_export_journal_name").val()?.trim();
             const includeTimestamp = html.find("#mgme_export_include_meta").prop('checked');
             const includeActorImg = html.find("#mgme_export_actor_img").prop('checked');
             const highlightFlavor = html.find("#mgme_export_highlight_flavor").prop('checked');
@@ -69,15 +69,15 @@ export default class MGMEChatExtras {
           label: game.i18n.localize('MGME.ToChat'),
           callback: () => {
             let message;
-            let color = $("#mgme_format_color").val();
+            let color = $("#mgme_format_color").val()?.trim();
             if (color && color !== '') {
               color = `style="color:${color};"`;
             } else {
               `style="color:inherit;"`;
             }
-            let text = $("#mgme_format_text").val();
+            let text = $("#mgme_format_text").val()?.trim();
             if (!text || text === '') return;
-            switch ($("#mgme_format_style").val()) {
+            switch ($("#mgme_format_style").val()?.trim()) {
               case '':
               case 'normal':
               case undefined: {
@@ -106,7 +106,7 @@ export default class MGMEChatExtras {
               }
             }
 
-            const speakerElementVal = $("#mgme_format_speaker").val();
+            const speakerElementVal = $("#mgme_format_speaker").val()?.trim();
             const selectedSpeaker = speakerElementVal === 'Gamemaster' ? {alias: "Gamemaster"} : {actor: tokens.find(t => t.actor.id === speakerElementVal).actor.id};
             let chatConfig = {
               content: message,
@@ -139,8 +139,8 @@ export default class MGMEChatExtras {
           label: game.i18n.localize('MGME.ToChat'),
           callback: () => {
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
-            const textFlavor = $("#mgme_ext_roll_flavor").val();
-            const textOutcome = $("#mgme_ext_roll_outcome").val();
+            const textFlavor = $("#mgme_ext_roll_flavor").val()?.trim();
+            const textOutcome = $("#mgme_ext_roll_outcome").val()?.trim();
             const whisper = MGMECommon._mgmeGetWhisperMode();
             if (textOutcome.length)
               ChatMessage.create({
@@ -170,9 +170,9 @@ export default class MGMEChatExtras {
           icon: '<i class="fas fa-dice"></i>',
           label: 'Roll',
           callback: async () => {
-            const tableName = $("#mgme_ext_table_name").val();
-            const formula = $("#mgme_ext_formula").val();
-            const howMany = parseInt($("#mgme_ext_many").val());
+            const tableName = $("#mgme_ext_table_name").val()?.trim();
+            const formula = $("#mgme_ext_formula").val()?.trim();
+            const howMany = parseInt($("#mgme_ext_many").val()?.trim());
             const rolls = [];
             let i = 0;
             while (i < howMany) {
@@ -211,32 +211,34 @@ export default class MGMEChatExtras {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
           label: game.i18n.localize('MGME.ToChat'),
-          callback: () => {
-            const tableQuestion = $("#mgme_table_question").val();
+          callback: async () => {
+            const tableQuestion = $("#mgme_table_question").val()?.trim();
+            let content = `${tableQuestion.length ? `<h2>${tableQuestion}</h2>` : ''}`;
+            const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+            const whisper = MGMECommon._mgmeGetWhisperMode();
             let i = 0;
             while (i < 3) {
-              const selectedTable = $("#mgme_table_select_"+i).val();
-              const many = parseInt($("#mgme_table_many_"+i).val());
+              i += 1;
+              const selectedTable = $("#mgme_table_select_"+i).val()?.trim();
+              const many = parseInt($("#mgme_table_many_"+i).val()?.trim());
+              const formula = $("#mgme_table_formula_"+i).val()?.trim();
               const table = game.tables.contents.find(t => t.name === selectedTable);
               if (selectedTable?.length && table) {
-                const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
-                const whisper = MGMECommon._mgmeGetWhisperMode();
-                table.drawMany(many, {displayChat: false}).then(draw => {
-                  let i = 0;
-                  let content = `${tableQuestion.length ? `<h2>${tableQuestion}</h2>` : ''}`
-                  draw.results.forEach(result => {
-                    content += `<div>${result.getChatText()}${debug ? ` (${draw.roll.terms[0].results[i].result})` : ''}</div>`
-                    i += 1;
-                  });
-                  ChatMessage.create({
-                    whisper: whisper,
-                    flavor: game.i18n.localize('MGME.RollTableFlavorTitle'),
-                    content: content
-                  });
+                content += `<h3>${selectedTable}</h3>`;
+                await table.drawMany(many, {roll: Roll.create(formula?.length ? formula : table.data.formula), displayChat: false}).then(draw => {
+                  let ii = 0;
+                  for (const result of draw.results) {
+                    content += `<div>${result.getChatText()}${debug ? ` (${draw.roll.terms[0].results[ii].result})` : ''}</div>`
+                    ii += 1;
+                  }
                 });
               }
-              i += 1;
             }
+            ChatMessage.create({
+              whisper: whisper,
+              flavor: game.i18n.localize('MGME.RollTableFlavorTitle'),
+              content: content
+            });
           }
         }
       },

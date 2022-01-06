@@ -103,7 +103,7 @@ export default class MGMEOracleBuilder {
   }
 
   static _mgmeOracleBuilderParse(html) {
-    const question = html.find(`#mgme_question_target`).val();
+    const question = html.find(`#mgme_question_target`).val()?.trim();
     const questionFlavor = html.find("#mgme_question_flavor").prop('checked');
     if (!question)
       return;

@@ -94,7 +94,7 @@ export default class MGMEVariations2 {
           icon: '<i class="fas fa-comments"></i>',
           label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
-            const attribute = html.find(`#mgme_statistic_attribute_1`).val();
+            const attribute = html.find(`#mgme_statistic_attribute_1`).val()?.trim();
             if (!attribute)
               return;
             const whisper = MGMECommon._mgmeGetWhisperMode();
@@ -114,10 +114,10 @@ export default class MGMEVariations2 {
               i += 1;
               if (html.find(`#stats_${i}`).hasClass('stat-hidden'))
                 continue
-              const attribute = html.find(`#mgme_statistic_attribute_${i}`).val();
+              const attribute = html.find(`#mgme_statistic_attribute_${i}`).val()?.trim();
               if (!attribute.length)
                 continue;
-              const baseline = parseInt(html.find(`#mgme_statistic_baseline_${i}`).val());
+              const baseline = parseInt(html.find(`#mgme_statistic_baseline_${i}`).val()?.trim());
               persistedStats.push({
                 statName: attribute,
                 statBaseline: baseline
@@ -172,9 +172,9 @@ export default class MGMEVariations2 {
       return;
     const element = $(html)
     let [mod1, mod2, mod3] = [
-      element.find('#mgme_behavior_identity_active').prop('checked') ? element.find('#mgme_behavior_identity_mod').val() : 0,
-      element.find('#mgme_behavior_personality_active').prop('checked') ? element.find('#mgme_behavior_personality_mod').val() : 0,
-      element.find('#mgme_behavior_activity_active').prop('checked') ? element.find('#mgme_behavior_activity_mod').val() : 0
+      element.find('#mgme_behavior_identity_active').prop('checked') ? element.find('#mgme_behavior_identity_mod').val()?.trim() : 0,
+      element.find('#mgme_behavior_personality_active').prop('checked') ? element.find('#mgme_behavior_personality_mod').val()?.trim() : 0,
+      element.find('#mgme_behavior_activity_active').prop('checked') ? element.find('#mgme_behavior_activity_mod').val()?.trim() : 0
     ];
     const dispositionTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Behavior Check');
     const formula = `${baseValue ?? '2d10'} + ${mod1} + ${mod2} + ${mod3}`;
@@ -237,17 +237,17 @@ export default class MGMEVariations2 {
   static _mgmeSaveActorBehaviorFromHTML(html, actor) {
     const elem = $(html);
     const actorBehavior = {
-      theme: elem.find("#mgme_behavior_theme").val(),
-      identity: elem.find("#mgme_behavior_identity").val(),
+      theme: elem.find("#mgme_behavior_theme").val()?.trim(),
+      identity: elem.find("#mgme_behavior_identity").val()?.trim(),
       identityMod: parseInt(elem.find("#mgme_behavior_identity_mod").val()),
       identityActive: elem.find("#mgme_behavior_identity_active").prop('checked'),
-      personality: elem.find("#mgme_behavior_personality").val(),
+      personality: elem.find("#mgme_behavior_personality").val()?.trim(),
       personalityMod: parseInt(elem.find("#mgme_behavior_personality_mod").val()),
       personalityActive: elem.find("#mgme_behavior_personality_active").prop('checked'),
-      activity: elem.find("#mgme_behavior_activity").val(),
+      activity: elem.find("#mgme_behavior_activity").val()?.trim(),
       activityMod: parseInt(elem.find("#mgme_behavior_activity_mod").val()),
       activityActive: elem.find("#mgme_behavior_activity_active").prop('checked'),
-      dispositionRank: elem.find("#mgme_behavior_disposition").val(),
+      dispositionRank: elem.find("#mgme_behavior_disposition").val()?.trim(),
       dispositionValue: parseInt(elem.find("#mgme_behavior_disposition_value").val()),
     };
     const target = actor ?? canvas.tokens.controlled[0]?.actor;
@@ -392,7 +392,7 @@ export default class MGMEVariations2 {
             let output = generateOutput(oddsProps.mod, chaosFactor, yesFavorable, fateResult, fateLeft, fateRight, chaosResult);
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             const content = `
-              ${html.find("#mgme_v2_question").val() ? `<h2>${html.find("#mgme_v2_question").val()} <em>(${game.i18n.localize(oddsProps.key)})</em></h2>` : `<h2><em>${game.i18n.localize(oddsProps.key)}</em></h2>`}
+              ${html.find("#mgme_v2_question").val()?.trim() ? `<h2>${html.find("#mgme_v2_question").val()?.trim()} <em>(${game.i18n.localize(oddsProps.key)})</em></h2>` : `<h2><em>${game.i18n.localize(oddsProps.key)}</em></h2>`}
               ${debug ? `<div><b>Roll:</b> ${fateLeft}+${fateRight} (${chaosResult}) with Chaos[${chaosFactor}]</div>` : ''}
               <b style="color: ${output.outcomeColor}">${output.outcomeText}</b>
             `;
@@ -472,7 +472,7 @@ export default class MGMEVariations2 {
           icon: '<i class="fas fa-fist-raised"></i>',
           label: `${game.i18n.localize('MGME.Action')}!`,
           callback: async (html) => {
-            if (!html.find("#mgme_behavior_disposition").val())
+            if (!html.find("#mgme_behavior_disposition").val()?.trim())
               await MGMEVariations2._mgmeFillRandomDisposition(html);
             const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken.actor);
             await MGMEVariations2._mgmeBehaviorAction(selectedToken, actorBehavior);
@@ -482,7 +482,7 @@ export default class MGMEVariations2 {
           icon: '<i class="fas fa-comments"></i>',
           label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
-            if (!html.find("#mgme_behavior_disposition").val())
+            if (!html.find("#mgme_behavior_disposition").val()?.trim())
               await MGMEVariations2._mgmeFillRandomDisposition(html);
             const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken.actor);
             const whisper = MGMECommon._mgmeGetWhisperMode();
