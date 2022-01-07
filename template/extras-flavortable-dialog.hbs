@@ -46,6 +46,34 @@
         </select>
     </div>
 
+    <div>
+        <select id="mgme_table_select_4" onchange="_mgmeGetTableFormula(4)" style="margin-bottom:10px;width: 270px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_4" placeholder="default" style="width: 60px;height: 27px;">
+        <select id="mgme_table_many_4" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div>
+        <select id="mgme_table_select_5" onchange="_mgmeGetTableFormula(5)" style="margin-bottom:10px;width: 270px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_5" placeholder="default" style="width: 60px;height: 27px;">
+        <select id="mgme_table_many_5" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
     <script>
         function _mgmeGetTableFormula(idx) {
           const table = game.tables.contents.find(t => t.name === $(`#mgme_table_select_${idx}`).val());

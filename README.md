@@ -113,7 +113,7 @@ Either from Foundry Random Tables or Tables you have outside (printed, or in a P
 
 Keep chat consistency by rolling from a Random Table normally with a question (flavor) in mind
 
-![img.png](flavored-table-prompt.png)
+![img.png](flavored-table-prompt-2.png)
 
 #### External Roll Table
 

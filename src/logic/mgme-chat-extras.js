@@ -195,6 +195,7 @@ export default class MGMEChatExtras {
 
   static async mgmeFlavoredRollTable() {
     const rollDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-flavortable-dialog.hbs', {});
+    const numEntries = 5;
 
     const firstDialog = new Dialog({
       title: game.i18n.localize('MGME.RollTableFlavorTitle'),
@@ -202,9 +203,11 @@ export default class MGMEChatExtras {
       render: html => {
         const tables = game.tables.contents.map(t => t.name);
         tables.sort()
-        tables.forEach(t => $("#mgme_table_select_1").append(`<option value="${t}">${t}</option>`));
-        tables.forEach(t => $("#mgme_table_select_2").append(`<option value="${t}">${t}</option>`));
-        tables.forEach(t => $("#mgme_table_select_3").append(`<option value="${t}">${t}</option>`));
+        let i = 0;
+        while (i < numEntries) {
+          i += 1;
+          tables.forEach(t => $("#mgme_table_select_" + i).append(`<option value="${t}">${t}</option>`));
+        }
         html[0].getElementsByTagName("input").mgme_table_question.focus();
       },
       buttons: {
@@ -217,14 +220,14 @@ export default class MGMEChatExtras {
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             const whisper = MGMECommon._mgmeGetWhisperMode();
             let i = 0;
-            while (i < 3) {
+            while (i < numEntries) {
               i += 1;
               const selectedTable = $("#mgme_table_select_"+i).val()?.trim();
               const many = parseInt($("#mgme_table_many_"+i).val()?.trim());
               const formula = $("#mgme_table_formula_"+i).val()?.trim();
               const table = game.tables.contents.find(t => t.name === selectedTable);
               if (selectedTable?.length && table) {
-                content += `<h3>${selectedTable}</h3>`;
+                content += `<b>${selectedTable}</b>`;
                 await table.drawMany(many, {roll: Roll.create(formula?.length ? formula : table.data.formula), displayChat: false}).then(draw => {
                   let ii = 0;
                   for (const result of draw.results) {

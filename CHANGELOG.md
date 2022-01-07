@@ -1,3 +1,6 @@
+### 2.3.5
+* Enhancement: Improved Flavored Roll Tables macro, user can now roll up to 5 tables with any quantity and override the roll formula (e.g. for Locations Crafter progress points!)
+
 ### 2.3.4
 * Enhancement: Flavored Roll Tables now allows drawing multiple times from a table
 * Enhancement: External Roll Tables now allow multiple dice rolls for the same table
