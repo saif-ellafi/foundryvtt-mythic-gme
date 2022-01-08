@@ -107,6 +107,9 @@
   "MGME.Optional": "opcional",
   "MGME.Add": "Agregar",
   "MGME.Flavor": "Sentido",
+  "MGME.All": "Todos",
+  "MGME.Reset": "Reiniciar",
+  "MGME.Shift": "Actualizar",
 
   "MGME.ComplexQuestion": "Pregunta Compleja",
   "MGME.DetailQuestion": "Pregunta de Detalle",
@@ -207,10 +210,10 @@
   "MGME.CrafterRngLocCrafterTitle": "Crafter de ubicación aleatoria",
   "MGME.CrafterRngLocCrafterPPStatus": "Comprobación de puntos de progreso",
   "MGME.CrafterRngLocCrafterPPShift": "Desplazamiento de los puntos de progreso",
-  "MGME.CrafterRngLocCrafterLocTable": "Elementos de localización",
-  "MGME.CrafterRngLocCrafterEncTable": "Elementos de encuentro",
-  "MGME.CrafterRngLocCrafterObjTable": "Elementos de objetos",
-  "MGME.CrafterRngLocCrafterRegTable": "Descriptores de región",
+  "MGME.CrafterRngLocCrafterLocTable": "Localización",
+  "MGME.CrafterRngLocCrafterEncTable": "Encuentros",
+  "MGME.CrafterRngLocCrafterObjTable": "Objetos",
+  "MGME.CrafterRngLocCrafterRegTable": "Región",
 
   "MGME.ToChat": "Al Chat",
   "MGME.HowMany": "Cuántas veces"

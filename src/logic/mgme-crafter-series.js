@@ -19,14 +19,14 @@ export default class MGMECrafterSeries {
     $("#mgme_rng_loc_crafter_formula_3").val('1d10+'+currPP['objects']);
   }
 
-  static mgmeRngLocCrafterPPInc(n, which) {
+  static _mgmeRngLocCrafterPPShift(n, which) {
     const currPP = game.settings.get('mythic-gme-tools', 'progressPoints');
     const whisper = MGMECommon._mgmeGetWhisperMode();
     if (which in currPP) {
-      currPP[which] += n;
+      currPP[which] = Math.max(0, currPP[which] + n);
     } else {
       Object.keys(currPP).forEach(which => {
-        currPP[which] += n;
+        currPP[which] = Math.max(0, currPP[which] + n)
       })
     }
     MGMECrafterSeries._mgmeUpdateOpenDialogs(currPP);
@@ -38,26 +38,7 @@ export default class MGMECrafterSeries {
     })
   }
 
-  static mgmeRngLocCrafterPPDec(n, which) {
-    const currPP = game.settings.get('mythic-gme-tools', 'progressPoints');
-    const whisper = MGMECommon._mgmeGetWhisperMode();
-    if (which in currPP) {
-      currPP[which] = Math.max(0, currPP[which] - n);
-    } else {
-      Object.keys(currPP).forEach(which => {
-        currPP[which] = Math.max(0, currPP[which] - n);
-      })
-    }
-    MGMECrafterSeries._mgmeUpdateOpenDialogs(currPP);
-    game.settings.set('mythic-gme-tools', 'progressPoints', currPP);
-    MGMEChatJournal._mgmeCreateChatAndLog({
-      flavor: game.i18n.localize('MGME.CrafterRngLocCrafterPPShift'),
-      content: `<div><b>Locations:</b> ${currPP.locations}</div><div><b>Encounters:</b> ${currPP.encounters}</div><div><b>Objects:</b> ${currPP.objects}</div>`,
-      whisper: whisper
-    })
-  }
-
-  static mgmeRngLocCrafterPPReset() {
+  static _mgmeRngLocCrafterPPReset() {
     const whisper = MGMECommon._mgmeGetWhisperMode();
     const newPP = {locations: 0, encounters: 0, objects: 0};
     MGMECrafterSeries._mgmeUpdateOpenDialogs(newPP);
@@ -69,7 +50,7 @@ export default class MGMECrafterSeries {
     })
   }
 
-  static mgmeRngLocCrafterPPStatus() {
+  static _mgmeRngLocCrafterPPStatus() {
     const currPP = game.settings.get('mythic-gme-tools', 'progressPoints');
     const whisper = MGMECommon._mgmeGetWhisperMode();
     MGMEChatJournal._mgmeCreateChatAndLog({
@@ -79,10 +60,54 @@ export default class MGMECrafterSeries {
     })
   }
 
+  static async mgmeRngLocCrafterPPShift() {
+    const currPP = game.settings.get('mythic-gme-tools', 'progressPoints');
+    const rngLocationCrafterDialog = await renderTemplate('./modules/mythic-gme-tools/template/crafter-pp-dialog.hbs', {PPLoc: currPP.locations, PPEnc: currPP.encounters, PPObj: currPP.objects});
+
+    let dialogue = new Dialog({
+      title: game.i18n.localize('MGME.CrafterRngLocCrafterTitle'),
+      content: rngLocationCrafterDialog,
+      buttons: {
+        shift: {
+          icon: '<i class="fas fa-sort"></i>',
+          label: game.i18n.localize('MGME.Shift'),
+          callback: async (html) => {
+            const target = html.find("#mgme_pp_target").val()?.trim();
+            const mod = parseInt(html.find("#mgme_pp_mod").val());
+            MGMECrafterSeries._mgmeRngLocCrafterPPShift(mod, target);
+          }
+        },
+        reset: {
+          icon: '<i class="fas fa-sync"></i>',
+          label: game.i18n.localize('MGME.Reset'),
+          callback: async () => {
+            MGMECrafterSeries._mgmeRngLocCrafterPPReset();
+          }
+        },
+        chat: {
+          icon: '<i class="fas fa-comments"></i>',
+          label: game.i18n.localize('MGME.ToChat'),
+          callback: async () => {
+            MGMECrafterSeries._mgmeRngLocCrafterPPStatus();
+          }
+        }
+      },
+      default: "shift"
+    })
+
+    dialogue.render(true)
+  }
+
   static async mgmeRngLocCrafter() {
     const currPP = game.settings.get('mythic-gme-tools', 'progressPoints');
     const rngLocationCrafterDialog = await renderTemplate('./modules/mythic-gme-tools/template/crafter-rng-location-dialog.hbs', {PPLoc: currPP.locations, PPEnc: currPP.encounters, PPObj: currPP.objects});
     const numEntries = 4;
+    const labels = [
+      game.i18n.localize('MGME.CrafterRngLocCrafterLocTable'),
+      game.i18n.localize('MGME.CrafterRngLocCrafterEncTable'),
+      game.i18n.localize('MGME.CrafterRngLocCrafterObjTable'),
+      game.i18n.localize('MGME.CrafterRngLocCrafterRegTable')
+    ];
 
     let dialogue = new Dialog({
       title: game.i18n.localize('MGME.CrafterRngLocCrafterTitle'),
@@ -122,7 +147,7 @@ export default class MGMECrafterSeries {
               if (i === 4 && !html.find("#mgme_rng_loc_crafter_roll_reg").prop('checked')) // 4 = region, only roll if checkbox is marked (don't learn from this)
                 continue;
               if (selectedTable?.length && table) {
-                content += `<b>${selectedTable}</b>`;
+                content += `<b>${selectedTable}</b> (${labels[i-1]})`;
                 await table.draw({roll: Roll.create(formula?.length ? formula : table.data.formula), displayChat: false}).then(draw => {
                   content += `<div>${draw.results[0].getChatText()}${debug ? ` (${draw.roll.formula} = ${draw.roll.total})` : ''}</div>`;
                 });

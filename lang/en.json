@@ -107,6 +107,9 @@
   "MGME.Optional": "optional",
   "MGME.Add": "Add",
   "MGME.Flavor": "Flavor",
+  "MGME.All": "All",
+  "MGME.Reset": "Reset",
+  "MGME.Shift": "Update",
 
   "MGME.ComplexQuestion": "Complex Question",
   "MGME.DetailQuestion": "Detail Question",
@@ -207,10 +210,10 @@
   "MGME.CrafterRngLocCrafterTitle": "Randomized Location Crafter",
   "MGME.CrafterRngLocCrafterPPStatus": "Progress Points Check",
   "MGME.CrafterRngLocCrafterPPShift": "Progress Points Shift",
-  "MGME.CrafterRngLocCrafterLocTable": "Locations Elements",
-  "MGME.CrafterRngLocCrafterEncTable": "Encounters Elements",
-  "MGME.CrafterRngLocCrafterObjTable": "Objects Elements",
-  "MGME.CrafterRngLocCrafterRegTable": "Region Descriptors",
+  "MGME.CrafterRngLocCrafterLocTable": "Locations",
+  "MGME.CrafterRngLocCrafterEncTable": "Encounters",
+  "MGME.CrafterRngLocCrafterObjTable": "Objects",
+  "MGME.CrafterRngLocCrafterRegTable": "Region",
 
   "MGME.ToChat": "To Chat",
   "MGME.HowMany": "How Many"

@@ -6,11 +6,11 @@
     "JeansenVaars",
     "Tana Pigeon (Word Mill Games)"
   ],
-  "version": "2.4.0",
+  "version": "2.4.1",
   "minimumCoreVersion": "0.8.9",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
-  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.4.0/foundryvtt-mythic-gme_2.4.0.zip",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.4.1/foundryvtt-mythic-gme_2.4.1.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibleCoreVersion": "9.242",
   "esmodules": [
@@ -100,7 +100,7 @@
     },
     {
       "name": "mythic-rng-loc-crafter-macros",
-      "label": "Mythic Randomized Location Crafter",
+      "label": "Mythic Location Crafter",
       "path": "packs/mythic-rng-loc-crafter-macros.db",
       "module": "mythic-gme-tools",
       "entity": "Macro",

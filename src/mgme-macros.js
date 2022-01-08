@@ -25,10 +25,7 @@ export default class MGMEMacroAPI {
   static mgmeBehaviorCheck = MGMEVariations2.mgmeBehaviorCheck;
   static mgmeDetailCheck = MGMEVariations2.mgmeDetailCheck;
 
-  static mgmeRngLocCrafterPPInc = MGMECrafterSeries.mgmeRngLocCrafterPPInc;
-  static mgmeRngLocCrafterPPDec = MGMECrafterSeries.mgmeRngLocCrafterPPDec;
-  static mgmeRngLocCrafterPPReset = MGMECrafterSeries.mgmeRngLocCrafterPPReset;
-  static mgmeRngLocCrafterPPStatus = MGMECrafterSeries.mgmeRngLocCrafterPPStatus;
+  static mgmeRngLocCrafterPPShift = MGMECrafterSeries.mgmeRngLocCrafterPPShift;
   static mgmeRngLocCrafter = MGMECrafterSeries.mgmeRngLocCrafter;
 
   static mgmeDealCard = MGMECards.mgmeDealCard;

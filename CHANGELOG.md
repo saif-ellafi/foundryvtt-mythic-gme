@@ -1,3 +1,6 @@
+### 2.4.1
+* Enhancement: All Location Crafter PP Macros now replaced with a single Dialog based Macro. Sorry, but for cleanup sake, the previous ones won't work anymore.
+
 ### 2.4.0
 * Feature: Randomized Location Crafter for Mythic Magazine 2 (Only Macros. Tables NOT included)
 * Bugfix: External Random Rolls and Flavored Random Roll Macros now properly log to journal automatically if enabled
