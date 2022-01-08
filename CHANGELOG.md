@@ -3,8 +3,8 @@
 * Bugfix: External Random Rolls and Flavored Random Roll Macros now properly log to journal automatically if enabled
 * Bugfix: Styles for external table rolls macro fixed for wider field styles
 
-TABLES NOT INCLUDED: As a Matter of Principle I may prefer not to, as the crafter series are already beyond the expected scope :)
-As respect to the authors of Mythic, I believe it is better to just offer my code and effort, but not the author's intellectual property and ideas.
+TABLES NOT INCLUDED: As a Matter of Principle, I may prefer not to, as the crafter series are already beyond the original scope of the module :)
+As respect to the authors of Mythic, I believe it is better to just offer my code and effort, but not the author's intellectual property and ideas, beyond the core books of Mythic GME Emulator. With the module as is, my intention is to provide a framework for a fun and flexible experience!
 I hope you support me on this decision.
 
 ### 2.3.5
