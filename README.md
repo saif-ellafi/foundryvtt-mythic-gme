@@ -107,17 +107,15 @@ speak on his behalf or even sometimes use its information for better flavor!
 Macros for the **Randomized Locations Crafter**, inspired in the Mythic Magazine 2 are available to be used.
 You can track Progress Points and use any of your own tables to follow the logic described by either The Location Crafter or The Randomized Version from the Magazine.
 
-**TABLES NOT INCLUDED:** As a Matter of Principle I may prefer not to, as the crafter series are already beyond the expected scope :)
-As respect to the authors of Mythic, I believe it is better to just offer my code and effort, but not the author's intellectual property and ideas.
-I hope you support me on this decision.
+**TABLES NOT INCLUDED:** As a Matter of Principle, I prefer not to include the crafter tables, as the crafter series are already beyond the original scope of the module :)
 
-Creating Random Tables yourself, to use these particular Macro sets is doable by yourself :)
-Plus you will have the chance to customize them if needed, and practice some Random Tables in Foundry.
+Creating the random tables by yourself is relatively straight forward, use Nested tables to achieve the Special and Random Results, and even the Known if you have your own Random Tables!
 
-Use nested Random Tables to include the Special Elements and the Random Elements, by pointing a Random Table to the values of another table!
 Check my video to learn how to very fast ingest tables into Foundry: https://www.youtube.com/watch?v=-28Nks44SfM 
 
-![img.png](img.png)
+![location-crafter-example.png](location-crafter-example.png)
+
+![location-crafter-dialog.png](location-crafter-dialog.png)
 
 ### The Oracle Builder
 Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
