@@ -29,14 +29,14 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
       2. [Variations 1 Orange Book](#variations-1-orange-book)
       3. [Variations 2 Green Book](#variations-2-green-book)
+      4. [The Crafter Series](#the-crafter-series)
    3. [The Oracle Builder](#the-oracle-builder)
    4. [Rolling your own Tables](#rolling-your-own-tables)
    5. [Chat and Exporting](#chat-and-exporting)
    6. [Customizing your playstyle](#customizing-your-playstyle)
-   7. [Roll Tables](#roll-tables) 
-   8. [Saved Progress](#saved-progress)
-   9. [Configurable Settings](#configurable-settings)
-   10. [Card Decks](#card-decks)
+   7. [Saved Progress](#saved-progress)
+   8. [Configurable Settings](#configurable-settings)
+   9. [Card Decks](#card-decks)
 3. [Things to Know and Modules](#things-to-know-and-modules)
 4. [Author](#author)
 5. [My other modules](#my-other-modules)
@@ -102,6 +102,23 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 ![img.png](green-book-macros.png)
 
+#### The Crafter Series
+
+Macros for the **Randomized Locations Crafter**, inspired in the Mythic Magazine 2 are available to be used.
+You can track Progress Points and use any of your own tables to follow the logic described by either The Location Crafter or The Randomized Version from the Magazine.
+
+**TABLES NOT INCLUDED:** As a Matter of Principle I may prefer not to, as the crafter series are already beyond the expected scope :)
+As respect to the authors of Mythic, I believe it is better to just offer my code and effort, but not the author's intellectual property and ideas.
+I hope you support me on this decision.
+
+Creating Random Tables yourself, to use these particular Macro sets is doable by yourself :)
+Plus you will have the chance to customize them if needed, and practice some Random Tables in Foundry.
+
+Use nested Random Tables to include the Special Elements and the Random Elements, by pointing a Random Table to the values of another table!
+Check my video to learn how to very fast ingest tables into Foundry: https://www.youtube.com/watch?v=-28Nks44SfM 
+
+![img.png](img.png)
+
 ### The Oracle Builder
 Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
 ![Oracle Builder](oracle-builder.png)
@@ -153,14 +170,12 @@ Export current Chat to Journal - Either for backup or for history tracking. You 
 
 ### Customizing your playstyle
 
+Tables necessary to execute the aforementioned macros are included, and may also be used independently.
+
 **Macros use Roll Tables**. Going to **Module Settings** lets you choose which tables are being used. Table names must begin
 with **Mythic** in order to be eligible. By default, Macros pick up Tables **by their name**, so also importing the  Tables
 from the Compendium and making modifications on them, will automatically apply to the Macros looking for them.
 Try to keep the same format of the tables to avoid issues. Delete imported tables to revert Macros to use the original ones.
-
-### Roll Tables
-
-* All Tables that are necessary to execute the aforementioned macros are included and may also be used independently.
 
 ### Saved Progress
 

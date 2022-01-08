@@ -204,6 +204,14 @@
   "MGME.BackstorySix": "Six Backstories",
   "MGME.BackstorySeven": "Seven Backstories",
 
+  "MGME.CrafterRngLocCrafterTitle": "Randomized Location Crafter",
+  "MGME.CrafterRngLocCrafterPPStatus": "Progress Points Check",
+  "MGME.CrafterRngLocCrafterPPShift": "Progress Points Shift",
+  "MGME.CrafterRngLocCrafterLocTable": "Locations Elements",
+  "MGME.CrafterRngLocCrafterEncTable": "Encounters Elements",
+  "MGME.CrafterRngLocCrafterObjTable": "Objects Elements",
+  "MGME.CrafterRngLocCrafterRegTable": "Region Descriptors",
+
   "MGME.ToChat": "To Chat",
   "MGME.HowMany": "How Many"
 

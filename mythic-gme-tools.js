@@ -3,12 +3,14 @@ import MGMEVariations1 from "./src/logic/mgme-variations-1";
 import MGMEVariations2 from "./src/logic/mgme-variations-2";
 import MGMECards from "./src/logic/mgme-cards";
 import MGMEMacroAPI from "./src/mgme-macros";
+import MGMECrafterSeries from "./src/logic/mgme-crafter-series";
 
 Hooks.once('ready', () => {
 
   MGMECore.initSettings();
   MGMEVariations1.initSettings();
   MGMEVariations2.initSettings();
+  MGMECrafterSeries.initSettings();
   MGMECards.initSettings();
 
   game.modules.get('mythic-gme-tools').api = MGMEMacroAPI;

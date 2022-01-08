@@ -143,9 +143,9 @@ export default class MGMEChatExtras {
             const textOutcome = $("#mgme_ext_roll_outcome").val()?.trim();
             const whisper = MGMECommon._mgmeGetWhisperMode();
             if (textOutcome.length)
-              ChatMessage.create({
+              MGMEChatJournal._mgmeCreateChatAndLog({
                 flavor: tableName.length ? tableName : game.i18n.localize('MGME.ExternalTableCheck'),
-                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${rolls[0].formula}: ${rollTotals})` : ''}`,
+                content: `${textFlavor.length ? `<h2>${textFlavor}</h2>` : ''}${textOutcome}${debug ? ` (${rolls[0].formula} = ${rollTotals})` : ''}`,
                 whisper: whisper
               });
           }
@@ -237,7 +237,7 @@ export default class MGMEChatExtras {
                 });
               }
             }
-            ChatMessage.create({
+            MGMEChatJournal._mgmeCreateChatAndLog({
               whisper: whisper,
               flavor: game.i18n.localize('MGME.RollTableFlavorTitle'),
               content: content

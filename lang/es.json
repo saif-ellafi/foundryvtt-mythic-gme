@@ -204,6 +204,14 @@
   "MGME.BackstorySix": "Séis Trasfondos",
   "MGME.BackstorySeven": "Siete Trasfondos",
 
+  "MGME.CrafterRngLocCrafterTitle": "Crafter de ubicación aleatoria",
+  "MGME.CrafterRngLocCrafterPPStatus": "Comprobación de puntos de progreso",
+  "MGME.CrafterRngLocCrafterPPShift": "Desplazamiento de los puntos de progreso",
+  "MGME.CrafterRngLocCrafterLocTable": "Elementos de localización",
+  "MGME.CrafterRngLocCrafterEncTable": "Elementos de encuentro",
+  "MGME.CrafterRngLocCrafterObjTable": "Elementos de objetos",
+  "MGME.CrafterRngLocCrafterRegTable": "Descriptores de región",
+
   "MGME.ToChat": "Al Chat",
   "MGME.HowMany": "Cuántas veces"
 

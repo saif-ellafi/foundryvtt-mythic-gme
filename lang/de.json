@@ -204,7 +204,15 @@
   "MGME.BackstorySix": "Sechs Hintergrundgeschichten",
   "MGME.BackstorySeven": "Sieben Hintergrundgeschichten",
 
+  "MGME.CrafterRngLocCrafterTitle": "Crafter für zufällige Orte",
+  "MGME.CrafterRngLocCrafterPPStatus": "Fortschrittspunkte prüfen",
+  "MGME.CrafterRngLocCrafterPPShift": "Fortschrittspunkte-Verschiebung",
+  "MGME.CrafterRngLocCrafterLocTable": "Standortelemente",
+  "MGME.CrafterRngLocCrafterEncTable": "Begegnungselemente",
+  "MGME.CrafterRngLocCrafterObjTable": "Objektelemente",
+  "MGME.CrafterRngLocCrafterRegTable": "Region Deskriptoren",
+
   "MGME.ToChat": "Zum Chat",
-  "MGME.ToChat": "Wie viel"
+  "MGME.HowMany": "Wie viel"
 
 }

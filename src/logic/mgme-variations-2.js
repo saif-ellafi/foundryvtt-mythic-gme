@@ -543,6 +543,7 @@ export default class MGMEVariations2 {
             };
             let baseDetailChat;
             if (includeDescription || includeAction)
+              // NOTE: Do not log to journal YET (because it needs to be enhanced first)
               baseDetailChat = await ChatMessage.create(chatConfig);
             else
               baseDetailChat = await MGMEChatJournal._mgmeCreateChatAndLog(chatConfig);

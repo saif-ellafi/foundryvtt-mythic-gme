@@ -1,3 +1,12 @@
+### 2.4.0
+* Feature: Randomized Location Crafter for Mythic Magazine 2 (Only Macros. Tables NOT included)
+* Bugfix: External Random Rolls and Flavored Random Roll Macros now properly log to journal automatically if enabled
+* Bugfix: Styles for external table rolls macro fixed for wider field styles
+
+TABLES NOT INCLUDED: As a Matter of Principle I may prefer not to, as the crafter series are already beyond the expected scope :)
+As respect to the authors of Mythic, I believe it is better to just offer my code and effort, but not the author's intellectual property and ideas.
+I hope you support me on this decision.
+
 ### 2.3.5
 * Enhancement: Improved Flavored Roll Tables macro, user can now roll up to 5 tables with any quantity and override the roll formula (e.g. for Locations Crafter progress points!)
 

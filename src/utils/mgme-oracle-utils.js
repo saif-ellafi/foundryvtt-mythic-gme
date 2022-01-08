@@ -67,6 +67,7 @@ export default class MGMEOracleUtils {
         speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
         whisper: whisper
       };
+      // NOTE: Do NOT send to Journal YET as it needs to be enhanced
       chatMessage = await ChatMessage.create(chatConfig);
     }
     let oldHide;
