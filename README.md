@@ -37,10 +37,9 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
    7. [Saved Progress](#saved-progress)
    8. [Configurable Settings](#configurable-settings)
    9. [Card Decks](#card-decks)
-3. [Things to Know and Modules](#things-to-know-and-modules)
+3. [Tips and Tricks and Modules](#tips-and-tricks-and-modules)
 4. [Author](#author)
-5. [My other modules](#my-other-modules)
-6. [License](#license)
+5. [License](#license)
 
 ## Word Mill Games
 
@@ -225,7 +224,7 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
     8. If everything works, you can delete the zip file from there. It is not needed.
 5. Say thanks if you like this :)
 
-## Things to Know and Modules
+## Tips and Tricks and Modules
 Playing without a GM, Solo or story telling in Foundry requires some practice. The following tips might boost your learning process.
 
 ### Learn to use Foundry's Chat
@@ -254,17 +253,24 @@ Plot Point 5: [[1d100]] - Theme: [[#Plotline Theme]]
 This is an opinionated list of other Foundry VTT modules that may improve your experience and play well together with Mythic GME Tools and Solo in General
 
 * [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice) - Adds 3D Dice. Mythic GME Tools makes use of them improving the dice rolling experience
+* [Sidebar Resizer and Chat Editor](https://foundryvtt.com/packages/sidebar-resizer) - Make the Chat bigger and add styles in real time
 * [Tabbed Chatlog](https://foundryvtt.com/packages/tabbed-chatlog) or (not compatible) [DF Chat Enhancements](https://foundryvtt.com/packages/df-chat-enhance) - Expands chat features, including message editing and chat archiving
 * [Drag Anything to Hotbar](https://foundryvtt.com/packages/drag-all-to-hotbar) - Drag & Drop characters, journal entries and roll tables, to have handy
-* [Monk's Hotbar Expansion](https://foundryvtt.com/packages/monks-hotbar-expansion) - With Mythic GME Tools, you will run out of Macros. This helps.
 * [PDFoundry](https://foundryvtt.com/packages/pdfoundry) - Not only it enables PDF journal entries, but also works with form-fillable PDFs!
 * [Inline Table Rolls](https://foundryvtt.com/packages/inline-table-rolls) - Allows for rolling on random tables within chat messages just like dice [[#Table Name]]
 * [Quick Insert](https://foundryvtt.com/packages/quick-insert) - Find things quickly and insert them in the chat or in a journal as a link
 * [Terrain Randomizer](https://foundryvtt.com/packages/terrain-randomizer) - If you are into Solo tools in general, this one is for generating area layouts
 * [Dice Tray](https://foundryvtt.com/packages/dice-calculator) - For quick dice rolling, adds above the chat a bar of multiple dice types, handy.
-* [Window Controls](https://foundryvtt.com/packages/window-controls) - Pin and minimize windows, will help organizing all those open journal entries
 * [EasyTable](https://foundryvtt.com/packages/EasyTable) - If you have random tables in text format or got Regex skills, quickly load random tables into Foundry
 * [Chat Portrait](https://foundryvtt.com/packages/chat-portrait) - If you play with actors that have token images, this will show such portraits in the chat
+
+### Other modules of mine
+
+* [Minimal UI](https://github.com/saif-ellafi/foundryvtt-minimal-ui) - Snappier User Interface
+* [Window Controls](https://foundryvtt.com/packages/window-controls) - Pin and minimize windows, will help organizing all those open journal entries
+* [Scene Preview](https://github.com/saif-ellafi/foundryvtt-scene-preview) - Preview Scenes before moving across to them
+* [Actor Link Indicator](https://github.com/saif-ellafi/foundryvtt-actor-link-indicator) - Indicate whether Actors spawn linked Tokens
+* [Super Select](https://github.com/saif-ellafi/foundryvtt-super-select) - Select Tiles, Drawings and Tokens without switching controls
 
 ## Author
 
@@ -299,15 +305,6 @@ for the support
 [![JetBrains](./jetbrains.svg)](https://www.jetbrains.com)
 
 Thanks to JetBrains I can work on this project using **WebStorm**.
-
-## My other modules!
-
-* [Minimal UI](https://github.com/saif-ellafi/foundryvtt-minimal-ui)
-* [Window Controls](https://github.com/saif-ellafi/foundryvtt-window-controls)
-* [Terrain Randomizer](https://github.com/saif-ellafi/foundryvtt-terrain-randomizer)
-* [Scene Preview](https://github.com/saif-ellafi/foundryvtt-scene-preview)
-* [Actor Link Indicator](https://github.com/saif-ellafi/foundryvtt-actor-link-indicator)
-* [Super Select](https://github.com/saif-ellafi/foundryvtt-super-select)
 
 ## License
 
