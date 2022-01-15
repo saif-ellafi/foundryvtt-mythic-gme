@@ -152,11 +152,7 @@ export default class MGMEVariations2 {
 
   static async _mgmeFillRefreshDisposition(html) {
     const selectedToken = canvas.tokens.controlled[0];
-    if (!selectedToken) {
-      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
-      return;
-    }
-    const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
+    const behavior = selectedToken?.actor.getFlag('mythic-gme-tools', 'mgmeBehavior') ?? (!selectedToken && game.user.getFlag('mythic-gme-tools', 'mgmeAnonymBehavior'));
     if (!behavior)
       return;
     const baseDisposition = behavior.dispositionValue -
@@ -167,9 +163,6 @@ export default class MGMEVariations2 {
   }
 
   static async _mgmeFillRandomDisposition(html, baseValue) {
-    const selectedToken = canvas.tokens.controlled[0];
-    if (!selectedToken)
-      return;
     const element = $(html)
     let [mod1, mod2, mod3] = [
       element.find('#mgme_behavior_identity_active').prop('checked') ? element.find('#mgme_behavior_identity_mod').val()?.trim() : 0,
@@ -181,7 +174,8 @@ export default class MGMEVariations2 {
     const dispositionRoll = await new Roll(formula).roll({async:false});
     const dispositionTotal = dispositionRoll.total;
     const dispositionResult = (await dispositionTable.draw({roll: Roll.create(dispositionTotal.toString()), displayChat: false})).results[0].getChatText();
-    MGMEVariations2._mgmeCheckBehaviorRankShift(selectedToken.name, element.find('#mgme_behavior_disposition').val(), dispositionResult);
+    const selectedToken = canvas.tokens.controlled[0];
+    MGMEVariations2._mgmeCheckBehaviorRankShift(selectedToken?.name, element.find('#mgme_behavior_disposition').val(), dispositionResult);
     element.find('#mgme_behavior_disposition').val(dispositionResult);
     element.find('#mgme_behavior_disposition_value').val(dispositionTotal);
     MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html);
@@ -189,26 +183,25 @@ export default class MGMEVariations2 {
 
   static async _mgmeAdjustDisposition(mod, actor) {
     const selectedToken = actor ?? canvas.tokens.controlled[0];
-    if (!selectedToken) {
-      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
-      return;
-    }
     const tableDispositions = await MGMECommon._mgmeFindTableByName('Mythic GME: Behavior Check');
-    const behavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
+    const behavior = selectedToken?.actor.getFlag('mythic-gme-tools', 'mgmeBehavior') ?? (!selectedToken && game.user.getFlag('mythic-gme-tools', 'mgmeAnonymBehavior'));
     if (!behavior)
       return;
     behavior.dispositionValue += mod;
     const dispositionRankRoll = await tableDispositions.draw({roll: Roll.create(behavior.dispositionValue.toString()), displayChat: false});
     const newDispositionRank = dispositionRankRoll.results[0].getChatText();
-    MGMEVariations2._mgmeCheckBehaviorRankShift(selectedToken.name, behavior.dispositionRank, newDispositionRank);
+    MGMEVariations2._mgmeCheckBehaviorRankShift(selectedToken?.name, behavior.dispositionRank, newDispositionRank);
     behavior.dispositionRank = newDispositionRank;
-    MGMEVariations2._mgmeUpdateActorBehavior(selectedToken.actor, behavior);
+    MGMEVariations2._mgmeUpdateActorBehavior(selectedToken?.actor, behavior);
     return behavior;
   }
 
 
   static _mgmeUpdateActorBehavior(actor, behavior) {
-    actor.setFlag('mythic-gme-tools', 'mgmeBehavior', behavior)
+    if (actor)
+      actor.setFlag('mythic-gme-tools', 'mgmeBehavior', behavior)
+    else
+      game.user.setFlag('mythic-gme-tools', 'mgmeAnonymBehavior', behavior);
   }
 
   static _mgmeCheckBehaviorRankShift(actorName, oldRank, newRank) {
@@ -217,7 +210,7 @@ export default class MGMEVariations2 {
       let chatBehavior = {
         flavor: game.i18n.localize('MGME.BehaviorDispositionShift'),
         content: `
-              <div><b>${actorName}</b> - ${game.i18n.localize('MGME.From')} <em>${oldRank}</em> ${game.i18n.localize('MGME.To')} <em>${newRank}</em></div>
+              ${actorName ? `<div><b>${actorName}</b> - ` : ''}${game.i18n.localize('MGME.From')} <em>${oldRank}</em> ${game.i18n.localize('MGME.To')} <em>${newRank}</em></div>
               `,
         whisper: whisper
       };
@@ -251,10 +244,6 @@ export default class MGMEVariations2 {
       dispositionValue: parseInt(elem.find("#mgme_behavior_disposition_value").val()),
     };
     const target = actor ?? canvas.tokens.controlled[0]?.actor;
-    if (!target) {
-      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
-      return;
-    }
     MGMEVariations2._mgmeUpdateActorBehavior(target, actorBehavior);
     return actorBehavior;
   }
@@ -280,7 +269,7 @@ export default class MGMEVariations2 {
   }
 
   static async _mgmeBehaviorAction(actor, behavior) {
-    if (!behavior.dispositionRank)
+    if (!behavior?.dispositionRank)
       return;
     const dispositionMod = MGMECommon._mgmeParseNumberFromText(behavior.dispositionRank);
     const tableOne = await MGMECommon._mgmeFindTableByName('Mythic GME: NPC Action 1');
@@ -289,6 +278,7 @@ export default class MGMEVariations2 {
     await MGMEOracleUtils._mgmeSimulateRoll(tableOneDraw.roll);
     const tableOneMod = MGMECommon._mgmeParseNumberFromText(tableOneResult);
     const whisper = MGMECommon._mgmeGetWhisperMode();
+    const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
     // This is tricky, NPC action does NOT shift disposition - 8 or more hardcoded to be an NPC Action
     if (tableOneDraw.roll.total >= 8) { // ToDo: Test Me!!!
       const tableTwo = await MGMECommon._mgmeFindTableByName('Mythic GME: NPC Action 2');
@@ -296,20 +286,32 @@ export default class MGMEVariations2 {
       const tableTwoResult = tableTwoDraw.results[0].getChatText();
       await MGMEOracleUtils._mgmeSimulateRoll(tableTwoDraw.roll);
       const messageContent = `
-    <div><h1>${actor.name}</h1></div>
-    <div>${game.i18n.localize('MGME.BehaviorWithDisposition')}: ${behavior.dispositionRank}</div>
-    <div>${game.i18n.localize('MGME.PerformsUnexpected')}: <b>${tableOneResult}</b></div>
-    <div><b>${tableTwoResult}</b></div>
-    `
+        ${actor ? `<div><h1>${actor.name}</h1></div>` : ''}
+        ${behavior.theme ? `<div><b>${game.i18n.localize('MGME.Theme')}:</b> ${behavior.theme}` : '-'}</div>
+        <div><b>${game.i18n.localize('MGME.Identity')}:</b> ${behavior.identity ? behavior.identity : '-'} ${behavior.identityActive ? (behavior.identityMod > 0 ? '(+2)' : (behavior.identityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+        <div><b>${game.i18n.localize('MGME.Personality')}:</b> ${behavior.personality ? behavior.personality : '-'} ${behavior.personalityActive ? (behavior.personalityMod > 0 ? '(+2)' : (behavior.personalityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+        <div><b>${game.i18n.localize('MGME.Activity')}:</b> ${behavior.activity ? behavior.activity : '-'} ${behavior.activityActive ? (behavior.activityMod > 0 ? '(+2)' : (behavior.activityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+        <div><b>${game.i18n.localize('MGME.Disposition')}:</b> ${behavior.dispositionRank ? behavior.dispositionRank : '-'}${debug ? ' [' + behavior.dispositionValue + ']' : ''}</div>
+        <br>
+        <div>${game.i18n.localize('MGME.BehaviorWithDisposition')}: ${behavior.dispositionRank}</div>
+        <div>${game.i18n.localize('MGME.PerformsUnexpected')}: <b>${tableOneResult}</b></div>
+        <div><b>${tableTwoResult}</b></div>
+      `
       await MGMEChatJournal._mgmeCreateChatAndLog({flavor: game.i18n.localize('MGME.BehaviorUnexpected'), content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
     } else {
       await MGMEVariations2._mgmeAdjustDisposition(tableOneMod, actor);
       const messageContent = `
-    <div><h1>${actor.name}</h1></div>
-    <div>${game.i18n.localize('MGME.BehaviorWithDisposition')}: ${behavior.dispositionRank}</div>
-    <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : game.i18n.localize('MGME.BehaviorNoChange')}</div>
-    <div>${game.i18n.localize('MGME.PerformsExpected')} <b>${tableOneResult}</b></div>
-    `
+        ${actor ? `<div><h1>${actor.name}</h1></div>` : ''}
+        ${behavior.theme ? `<div><b>${game.i18n.localize('MGME.Theme')}:</b> ${behavior.theme}` : '-'}</div>
+        <div><b>${game.i18n.localize('MGME.Identity')}:</b> ${behavior.identity ? behavior.identity : '-'} ${behavior.identityActive ? (behavior.identityMod > 0 ? '(+2)' : (behavior.identityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+        <div><b>${game.i18n.localize('MGME.Personality')}:</b> ${behavior.personality ? behavior.personality : '-'} ${behavior.personalityActive ? (behavior.personalityMod > 0 ? '(+2)' : (behavior.personalityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+        <div><b>${game.i18n.localize('MGME.Activity')}:</b> ${behavior.activity ? behavior.activity : '-'} ${behavior.activityActive ? (behavior.activityMod > 0 ? '(+2)' : (behavior.activityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
+        <div><b>${game.i18n.localize('MGME.Disposition')}:</b> ${behavior.dispositionRank ? behavior.dispositionRank : '-'}${debug ? ' [' + behavior.dispositionValue + ']' : ''}</div>
+        <br>
+        <div>${game.i18n.localize('MGME.BehaviorWithDisposition')}: ${behavior.dispositionRank}</div>
+        <div>${tableOneMod !== 0 ? `<b>Disposition Shift</b>: ${tableOneMod}` : game.i18n.localize('MGME.BehaviorNoChange')}</div>
+        <div>${game.i18n.localize('MGME.PerformsExpected')} <b>${tableOneResult}</b></div>
+      `
       await MGMEChatJournal._mgmeCreateChatAndLog({flavor: game.i18n.localize('MGME.BehaviorExpected'), content: messageContent, whisper: whisper, speaker: ChatMessage.getSpeaker()});
     }
   }
@@ -431,18 +433,13 @@ export default class MGMEVariations2 {
   static async mgmeBehaviorCheck() {
     const selectedToken = canvas.tokens.controlled[0];
 
-    if (!selectedToken) {
-      ui.notifications.warn(game.i18n.localize('MGME.WarnNoTokenSelected'));
-      return
-    }
-
-    const behaviorCheckDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-behaviorcheck-dialog.hbs', {tokenName: selectedToken.name})
+    const behaviorCheckDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations2-behaviorcheck-dialog.hbs', {tokenName: selectedToken?.name ?? game.i18n.localize('MGME.WarnNoTokenSelected')})
 
     let dialogue = new Dialog({
       title: game.i18n.localize('MGME.BehaviorCheck'),
       content: behaviorCheckDialog,
       render: html => {
-        const tokenBehavior = selectedToken.actor.getFlag('mythic-gme-tools', 'mgmeBehavior');
+        const tokenBehavior = selectedToken?.actor.getFlag('mythic-gme-tools', 'mgmeBehavior') ?? (!selectedToken && game.user.getFlag('mythic-gme-tools', 'mgmeAnonymBehavior'));
         if (tokenBehavior) {
           html.find("#mgme_behavior_theme").val(tokenBehavior.theme);
           html.find("#mgme_behavior_identity").val(tokenBehavior.identity);
@@ -474,7 +471,7 @@ export default class MGMEVariations2 {
           callback: async (html) => {
             if (!html.find("#mgme_behavior_disposition").val()?.trim())
               await MGMEVariations2._mgmeFillRandomDisposition(html);
-            const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken.actor);
+            const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken?.actor);
             await MGMEVariations2._mgmeBehaviorAction(selectedToken, actorBehavior);
           }
         },
@@ -484,15 +481,15 @@ export default class MGMEVariations2 {
           callback: async (html) => {
             if (!html.find("#mgme_behavior_disposition").val()?.trim())
               await MGMEVariations2._mgmeFillRandomDisposition(html);
-            const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken.actor);
+            const actorBehavior = MGMEVariations2._mgmeSaveActorBehaviorFromHTML(html, selectedToken?.actor);
             const whisper = MGMECommon._mgmeGetWhisperMode();
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             let chatBehavior = {
               flavor: game.i18n.localize('MGME.BehaviorCheck'),
               content: `
-            <div><h1>${selectedToken.name}</h1></div>
-            <div><b>${game.i18n.localize('MGME.Theme')}:</b> ${actorBehavior.theme ? actorBehavior.theme : '-'}</div>
-            <div><b>${game.i18n.localize('MGME.Identity')}:</b> ${actorBehavior.identity ? actorBehavior.identity : '-'} ${actorBehavior.identityActive ? (actorBehavior.identityMod > 0 ? '(+2)' : (actorBehavior.identityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Active')})`}</div>
+            ${selectedToken ? `<div><h1>${selectedToken.name}</h1></div>` : ''}
+            ${actorBehavior.theme ? `<div><b>${game.i18n.localize('MGME.Theme')}:</b> ${actorBehavior.theme}` : '-'}</div>
+            <div><b>${game.i18n.localize('MGME.Identity')}:</b> ${actorBehavior.identity ? actorBehavior.identity : '-'} ${actorBehavior.identityActive ? (actorBehavior.identityMod > 0 ? '(+2)' : (actorBehavior.identityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
             <div><b>${game.i18n.localize('MGME.Personality')}:</b> ${actorBehavior.personality ? actorBehavior.personality : '-'} ${actorBehavior.personalityActive ? (actorBehavior.personalityMod > 0 ? '(+2)' : (actorBehavior.personalityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
             <div><b>${game.i18n.localize('MGME.Activity')}:</b> ${actorBehavior.activity ? actorBehavior.activity : '-'} ${actorBehavior.activityActive ? (actorBehavior.activityMod > 0 ? '(+2)' : (actorBehavior.activityMod === 0 ? '(+0)' : '(-2)')) : `(${game.i18n.localize('MGME.Inactive')})`}</div>
             <div><b>${game.i18n.localize('MGME.Disposition')}:</b> ${actorBehavior.dispositionRank ? actorBehavior.dispositionRank : '-'}${debug ? ' [' + actorBehavior.dispositionValue + ']' : ''}</div>

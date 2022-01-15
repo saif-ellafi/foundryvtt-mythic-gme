@@ -1,3 +1,8 @@
+### 2.4.2
+* Enhancement: Behavior Checks may now be used anonymously when no token is selected (for theater of the mind needs!)
+* Bugfix: Behavior Checks now show Actor properties when rolling for a behavior action
+* Bugfix: Background Events now rolls privately when chat mode is private, preventing it from being shown to players
+
 ### 2.4.1
 * Enhancement: All Location Crafter PP Macros now replaced with a single Dialog based Macro. Sorry, but for cleanup sake, the previous ones won't work anymore.
 

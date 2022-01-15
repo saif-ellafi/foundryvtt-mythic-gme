@@ -76,7 +76,7 @@
   "MGME.SureThing": "Seguro",
   "MGME.HasToBe": "Tiene que ser",
 
-  "MGME.WarnNoTokenSelected": "Mythic GME: No hay ningún token seleccionado!",
+  "MGME.WarnNoTokenSelected": "No se ha seleccionado ninguna ficha. Comprobación de comportamiento anónimo.",
   "MGME.WarnNoTables": "Mythic GME Tools: No hay tablas aleatorias en tu munndo!",
 
   "MGME.InfoShuffled": "Se ha mezclado tu mazo. Intenta de nuevo.",

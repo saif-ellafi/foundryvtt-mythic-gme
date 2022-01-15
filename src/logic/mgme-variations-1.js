@@ -34,11 +34,13 @@ export default class MGMEVariations1 {
             const speaker = ChatMessage.getSpeaker();
             let eventsCount;
             const choice = html.find("#mgme_backstory_count").val();
+            const whisper = MGMECommon._mgmeGetWhisperMode();
             if (choice === 'table') {
               const eventsCountTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Backstory Events');
               const backstoryDraw = await eventsCountTable.roll();
               eventsCount = parseInt(backstoryDraw.results[0].getChatText());
               let triggerMsg = await backstoryDraw.roll.toMessage({
+                whisper: whisper,
                 flavor: game.i18n.localize('MGME.BackstoryEvents'),
                 content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
               });
@@ -47,6 +49,7 @@ export default class MGMEVariations1 {
             } else {
               eventsCount = parseInt(choice);
               await MGMEChatJournal._mgmeCreateChatAndLog({
+                whisper: whisper,
                 flavor: game.i18n.localize('MGME.BackstoryEvents'),
                 content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
               })

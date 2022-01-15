@@ -76,7 +76,7 @@
   "MGME.SureThing": "Sichere Sache",
   "MGME.HasToBe": "Muss sein",
 
-  "MGME.WarnNoTokenSelected": "Mythic GME: Kein Token ausgewählt!",
+  "MGME.WarnNoTokenSelected": "Kein Token ausgewählt. Anonyme Verhaltensprüfung.",
   "MGME.WarnNoTables": "Mythic GME Tools: Keine RollTables in deiner Welt gefunden. Bitte erstelle oder importiere welche.",
 
   "MGME.InfoShuffled": "Das Kartendeck wurde gemischt. Bitte ziehe erneut.",
