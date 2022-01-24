@@ -24,18 +24,12 @@ export default class MGMEChatExtras {
             ui.chat.collection.contents.forEach(chat => {
               entries.push(MGMEChatJournal._mgmeBuildLogChatHtml(chat, includeTimestamp, includeActorImg, highlightFlavor));
             });
-            const targetJournal = game.journal.contents.find(j => j.name === journalName);
-            let journalCreation;
-            if (journalName.length && targetJournal) {
-              journalCreation = targetJournal.update({content: targetJournal.data.content + '\n' + entries.join('\n')});
-            } else {
-              journalCreation = JournalEntry.create({
-                name: `${journalName.length ? journalName : defaultJournalName}`,
-                content: entries.join('\n')
-              });
-            }
-            if (clearChat)
-              journalCreation.then(() => game.messages.flush());
+            MGMEChatJournal._mgmeFindOrCreateJournal(journalName).then(targetJournal => {
+              targetJournal.update({content: targetJournal.data.content + '<br>' + entries.join('\n')}).then(journalCreation => {
+                if (clearChat)
+                  journalCreation.then(() => game.messages.flush());
+              })
+            })
           }
         }
       },

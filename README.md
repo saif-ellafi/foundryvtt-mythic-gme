@@ -30,13 +30,14 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
       2. [Variations 1 Orange Book](#variations-1-orange-book)
       3. [Variations 2 Green Book](#variations-2-green-book)
       4. [The Crafter Series](#the-crafter-series)
-   3. [The Oracle Builder](#the-oracle-builder)
-   4. [Rolling your own Tables](#rolling-your-own-tables)
-   5. [Chat and Exporting](#chat-and-exporting)
-   6. [Customizing your playstyle](#customizing-your-playstyle)
-   7. [Saved Progress](#saved-progress)
-   8. [Configurable Settings](#configurable-settings)
-   9. [Card Decks](#card-decks)
+   3. [Mythic Play Journals](#mythic-play-journals)
+   4. [The Oracle Builder](#the-oracle-builder)
+   5. [Rolling your own Tables](#rolling-your-own-tables)
+   6. [Chat and Exporting](#chat-and-exporting)
+   7. [Customizing your playstyle](#customizing-your-playstyle)
+   8. [Saved Progress](#saved-progress)
+   9. [Configurable Settings](#configurable-settings)
+   10. [Card Decks](#card-decks)
 3. [Tips and Tricks and Modules](#tips-and-tricks-and-modules)
 4. [Author](#author)
 5. [License](#license)
@@ -115,6 +116,11 @@ Check my video to learn how to very fast ingest tables into Foundry: https://www
 ![location-crafter-example.png](location-crafter-example.png)
 
 ![location-crafter-dialog.png](location-crafter-dialog.png)
+
+### Mythic Play Journals
+Find these two pre-built journals within the compendium and play Mythic from there!
+
+![mythic-play.png](mythic-play.png)
 
 ### The Oracle Builder
 Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues

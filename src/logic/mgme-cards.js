@@ -1,8 +1,6 @@
 import MGMECommon from "../utils/mgme-common";
 
 export default class MGMECards {
-  static CARDS_FOLDER = '_mythicShared';
-
 
   static initSettings() {
     game.settings.register("mythic-gme-tools", "deckPath", {

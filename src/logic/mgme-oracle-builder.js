@@ -26,15 +26,16 @@ export default class MGMEOracleBuilder {
           html.find("#mgme_builder_container").append(
             `
           <div id="entries_${i}" class="${cls}">
-            <input id="mgme_builder_label_${i}" value="${lastOracleLabel}" style="margin-bottom:10px;width:122px;height:25px;" placeholder="Entry Label #${i}"/>
-            <select id="mgme_builder_table_${i}" class="mgme_builder_entries" style="width:210px;margin-bottom:10px;"></select>
-            <select id="mgme_builder_draws_${i}" style="width:35px;margin-bottom:10px;">
+            <input id="mgme_builder_label_${i}" value="${lastOracleLabel}" style="margin-bottom:10px;width:110px;height:25px;" placeholder="Label #${i}"/>
+            <select id="mgme_builder_table_${i}" class="mgme_builder_entries" style="width:205px;margin-bottom:10px;"><option value="None">None</option></select>
+            <select id="mgme_builder_draws_${i}" style="width:40px;margin-bottom:10px;">
               <option value="1" ${lastOracleDraws === 1 ? 'selected' : ''}>1</option>
               <option value="2" ${lastOracleDraws === 2 ? 'selected' : ''}>2</option>
               <option value="3" ${lastOracleDraws === 3 ? 'selected' : ''}>3</option>
               <option value="4" ${lastOracleDraws === 4 ? 'selected' : ''}>4</option>
               <option value="5" ${lastOracleDraws === 5 ? 'selected' : ''}>5</option>
             </select>
+            <i class="fas fa-minus-circle" style="color:darkred" onclick="clearEntry(${i})"></i>
           </div>
           `
           )
@@ -114,14 +115,17 @@ export default class MGMEOracleBuilder {
       if (html.find(`#entries_${i}`).hasClass('stat-hidden'))
         continue
       const question_label = html.find(`#mgme_builder_label_${i}`).val();
-      if (!question_label.length)
+      const question_table = html.find(`#mgme_builder_table_${i}`).val();
+      if (!question_label.length || !question_table || question_table === 'None')
         continue;
       oracle.props.push({
-        label: html.find(`#mgme_builder_label_${i}`).val(),
-        table: html.find(`#mgme_builder_table_${i}`).val(),
+        label: question_label,
+        table: question_table,
         draws: parseInt(html.find(`#mgme_builder_draws_${i}`).val())
       })
     }
+    if (!oracle.props.length)
+      return;
     game.user.setFlag('mythic-gme-tools', 'mgmeLastCustomOracle', oracle);
     return oracle
   }
@@ -130,6 +134,8 @@ export default class MGMEOracleBuilder {
     let content = questionFlavor?.length ? `<h2>${questionFlavor}</h2>` : '';
     for (const prop of oracle.props) {
       const descriptorTable = await MGMECommon._mgmeFindTableByName(prop.table);
+      if (!descriptorTable)
+        continue;
       const descriptorResults = await descriptorTable.drawMany(prop.draws, {displayChat: false});
 
       descriptorResults.results.forEach(result => {

@@ -1,3 +1,9 @@
+### 2.4.3
+* Feature: Mythic Play journals to play the GME from a macro launcher journal
+* Enhancement: Improved the UI of the Oracle Builder
+* Bugfix: Fixed a bug in TAC deck that was throwing an error when shuffling
+* Bugfix: Fixed a bug in exporting chat journals where they should merge if journal matches
+
 ### 2.4.2
 * Enhancement: Behavior Checks may now be used anonymously when no token is selected (for theater of the mind needs!)
 * Bugfix: Behavior Checks now show Actor properties when rolling for a behavior action

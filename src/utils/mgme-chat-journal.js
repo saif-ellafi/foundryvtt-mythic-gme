@@ -1,8 +1,7 @@
 export default class MGMEChatJournal {
-  static async _mgmeFindOrCreateJournal() {
-    const date = new Date().toDateInputString();
+  static async _mgmeFindOrCreateJournal(name) {
     const folderName = "Mythic Journal";
-    const journalName = 'Adventure Notes ' + date;
+    const journalName = name?.length ? name : `${game.i18n.localize('MGME.MythicAdventureLog')} ${new Date().toDateInputString()}`;
     let journal = game.journal.contents.find(j => j.name === journalName && j.folder?.name === folderName);
     if (!journal) {
       let folder = game.folders.contents.find(f => f.name === folderName);
@@ -62,7 +61,7 @@ export default class MGMEChatJournal {
   static async _mgmeLogChatToJournal(chat) {
     if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
       const journal = await MGMEChatJournal._mgmeFindOrCreateJournal();
-      await journal.update({content: journal.data.content + MGMEChatJournal._mgmeBuildLogChatHtml(
+      await journal.update({content: journal.data.content + '<br>' + MGMEChatJournal._mgmeBuildLogChatHtml(
         chat,false, true, true
       )});
     }

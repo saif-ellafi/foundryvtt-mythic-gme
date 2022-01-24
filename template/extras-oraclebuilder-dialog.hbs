@@ -19,6 +19,12 @@
             const elem = $(html);
             elem.find(".stat-hidden").first().removeClass('stat-hidden');
         }
+        function clearEntry(id) {
+          $("#mgme_builder_label_"+id).val('');
+          $("#mgme_builder_table_"+id).val('None');
+          $("#mgme_builder_draws_"+id).val('1');
+          $("#entries_"+id).addClass('stat-hidden')
+        }
     </script>
 
     <style>
