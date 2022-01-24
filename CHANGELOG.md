@@ -1,4 +1,4 @@
-### 2.4.3
+### 2.4.3/2.4.4
 * Feature: Mythic Play journals to play the GME from a macro launcher journal
 * Enhancement: Improved the UI of the Oracle Builder
 * Bugfix: Fixed a bug in TAC deck that was throwing an error when shuffling
