@@ -39,7 +39,7 @@ export default class MGMEChatExtras {
   }
 
   static async mgmeFormattedChat() {
-    const tokens = game.scenes.active.tokens.contents;
+    const tokens = game?.scenes?.active?.tokens?.contents || [];
 
     const formattedChatDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-formattedchat-dialog.hbs', {})
 
