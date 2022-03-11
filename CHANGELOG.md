@@ -1,5 +1,7 @@
 ### 2.4.5
-* 
+* Enhancement: Added setting to customize V1 Backstory Focus
+* Enhancement: Added setting to disable auto random events on interrupt scenes (For adventure crafter)
+* Bugfix: Fixed an issue where not having tokens on a scene would fail to run Formatted Message macro (Thanks a lot Muttley)
 
 ### 2.4.3/2.4.4
 * Feature: Mythic Play journals to play the GME from a macro launcher journal
