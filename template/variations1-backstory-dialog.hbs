@@ -1,6 +1,8 @@
 <form>
     <div>
-        <label for="mgme_backstory_count">{{localize "MGME.Question"}} ({{localize "MGME.Optional"}}):</label>
+        <div><b>{{backstoryFocus}}</b></div>
+        <br/>
+        <label for="mgme_backstory_count">{{localize "MGME.HowMany"}}:</label>
         <select name="Backstory Check" id="mgme_backstory_count" style="margin-bottom:10px;width:260px">
         <option value="table" selected>Mythic GME: Backstory Events</option>
         <option value="1">{{localize "MGME.BackstoryOne"}}</option>

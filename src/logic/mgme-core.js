@@ -16,6 +16,15 @@ export default class MGMECore {
       default: 5
     });
 
+    game.settings.register('mythic-gme-tools', 'autoInterrupt', {
+      name: game.i18n.localize('MGME.SettingsAutoInterruptName'),
+      hint: game.i18n.localize('MGME.SettingsAutoInterruptHint'),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: true
+    });
+
     game.settings.register('mythic-gme-tools', 'mythicRollDebug', {
       name: game.i18n.localize('MGME.SettingsRollDebugName'),
       hint: game.i18n.localize('MGME.SettingsRollDebugHint'),
@@ -119,6 +128,16 @@ export default class MGMECore {
         type: String,
         choices: tables,
         default: "Mythic GME: Event Focus"
+      });
+
+      game.settings.register('mythic-gme-tools', 'backstoryFocusTable', {
+        name: game.i18n.localize('MGME.SettingsBackstoryFocusTableName'),
+        hint: game.i18n.localize('MGME.SettingsBackstoryFocusTableHint'),
+        scope: 'world',
+        config: true,
+        type: String,
+        choices: tables,
+        default: "Mythic GME: Backstory Events"
       });
 
       game.settings.register('mythic-gme-tools', 'actionTable', {
@@ -318,10 +337,12 @@ export default class MGMECore {
                   flavor: game.i18n.localize('MGME.SceneAlterationCheck'),
                   content: `<b style="color: darkred">${game.i18n.localize("MGME.SceneInterrupted")}</b>${debug ? ' ('+result+')' : ''}`
                 });
-                if (game.dice3d)
-                  Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT()))
-                else
-                  await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT());
+                if (game.settings.get('mythic-gme-tools', 'autoInterrupt')) {
+                  if (game.dice3d)
+                    Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT()))
+                  else
+                    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT());
+                }
               } else {
                 return roll.toMessage({
                   flavor: game.i18n.localize('MGME.SceneAlterationCheck'),

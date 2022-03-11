@@ -21,7 +21,8 @@ export default class MGMEVariations1 {
   }
 
   static async mgmeBackstoryGenerator() {
-    const backstoryDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations1-backstory-dialog.hbs', {})
+    const backstoryFocus = game.settings.get('mythic-gme-tools', 'backstoryFocusTable');
+    const backstoryDialog = await renderTemplate('./modules/mythic-gme-tools/template/variations1-backstory-dialog.hbs', {backstoryFocus: backstoryFocus})
 
     let dialogue = new Dialog({
       title: game.i18n.localize('MGME.BackstoryGenerator'),
@@ -54,7 +55,7 @@ export default class MGMEVariations1 {
                 content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
               })
             }
-            const backstoryFocusTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Backstory Focus')
+            const backstoryFocusTable = await MGMECommon._mgmeFindTableByName(backstoryFocus)
             const backstoryLabels = [
               game.i18n.localize('MGME.BackstoryFirst'),
               game.i18n.localize('MGME.BackstorySecond'),
