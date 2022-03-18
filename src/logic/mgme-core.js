@@ -137,7 +137,7 @@ export default class MGMECore {
         config: true,
         type: String,
         choices: tables,
-        default: "Mythic GME: Backstory Events"
+        default: "Mythic GME: Backstory Focus"
       });
 
       game.settings.register('mythic-gme-tools', 'actionTable', {

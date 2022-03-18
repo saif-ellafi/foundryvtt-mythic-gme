@@ -1,3 +1,6 @@
+### 2.4.6
+* Bugfix: Fixed wrong default table for Backstory Generator. It was returning garbage focus results.
+
 ### 2.4.5
 * Enhancement: Added setting to customize V1 Backstory Focus
 * Enhancement: Added setting to disable auto random events on interrupt scenes (For adventure crafter)
