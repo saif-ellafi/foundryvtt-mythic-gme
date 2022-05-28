@@ -23,7 +23,7 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
 
 # Table of Contents
 1. [Word Mill Games - License](#word-mill-games)
-2. [How to use](#how-to-use)
+2. [How to play](#how-to-play)
 3. [Features](#features)
    1. [Overview](#overview)
    2. [Macros](#macros)
@@ -54,7 +54,7 @@ All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and 
 
 [Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
 
-## How to Use
+## How to play
 This modules provides all mythic rules in the form of Macros. You can use them in whatever RPG system you like in any world.
 
 In Foundry, enable the module, and then go to the Compendiums tab, you are going to see many compendiums starting with the word **Mythic**. For starters, the most basic one is **Mythic GME Macros**, but feel free to explore the others, the more you are familiar with Mythic rules.
