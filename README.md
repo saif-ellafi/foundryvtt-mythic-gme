@@ -23,7 +23,8 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
 
 # Table of Contents
 1. [Word Mill Games - License](#word-mill-games)
-2. [Features](#features)
+2. [How to use](#how-to-use)
+3. [Features](#features)
    1. [Overview](#overview)
    2. [Macros](#macros)
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
@@ -38,9 +39,9 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
    8. [Saved Progress](#saved-progress)
    9. [Configurable Settings](#configurable-settings)
    10. [Card Decks](#card-decks)
-3. [Tips and Tricks and Modules](#tips-and-tricks-and-modules)
-4. [Author](#author)
-5. [License](#license)
+4. [Tips and Tricks and Modules](#tips-and-tricks-and-modules)
+5. [Author](#author)
+6. [License](#license)
 
 ## Word Mill Games
 
@@ -52,6 +53,15 @@ All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and 
 [Get Mythic GME Book](https://www.drivethrurpg.com/product/20798/Mythic-Game-Master-Emulator)
 
 [Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
+
+## How to Use
+This modules provides all mythic rules in the form of Macros. You can use them in whatever RPG system you like in any world.
+
+In Foundry, enable the module, and then go to the Compendiums tab, you are going to see many compendiums starting with the word **Mythic**. For starters, the most basic one is **Mythic GME Macros**, but feel free to explore the others, the more you are familiar with Mythic rules.
+
+Once you open the Compendium, you'll see many Macros like **Fate Chart** or **Scene Alteration**. Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then, just click on it and play! Organize macros that you use frequently for your type of play. This is how my Macro hotbar looks like:
+
+![image](https://user-images.githubusercontent.com/27952699/170837019-8056686f-af1b-4da0-8439-8c7eebc7f770.png)
 
 ## Features
 
