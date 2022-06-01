@@ -1,3 +1,8 @@
+### 2.4.7
+* Enhancement: Added TAC Focus Table to be able to play with Adventure Crafter
+* Bugfix: Fixed clear chat from export to journal not working (Thanks @horusofoz)
+* Bugfix: Export to journal settings now remember last configuration (Thanks @horusofoz) 
+
 ### 2.4.6
 * Bugfix: Fixed wrong default table for Backstory Generator. It was returning garbage focus results.
 

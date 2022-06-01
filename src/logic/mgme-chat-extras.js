@@ -9,7 +9,16 @@ export default class MGMEChatExtras {
     let dialogue = new Dialog({
       title: game.i18n.localize('MGME.ExportAllToJournal'),
       content: exportDialog,
-        render: html => html[0].getElementsByTagName("input").mgme_export_journal_name.focus(),
+        render: html => {
+          const lastConfig = game.user.getFlag('mythic-gme-tools', 'mgmeLastExportConfig');
+          if (lastConfig) {
+            html.find("#mgme_export_highlight_flavor").prop('checked', lastConfig.highlightFlavor);
+            html.find("#mgme_export_actor_img").prop('checked', lastConfig.actorImg);
+            html.find("#mgme_export_include_meta").prop('checked', lastConfig.includeMeta);
+            html.find("#mgme_export_clear_chat").prop('checked', lastConfig.clearChat);
+          }
+          html[0].getElementsByTagName("input").mgme_export_journal_name.focus()
+        },
       buttons: {
         submit: {
           icon: '<i class="fas fa-comments"></i>',
@@ -25,9 +34,15 @@ export default class MGMEChatExtras {
               entries.push(MGMEChatJournal._mgmeBuildLogChatHtml(chat, includeTimestamp, includeActorImg, highlightFlavor));
             });
             MGMEChatJournal._mgmeFindOrCreateJournal(journalName).then(targetJournal => {
-              targetJournal.update({content: targetJournal.data.content + '<br>' + entries.join('\n')}).then(journalCreation => {
+              targetJournal.update({content: targetJournal.data.content + '<br>' + entries.join('\n')}).then(() => {
                 if (clearChat)
-                  journalCreation.then(() => game.messages.flush());
+                  game.messages.flush();
+                game.user.setFlag('mythic-gme-tools', 'mgmeLastExportConfig', {
+                  'highlightFlavor': highlightFlavor,
+                  'actorImg': includeActorImg,
+                  'includeMeta': includeTimestamp,
+                  'clearChat': clearChat
+                });
               })
             })
           }
