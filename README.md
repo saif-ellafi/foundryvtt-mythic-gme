@@ -1,11 +1,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/total?logo=GitHub) ![GitHub release (latest by date)](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/latest/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/saif-ellafi/foundryvtt-mythic-gme) ![GitHub issues](https://img.shields.io/github/issues-raw/saif-ellafi/foundryvtt-mythic-gme)
 # Mythic GME Tools for FoundryVTT
 
-Mythic GM Emulator is an RPG ruleset designed for unprepared GMs, playing without GM at all, or solo players.
-
-It is a system agnostic module meant to be played together with your favorite RPGs.
-
-Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulator series in Foundry VTT.
+Mythic GME Tools provides everything needed for playing Mythic GM Emulator with any RPG System in Foundry VTT.
 
 ### _Created by: JeansenVaars_
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
@@ -13,13 +9,6 @@ Mythic GME Tools provides the Macros and Tables for Playing the Mythic GM Emulat
 ![Example](tiny-example.png)
 
 ### [This module was made for free, with love, hard work and tons of coffee!](https://ko-fi.com/jeansenvaars)
-
-### Early Special Appreciations!
-* **Tana Pigeon** for authorizing the distribution of this module, based on the wonderful Mythic Books
-* **stargolum** for DECKs support, feature loved by the community who plays with GMA cards
-* **KarstenW** for providing German Translations to the UI
-* **FoundryVTT Discord, Die Gießerei and Mythic Discord communities** for supporting with my terrible coding skills and crazy ideas
-* All users who say thanks and the ones who secretly play without letting me know :D
 
 # Table of Contents
 1. [Word Mill Games - License](#word-mill-games)
@@ -54,6 +43,13 @@ All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and 
 
 [Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
 
+### Early Special Appreciations!
+* **Tana Pigeon** for authorizing the distribution of this module, based on the wonderful Mythic Books
+* **stargolum** for DECKs support, feature loved by the community who plays with GMA cards
+* **KarstenW** for providing German Translations to the UI
+* **FoundryVTT Discord, Die Gießerei and Mythic Discord communities** for supporting with my terrible coding skills and crazy ideas
+* All users who say thanks and the ones who secretly play without letting me know :D
+
 ## How to play
 This modules provides all mythic rules in the form of Macros. You can use them in whatever RPG system you like in any world.
 
@@ -62,6 +58,9 @@ In Foundry, enable the module, and then go to the Compendiums tab, you are going
 Once you open the Compendium, you'll see many Macros like **Fate Chart** or **Scene Alteration**. Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then, just click on it and play! Organize macros that you use frequently for your type of play. This is how my Macro hotbar looks like:
 
 ![image](https://user-images.githubusercontent.com/27952699/170837019-8056686f-af1b-4da0-8439-8c7eebc7f770.png)
+
+[![image](https://user-images.githubusercontent.com/27952699/171506549-21b66635-18a3-4ee9-b9c1-dbb3c408d3bc.png)
+](https://www.youtube.com/watch?v=V494FhoV5Ys)
 
 ## Features
 
