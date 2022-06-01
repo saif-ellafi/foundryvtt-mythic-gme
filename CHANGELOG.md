@@ -1,5 +1,6 @@
 ### 2.4.7
 * Enhancement: Added TAC Focus Table to be able to play with Adventure Crafter
+* Bugfix: Fixed typo word Imitate (Thanks @thorgibrewer)
 * Bugfix: Fixed clear chat from export to journal not working (Thanks @horusofoz)
 * Bugfix: Export to journal settings now remember last configuration (Thanks @horusofoz) 
 
