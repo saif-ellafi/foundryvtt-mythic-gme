@@ -1,3 +1,7 @@
+### 2.4.8
+* Enhancement: Added Mystery focus table from Mystery Magazine Volume 6
+* Enhancement: Added support for deck of cards Countdown by Zadmar (needs to be downloaded through DriveThruRPG)
+
 ### 2.4.7
 * Enhancement: Added TAC Focus Table to be able to play with Adventure Crafter
 * Bugfix: Fixed typo word Imitate (Thanks @thorgibrewer)
