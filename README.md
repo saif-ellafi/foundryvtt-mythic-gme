@@ -208,13 +208,22 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
 
 **NOTE** - Deck Images are not included and can be purchased from DriveThruRPG or similar outlets.
 
-#### Overview
+#### Supported Decks
 
-* Includes presets for GME Deck, TAC Deck and the GMA Decks
-* Configure your Deck folder for the Macros to be able to pull them into the game (See instructions below)
-* Optionally rotate cards feature (Mythic and TAC need this) - **Note: Must be changed within the Macro Script**
-* Toggle shuffle off if required - **Note: Must be changed within the Macro Script**
-* Set image file type to match your card image files. - **Note: Must be changed within the Macro Script**
+Simply unzip the files as they are, into the `decks` folder in your `Data` folder of FoundryVTT.
+
+* [Mythic Game Master Emulator Deck](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck)
+* [The Adventure Crafter Deck](https://www.drivethrurpg.com/product/303881/The-Adventure-Crafter-Deck)
+* [GMA Base Deck](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck)
+* [GMA Fantasy Deck](https://www.drivethrurpg.com/product/213131/The-GameMasters-Apprentice-Fantasy-Deck)
+* [GMA Horror Deck](https://www.drivethrurpg.com/product/167552/The-GameMasters-Apprentice-Horror-Deck)
+* [GMA SciFi Deck](https://www.drivethrurpg.com/product/156198/The-GameMasters-Apprentice-Sci-Fi)
+* [GMA Steampunk Deck](https://www.drivethrurpg.com/product/176739/The-GameMasters-Apprentice-Steampunk-Deck)
+* [GMA Age of Sail Deck](https://www.drivethrurpg.com/product/187419/The-GameMasters-Apprentice-Age-of-Sail-Deck)
+* [GMA Demon Hunters Deck](https://www.drivethrurpg.com/product/155835/The-GameMasters-Apprentice-Demon-Hunters)
+* [Countdown Decks](https://www.drivethrurpg.com/product/244819)
+* [Countdown Galactic](https://www.drivethrurpg.com/product/249100)
+* [Countdown Monster](https://www.drivethrurpg.com/product/249101)
   
 ![](example-decks.png)
 
@@ -225,10 +234,7 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
 3. Go to Compendiums, right click on Mythic GME Macros, Import All Content
 4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
 5. [Optional] Using Decks (Cards not included) - Thank you stargolum/spacegiant) !!!
-    1. Get a copy of
-       cards [Mythic GME Cards](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck)
-       or [TAC Cards](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck) (check the macro
-       list for a precise list of supported decks)
+    1. Get any of the supported cards
     2. Download the ZIP files of the decks you want to use
     3. Go to the folder "Data" from Foundry. This is where you have folders like `modules`, `systems` and `worlds`.
     4. Create a folder called `decks` exactly there along these other folders.
@@ -237,7 +243,15 @@ Running Behavior Checks on the same tokens will bring up their current dispositi
        when you extract it.
     7. Import mythic deck Macros for your preset game (or use these as guidance)
     8. If everything works, you can delete the zip file from there. It is not needed.
-5. Say thanks if you like this :)
+6. Say thanks if you like this, particularly to `Stargolum` :)
+
+#### Use other decks
+Copy any of the macros and rename the following values and parameters:
+
+* Configure your Deck folder for the Macros to be able to pull them into the game (See instructions below)
+* Optionally rotate cards feature (Mythic and TAC need this) - **Note: Must be changed within the Macro Script**
+* Toggle shuffle off if required - **Note: Must be changed within the Macro Script**
+* Set image file type to match your card image files. - **Note: Must be changed within the Macro Script**
 
 ## Tips and Tricks and Modules
 Playing without a GM, Solo or story telling in Foundry requires some practice. The following tips might boost your learning process.
