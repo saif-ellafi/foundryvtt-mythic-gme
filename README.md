@@ -221,7 +221,7 @@ Simply unzip the files as they are, into the `decks` folder in your `Data` folde
 * [GMA Steampunk Deck](https://www.drivethrurpg.com/product/176739/The-GameMasters-Apprentice-Steampunk-Deck)
 * [GMA Age of Sail Deck](https://www.drivethrurpg.com/product/187419/The-GameMasters-Apprentice-Age-of-Sail-Deck)
 * [GMA Demon Hunters Deck](https://www.drivethrurpg.com/product/155835/The-GameMasters-Apprentice-Demon-Hunters)
-* [Countdown Decks](https://www.drivethrurpg.com/product/244819)
+* [Saga of the Goblin Horde](https://www.drivethrurpg.com/product/244819)
 * [Countdown Galactic](https://www.drivethrurpg.com/product/249100)
 * [Countdown Monster](https://www.drivethrurpg.com/product/249101)
   
