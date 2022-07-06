@@ -1,3 +1,6 @@
+### 2.4.9
+* Hotfix: Added a patch to make 3D Dice work With GURPS. Should be fixed in GURPS!!! (Delay won't work but no errors)
+
 ### 2.4.8
 * Enhancement: Added Mystery focus table from Mystery Magazine Volume 6
 * Enhancement: Added support for deck of cards Countdown by Zadmar (needs to be downloaded through DriveThruRPG)

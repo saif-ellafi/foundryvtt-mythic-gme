@@ -187,8 +187,11 @@ export default class MGMEChatExtras {
             while (i < howMany) {
               const roll = Roll.create(formula.length ? formula : '1d100');
               await roll.roll({async: true}).then(async r => {
-                if (game.dice3d)
+                if (game.system.id === 'gurps') { // GURPS incompatibility, please fix on GURPS SIDE!
+                  await targetRoll.toMessage().then(msg => msg.delete());
+                } else if (game.dice3d) {
                   await game.dice3d.showForRoll(r);
+                }
                 rolls.push(r);
               });
               i += 1;
