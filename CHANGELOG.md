@@ -1,3 +1,6 @@
+### 2.4.10
+* Rollback: GURPS fixed dice support. Now rolling back Mythic and everyone is happy :)
+
 ### 2.4.9
 * Hotfix: Added a patch to make 3D Dice work With GURPS. Should be fixed in GURPS!!! (Delay won't work but no errors)
 

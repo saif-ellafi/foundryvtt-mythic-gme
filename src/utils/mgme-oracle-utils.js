@@ -5,9 +5,7 @@ export default class MGMEOracleUtils {
 
   static async _mgmeSimulateRoll(targetRoll) {
     const randomEventsIn3D = (targetRoll && game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
-    if (game.system.id === 'gurps') { // GURPS incompatibility, please fix on GURPS SIDE!
-      await targetRoll.toMessage().then(msg => msg.delete());
-    } else if (randomEventsIn3D) {
+    if (randomEventsIn3D) {
       await game.dice3d.showForRoll(targetRoll);
     }
     return targetRoll;
