@@ -1,0 +1,84 @@
+<form>
+    <div>
+        <label for="mgme_table_question">{{ localize 'MGME.Question' }}:</label>
+        <input id="mgme_table_question" style="margin-bottom:10px;width:280px"/>
+    </div>
+
+    <div>
+        <select id="mgme_table_select_1" onchange="_mgmeGetTableFormula(1)" style="margin-bottom:10px;width: 270px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_1" placeholder="default" style="width: 60px;height: 27px;">
+        <select id="mgme_table_many_1" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div>
+        <select id="mgme_table_select_2" onchange="_mgmeGetTableFormula(2)" style="margin-bottom:10px;width: 270px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_2" placeholder="default" style="width: 60px;height: 27px;">
+        <select id="mgme_table_many_2" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div>
+        <select id="mgme_table_select_3" onchange="_mgmeGetTableFormula(3)" style="margin-bottom:10px;width: 270px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_3" placeholder="default" style="width: 60px;height: 27px;">
+        <select id="mgme_table_many_3" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div>
+        <select id="mgme_table_select_4" onchange="_mgmeGetTableFormula(4)" style="margin-bottom:10px;width: 270px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_4" placeholder="default" style="width: 60px;height: 27px;">
+        <select id="mgme_table_many_4" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <div>
+        <select id="mgme_table_select_5" onchange="_mgmeGetTableFormula(5)" style="margin-bottom:10px;width: 270px;">
+            <option selected>None</option>
+        </select>
+        <input id="mgme_table_formula_5" placeholder="default" style="width: 60px;height: 27px;">
+        <select id="mgme_table_many_5" style="margin-bottom:10px;">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+
+    <script>
+        function _mgmeGetTableFormula(idx) {
+          const table = game.tables.contents.find(t => t.name === $(`#mgme_table_select_${idx}`).val());
+          if (!table) return;
+          $(`#mgme_table_formula_${idx}`).val(table.data.formula);
+        }
+    </script>
+</form>
