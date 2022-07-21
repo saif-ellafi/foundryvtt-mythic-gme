@@ -1,24 +1,161 @@
-<div id="mythic-gme-window">
-    <table>
-        <tr>
-            <td><button id="mgme_panel_fc"><i class="fas fa-question" style="margin-right: 10px;"></i>{{ localize 'MGME.FateCheck' }}</button></td>
-            <td><button id="mgme_panel_sa"><i class="fas fa-question" style="margin-right: 10px;"></i>{{ localize 'MGME.SceneAlteration' }}</button></td>
-        </tr>
-        <tr>
-            <td><button id="mgme_panel_ec"><i class="fas fa-lightbulb" style="margin-right: 10px;"></i>{{ localize 'MGME.EventCheck' }}</button></td>
-            <td><button id="mgme_panel_dc"><i class="fas fa-lightbulb" style="margin-right: 10px;"></i>{{ localize 'MGME.DetailQuestion' }}</button></td>
-        </tr>
-        <tr>
-            <td><button id="mgme_panel_ac"><i class="fas fa-info" style="margin-right: 10px;"></i>{{ localize 'MGME.ActionQuestion' }}</button></td>
-            <td><button id="mgme_panel_desc"><i class="fas fa-info" style="margin-right: 10px;"></i>{{ localize 'MGME.DescriptionQuestion' }}</button></td>
-        </tr>
-        <tr>
-            <td><button id="mgme_panel_bc"><i class="fas fa-user" style="margin-right: 10px;"></i>{{ localize 'MGME.BehaviorCheck' }}</button></td>
-            <td><button id="mgme_panel_sc"><i class="fas fa-user" style="margin-right: 10px;"></i>{{ localize 'MGME.StatisticCheck' }}</button></td>
-        </tr>
-        <tr>
-            <td><button id="mgme_panel_ci"><i class="fas fa-arrow-up" style="margin-right: 10px;"></i>{{ localize 'MGME.IncreaseChaos' }}</button></td>
-            <td><button id="mgme_panel_cd"><i class="fas fa-arrow-down" style="margin-right: 10px;"></i>{{ localize 'MGME.DecreaseChaos' }}</button></td>
-        </tr>
-    </table>
+<style>
+    .mythic-gme-dialog {
+        display: grid;
+        grid-template-areas:
+            "fc fc fc xx sa sa sa"
+            "ec ec ec xx dc dc dc"
+            "ac ac ac xx desc desc desc"
+            "bc bc bc xx sc sc sc"
+            " . ci ct ct ct cd ."
+            " . ci cc cc cc cd .";
+        grid-template-columns: .5fr 1fr auto 6px auto 1fr .5fr;
+        grid-template-rows: auto;
+    }
+
+    .mythic-gme-dialog__button {
+        display: grid;
+        grid-template-areas:
+            "icon label";
+        grid-template-columns: 28px auto;
+        grid-template-rows: auto;
+        margin-bottom: 3px;
+    }
+
+    .mythic-gme-dialog__icon--left {
+        grid-area: icon;
+        margin: auto;
+        width: 14px;
+    }
+
+    .mythic-gme-dialog__button-control-label {
+        grid-area: label;
+    }
+
+    .mgme_panel_fc {
+        grid-area: fc;
+    }
+
+    .mgme_panel_sa {
+        grid-area: sa;
+    }
+
+    .mgme_panel_ec {
+        grid-area: ec;
+    }
+
+    .mgme_panel_dc {
+        grid-area: dc;
+    }
+
+    .mgme_panel_ac {
+        grid-area: ac;
+    }
+
+    .mgme_panel_desc {
+        grid-area: desc;
+    }
+
+    .mgme_panel_bc {
+        grid-area: bc;
+    }
+
+    .mgme_panel_sc {
+        grid-area: sc;
+    }
+
+    .mgme_panel_ct {
+        grid-area: ct;
+        text-align: center;
+        font-size: 1rem;
+        margin: 3px 6px 0 6px;
+    }
+
+    .mgme_panel_ci {
+        grid-area: ci;
+    }
+
+    .mgme_panel_cc {
+        grid-area: cc;
+        display: inline-block;
+        vertical-align: middle;
+        margin: auto;
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    .mgme_panel_cd {
+        grid-area: cd;
+    }
+
+    #mgme_panel_ci,
+    #mgme_panel_cd {
+        height: 100%;
+    }
+</style>
+
+<div class="mythic-gme-dialog">
+    <div class="mythic-gme-dialog__button-control mgme_panel_fc">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_fc">
+            <i class="fas mythic-gme-dialog__icon--left fa-question" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.FateCheck"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_sa">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_sa">
+            <i class="fas mythic-gme-dialog__icon--left fa-question" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.SceneAlteration"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_ec">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_ec">
+            <i class="fas mythic-gme-dialog__icon--left fa-lightbulb" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.EventCheck"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_dc">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_dc">
+            <i class="fas mythic-gme-dialog__icon--left fa-lightbulb" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DetailQuestion"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_ac">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_ac">
+            <i class="fas mythic-gme-dialog__icon--left fa-info" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.ActionQuestion"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_desc">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_desc">
+            <i class="fas mythic-gme-dialog__icon--left fa-info" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DescriptionQuestion"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_bc">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_bc">
+            <i class="fas mythic-gme-dialog__icon--left fa-user" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.BehaviorCheck"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_sc">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_sc">
+            <i class="fas mythic-gme-dialog__icon--left fa-user" style="margin-right: 10px;"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.StatisticCheck"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_ci">
+        <button id="mgme_panel_ci">
+            <i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-up"></i>
+            <span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize
+                    "MGME.IncreaseChaos"}}</span></span>
+        </button>
+    </div>
+    <h2 id="mgme_panel_ct" class="mgme_panel_ct">Chaos Factor</h2>
+    <span id="mgme_panel_cc" class="mgme_panel_cc">5</span>
+    <div class="mythic-gme-dialog__button-control mgme_panel_cd">
+        <button id="mgme_panel_cd">
+            <i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-down"></i>
+            <span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize
+                    "MGME.DecreaseChaos"}}</span></span>
+        </button>
+    </div>
 </div>
