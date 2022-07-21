@@ -5,6 +5,9 @@ import MGMECards from "./logic/mgme-cards";
 import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
 import MGMECrafterSeries from "./logic/mgme-crafter-series";
+import MGMEBluePanel from "./app/panel-mythic-gme";
+import MGMEVars1Panel from "./app/panel-mythic-vars1";
+import MGMEVars2Panel from "./app/panel-mythic-vars2";
 
 export default class MGMEMacroAPI {
   static mgmeIncreaseChaos = MGMECore.mgmeIncreaseChaos;
@@ -12,6 +15,7 @@ export default class MGMEMacroAPI {
   static mgmeCheckChaos = MGMECore.mgmeCheckChaos;
   static mgmeFateChart = MGMECore.mgmeFateChart;
   static mgmeRandomEvent = MGMECore.mgmeRandomEvent;
+  static mgmeFocusCheck = MGMECore.mgmeFocusCheck;
   static mgmeSceneAlteration = MGMECore.mgmeSceneAlteration;
 
   static mgmeComplexQuestion = MGMEVariations1.mgmeComplexQuestion;
@@ -37,4 +41,34 @@ export default class MGMEMacroAPI {
 
   static mgmeOracleBuilder = MGMEOracleBuilder.mgmeOracleBuilder;
   static mgmePrepareCustomOracleQuestion = MGMEOracleBuilder.mgmePrepareCustomOracleQuestion;
+
+  static mgmeLaunchPanel() {
+    const api = game.modules.get('mythic-gme-tools').api;
+    if (api.win) {
+      api.win.close({force: true})
+    }
+    const key = game.settings.get('mythic-gme-tools', 'panelKey');
+    let win;
+    switch (key) {
+      case 'mgme_blue': {
+        win = new MGMEBluePanel();
+        break;
+      }
+      case 'mgme_vars1': {
+        win = new MGMEVars1Panel();
+        break;
+      }
+      case 'mgme_vars2': {
+        win = new MGMEVars2Panel();
+        break;
+      }
+    }
+    const winWidth = 400;
+    win?.render(true, {
+      width: winWidth,
+      left: (canvas.app.screen.width - ui.sidebar.position.width - winWidth - 20),
+      top: canvas.app.screen.height - 325
+    });
+    api.win = win;
+  }
 }

@@ -50,7 +50,7 @@
   "MGME.WithRandomEvent": "With a Random Event",
   "MGME.Odds": "Odds",
 
-  "MGME.FateChart": "Fate Chart",
+  "MGME.FateChart": "Fate Question",
   "MGME.FateChartQuestion": "Fate Chart Question",
 
   "MGME.FateCheck": "Fate Check",
@@ -118,6 +118,7 @@
   "MGME.ComplexQuestion": "Complex Question",
   "MGME.DetailQuestion": "Detail Question",
   "MGME.ActionQuestion": "Action Question",
+  "MGME.DescriptionQuestion": "Description Question",
   "MGME.IncludeDetailQuestion": "Include Description Detail",
   "MGME.IncludeActionQuestion": "Include Action Detail",
 
@@ -220,6 +221,12 @@
   "MGME.CrafterRngLocCrafterRegTable": "Region",
 
   "MGME.ToChat": "To Chat",
-  "MGME.HowMany": "How Many"
+  "MGME.HowMany": "How Many",
 
+  "MGME.PanelConfigureLayout": "Layout",
+  "MGME.PanelConfigureLabel": "Configure",
+  "MGME.PanelConfigureSubmit": "Submit",
+
+  "MGME.IncreaseChaos": "Increase Chaos",
+  "MGME.DecreaseChaos": "Decrease Chaos"
 }

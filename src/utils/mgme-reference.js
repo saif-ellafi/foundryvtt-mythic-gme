@@ -123,6 +123,13 @@ export default class MGMEReference {
     }
   }
 
+  static MYTHIC_PANELS = {
+    'mgme_nopalen': 'Disabled',
+    'mgme_blue': 'Mythic GM Emulator',
+    'mgme_vars1': 'Mythic Variations 1',
+    'mgme_vars2': 'Mythic Variations 2'
+  }
+
   static DIE_COLORS = {
     'black': 'Black',
     'white': 'White',
@@ -182,6 +189,11 @@ export default class MGMEReference {
       tableSetting1: 'actionTable',
       tableSetting2: 'subjectTable'
     }},
+    FOCUS_CHECK: () => { return {
+      label: game.i18n.localize('MGME.EventFocus'),
+      placeholder: game.i18n.localize('MGME.Reason'),
+      useFocusTable: true
+    }},
     EVENT_QUESTION: () => { return {
       label: game.i18n.localize('MGME.RandomEvent'),
       placeholder: game.i18n.localize('MGME.Reason'),
@@ -204,7 +216,7 @@ export default class MGMEReference {
       tableSetting2: 'subjectTable'
     }},
     DESCRIPTION_QUESTION: () => { return {
-      label: game.i18n.localize('MGME.DetailQuestion'),
+      label: game.i18n.localize('MGME.DescriptionQuestion'),
       placeholder: game.i18n.localize('MGME.Describe'),
       useFocusTable: false,
       tableSetting1: 'descriptionsAdvTable',

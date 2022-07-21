@@ -26,7 +26,12 @@ export default class MGMEOracleUtils {
 
   static async _mgmeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2) {
     let focusResult;
+    let descriptor1Result;
+    let descriptor2Result;
+
     let focusRoll;
+    let descriptor1Roll;
+    let descriptor2Roll;
 
     if (eventFocus)
       focusResult = eventFocus;
@@ -36,13 +41,17 @@ export default class MGMEOracleUtils {
       focusResult = focusRoll.results[0].getChatText();
     }
 
-    const descriptor1Table = await MGMECommon._mgmeFindTableBySetting(tableSetting1);
-    const descriptor1Roll = await descriptor1Table.roll();
-    const descriptor1Result = descriptor1Roll.results[0].getChatText();
+    if (tableSetting1) {
+      const descriptor1Table = await MGMECommon._mgmeFindTableBySetting(tableSetting1);
+      descriptor1Roll = await descriptor1Table.roll();
+      descriptor1Result = descriptor1Roll.results[0].getChatText();
+    }
 
-    const descriptor2Table = await MGMECommon._mgmeFindTableBySetting(tableSetting2);
-    const descriptor2Roll = await descriptor2Table.roll();
-    const descriptor2Result = descriptor2Roll.results[0].getChatText();
+    if (tableSetting2) {
+      const descriptor2Table = await MGMECommon._mgmeFindTableBySetting(tableSetting2);
+      descriptor2Roll = await descriptor2Table.roll();
+      descriptor2Result = descriptor2Roll.results[0].getChatText();
+    }
 
     return {
       focusResult: focusResult,
@@ -85,12 +94,16 @@ export default class MGMEOracleUtils {
       const focusDebug = debug ? `(${focusRoll})` : '';
       await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b>${focusDebug}</div>`);
     }
-    const desc1roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total;
-    const desc1debug = debug ? ` (${desc1roll})</div>` : '';
-    await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result}${desc1debug}`);
-    const desc2roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total;
-    const desc2debug = debug ? ` (${desc2roll})` : '';
-    await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result}${desc2debug}</div>`);
+    if (randomAnswers.descriptor1Result) {
+      const desc1roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total;
+      const desc1debug = debug ? ` (${desc1roll})</div>` : '';
+      await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result}${desc1debug}`);
+    }
+    if (randomAnswers.descriptor2Result) {
+      const desc2roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total;
+      const desc2debug = debug ? ` (${desc2roll})` : '';
+      await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result}${desc2debug}</div>`);
+    }
     await MGMEChatJournal._mgmeLogChatToJournal(chatMessage);
     if (game.dice3d && oldHide) {
       Hooks.once('diceSoNiceRollComplete', async () => {

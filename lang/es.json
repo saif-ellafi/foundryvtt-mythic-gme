@@ -50,7 +50,7 @@
   "MGME.WithRandomEvent": "Con un evento aleatorio",
   "MGME.Odds": "Probabilidades",
 
-  "MGME.FateChart": "Tabla de Destino",
+  "MGME.FateChart": "Pregunta de Destino",
   "MGME.FateChartQuestion": "Pregunta de Tabla de Destino",
 
   "MGME.FateCheck": "Comprobación de Destino",
@@ -118,6 +118,7 @@
   "MGME.ComplexQuestion": "Pregunta Compleja",
   "MGME.DetailQuestion": "Pregunta de Detalle",
   "MGME.ActionQuestion": "Pregunta de Acción",
+  "MGME.DescriptionQuestion": "Pregunta de Descripción",
   "MGME.IncludeDetailQuestion": "Incluir descripción de detalle",
   "MGME.IncludeActionQuestion": "Incluir descripción de acción",
 
@@ -220,6 +221,13 @@
   "MGME.CrafterRngLocCrafterRegTable": "Región",
 
   "MGME.ToChat": "Al Chat",
-  "MGME.HowMany": "Cuántas veces"
+  "MGME.HowMany": "Cuántas veces",
+
+  "MGME.PanelConfigureLayout": "Vista",
+  "MGME.PanelConfigureLabel": "Configurar",
+  "MGME.PanelConfigureSubmit": "Guardar",
+
+  "MGME.IncreaseChaos": "Aumentar Caos",
+  "MGME.DecreaseChaos": "Disminuir Caos"
 
 }

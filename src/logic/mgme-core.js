@@ -16,6 +16,17 @@ export default class MGMECore {
       default: 5
     });
 
+    game.settings.register('mythic-gme-tools', 'panelKey', {
+      name: 'MGME Panel Key',
+      hint: 'Currently defined Mythic Panel',
+      scope: 'world',
+      config: true,
+      type: String,
+      choices: MGMEReference.MYTHIC_PANELS,
+      default: 'mgme_blue',
+      onChange: () => game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
+    });
+
     game.settings.register('mythic-gme-tools', 'autoInterrupt', {
       name: game.i18n.localize('MGME.SettingsAutoInterruptName'),
       hint: game.i18n.localize('MGME.SettingsAutoInterruptHint'),
@@ -252,6 +263,10 @@ export default class MGMECore {
     })
 
     dialogue.render(true)
+  }
+
+  static async mgmeFocusCheck() {
+    await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.FOCUS_CHECK());
   }
 
   static async mgmeRandomEvent() {
