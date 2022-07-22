@@ -4,8 +4,7 @@ export default class MGMEPanel extends Application {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      popOut: true,
-      title: 'Mythic GM Emulator'
+      popOut: true
     });
   }
 

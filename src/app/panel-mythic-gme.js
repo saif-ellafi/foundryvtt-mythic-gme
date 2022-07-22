@@ -6,6 +6,7 @@ export default class MGMEBluePanel extends MGMEPanel {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "mblue_panel_window",
+      title: 'Mythic GM Emulator',
       template: "./modules/mythic-gme-tools/template/panel-mythic-gme.hbs"
     });
   }

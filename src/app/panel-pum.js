@@ -5,6 +5,7 @@ export default class PUMPanel extends MGMEPanel {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "pum_panel_window",
+      title: 'Plot Unfolding Machine',
       template: "./modules/mythic-gme-tools/template/panel-pum.hbs"
     });
   }

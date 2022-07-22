@@ -6,6 +6,7 @@ export default class MGMEVars1Panel extends MGMEPanel {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "mvars1_panel_window",
+      title: 'Mythic GM Emulator',
       template: "./modules/mythic-gme-tools/template/panel-mythic-vars1.hbs"
     });
   }
