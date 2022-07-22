@@ -15,17 +15,18 @@ Mythic GME Tools provides everything needed for playing Mythic GM Emulator with 
 2. [How to play](#how-to-play)
 3. [Features](#features)
    1. [Overview](#overview)
-   2. [Macros](#macros)
+   2. [Mythic Macros](#mythic-macros)
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
       2. [Variations 1 Orange Book](#variations-1-orange-book)
       3. [Variations 2 Green Book](#variations-2-green-book)
-      4. [Mythic Panels](#mythic-panels)
-   4. [The Oracle Builder](#the-oracle-builder)
-   5. [Rolling your own Tables](#rolling-your-own-tables)
-   6. [Chat and Exporting](#chat-and-exporting)
-   7. [Customizing your Playstyle](#customizing-your-playstyle)
-   8. [Saved Progress](#saved-progress)
-   9. [Card Decks](#card-decks)
+   4. [Non Mythic Macros](#non-mythic-macros)
+   3. [Mythic Panels](#mythic-panels)
+   5. [The Oracle Builder](#the-oracle-builder)
+   6. [Rolling your own Tables](#rolling-your-own-tables)
+   7. [Chat and Exporting](#chat-and-exporting)
+   8. [Customizing your Playstyle](#customizing-your-playstyle)
+   9. [Saved Progress](#saved-progress)
+   10. [Card Decks](#card-decks)
 4. [Tips and Tricks](#tips-and-tricks)
 5. [Author](#author)
 6. [License](#license)
@@ -75,10 +76,11 @@ Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then
 * Built-in Support for **Dice so Nice!** taking 3D dice to a flavor-narrative oriented experience
 * All Actions translate into the chat for keeping a **history of your game**. This may also be exported to a Journal.
 * Everything is configurable through Mythic GME Tools module settings (such as Focus Tables, and more)
+* Support for non-Mythic solo games too (Such as my Plot Unfolding Machine)
 
 ![mythic-gme-tools-example.png](mythic-gme-tools-example.png)
 
-### Macros
+### Mythic Macros
 These macros provide complex functionalities summarized in a one-click event.
 Most of them bring up a Dialog in which the player customizes or elaborates the event.
 
@@ -112,6 +114,28 @@ speak on his behalf or even sometimes use its information for better flavor!
 * Statistic Check - Advanced: This Macro stores the last used Attributes in your game!
 
 ![green-book-macros.png](green-book-macros.png)
+
+### Non Mythic Macros
+
+#### Plot Unfolding Machine
+
+This Solo system can be played with Mythic or on its own, and it focuses on placing your PCs into action, Scene by Scene. [HERE](https://jeansenvaars.itch.io/plot-unfolding-machine) :)
+
+Check it out if getting stuck in your Solo or GMLess games is an often-issue, because PUM is designed to help with Scene Setup proposals.
+
+![pum-example.png](pum-example.png)
+
+#### Game Master's Apprentice Cards
+
+Check out the cards section to learn how to configure them.
+
+![gma-example.png](gma-example.png)
+
+#### Tricube Tales Countdown Cards
+
+Check out the cards section to learn how to configure them.
+
+![countdown-deck-example.png](countdown-deck-example.png)
 
 ### Mythic Panels
 
