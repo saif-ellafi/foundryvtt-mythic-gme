@@ -128,7 +128,7 @@ export default class MGMEReference {
     'mgme_blue': 'Mythic GM Emulator (Blue Book)',
     'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
     'mgme_vars2': 'Mythic Variations 2 (Green Book)',
-    'pum_core': 'Plot Unfolding Machine (Homebrew by JeansenVaars)'
+    'pum_core': 'Plot Unfolding Machine (Unofficial Homebrew)'
   }
 
   static DIE_COLORS = {
