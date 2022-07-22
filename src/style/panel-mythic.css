@@ -108,4 +108,6 @@
 #mgme_panel_ci,
 #mgme_panel_cd {
     height: 100%;
+    font-size: x-large;
+    padding-right: 15px;
 }
