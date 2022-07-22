@@ -156,7 +156,7 @@
   "MGME.RollTableFlavorTitle": "Roll on a Table",
 
   "MGME.MythicAdventureLog": "Mythic Adventure Log",
-  "MGME.ExportAllToJournal": "Export all Chat to Journal",
+  "MGME.ExportAllToJournal": "Export Chat to Journal",
   "MGME.Export": "Export",
   "MGME.JournalEntryName": "Journal Entry Name",
   "MGME.JournalHighlightFlavor": "Differentiate Mythic Events",
@@ -228,5 +228,8 @@
   "MGME.PanelConfigureSubmit": "Submit",
 
   "MGME.IncreaseChaos": "Increase Chaos",
-  "MGME.DecreaseChaos": "Decrease Chaos"
+  "MGME.DecreaseChaos": "Decrease Chaos",
+
+  "MGME.NPCList": "NPCs List",
+  "MGME.ThreadList": "Thread List"
 }

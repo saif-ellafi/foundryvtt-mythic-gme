@@ -15,12 +15,23 @@ export default class MGMEPanel extends Application {
   }
 
   _getHeaderButtons() {
-    return [{
-      "label": game.i18n.localize('MGME.PanelConfigureLabel'),
-      "class": "configure-sheet",
-      "icon": "fas fa-cog",
-      "onclick": () => this._configurePanel()
-    }];
+    return [
+      {
+        "label": game.i18n.localize('MGME.Export'),
+        "class": "configure-sheet",
+        "icon": "fas fa-book-open",
+        "onclick": () => {
+          const api = game.modules.get('mythic-gme-tools').api;
+          api.mgmeExportChatToJournal();
+        }
+      },
+      {
+        "label": game.i18n.localize('MGME.PanelConfigureLabel'),
+        "class": "export-to-journal",
+        "icon": "fas fa-cog",
+        "onclick": () => this._configurePanel()
+      }
+    ];
   }
 
   _configurePanel() {

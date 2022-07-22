@@ -33,6 +33,9 @@ export default class MGMEVars2Panel extends MGMEPanel {
     html.find("#mgme_panel_bc").click(api.mgmeBehaviorCheck);
     html.find("#mgme_panel_sc").click(api.mgmeStatisticCheck);
 
+    html.find("#mgme_panel_npc").click(api.mgmeRenderNPCsList);
+    html.find("#mgme_panel_thread").click(api.mgmeRenderThreadsList);
+
     html.find("#mgme_panel_ci").click(api.mgmeIncreaseChaos);
     html.find("#mgme_panel_cd").click(api.mgmeDecreaseChaos);
   }

@@ -7,6 +7,7 @@
         "ec ec ec xx dc dc dc"
         "ac ac ac xx desc desc desc"
         "bc bc bc xx sc sc sc"
+        "npc npc npc xx thr thr thr"
         " . ci ct ct ct cd ."
         " . ci cc cc cc cd .";
     grid-template-columns: .5fr 1fr auto 6px auto 1fr .5fr;
@@ -103,6 +104,14 @@
 
 .mgme_panel_cd {
     grid-area: cd;
+}
+
+.mgme_panel_npc {
+    grid-area: npc
+}
+
+.mgme_panel_thread {
+    grid-area: thr
 }
 
 #mgme_panel_ci,

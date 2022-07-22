@@ -156,7 +156,7 @@
   "MGME.RollTableFlavorTitle": "Lanzar en tabla aleatoria",
 
   "MGME.MythicAdventureLog": "Log de Aventura Mythic",
-  "MGME.ExportAllToJournal": "Exportar todo a un Journal",
+  "MGME.ExportAllToJournal": "Exportar chat a un Journal",
   "MGME.Export": "Exportar",
   "MGME.JournalEntryName": "Nombre de Journal",
   "MGME.JournalHighlightFlavor": "Diferenciar los eventos de Mythic",
@@ -228,6 +228,9 @@
   "MGME.PanelConfigureSubmit": "Guardar",
 
   "MGME.IncreaseChaos": "Aumentar Caos",
-  "MGME.DecreaseChaos": "Disminuir Caos"
+  "MGME.DecreaseChaos": "Disminuir Caos",
+
+  "MGME.NPCList": "Lista de PNJs",
+  "MGME.ThreadList": "Lista de Hilos"
 
 }

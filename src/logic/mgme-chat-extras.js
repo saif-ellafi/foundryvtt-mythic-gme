@@ -53,6 +53,18 @@ export default class MGMEChatExtras {
     dialogue.render(true)
   }
 
+  static async mgmeRenderNPCsList() {
+    MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
+      table.sheet.render(true);
+    });
+  }
+
+  static async mgmeRenderThreadsList() {
+    MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
+      table.sheet.render(true);
+    });
+  }
+
   static async mgmeFormattedChat() {
     const tokens = game?.scenes?.active?.tokens?.contents || [];
 

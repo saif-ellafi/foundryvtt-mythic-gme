@@ -12,6 +12,17 @@ export default class MGMEChatJournal {
     return journal;
   }
 
+  static async _mgmeFindOrCreateRolltable(tableName, folderName) {
+    let table = game.tables.contents.find(t => t.name === tableName && t.folder?.name === folderName);
+    if (!table) {
+      let folder = game.folders.contents.find(f => f.name === folderName);
+      if (!folder)
+        folder = await Folder.create({name: folderName, type: 'RollTable'});
+      table = await RollTable.create({name: tableName, folder: folder});
+    }
+    return table;
+  }
+
   static _mgmeBuildLogChatHtml(baseChat, includeTimestamp, includeActorImg, highlightFlavor) {
     let content = '';
     const speaker = baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`;
