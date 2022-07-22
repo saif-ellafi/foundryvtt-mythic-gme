@@ -46,6 +46,10 @@ export default class MGMEMacroAPI {
 
   static mgmeLaunchPanel() {
     const api = game.modules.get('mythic-gme-tools').api;
+    if (api.win) {
+      api.win?.close({force: true});
+      delete api.win;
+    }
     const key = game.settings.get('mythic-gme-tools', 'panelKey');
     let winWidth = 400;
     let win;
