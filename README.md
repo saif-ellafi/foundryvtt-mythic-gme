@@ -50,7 +50,9 @@ May not be commercially redistributed. Offered for free (Donations permitted and
 
 ## How to play
 
-**Starting from 2.5.0+**, Mythic GME Tools automatically opens a panel with all mechanics ready to be played from the get-go. No setup required. 
+**Starting from 2.5.0+**, Mythic GME Tools automatically opens a panel with all mechanics ready to be played from the get-go. No setup required.
+
+![mythic-panel-2.png](mythic-panel-2.png)
 
 This modules provides all mythic rules in the form of Macros. You can use them in whatever RPG system you like in any world.
 
