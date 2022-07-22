@@ -1,4 +1,5 @@
 import MGMEPanel from "./panel-base";
+import '../style/panel-mythic.css'
 
 export default class MGMEBluePanel extends MGMEPanel {
 

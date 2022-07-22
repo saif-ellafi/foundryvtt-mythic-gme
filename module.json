@@ -14,7 +14,7 @@
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibleCoreVersion": "9",
   "styles": [
-    "./styles/mythic-gme-dialog.css"
+    "mythic-gme-tools.css"
   ],
   "esmodules": [
     "mythic-gme-tools.js"
