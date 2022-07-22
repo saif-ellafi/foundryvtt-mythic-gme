@@ -4,7 +4,7 @@
   "description": "A set of Macros and Random Tables for playing with the Mythic Game Master Emulator",
   "main": "mythic-gme-tools.js",
   "scripts": {
-    "copy": "cp ./README.md dist/ && cp ./CHANGELOG.md dist/ && cp ./LICENSE.md dist/ && cp ./module.json dist/ && cp ./THANKS.txt dist/ && cp -r ./packs dist/ && cp -r ./icons dist/ && cp -r ./lang dist/ && cp -r template dist/",
+    "copy": "cp ./README.md dist/ && cp ./CHANGELOG.md dist/ && cp ./LICENSE.md dist/ && cp ./module.json dist/ && cp ./THANKS.txt dist/ && cp -r ./packs dist/ && cp -r ./icons dist/ && cp -r ./lang dist/ && cp -r template dist/ && cp -r ./src/styles dist/",
     "copyWin": "copy README.md dist && copy CHANGELOG.md dist && copy LICENSE.md dist && copy module.json dist && copy THANKS.txt dist && xcopy /Y /I packs dist\\packs && xcopy /Y /I icons dist\\icons && xcopy /Y /I lang dist\\lang && xcopy /Y /I template dist\\template",
     "build": "rollup --config ./rollup.config.js && npm run copy",
     "buildWin": "rollup --config ./rollup.config.js && npm run copyWin",

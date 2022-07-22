@@ -13,9 +13,13 @@
   "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.4.10/foundryvtt-mythic-gme_2.4.10.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibleCoreVersion": "9",
+  "styles": [
+    "./styles/mythic-gme-dialog.css"
+  ],
   "esmodules": [
     "mythic-gme-tools.js"
   ],
+
   "languages": [
     {
       "lang": "en",
