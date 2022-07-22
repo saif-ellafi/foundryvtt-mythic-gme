@@ -1,11 +1,17 @@
-import MGMEMythicPanel from "./panel-mythic-base";
+import MGMEPanel from "./panel-base";
 
-export default class MGMEVars2Panel extends MGMEMythicPanel {
+export default class MGMEVars2Panel extends MGMEPanel {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      id: "mgme_panel_window",
+      id: "mvars2_panel_window",
       template: "./modules/mythic-gme-tools/template/panel-mythic-vars2.hbs"
+    });
+  }
+
+  getData() {
+    return mergeObject(super.getData(), {
+      rankValue: game.settings.get('mythic-gme-tools', 'currentChaos')
     });
   }
 

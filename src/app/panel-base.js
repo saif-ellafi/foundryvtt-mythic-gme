@@ -1,6 +1,6 @@
 import MGMEReference from "../utils/mgme-reference";
 
-export default class MGMEMythicPanel extends Application {
+export default class MGMEPanel extends Application {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -35,7 +35,7 @@ export default class MGMEMythicPanel extends Application {
     `;
 
     let dialogue = new Dialog({
-      title: 'Configure Mythic GME Panel',
+      title: 'Configure Mythic GME Tools Panel',
       content: configureDialog,
       render: async function (html) {
         const panelKey = game.settings.get('mythic-gme-tools', 'panelKey')

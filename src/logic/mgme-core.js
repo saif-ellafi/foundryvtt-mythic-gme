@@ -285,6 +285,7 @@ export default class MGMECore {
         whisper: whisper
       };
       $("#mgme_chaos").val(currentChaos + 1);
+      $("#mgme_panel_cc").text(currentChaos + 1);
       MGMEChatJournal._mgmeCreateChatAndLog(chat);
     } else {
       let chat = {
@@ -308,6 +309,7 @@ export default class MGMECore {
         whisper: whisper
       };
       $("#mgme_chaos").val(currentChaos - 1);
+      $("#mgme_panel_cc").text(currentChaos - 1);
       MGMEChatJournal._mgmeCreateChatAndLog(chat);
     } else {
       let chat = {

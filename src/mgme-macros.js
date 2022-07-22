@@ -8,6 +8,8 @@ import MGMECrafterSeries from "./logic/mgme-crafter-series";
 import MGMEBluePanel from "./app/panel-mythic-gme";
 import MGMEVars1Panel from "./app/panel-mythic-vars1";
 import MGMEVars2Panel from "./app/panel-mythic-vars2";
+import PUMCore from "./logic/pum-core";
+import PUMPanel from "./app/panel-pum";
 
 export default class MGMEMacroAPI {
   static mgmeIncreaseChaos = MGMECore.mgmeIncreaseChaos;
@@ -44,10 +46,8 @@ export default class MGMEMacroAPI {
 
   static mgmeLaunchPanel() {
     const api = game.modules.get('mythic-gme-tools').api;
-    if (api.win) {
-      api.win.close({force: true})
-    }
     const key = game.settings.get('mythic-gme-tools', 'panelKey');
+    let winWidth = 400;
     let win;
     switch (key) {
       case 'mgme_blue': {
@@ -62,8 +62,12 @@ export default class MGMEMacroAPI {
         win = new MGMEVars2Panel();
         break;
       }
+      case 'pum_core': {
+        winWidth = 550
+        win = new PUMPanel();
+        break;
+      }
     }
-    const winWidth = 400;
     win?.render(true, {
       width: winWidth,
       left: (canvas.app.screen.width - ui.sidebar.position.width - winWidth - 20),
@@ -71,4 +75,24 @@ export default class MGMEMacroAPI {
     });
     api.win = win;
   }
+
+  static pumSceneDesigner = PUMCore.pumSceneDesigner;
+  static pumExpectationChecker = PUMCore.pumExpectationChecker;
+  static pumChallengeDesigner = PUMCore.pumChallengeDesigner;
+  static pumHighStakes = PUMCore.pumHighStakes;
+  static pumComplicationDesigner = PUMCore.pumComplicationDesigner;
+  static pumCombatDesigner = PUMCore.pumCombatDesigner;
+  static pumYesOrNoEven = PUMCore.pumYesOrNoEven;
+  static pumYesOrNoLikely = PUMCore.pumYesOrNoLikely;
+  static pumYesOrNoUnlikely = PUMCore.pumYesOrNoUnlikely;
+  static pumHowMany = PUMCore.pumHowMany;
+  static pumHowMuch = PUMCore.pumHowMuch;
+  static pumHowGood = PUMCore.pumHowGood;
+  static pumHowHard = PUMCore.pumHowHard;
+  static pumLooksArea = PUMCore.pumLooksArea;
+  static pumLooksNPC = PUMCore.pumLooksNPC;
+  static pumLooksObject = PUMCore.pumLooksObject;
+  static pumWhat = PUMCore.pumWhat;
+  static pumIntent = PUMCore.pumIntent;
+
 }

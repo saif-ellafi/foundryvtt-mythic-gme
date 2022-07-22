@@ -113,6 +113,14 @@
       "module": "mythic-gme-tools",
       "entity": "JournalEntry",
       "private": true
+    },
+    {
+      "name": "plot-unfolding-machine",
+      "label": "Plot Unfolding Machine Tables",
+      "path": "packs/plot-unfolding-machine.db",
+      "module": "mythic-gme-tools",
+      "entity": "RollTable",
+      "private": true
     }
   ]
 }

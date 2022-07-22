@@ -1,11 +1,17 @@
-import MGMEMythicPanel from "./panel-mythic-base";
+import MGMEPanel from "./panel-base";
 
-export default class MGMEBluePanel extends MGMEMythicPanel {
+export default class MGMEBluePanel extends MGMEPanel {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      id: "mgme_panel_window",
+      id: "mblue_panel_window",
       template: "./modules/mythic-gme-tools/template/panel-mythic-gme.hbs"
+    });
+  }
+
+  getData() {
+    return mergeObject(super.getData(), {
+      rankValue: game.settings.get('mythic-gme-tools', 'currentChaos')
     });
   }
 

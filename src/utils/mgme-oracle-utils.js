@@ -11,8 +11,8 @@ export default class MGMEOracleUtils {
     return targetRoll;
   }
 
-  static async _mgmeUpdateChatSimulation(baseChat, newMessage) {
-    await baseChat.update({content: baseChat.data.content + newMessage});
+  static async _mgmeUpdateChatSimulation(baseChat, newMessage, separator = '') {
+    await baseChat.update({content: baseChat.data.content + separator + newMessage});
     ui.chat.scrollBottom();
     const popOutChat = Object.values(ui.windows).find(w => w.constructor.name === 'ChatLog')
     if (popOutChat) {
@@ -61,6 +61,46 @@ export default class MGMEOracleUtils {
       descriptor2Result: descriptor2Result,
       descriptor2Roll: descriptor2Roll
     };
+  }
+
+  static async _mgmeSimpleTableOracle(tableData, flavor, useSpeaker, input) {
+    const sceneDesign = await MGMECommon._mgmeFindTableByName(tableData.name);
+    const targetRoll = await sceneDesign.roll();
+    const text = targetRoll.results[0].getChatText();
+    const output = (input?.length ? `<h2>${input}</h2>` : '') + (tableData.key ? `<b>${tableData.key}:</b> ` : ``) + text;
+    const whisper = MGMECommon._mgmeGetWhisperMode();
+    let chatConfig = {
+      flavor: flavor,
+      content: output,
+      speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
+      whisper: whisper
+    };
+    await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
+    await ChatMessage.create(chatConfig);
+  }
+
+  static async _mgmeMultipleTableOracle(tableDataList, flavor, useSpeaker, input) {
+    const whisper = MGMECommon._mgmeGetWhisperMode();
+    let chatConfig = {
+      flavor: flavor,
+      speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
+      content: input?.length ? `<h2>${input}</h2>` : '',
+      whisper: whisper
+    };
+    let chat = await ChatMessage.create(chatConfig);
+    let first = true;
+    for (const tableData of tableDataList) {
+      const sceneDesign = await MGMECommon._mgmeFindTableByName(tableData.name);
+      const targetRoll = await sceneDesign.roll();
+      await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
+      const output = targetRoll.results[0].getChatText();
+      if (tableData.key) {
+        MGMEOracleUtils._mgmeUpdateChatSimulation(chat, `<b>${tableData.key}:</b> ${output}`, first === false ? '<br/>' : '')
+      } else {
+        MGMEOracleUtils._mgmeUpdateChatSimulation(chat, `${output}`, first === false ? ' ' : '')
+      }
+      first = false;
+    }
   }
 
   static async _mgmeSubmitOracleQuestion(eventTitle, eventFlavor, useSpeaker, eventFocus, tableSetting1, tableSetting2, baseChat) {
@@ -112,9 +152,38 @@ export default class MGMEOracleUtils {
     }
   }
 
-  static async _mgmePrepareOracleQuestion(questionProps, baseChat) {
-    if (!questionProps.purpose) {
-      const questionDialog = `
+  static async _mgmeBuildOracleDialog(label, oracleCallback) {
+    const questionDialog = `
+      <form>
+      <div>
+      <label for="reQuestion">Context (${game.i18n.localize('MGME.Optional')}):</label>
+      <input name="reQuestion" id="mgme_re_question" style="margin-bottom:10px;width:220px"/>
+      </div>
+      </form>
+    `
+    let dialogue = new Dialog({
+      title: label,
+      content: questionDialog,
+      render: async function (html) {
+        html[0].getElementsByTagName("input").mgme_re_question.focus();
+      },
+      buttons: {
+        submit: {
+          icon: '<i class="fas fa-comments"></i>',
+          label: game.i18n.localize('MGME.ToChat'),
+          callback: (html) => {
+            const title = html.find("#mgme_re_question").val().trim();
+            oracleCallback(title)
+          }
+        }
+      },
+      default: "submit"
+    })
+    dialogue.render(true)
+  }
+
+  static async _mgmeBuildMythicDialog(questionProps, baseChat) {
+    const questionDialog = `
       <form>
       <div>
       <label for="reQuestion">${questionProps.label} (${game.i18n.localize('MGME.Optional')}):</label>
@@ -129,44 +198,49 @@ export default class MGMEOracleUtils {
       </div>
       </form>
     `
-      let dialogue = new Dialog({
-        title: questionProps.label,
-        content: questionDialog,
-        render: async function (html) {
-          if (questionProps.useFocusTable) {
-            const eFocusElement = $("#mgme_re_efocus");
-            const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
-            eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
-            const focusResults = (await MGMECommon._mgmeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
-            focusResults.forEach(focus => {
-              eFocusElement.append(`<option value="${focus}">${focus}</option>`);
-            });
+    let dialogue = new Dialog({
+      title: questionProps.label,
+      content: questionDialog,
+      render: async function (html) {
+        if (questionProps.useFocusTable) {
+          const eFocusElement = $("#mgme_re_efocus");
+          const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
+          eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
+          const focusResults = (await MGMECommon._mgmeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
+          focusResults.forEach(focus => {
+            eFocusElement.append(`<option value="${focus}">${focus}</option>`);
+          });
+        }
+        html[0].getElementsByTagName("input").mgme_re_question.focus();
+      },
+      buttons: {
+        submit: {
+          icon: '<i class="fas fa-comments"></i>',
+          label: game.i18n.localize('MGME.ToChat'),
+          callback: (html) => {
+            let text = html[0].getElementsByTagName("input").mgme_re_question.value;
+            const focusValue = $("#mgme_re_efocus");
+            const eventFocus = focusValue.val() === 'Random' ? undefined : (focusValue.val() ?? '_');
+            MGMEOracleUtils._mgmeSubmitOracleQuestion(
+              text.length ? `<h2>${text}</h2>` : '',
+              questionProps.label,
+              true,
+              eventFocus,
+              questionProps.tableSetting1,
+              questionProps.tableSetting2,
+              baseChat
+            );
           }
-          html[0].getElementsByTagName("input").mgme_re_question.focus();
-        },
-        buttons: {
-          submit: {
-            icon: '<i class="fas fa-comments"></i>',
-            label: game.i18n.localize('MGME.ToChat'),
-            callback: (html) => {
-              let text = html[0].getElementsByTagName("input").mgme_re_question.value;
-              const focusValue = $("#mgme_re_efocus");
-              const eventFocus = focusValue.val() === 'Random' ? undefined : (focusValue.val() ?? '_');
-              MGMEOracleUtils._mgmeSubmitOracleQuestion(
-                text.length ? `<h2>${text}</h2>` : '',
-                questionProps.label,
-                true,
-                eventFocus,
-                questionProps.tableSetting1,
-                questionProps.tableSetting2,
-                baseChat
-              );
-            }
-          }
-        },
-        default: "submit"
-      })
-      dialogue.render(true)
+        }
+      },
+      default: "submit"
+    })
+    dialogue.render(true)
+  }
+
+  static async _mgmePrepareOracleQuestion(questionProps, baseChat) {
+    if (!questionProps.purpose) {
+      MGMEOracleUtils._mgmeBuildMythicDialog(questionProps, baseChat)
     } else {
       await MGMEOracleUtils._mgmeSubmitOracleQuestion(
         questionProps.purpose,

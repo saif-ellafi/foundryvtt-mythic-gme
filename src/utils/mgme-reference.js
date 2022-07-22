@@ -125,9 +125,10 @@ export default class MGMEReference {
 
   static MYTHIC_PANELS = {
     'mgme_nopalen': 'Disabled',
-    'mgme_blue': 'Mythic GM Emulator',
-    'mgme_vars1': 'Mythic Variations 1',
-    'mgme_vars2': 'Mythic Variations 2'
+    'mgme_blue': 'Mythic GM Emulator (Blue Book)',
+    'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
+    'mgme_vars2': 'Mythic Variations 2 (Green Book)',
+    'pum_core': 'Plot Unfolding Machine (Homebrew by JeansenVaars)'
   }
 
   static DIE_COLORS = {
