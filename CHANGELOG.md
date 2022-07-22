@@ -1,3 +1,6 @@
+### 2.5.1
+* Bugfix: Fixed broken PUM :)
+
 ### 2.5.0
 * Feature: Brand-new floating Panel with all Mythic mechanics at hand (Huge thank you Stargolum for the UI and feedback!)
 * Feature: 3 Panels with different setups (pure Mythic GME, Variations 1 and Variations 2, and PUM)
