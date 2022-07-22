@@ -1,3 +1,11 @@
+### 2.5.0
+* Feature: Brand-new floating Panel with all Mythic mechanics at hand (Huge thank you Stargolum for the UI and feedback!)
+* Feature: 3 Panels with different setups (pure Mythic GME, Variations 1 and Variations 2, and PUM)
+* Feature: Included my GM-Less rulebook "Plot Unfolding Machine" (PUM) with Panel support
+* Enhancement: NPCs List and Threads List now created automatically through panels
+* Deprecation: Mythic GME Tools Macros created from versions older than 2.0.0 won't work anymore. Re-import.
+* Deprecation: Mythic Play Journals in favor of new Mythic Panels
+
 ### 2.4.10
 * Rollback: GURPS fixed dice support. Now rolling back Mythic and everyone is happy :)
 

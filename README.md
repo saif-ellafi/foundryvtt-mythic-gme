@@ -19,45 +19,46 @@ Mythic GME Tools provides everything needed for playing Mythic GM Emulator with 
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
       2. [Variations 1 Orange Book](#variations-1-orange-book)
       3. [Variations 2 Green Book](#variations-2-green-book)
-      4. [The Crafter Series](#the-crafter-series)
-   3. [Mythic Play Journals](#mythic-play-journals)
+      4. [Mythic Panels](#mythic-panels)
    4. [The Oracle Builder](#the-oracle-builder)
    5. [Rolling your own Tables](#rolling-your-own-tables)
    6. [Chat and Exporting](#chat-and-exporting)
-   7. [Customizing your playstyle](#customizing-your-playstyle)
+   7. [Customizing your Playstyle](#customizing-your-playstyle)
    8. [Saved Progress](#saved-progress)
-   9. [Configurable Settings](#configurable-settings)
-   10. [Card Decks](#card-decks)
-4. [Tips and Tricks and Modules](#tips-and-tricks-and-modules)
+   9. [Card Decks](#card-decks)
+4. [Tips and Tricks](#tips-and-tricks)
 5. [Author](#author)
 6. [License](#license)
 
 ## Word Mill Games
 
-**Mythic GM Emulator Rulebook** is _REQUIRED_ to use and understand this content. Variations 1 and 2 books are needed for
-the optional rules!.
+**Mythic GM Emulator Rulebook** is _REQUIRED_ to understand this material. Variations 1 and 2 are needed as well, respectively for their mechanics.
 
-All attributions belong to [Word Mill Games](https://www.wordmillgames.com) and this module is redistributed with appropriate permission from author **Tana Pigeon** - And may NOT be REDISTRIBUTED FURTHER without CONSENT
+Mythic Game Master Emulator is property of [Word Mill Games](https://www.wordmillgames.com) and this module is distributed with permission of author **Tana Pigeon**.
 
-[Get Mythic GME Book](https://www.drivethrurpg.com/product/20798/Mythic-Game-Master-Emulator)
+May not be commercially redistributed. Offered for free (Donations permitted and welcome to the author of this module).
 
-[Other fantastic Word Mill Games material](https://www.drivethrurpg.com/browse/pub/480/Word-Mill)
+[Get Mythic GME Books](https://www.wordmillgames.com/)
 
-### Early Special Appreciations!
+### Special Appreciations!
 * **Tana Pigeon** for authorizing the distribution of this module, based on the wonderful Mythic Books
-* **stargolum** for DECKs support, feature loved by the community who plays with GMA cards
-* **KarstenW** for providing German Translations to the UI
+* **stargolum** for DECKs support to play with Mythic and GMA Cards, as well for the positive feedback and panels UI
+* **KarstenW** for providing German Translations
 * **FoundryVTT Discord, Die Gießerei and Mythic Discord communities** for supporting with my terrible coding skills and crazy ideas
-* All users who say thanks and the ones who secretly play without letting me know :D
+* Everyone who appreciates and enjoys this material
 
 ## How to play
+
+**Starting from 2.5.0+**, Mythic GME Tools automatically opens a panel with all mechanics ready to be played from the get-go. No setup required. 
+
 This modules provides all mythic rules in the form of Macros. You can use them in whatever RPG system you like in any world.
 
-In Foundry, enable the module, and then go to the Compendiums tab, you are going to see many compendiums starting with the word **Mythic**. For starters, the most basic one is **Mythic GME Macros**, but feel free to explore the others, the more you are familiar with Mythic rules.
-
-Once you open the Compendium, you'll see many Macros like **Fate Chart** or **Scene Alteration**. Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then, just click on it and play! Organize macros that you use frequently for your type of play. This is how my Macro hotbar looks like:
+**To manually import Macros**, enable the module, and then go to the Compendiums tab, you are going to see many compendiums starting with the word **Mythic**. For starters, the most basic one is **Mythic GME Macros**.
+Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then, just click on them and play!
 
 ![image](https://user-images.githubusercontent.com/27952699/170837019-8056686f-af1b-4da0-8439-8c7eebc7f770.png)
+
+### Video example
 
 [![image](https://user-images.githubusercontent.com/27952699/171506549-21b66635-18a3-4ee9-b9c1-dbb3c408d3bc.png)
 ](https://www.youtube.com/watch?v=V494FhoV5Ys)
@@ -73,8 +74,9 @@ Once you open the Compendium, you'll see many Macros like **Fate Chart** or **Sc
 * Customize all Roll Tables and the Macros will automatically use them!
 * Built-in Support for **Dice so Nice!** taking 3D dice to a flavor-narrative oriented experience
 * All Actions translate into the chat for keeping a **history of your game**. This may also be exported to a Journal.
+* Everything is configurable through Mythic GME Tools module settings (such as Focus Tables, and more)
 
-![](example-mythic-tools.png)
+![mythic-gme-tools-example.png](mythic-gme-tools-example.png)
 
 ### Macros
 These macros provide complex functionalities summarized in a one-click event.
@@ -109,27 +111,16 @@ speak on his behalf or even sometimes use its information for better flavor!
 * Behavior Check - Advanced: This Macro stores disposition information within Tokens!
 * Statistic Check - Advanced: This Macro stores the last used Attributes in your game!
 
-![img.png](green-book-macros.png)
+![green-book-macros.png](green-book-macros.png)
 
-#### The Crafter Series
+### Mythic Panels
 
-Macros for the **Randomized Locations Crafter**, inspired in the Mythic Magazine 2 are available to be used.
-You can track Progress Points and use any of your own tables to follow the logic described by either The Location Crafter or The Randomized Version from the Magazine.
+These panels appear by default as soon as the module is enabled, and allow you to play directly from there, without the need
+of importing Macros.
 
-**TABLES NOT INCLUDED:** As a Matter of Principle, I prefer not to include the crafter tables, as the crafter series are already beyond the original scope of the module :)
+Click on **Configure** to switch to alternate layouts, and **Export** will let you export Chat to Journal.
 
-Creating the random tables by yourself is relatively straight forward, use Nested tables to achieve the Special and Random Results, and even the Known if you have your own Random Tables!
-
-Check my video to learn how to very fast ingest tables into Foundry: https://www.youtube.com/watch?v=-28Nks44SfM 
-
-![location-crafter-example.png](location-crafter-example.png)
-
-![location-crafter-dialog.png](location-crafter-dialog.png)
-
-### Mythic Play Journals
-Find these two pre-built journals within the compendium and play Mythic from there!
-
-![mythic-play.png](mythic-play.png)
+![green-book-macros.png](mythic-panel-1.png)
 
 ### The Oracle Builder
 Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
@@ -172,9 +163,10 @@ Keep your game chat log clear and consistent, add headers, subtitles, and more
 
 ![formatted-message.png](formatted-message.png)
 
-#### Exporting your game
-Export current Chat to Journal - Either for backup or for history tracking. You can do this in two ways:
+#### Exporting chat records to a Journal Entry
+You can do this in three ways:
 
+* By clicking on Export in the Mythic Panel
 * By using the Macro to export current Chat to a Journal Entry
 * By enabling Auto-Logging setting that automatically puts all your chat in a daily journal
 
@@ -182,27 +174,20 @@ Export current Chat to Journal - Either for backup or for history tracking. You 
 
 ### Customizing your playstyle
 
+There are plenty of configuration options. Go to **Module Settings** in Foundry and check the Mythic GME Tools section!
+
 Tables necessary to execute the aforementioned macros are included, and may also be used independently.
 
-**Macros use Roll Tables**. Going to **Module Settings** lets you choose which tables are being used. Table names must begin
-with **Mythic** in order to be eligible. By default, Macros pick up Tables **by their name**, so also importing the  Tables
-from the Compendium and making modifications on them, will automatically apply to the Macros looking for them.
+**Macros use Roll Tables**. Going to **Module Settings** lets you choose which tables are used. Table names must begin
+with **Mythic** in order to be eligible. By default, Macros pick up Tables **by their name**, so importing the Tables
+from the Compendium and making modifications on them, will automatically apply to the Macros that use them.
 Try to keep the same format of the tables to avoid issues. Delete imported tables to revert Macros to use the original ones.
 
 ### Saved Progress
 
 * Chaos Rank: When changing Chaos Rank, the value will be saved and reused across all functions
-* Behavior Actor Disposition: Tokens and Actors on which Behavior Check was used, will save their information in your game.
-Running Behavior Checks on the same tokens will bring up their current disposition data!
-* Statistic Checks Macro will store the last utilized Attributes for more convenience playthrough!
-
-### Configurable Settings
-* Minimum and Maximum Chaos Rank is configurable
-* Custom color for Chaos Die in Variations #2
-* Optional setting rules from Variations #1 and #2
-* Globally select Focus, subject, action and descriptor tables for all Macros (i.e. for a Variations #1 Theme)
-* Automatic logging into Journal Entries
-* Configure different levels of speed and tension when interacting with 3D Dice (Dice so Nice!)
+* Behavior Checks: Disposition and descriptors are stored within actor tokens, by selecting the token before running the Macro.
+* Statistic Checks: Stats are stored within actor tokens, by selecting the token before running the Macro.
 
 ### Card Decks
 
@@ -229,53 +214,22 @@ Simply unzip the files as they are, into the `decks` folder in your `Data` folde
 
 #### How to use
 
-1. Install and Enable Mythic GME Tools in FoundryVTT
-2. Enter any game (This module is system agnostic!)
-3. Go to Compendiums, right click on Mythic GME Macros, Import All Content
-4. Roll Tables can be used either directly from the Compendium, or imported along your other Roll Tables
-5. [Optional] Using Decks (Cards not included) - Thank you stargolum/spacegiant) !!!
-    1. Get any of the supported cards
+1. Install Decks (Cards not included in module)
+    1. Get any of the supported cards from DriveThruRPG
     2. Download the ZIP files of the decks you want to use
     3. Go to the folder "Data" from Foundry. This is where you have folders like `modules`, `systems` and `worlds`.
     4. Create a folder called `decks` exactly there along these other folders.
     5. Go inside the `decks` folder you just created and put the purchased .ZIP file there
     6. Right-click on the ZIP and press "Extract Here". Leave everything as is, make sure no folder names are duplicated
        when you extract it.
-    7. Import mythic deck Macros for your preset game (or use these as guidance)
-    8. If everything works, you can delete the zip file from there. It is not needed.
-6. Say thanks if you like this, particularly to `Stargolum` :)
+    7. If everything works, you can delete the zip file from there. It is not needed.
+2. Enable the module in a game world, and go to Compendiums Tab
+3. Open `Mythic Deck Macros` and Drag and Drop the ones you want, to the Macro Hotbar
+4. [Optional] Import `Mythic Deck Tables` from Compendium if you want to draw cards without replacement
+5. Say thanks if you like this, particularly to `Stargolum` :)
 
-#### Use other decks
-Copy any of the macros and rename the following values and parameters:
-
-* Configure your Deck folder for the Macros to be able to pull them into the game (See instructions below)
-* Optionally rotate cards feature (Mythic and TAC need this) - **Note: Must be changed within the Macro Script**
-* Toggle shuffle off if required - **Note: Must be changed within the Macro Script**
-* Set image file type to match your card image files. - **Note: Must be changed within the Macro Script**
-
-## Tips and Tricks and Modules
+## Tips and Tricks
 Playing without a GM, Solo or story telling in Foundry requires some practice. The following tips might boost your learning process.
-
-### Learn to use Foundry's Chat
-Try this on the chat:
-```
-Plot Point 1: [[1d100]]
-Plot Point 2: [[1d100]]
-<b>Plot Point 3:</b> [[1d100]]
-Plot Point 4: [[1d100]]
-Plot Point 5: [[1d100]]
-```
-The dice formula within double brackets on each side will roll for you the dice and print it alongside the rest of the text. With `Shift+Enter` you can insert new lines on the same chat dialogue. The `<b>text</b>` styling format will give you a **bold** text! Check out some other basic tags like `<em>...</em>` for italic format or `<h2>...</h2>` for subtitles. Check for more tags [here](https://www.w3schools.com/html/html_formatting.asp)
-
-### Install Inline Table Rolls module
-With `Inline Table Rolls` module, you can do the same of the above, but including drawing from random tables, look:
-```
-Plot Point 1: [[1d100]] - Theme: [[#Plotline Theme]]
-Plot Point 2: [[1d100]] - Theme: [[#Plotline Theme]]
-Plot Point 3: [[1d100]] - Theme: <b>[[#Plotline Theme]]</b>
-Plot Point 4: [[1d100]] - Theme: [[#Plotline Theme]]
-Plot Point 5: [[1d100]] - Theme: [[#Plotline Theme]]
-```
 
 ### Recommended companion modules
 
@@ -283,20 +237,18 @@ This is an opinionated list of other Foundry VTT modules that may improve your e
 
 * [Dice so Nice](https://foundryvtt.com/packages/dice-so-nice) - Adds 3D Dice. Mythic GME Tools makes use of them improving the dice rolling experience
 * [Sidebar Resizer and Chat Editor](https://foundryvtt.com/packages/sidebar-resizer) - Make the Chat bigger and add styles in real time
+* [Roll Tables from Sidebar](https://foundryvtt.com/packages/rolltable-from-sidebar) - Roll tables faster without having to open them
 * [Drag Anything to Hotbar](https://foundryvtt.com/packages/drag-all-to-hotbar) - Drag & Drop characters, journal entries and roll tables, to have handy
 * [PDFoundry](https://foundryvtt.com/packages/pdfoundry) - Not only it enables PDF journal entries, but also works with form-fillable PDFs!
-* [Inline Table Rolls](https://foundryvtt.com/packages/inline-table-rolls) - Allows for rolling on random tables within chat messages just like dice [[#Table Name]]
-* [GM Screen](https://foundryvtt.com/packages/gm-screen) - Have your favorite journal entries handy. Some players place Macros and Random Tables there for quick access.
 * [Quick Insert](https://foundryvtt.com/packages/quick-insert) - Find things quickly and insert them in the chat or in a journal as a link
-* [Terrain Randomizer](https://foundryvtt.com/packages/terrain-randomizer) - If you are into Solo tools in general, this one is for generating area layouts
 * [Dice Tray](https://foundryvtt.com/packages/dice-calculator) - For quick dice rolling, adds above the chat a bar of multiple dice types, handy.
-* [EasyTable](https://foundryvtt.com/packages/EasyTable) - If you have random tables in text format or got Regex skills, quickly load random tables into Foundry
 * [Chat Portrait](https://foundryvtt.com/packages/chat-portrait) - If you play with actors that have token images, this will show such portraits in the chat
 
 ### Other modules of mine
 
 * [Minimal UI](https://github.com/saif-ellafi/foundryvtt-minimal-ui) - Snappier User Interface
 * [Window Controls](https://foundryvtt.com/packages/window-controls) - Pin and minimize windows, will help organizing all those open journal entries
+* [Clipboard Image](https://foundryvtt.com/packages/clipboard-image) - Quickly copy-paste images into the Foundry canvas map
 * [Scene Preview](https://github.com/saif-ellafi/foundryvtt-scene-preview) - Preview Scenes before moving across to them
 * [Actor Link Indicator](https://github.com/saif-ellafi/foundryvtt-actor-link-indicator) - Indicate whether Actors spawn linked Tokens
 * [Super Select](https://github.com/saif-ellafi/foundryvtt-super-select) - Select Tiles, Drawings and Tokens without switching controls
@@ -314,20 +266,6 @@ However you can still [Invite me to a Coffee](#by-jeansenvaars) :) if you enjoy 
 ![JVLogo](logo-small-black.png)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
-
-### Contributors
-
-Thanks to [spacegiant](https://github.com/spacegiant) (GitHub username) - We can enjoy a set of Macros destined to use
-Mythic Cards Deck as well as The GameMaster's Apprentice.
-
-The decks **ARE NOT INCLUDED**, thus must be purchased
-separately: [Mythic GME Deck](https://www.drivethrurpg.com/product/257195/Mythic-Game-Master-Emulator-Deck)
-and [TAC](https://www.drivethrurpg.com/product/125685/The-GameMasters-Apprentice-Base-Deck)
-
-### Community
-
-Special thanks to the Community at the Discord Channel from [Mythic Game Master Emulator](https://discord.gg/hyHUuZEt)
-for the support
 
 ### Powered By
 
