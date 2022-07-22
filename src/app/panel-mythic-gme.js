@@ -27,7 +27,9 @@ export default class MGMEBluePanel extends MGMEPanel {
     html.find("#mgme_panel_fo").click(api.mgmeFocusCheck);
 
     html.find("#mgme_panel_npc").click(api.mgmeRenderNPCsList);
+    html.find("#mgme_panel_npc_roll").click(api.mgmeRollNPCsList);
     html.find("#mgme_panel_thread").click(api.mgmeRenderThreadsList);
+    html.find("#mgme_panel_thread_roll").click(api.mgmeRollThreadsList);
 
     html.find("#mgme_panel_ci").click(api.mgmeIncreaseChaos);
     html.find("#mgme_panel_cd").click(api.mgmeDecreaseChaos);

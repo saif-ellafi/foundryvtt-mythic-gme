@@ -45,7 +45,9 @@ export default class MGMEMacroAPI {
   static mgmePrepareCustomOracleQuestion = MGMEOracleBuilder.mgmePrepareCustomOracleQuestion;
 
   static mgmeRenderNPCsList = MGMEChatExtras.mgmeRenderNPCsList;
+  static mgmeRollNPCsList = MGMEChatExtras.mgmeRollNPCsList;
   static mgmeRenderThreadsList = MGMEChatExtras.mgmeRenderThreadsList;
+  static mgmeRollThreadsList = MGMEChatExtras.mgmeRollThreadsList;
 
   static mgmeLaunchPanel() {
     const api = game.modules.get('mythic-gme-tools').api;

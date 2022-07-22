@@ -1,3 +1,6 @@
+### 2.5.2
+* Enhancement: Added buttons to roll from NPC and Thread Lists in Panels
+
 ### 2.5.1
 * Bugfix: Fixed broken PUM :)
 
