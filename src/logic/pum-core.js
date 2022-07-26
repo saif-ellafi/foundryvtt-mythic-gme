@@ -169,6 +169,18 @@ export default class PUMCore {
     })
   }
 
+  static pumWho() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Who', (input) => {
+      MGMEOracleUtils._mgmeMultipleTableOracle([
+          {key: 'Subject', name: 'Who Subject'},
+          {key: 'Type', name: 'Who Type'}
+        ], 'Who',
+        false,
+        input
+      );
+    })
+  }
+
   static pumWhat() {
     MGMEOracleUtils._mgmeBuildOracleDialog('What', (input) => {
       MGMEOracleUtils._mgmeMultipleTableOracle([
@@ -184,11 +196,23 @@ export default class PUMCore {
   static pumIntent() {
     MGMEOracleUtils._mgmeBuildOracleDialog('Intent', (input) => {
       MGMEOracleUtils._mgmeMultipleTableOracle([
-        {key: 'They...', name: 'Intent Do'},
-        {name: 'Intent Whose'},
+        {key: 'They', name: 'Intent Do'},
         {name: 'Intent What'},
-        {key: 'Because of...', name: 'Intent Reason'}
-      ], 'What Question',
+        {key: 'Because of', name: 'Intent Reason'}
+      ], 'Intent',
+        false,
+        input
+      );
+    })
+  }
+
+  static pumActivity() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Activity', (input) => {
+      MGMEOracleUtils._mgmeMultipleTableOracle([
+          {key: 'They are', name: 'Activity Do'},
+          {name: 'Activity What'},
+          {key: 'Because of', name: 'Activity Reason'}
+        ], 'Activity',
         false,
         input
       );

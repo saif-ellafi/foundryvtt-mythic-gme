@@ -101,7 +101,9 @@ export default class MGMEMacroAPI {
   static pumLooksArea = PUMCore.pumLooksArea;
   static pumLooksNPC = PUMCore.pumLooksNPC;
   static pumLooksObject = PUMCore.pumLooksObject;
+  static pumWho = PUMCore.pumWho;
   static pumWhat = PUMCore.pumWhat;
   static pumIntent = PUMCore.pumIntent;
+  static pumActivity = PUMCore.pumActivity;
 
 }
