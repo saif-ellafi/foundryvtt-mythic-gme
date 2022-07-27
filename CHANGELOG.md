@@ -1,3 +1,6 @@
+### 2.5.3
+* Enhancement: Updated 'Plot Unfolding Machine' panels and oracles to Revision 16
+
 ### 2.5.2
 * Enhancement: Added buttons to roll from NPC and Thread Lists in Panels
 
