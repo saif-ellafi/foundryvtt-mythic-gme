@@ -1,3 +1,6 @@
+### 2.5.4
+* Enhancement: HUD Panel now disabled for players by default. New setting to configure permission.
+
 ### 2.5.3
 * Enhancement: Updated 'Plot Unfolding Machine' panels and oracles to Revision 16
 

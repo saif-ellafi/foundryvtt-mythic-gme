@@ -17,14 +17,29 @@ export default class MGMECore {
     });
 
     game.settings.register('mythic-gme-tools', 'panelKey', {
-      name: 'MGME Panel Key',
-      hint: 'Currently defined Mythic Panel',
-      scope: 'world',
+      name: game.i18n.localize('MGME.SettingsPanelKeyName'),
+      hint: game.i18n.localize('MGME.SettingsPanelKeyHint'),
+      scope: 'client',
       config: true,
       type: String,
       choices: MGMEReference.MYTHIC_PANELS,
       default: 'mgme_blue',
       onChange: () => game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
+    });
+
+    game.settings.register('mythic-gme-tools', 'panelPermission', {
+      name: game.i18n.localize('MGME.SettingsPanelPermissionName'),
+      hint: game.i18n.localize('MGME.SettingsPanelPermissionHint'),
+      scope: 'world',
+      config: true,
+      type: String,
+      choices: {
+        'onlygm': game.i18n.localize('MGME.SettingsPanelGMsVal'),
+        'players': game.i18n.localize('MGME.SettingsPanelPlayersVal')
+      },
+      default: 'onlygm',
+      restricted: true,
+      onChange: MGMECommon.DEBOUNCED_RELOAD
     });
 
     game.settings.register('mythic-gme-tools', 'autoInterrupt', {

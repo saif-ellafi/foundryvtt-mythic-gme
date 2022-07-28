@@ -50,6 +50,9 @@ export default class MGMEMacroAPI {
   static mgmeRollThreadsList = MGMEChatExtras.mgmeRollThreadsList;
 
   static mgmeLaunchPanel() {
+    if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
+      return
+    }
     const api = game.modules.get('mythic-gme-tools').api;
     if (api.win) {
       api.win?.close({force: true});

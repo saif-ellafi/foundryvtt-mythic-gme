@@ -34,6 +34,12 @@
   "MGME.SettingsD8ForSceneCheckHint": "A special rule for Variations #2 changing scene alteration probabilities",
   "MGME.SettingDeckPathName": "Deck Path Location",
   "MGME.SettingDeckPathHint": "Folder where you store you card decks. Relative to User Data directory, where 'worlds', 'modules' and 'systems' are.",
+  "MGME.SettingsPanelKeyName": "Active Panel",
+  "MGME.SettingsPanelKeyHint": "Change or disable HUD Panel",
+  "MGME.SettingsPanelPermissionName": "Panel Permissions",
+  "MGME.SettingsPanelPermissionHint": "Select who can see the HUD Panel",
+  "MGME.SettingsPanelGMsVal": "Game Masters only",
+  "MGME.SettingsPanelPlayersVal": "Everyone",
 
   "MGME.DialogV2Conversion1": "This rule is based on Mythic Variations #2 Chaos Factor rules and needs Chaos Range settings between 3 and 6.",
   "MGME.DialogV2Conversion2": "Would you like me to change these settings for you?",

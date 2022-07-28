@@ -34,6 +34,12 @@
   "MGME.SettingsD8ForSceneCheckHint": "Una regla especial de variations 2",
   "MGME.SettingDeckPathName": "Ubicación de la carpeta de cartas",
   "MGME.SettingDeckPathHint": "Identificar donde tienes las imagenes de las cartas soportadas",
+  "MGME.SettingsPanelKeyName": "Panel activo",
+  "MGME.SettingsPanelKeyHint": "Cambiar o desactivar el panel HUD",
+  "MGME.SettingsPanelPermissionName": "Permisos del panel",
+  "MGME.SettingsPanelPermissionHint": "Selecciona quién puede ver el panel HUD",
+  "MGME.SettingsPanelGMsVal": "Solo directores de juego",
+  "MGME.SettingsPanelPlayersVal": "Todos",
 
   "MGME.DialogV2Conversion1": "Esta regla se basa en las reglas de Factor de Caos de las Variaciones Míticas #2 y necesita ajustes de Rango de Caos entre 3 y 6.",
   "MGME.DialogV2Conversion2": "¿Quieres que cambie estos ajustes por ti?",
@@ -232,5 +238,4 @@
 
   "MGME.NPCList": "Lista de PNJs",
   "MGME.ThreadList": "Lista de Hilos"
-
 }

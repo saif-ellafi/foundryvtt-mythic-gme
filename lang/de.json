@@ -34,6 +34,12 @@
   "MGME.SettingsD8ForSceneCheckHint": "Eine Sonderregel für Variationen #2, die die Wahrscheinlichkeit von Szenen-Veränderungen anpasst",
   "MGME.SettingDeckPathName": "Pfad zu Kartendecks",
   "MGME.SettingDeckPathHint": "Ordner, in dem du deine Kartendecks speicherst. Bezogen auf das Verzeichnis der Benutzerdaten, wo sich 'worlds', 'modules' und ‚systems' befinden.",
+  "MGME.SettingsPanelKeyName": "Aktives Panel",
+  "MGME.SettingsPanelKeyHint": "HUD-Panel ändern oder deaktivieren",
+  "MGME.SettingsPanelPermissionName": "Panel-Berechtigungen",
+  "MGME.SettingsPanelPermissionHint": "Auswählen, wer das HUD-Panel sehen kann",
+  "MGME.SettingsPanelGMsVal": "Nur Spielleiter",
+  "MGME.SettingsPanelPlayersVal": "Alle",
 
   "MGME.DialogV2Conversion1": "Diese Regel basiert auf den Mythic Variationen #2 Chaos-Faktor-Regeln und benötigt einen Chaos-Bereich zwischen 3 und 6.",
   "MGME.DialogV2Conversion2": "Möchtest du, dass ich diese Einstellungen für dich ändere??",
@@ -232,5 +238,4 @@
 
   "MGME.NPCList": "NPCs Liste",
   "MGME.ThreadList": "Thread Liste"
-
 }
