@@ -58,8 +58,11 @@ export default class PUMCore {
 
   static pumYesOrNoEven() {
     MGMEOracleUtils._mgmeBuildOracleDialog('Yes or No - even', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Yes or No Question Even'},
+      MGMEOracleUtils._mgmeMultipleTableOracle(
+        [
+          {name: 'Yes or No Question Even'},
+          {name: 'Yes or No Answer Caveat'}
+        ],
         'Question (even)',
         false,
         input
@@ -69,8 +72,11 @@ export default class PUMCore {
 
   static pumYesOrNoLikely() {
     MGMEOracleUtils._mgmeBuildOracleDialog('Yes or No - likely', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Yes or No Question Likely'},
+      MGMEOracleUtils._mgmeMultipleTableOracle(
+        [
+          {name: 'Yes or No Question Likely'},
+          {name: 'Yes or No Answer Caveat'}
+        ],
         'Question (likely)',
         false,
         input
@@ -80,8 +86,11 @@ export default class PUMCore {
 
   static pumYesOrNoUnlikely() {
     MGMEOracleUtils._mgmeBuildOracleDialog('Yes or No - unlikely', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Yes or No Question Unlikely'},
+      MGMEOracleUtils._mgmeMultipleTableOracle(
+        [
+          {name: 'Yes or No Question Unlikely'},
+          {name: 'Yes or No Answer Caveat'}
+        ],
         'Question (unlikely)',
         false,
         input
@@ -127,6 +136,17 @@ export default class PUMCore {
       MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'How Hard?'},
         'How Hard?',
+        false,
+        input
+      );
+    })
+  }
+
+  static pumHowToDo() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('How to do?', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'How To Do?'},
+        'How to do?',
         false,
         input
       );

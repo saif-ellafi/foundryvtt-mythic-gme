@@ -103,6 +103,7 @@ export default class MGMEMacroAPI {
   static pumHowMuch = PUMCore.pumHowMuch;
   static pumHowGood = PUMCore.pumHowGood;
   static pumHowHard = PUMCore.pumHowHard;
+  static pumHowToDo = PUMCore.pumHowToDo;
   static pumLooksArea = PUMCore.pumLooksArea;
   static pumLooksNPC = PUMCore.pumLooksNPC;
   static pumLooksObject = PUMCore.pumLooksObject;
