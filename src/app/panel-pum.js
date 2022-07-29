@@ -38,6 +38,7 @@ export default class PUMPanel extends MGMEPanel {
     html.find("#pum_wha").click(api.pumWhat);
     html.find("#pum_in").click(api.pumIntent);
     html.find("#pum_act").click(api.pumActivity);
+    html.find("#pum_re").click(api.pumReason);
 
   }
 

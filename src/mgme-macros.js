@@ -60,6 +60,7 @@ export default class MGMEMacroAPI {
     }
     const key = game.settings.get('mythic-gme-tools', 'panelKey');
     let winWidth = 400;
+    let minHeight = 320;
     let win;
     switch (key) {
       case 'mgme_blue': {
@@ -75,15 +76,16 @@ export default class MGMEMacroAPI {
         break;
       }
       case 'pum_core': {
-        winWidth = 550
+        winWidth = 550;
+        minHeight = 520;
         win = new PUMPanel();
         break;
       }
     }
     win?.render(true, {
       width: winWidth,
-      left: (canvas.app.screen.width - ui.sidebar.position.width - winWidth - 20),
-      top: canvas.app.screen.height - 325
+      left: (canvas.app.screen.width - ui.sidebar.element.width() - winWidth - 20),
+      top: canvas.app.screen.height - minHeight
     });
     api.win = win;
   }
@@ -108,5 +110,6 @@ export default class MGMEMacroAPI {
   static pumWhat = PUMCore.pumWhat;
   static pumIntent = PUMCore.pumIntent;
   static pumActivity = PUMCore.pumActivity;
+  static pumReason = PUMCore.pumReason;
 
 }

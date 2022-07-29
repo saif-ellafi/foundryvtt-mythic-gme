@@ -197,8 +197,7 @@ export default class PUMCore {
     MGMEOracleUtils._mgmeBuildOracleDialog('Intent', (input) => {
       MGMEOracleUtils._mgmeMultipleTableOracle([
         {key: 'They', name: 'Intent Do'},
-        {name: 'Intent What'},
-        {key: 'Because of', name: 'Intent Reason'}
+        {name: 'Intent What'}
       ], 'Intent',
         false,
         input
@@ -210,9 +209,20 @@ export default class PUMCore {
     MGMEOracleUtils._mgmeBuildOracleDialog('Activity', (input) => {
       MGMEOracleUtils._mgmeMultipleTableOracle([
           {key: 'They are', name: 'Activity Do'},
-          {name: 'Activity What'},
-          {key: 'Because of', name: 'Activity Reason'}
+          {name: 'Activity What'}
         ], 'Activity',
+        false,
+        input
+      );
+    })
+  }
+
+  static pumReason() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Reason', (input) => {
+      MGMEOracleUtils._mgmeMultipleTableOracle([
+          {name: 'Reason Action'},
+          {name: 'Reason Motive'},
+        ], 'Reason',
         false,
         input
       );

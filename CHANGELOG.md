@@ -1,3 +1,7 @@
+### 2.5.5
+* Enhancement: Updated 'Plot Unfolding Machine' to Revision 17
+* Bugfix: Adjusted panel default positioning
+
 ### 2.5.4
 * Enhancement: HUD Panel now disabled for players by default. New setting to configure permission.
 
