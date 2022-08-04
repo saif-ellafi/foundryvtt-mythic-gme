@@ -1,3 +1,6 @@
+### 2.5.6
+* Update: Plot unfolding Machine to Revision 21
+
 ### 2.5.5
 * Enhancement: Updated 'Plot Unfolding Machine' to Revision 18
 * Bugfix: Adjusted panel default positioning
