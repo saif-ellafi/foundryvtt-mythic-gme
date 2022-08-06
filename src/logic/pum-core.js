@@ -49,8 +49,10 @@ export default class PUMCore {
   }
 
   static pumCombatDesigner() {
-    MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'Combat Designer'},
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+      {key: 'Circumstance', name: 'Combat Designer'},
+      {key: 'Enemy', name: 'Combat Enemy Type'},
+      ],
       'Combat Designer',
       false
     );

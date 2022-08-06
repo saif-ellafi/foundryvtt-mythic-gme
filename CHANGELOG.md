@@ -1,3 +1,6 @@
+### 2.5.7
+* Update: Plot unfolding machine to Revision 23
+
 ### 2.5.6
 * Update: Plot unfolding Machine to Revision 21
 
