@@ -17,6 +17,24 @@ export default class MGMEPanel extends Application {
   _getHeaderButtons() {
     return [
       {
+        label: "",
+        class: "minimize",
+        icon: "far fa-window-minimize",
+        onclick: function () {
+          if (this._minimized)
+            this.maximize();
+          else {
+            this.minimize();
+            //* Dirty hack to prevent "double minimize" after rapidly double-clicking on the minimize button
+            var _bkpMinimize = this.minimize;
+            this.minimize = () => {};
+            setTimeout(() => {
+              this.minimize = _bkpMinimize;
+            }, 200)
+          }
+        }.bind(this)
+      },
+      {
         "label": game.i18n.localize('MGME.Export'),
         "class": "configure-sheet",
         "icon": "fas fa-book-open",

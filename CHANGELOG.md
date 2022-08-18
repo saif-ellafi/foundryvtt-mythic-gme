@@ -1,3 +1,7 @@
+### 2.5.8
+* Update: Plot unfolding machine to Revision 25
+* Enhancement: Added a minimize button to the panel
+
 ### 2.5.7
 * Update: Plot unfolding machine to Revision 23
 
