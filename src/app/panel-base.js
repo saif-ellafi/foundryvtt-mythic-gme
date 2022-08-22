@@ -89,8 +89,9 @@ export default class MGMEPanel extends Application {
                   }
                 }
               }).render(true, {width: 250})
+            } else if (game.settings.get('mythic-gme-tools', 'panelKey') !== panelSelection) {
+              game.settings.set('mythic-gme-tools', 'panelKey', panelSelection)
             }
-            game.settings.set('mythic-gme-tools', 'panelKey', panelSelection)
           }
         }
       },
