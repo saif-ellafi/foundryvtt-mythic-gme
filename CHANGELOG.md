@@ -1,3 +1,6 @@
+### 2.5.11
+* Update: Scene Unfolding Machine Rev.3
+
 ### 2.5.10
 * Update: Incorporates recently released Scene Unfolding Machine
 
