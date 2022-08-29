@@ -64,8 +64,8 @@ export default class MGMEOracleUtils {
   }
 
   static async _mgmeSimpleTableOracle(tableData, flavor, useSpeaker, input) {
-    const sceneDesign = await MGMECommon._mgmeFindTableByName(tableData.name);
-    const targetRoll = await sceneDesign.roll();
+    const targetTable = await MGMECommon._mgmeFindTableByName(tableData.name);
+    const targetRoll = await targetTable.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
     const text = targetRoll.results[0].getChatText();
     const output = (input?.length ? `<h2>${input}</h2>` : '') + (tableData.key ? `<b>${tableData.key}:</b> ` : ``) + text;
     const whisper = MGMECommon._mgmeGetWhisperMode();
@@ -91,7 +91,7 @@ export default class MGMEOracleUtils {
     let first = true;
     for (const tableData of tableDataList) {
       const sceneDesign = await MGMECommon._mgmeFindTableByName(tableData.name);
-      const targetRoll = await sceneDesign.roll();
+      const targetRoll = await sceneDesign.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
       await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
       const output = targetRoll.results[0].getChatText();
       if (tableData.key) {

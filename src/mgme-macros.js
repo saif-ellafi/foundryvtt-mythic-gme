@@ -10,6 +10,7 @@ import MGMEVars1Panel from "./app/panel-mythic-vars1";
 import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
 import PUMPanel from "./app/panel-pum";
+import SUMCore from "./logic/sum-core";
 
 export default class MGMEMacroAPI {
   static mgmeIncreaseChaos = MGMECore.mgmeIncreaseChaos;
@@ -112,5 +113,22 @@ export default class MGMEMacroAPI {
   static pumIntent = PUMCore.pumIntent;
   static pumActivity = PUMCore.pumActivity;
   static pumReason = PUMCore.pumReason;
+
+  static sumGM0 = () => SUMCore.sumGM('1d20+0');
+  static sumGM1 = () => SUMCore.sumGM('1d20+10');
+  static sumGM2 = () => SUMCore.sumGM('1d20+20');
+  static sumGM3 = () => SUMCore.sumGM('1d20+30');
+
+  static sumNPCGood = SUMCore.sumNPCGood;
+  static sumNPCBad = SUMCore.sumNPCBad;
+
+  static sumNPC0 = () => SUMCore.sumNPC('1d20+0');
+  static sumNPC1 = () => SUMCore.sumNPC('1d20+10');
+  static sumNPC2 = () => SUMCore.sumNPC('1d20+20');
+  static sumNPC3 = () => SUMCore.sumNPC('1d20+30');
+
+  static sumAction = SUMCore.sumAction;
+  static sumSubject = SUMCore.sumSubject;
+  static sumAdjective = SUMCore.sumAdjective;
 
 }

@@ -41,6 +41,23 @@ export default class PUMPanel extends MGMEPanel {
     html.find("#pum_act").click(api.pumActivity);
     html.find("#pum_re").click(api.pumReason);
 
+    html.find("#sum_gm0").click(api.sumGM0)
+    html.find("#sum_gm1").click(api.sumGM1)
+    html.find("#sum_gm2").click(api.sumGM2)
+    html.find("#sum_gm3").click(api.sumGM3)
+
+    html.find("#sum_npcg").click(api.sumNPCGood)
+    html.find("#sum_npcb").click(api.sumNPCBad)
+
+    html.find("#sum_npc0").click(api.sumNPC0)
+    html.find("#sum_npc1").click(api.sumNPC1)
+    html.find("#sum_npc2").click(api.sumNPC2)
+    html.find("#sum_npc3").click(api.sumNPC3)
+
+    html.find("#sum_act").click(api.sumAction)
+    html.find("#sum_sub").click(api.sumSubject)
+    html.find("#sum_adj").click(api.sumAdjective)
+
   }
 
 }
