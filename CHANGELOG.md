@@ -1,3 +1,6 @@
+### 2.6.0
+* Compatibility: Foundry V10 support
+
 ### 2.5.12
 * Update: Scene Unfolding Machine Rev.4
 

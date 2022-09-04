@@ -34,7 +34,7 @@ export default class MGMEChatExtras {
               entries.push(MGMEChatJournal._mgmeBuildLogChatHtml(chat, includeTimestamp, includeActorImg, highlightFlavor));
             });
             MGMEChatJournal._mgmeFindOrCreateJournal(journalName).then(targetJournal => {
-              targetJournal.update({content: targetJournal.data.content + '<br>' + entries.join('\n')}).then(() => {
+              targetJournal.update({content: targetJournal.content + '<br>' + entries.join('\n')}).then(() => {
                 if (clearChat)
                   game.messages.flush();
                 game.user.setFlag('mythic-gme-tools', 'mgmeLastExportConfig', {
@@ -262,7 +262,7 @@ export default class MGMEChatExtras {
               const table = game.tables.contents.find(t => t.name === selectedTable);
               if (selectedTable?.length && table) {
                 content += `<b>${selectedTable}</b>`;
-                await table.drawMany(many, {roll: Roll.create(formula?.length ? formula : table.data.formula), displayChat: false}).then(draw => {
+                await table.drawMany(many, {roll: Roll.create(formula?.length ? formula : table.formula), displayChat: false}).then(draw => {
                   let ii = 0;
                   for (const result of draw.results) {
                     content += `<div>${result.getChatText()}${debug ? ` (${draw.roll.terms[0].results[ii].result})` : ''}</div>`

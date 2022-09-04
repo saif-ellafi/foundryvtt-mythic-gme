@@ -33,7 +33,7 @@ export default class MGMECards {
       ui.notifications.info(game.i18n.localize('MGME.InfoShuffled'));
       return false;
     }
-    const image = await result.results[0].data.text;
+    const image = await result.results[0].text;
     const isRotated = Math.random() < 0.5;
     const style = useRotate && isRotated ? " transform: rotate(181deg);" : "";
 

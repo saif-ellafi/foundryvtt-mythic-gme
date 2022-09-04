@@ -12,7 +12,7 @@ export default class MGMEOracleUtils {
   }
 
   static async _mgmeUpdateChatSimulation(baseChat, newMessage, separator = '') {
-    await baseChat.update({content: baseChat.data.content + separator + newMessage});
+    await baseChat.update({content: baseChat.content + separator + newMessage});
     ui.chat.scrollBottom();
     const popOutChat = Object.values(ui.windows).find(w => w.constructor.name === 'ChatLog')
     if (popOutChat) {

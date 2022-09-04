@@ -25,9 +25,9 @@ export default class MGMEChatJournal {
 
   static _mgmeBuildLogChatHtml(baseChat, includeTimestamp, includeActorImg, highlightFlavor) {
     let content = '';
-    const speaker = baseChat.data.speaker.alias ? `${baseChat.data.speaker.alias}` : `${game.user.name}`;
+    const speaker = baseChat.speaker.alias ? `${baseChat.speaker.alias}` : `${game.user.name}`;
     let isFlavor = false;
-    if (highlightFlavor && baseChat.data.flavor)
+    if (highlightFlavor && baseChat.flavor)
       isFlavor = true;
     const speakerChange = speaker !== MGMEChatJournal._mgmeLastChatExportSpeaker;
     if (MGMEChatJournal._mgmeLastChatExportSpeaker && speakerChange)
@@ -43,16 +43,16 @@ export default class MGMEChatJournal {
     let htmlImg;
     if (speakerChange && includeActorImg) {
       if (speaker !== 'Gamemaster') {
-        const actorImg = game.actors.contents.find(a => a.id === baseChat.data.speaker.actor)?.img;
+        const actorImg = game.actors.contents.find(a => a.id === baseChat.speaker.actor)?.img;
         htmlImg = `<img alt="-" src="${actorImg}" width="36" height="36" class="message-portrait" style="border: 2px solid rgb(40, 111, 204);vertical-align: middle;">`;
       }
       content += `<b class="message-sender"><em><b>${htmlImg ?? ' •'} ${speaker}</b></em></b>`;
     }
     if (includeTimestamp)
-      content += ` (${new Date(baseChat.data.timestamp).toTimeInputString()}) `;
-    content += baseChat.data.flavor ? `<div><u><span class="flavor-text">${baseChat.data.flavor}</span></u></div>` : '';
+      content += ` (${new Date(baseChat.timestamp).toTimeInputString()}) `;
+    content += baseChat.flavor ? `<div><u><span class="flavor-text">${baseChat.flavor}</span></u></div>` : '';
     content += `<div class="message-content">
-    ${baseChat.data.content
+    ${baseChat.content
       .replaceAll('<h1>', '<b><u>')
       .replaceAll('</h1>', '</u></b><br>')
       .replaceAll('<h2>', '<b>')
@@ -72,7 +72,7 @@ export default class MGMEChatJournal {
   static async _mgmeLogChatToJournal(chat) {
     if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
       const journal = await MGMEChatJournal._mgmeFindOrCreateJournal();
-      await journal.update({content: journal.data.content + '<br>' + MGMEChatJournal._mgmeBuildLogChatHtml(
+      await journal.update({content: journal.content + '<br>' + MGMEChatJournal._mgmeBuildLogChatHtml(
         chat,false, true, true
       )});
     }

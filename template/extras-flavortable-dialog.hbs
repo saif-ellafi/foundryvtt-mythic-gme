@@ -78,7 +78,7 @@
         function _mgmeGetTableFormula(idx) {
           const table = game.tables.contents.find(t => t.name === $(`#mgme_table_select_${idx}`).val());
           if (!table) return;
-          $(`#mgme_table_formula_${idx}`).val(table.data.formula);
+          $(`#mgme_table_formula_${idx}`).val(table.formula);
         }
     </script>
 </form>

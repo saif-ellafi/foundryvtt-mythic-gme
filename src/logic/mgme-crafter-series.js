@@ -148,7 +148,7 @@ export default class MGMECrafterSeries {
                 continue;
               if (selectedTable?.length && table) {
                 content += `<b>${selectedTable}</b> (${labels[i-1]})`;
-                await table.draw({roll: Roll.create(formula?.length ? formula : table.data.formula), displayChat: false}).then(draw => {
+                await table.draw({roll: Roll.create(formula?.length ? formula : table.formula), displayChat: false}).then(draw => {
                   content += `<div>${draw.results[0].getChatText()}${debug ? ` (${draw.roll.formula} = ${draw.roll.total})` : ''}</div>`;
                 });
               }
