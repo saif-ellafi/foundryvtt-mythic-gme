@@ -4,7 +4,7 @@ import MGMECommon from "../utils/mgme-common";
 export default class MGMEChatExtras {
 
   static async mgmeExportChatToJournal() {
-    const defaultJournalName = `${game.i18n.localize('MGME.MythicAdventureLog')} ${new Date().toDateInputString()}`;
+    const defaultJournalName = `${game.i18n.localize('MGME.MythicAdventureLog')}`;
     const exportDialog = await renderTemplate('./modules/mythic-gme-tools/template/extras-exportchat-dialog.hbs', {defaultJournalName: defaultJournalName});
     let dialogue = new Dialog({
       title: game.i18n.localize('MGME.ExportAllToJournal'),
@@ -34,7 +34,8 @@ export default class MGMEChatExtras {
               entries.push(MGMEChatJournal._mgmeBuildLogChatHtml(chat, includeTimestamp, includeActorImg, highlightFlavor));
             });
             MGMEChatJournal._mgmeFindOrCreateJournal(journalName).then(targetJournal => {
-              targetJournal.update({content: targetJournal.content + '<br>' + entries.join('\n')}).then(() => {
+              const lastPage = targetJournal.pages.contents[targetJournal.pages.contents.length-1];
+              lastPage.update({text: {content: entries.join('\n')}}).then(() => {
                 if (clearChat)
                   game.messages.flush();
                 game.user.setFlag('mythic-gme-tools', 'mgmeLastExportConfig', {

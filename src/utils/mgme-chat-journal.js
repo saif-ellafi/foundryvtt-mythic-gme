@@ -1,13 +1,25 @@
 export default class MGMEChatJournal {
-  static async _mgmeFindOrCreateJournal(name) {
-    const folderName = "Mythic Journal";
-    const journalName = name?.length ? name : `${game.i18n.localize('MGME.MythicAdventureLog')} ${new Date().toDateInputString()}`;
-    let journal = game.journal.contents.find(j => j.name === journalName && j.folder?.name === folderName);
+  static async _mgmeFindOrCreateJournal(name, pageName) {
+    const journalName = name?.length ? name : `${game.i18n.localize('MGME.MythicAdventureLog')}`;
+    let journal = game.journal.contents.find(j => j.name === journalName);
     if (!journal) {
-      let folder = game.folders.contents.find(f => f.name === folderName);
-      if (!folder)
-        folder = await Folder.create({name: folderName, type: 'JournalEntry'});
-      journal = await JournalEntry.create({name: journalName, folder: folder});
+      journal = await JournalEntry.create({
+        name: journalName,
+        pages: [
+          {type: "text", name: `${new Date().toDateInputString()}${pageName ? pageName : ' #1'}`, text: {content: ''}}
+        ]
+      });
+    } else if (pageName) {
+      const targetPage = journal.pages.contents.find(p => p.name === pageName);
+      if (!targetPage) {
+        await journal.createEmbeddedDocuments('JournalEntryPage', [
+          {type: "text", name: pageName, text: {content: ''}}
+        ])
+      }
+    } else {
+      await journal.createEmbeddedDocuments('JournalEntryPage', [
+        {type: "text", name: `${new Date().toDateInputString()} #${journal.pages.contents.length+1}`, text: {content: ''}}
+      ])
     }
     return journal;
   }
@@ -71,10 +83,12 @@ export default class MGMEChatJournal {
 
   static async _mgmeLogChatToJournal(chat) {
     if (game.settings.get("mythic-gme-tools", "mythicAutolog")) {
-      const journal = await MGMEChatJournal._mgmeFindOrCreateJournal();
-      await journal.update({content: journal.content + '<br>' + MGMEChatJournal._mgmeBuildLogChatHtml(
-        chat,false, true, true
-      )});
+      const pageName = `${new Date().toDateInputString()} Autolog`;
+      const journal = await MGMEChatJournal._mgmeFindOrCreateJournal(undefined, pageName);
+      const targetPage = journal.pages.contents.find(p => p.name === pageName);
+      await targetPage.update({text: {content: targetPage.text.content + '<br>' + MGMEChatJournal._mgmeBuildLogChatHtml(
+            chat, false, true, true
+          )}});
     }
   }
 
