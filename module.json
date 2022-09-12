@@ -49,7 +49,7 @@
       "label": "Mythic GME Tables",
       "path": "packs/mythic-gme-tables.db",
       "module": "mythic-gme-tools",
-      "entity": "RollTable",
+      "type": "RollTable",
       "private": true
     },
     {
@@ -57,7 +57,7 @@
       "label": "Mythic GME V1 Tables",
       "path": "packs/mythic-gme-v1-tables.db",
       "module": "mythic-gme-tools",
-      "entity": "RollTable",
+      "type": "RollTable",
       "private": true
     },
     {
@@ -65,7 +65,7 @@
       "label": "Mythic GME V2 Tables",
       "path": "packs/mythic-gme-v2-tables.db",
       "module": "mythic-gme-tools",
-      "entity": "RollTable",
+      "type": "RollTable",
       "private": true
     },
     {
@@ -73,7 +73,7 @@
       "label": "Mythic GME Macros",
       "path": "packs/mythic-gme-macros.db",
       "module": "mythic-gme-tools",
-      "entity": "Macro",
+      "type": "Macro",
       "private": true
     },
     {
@@ -81,7 +81,7 @@
       "label": "Mythic GME V1 Macros",
       "path": "packs/mythic-gme-v1-macros.db",
       "module": "mythic-gme-tools",
-      "entity": "Macro",
+      "type": "Macro",
       "private": true
     },
     {
@@ -89,7 +89,7 @@
       "label": "Mythic GME V2 Macros",
       "path": "packs/mythic-gme-v2-macros.db",
       "module": "mythic-gme-tools",
-      "entity": "Macro",
+      "type": "Macro",
       "private": true
     },
     {
@@ -97,7 +97,7 @@
       "label": "Mythic Deck Macros",
       "path": "packs/mythic-decks-macros.db",
       "module": "mythic-gme-tools",
-      "entity": "Macro",
+      "type": "Macro",
       "private": true
     },
     {
@@ -105,7 +105,7 @@
       "label": "Mythic Deck Tables",
       "path": "packs/mythic-decks-tables.db",
       "module": "mythic-gme-tools",
-      "entity": "RollTable",
+      "type": "RollTable",
       "private": true
     },
     {
@@ -113,7 +113,7 @@
       "label": "Mythic Crafter Macros",
       "path": "packs/mythic-crafter-macros.db",
       "module": "mythic-gme-tools",
-      "entity": "Macro",
+      "type": "Macro",
       "private": true
     },
     {
@@ -121,7 +121,7 @@
       "label": "Plot Unfolding Machine Tables",
       "path": "packs/plot-unfolding-machine.db",
       "module": "mythic-gme-tools",
-      "entity": "RollTable",
+      "type": "RollTable",
       "private": true
     }
   ]
