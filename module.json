@@ -3,8 +3,11 @@
   "title": "Mythic GME Tools",
   "description": "A set of Macros and Random Tables for playing with the Mythic Game Master Emulator",
   "authors": [
-    "JeansenVaars",
-    "Tana Pigeon (Word Mill Games)"
+    {
+      "name": "Saif Addin Ellafi",
+      "discord": "JeansenVaars#2857",
+      "ko-fi": "https://ko-fi.com/jeansenvaars"
+    }
   ],
   "version": "2.6.1",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
