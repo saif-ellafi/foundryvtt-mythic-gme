@@ -1,6 +1,6 @@
 ### 2.5.13
 * Update: Added GMA Weird Horror Deck
-* Updated: 
+* Updated: SUM and PUM to latest
 
 ### 2.5.12
 * Update: Scene Unfolding Machine Rev.4
