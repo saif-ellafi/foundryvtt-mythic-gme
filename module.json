@@ -19,7 +19,11 @@
   "esmodules": [
     "mythic-gme-tools.js"
   ],
-
+  "compatibility": {
+    "minimum": "0.8.9",
+    "verified": "9",
+    "maximum": "9"
+  },
   "languages": [
     {
       "lang": "en",
