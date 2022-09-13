@@ -18,6 +18,7 @@ export default class PUMPanel extends MGMEPanel {
     html.find("#pum_cd").click(api.pumChallengeDesigner);
     html.find("#pum_hs").click(api.pumHighStakes);
 
+    html.find("#pum_fill").click(api.pumSceneFiller);
     html.find("#pum_comp").click(api.pumComplicationDesigner);
     html.find("#pum_comb").click(api.pumCombatDesigner);
 

@@ -20,8 +20,7 @@ export default class PUMCore {
 
   static pumChallengeDesigner() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'Challenge Designer Skill', key: 'Skill'},
-      {name: 'Challenge Designer Factor', key: 'Factor'}
+      {name: 'Challenge Designer Skill', key: 'Skill'}
     ],
       'Challenge Designer',
       false
@@ -30,10 +29,19 @@ export default class PUMCore {
 
   static pumHighStakes() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'High Stakes Success', key: 'On Success'},
-      {name: 'High Stakes Failure', key: 'On Failure'}
+      {name: 'High Stakes Success', key: 'Goal'},
+      {name: 'High Stakes Failure', key: 'Risk'}
     ],
-      'High Stakes',
+      'Goal and Risk',
+      false
+    );
+  }
+
+  static pumSceneFiller() {
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+        {name: 'Scene Filler'}
+      ],
+      'Scene Filler',
       false
     );
   }

@@ -1,3 +1,7 @@
+### 2.6.2
+* Bugfix: Should not be possible to install on v9
+* Update: Plot Unfolding Machine to V2.2
+
 ### 2.6.1
 * Update: Scene Unfolding Machine to Final Release
 
