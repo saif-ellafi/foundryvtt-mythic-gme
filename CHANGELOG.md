@@ -1,3 +1,6 @@
+### 2.6.3
+* Updated: GMA Weird Horror Deck added
+
 ### 2.6.2
 * Bugfix: Should not be possible to install on v9
 * Update: Plot Unfolding Machine to V2.2
