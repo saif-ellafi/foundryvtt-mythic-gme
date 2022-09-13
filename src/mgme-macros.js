@@ -95,6 +95,7 @@ export default class MGMEMacroAPI {
   static pumExpectationChecker = PUMCore.pumExpectationChecker;
   static pumChallengeDesigner = PUMCore.pumChallengeDesigner;
   static pumHighStakes = PUMCore.pumHighStakes;
+  static pumSceneFiller = PUMCore.pumSceneFiller;
   static pumComplicationDesigner = PUMCore.pumComplicationDesigner;
   static pumCombatDesigner = PUMCore.pumCombatDesigner;
   static pumYesOrNoEven = PUMCore.pumYesOrNoEven;
