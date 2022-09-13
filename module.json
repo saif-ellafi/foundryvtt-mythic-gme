@@ -1,5 +1,5 @@
 {
-  "name": "mythic-gme-tools",
+  "id": "mythic-gme-tools",
   "title": "Mythic GME Tools",
   "description": "A set of Macros and Random Tables for playing with the Mythic Game Master Emulator",
   "authors": [
@@ -25,7 +25,6 @@
   "esmodules": [
     "mythic-gme-tools.js"
   ],
-
   "languages": [
     {
       "lang": "en",
