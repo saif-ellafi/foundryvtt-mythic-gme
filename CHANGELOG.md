@@ -1,3 +1,7 @@
+### 2.5.14
+* Updated: PUM to V3.2
+* Updated: SUM to V2
+
 ### 2.5.13
 * Update: Added GMA Weird Horror Deck
 * Updated: SUM and PUM to latest
