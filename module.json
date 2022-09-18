@@ -9,10 +9,10 @@
       "ko-fi": "https://ko-fi.com/jeansenvaars"
     }
   ],
-  "version": "2.6.3",
+  "version": "2.6.4",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
-  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.6.3/foundryvtt-mythic-gme_2.6.3.zip",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.6.4/foundryvtt-mythic-gme_2.6.4.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibility": {
     "minimum": "10",

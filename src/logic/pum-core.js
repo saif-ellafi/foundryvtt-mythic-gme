@@ -2,9 +2,9 @@ import MGMEOracleUtils from "../utils/mgme-oracle-utils";
 
 export default class PUMCore {
 
-  static pumSceneDesigner() {
+  static pumScenePrompt() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'Scene Designer'},
+      {name: 'Scene Prompt'},
       'Scene Type',
       false
     );
@@ -18,50 +18,57 @@ export default class PUMCore {
     );
   }
 
-  static pumChallengeDesigner() {
+  static pumInteraction() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'Challenge Designer Skill', key: 'Skill'}
+      {name: 'Scene Interaction', key: 'Skill'}
     ],
-      'Challenge Designer',
+      'Scene Interaction',
       false
     );
   }
 
-  static pumHighStakes() {
+  static pumSceneGoal() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'High Stakes Success', key: 'Goal'},
-      {name: 'High Stakes Failure', key: 'Risk'}
+      {name: 'Scene Goal', key: 'Goal'},
     ],
-      'Goal and Risk',
+      'Scene Goal',
       false
     );
   }
 
-  static pumSceneFiller() {
+  static pumSceneRisk() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-        {name: 'Scene Filler'}
+        {name: 'Scene Risk', key: 'Risk'}
       ],
-      'Scene Filler',
+      'Scene Risk',
       false
     );
   }
 
-  static pumComplicationDesigner() {
+  static pumDiscovery() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {key: 'Target', name: 'Complications Designer Target'},
-      {name: 'Complications Designer Circumstance'}
-    ],
-      'Complications Designer',
-      false
-    );
-  }
-
-  static pumCombatDesigner() {
-    MGMEOracleUtils._mgmeMultipleTableOracle([
-      {key: 'Circumstance', name: 'Combat Designer'},
-      {key: 'Enemy', name: 'Combat Enemy Type'},
+        {name: 'Scene Discovery'}
       ],
-      'Combat Designer',
+      'Scene Discovery',
+      false
+    );
+  }
+
+  static pumRevelation() {
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+      {name: 'Scene Revelation'}
+    ],
+      'Scene Revelation',
+      false
+    );
+  }
+
+  static pumCircumstance() {
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+      {key: 'Circumstance', name: 'Scene Circumstance'},
+      {key: 'Enemy', name: 'Kind of Enemy'},
+      ],
+      'Scene Circumstance',
       false
     );
   }
@@ -102,61 +109,6 @@ export default class PUMCore {
           {name: 'Yes or No Answer Caveat'}
         ],
         'Question (unlikely)',
-        false,
-        input
-      );
-    })
-  }
-
-  static pumHowMany() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('How many?', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'How Many?'},
-        'How Many?',
-        false,
-        input
-      );
-    })
-  }
-
-  static pumHowMuch() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('How much?', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'How Much?'},
-        'How Much?',
-        false,
-        input
-      );
-    })
-  }
-
-  static pumHowGood() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('How good?', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'How Good?'},
-        'How Good?',
-        false,
-        input
-      );
-    })
-  }
-
-  static pumHowHard() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('How hard?', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'How Hard?'},
-        'How Hard?',
-        false,
-        input
-      );
-    })
-  }
-
-  static pumHowToDo() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('How to do?', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'How To Do?'},
-        'How to do?',
         false,
         input
       );
@@ -211,11 +163,22 @@ export default class PUMCore {
     })
   }
 
+  static pumSubject() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Subject', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'Scene Subject'},
+        'Subject',
+        false
+      );
+    })
+  }
+
   static pumWhat() {
     MGMEOracleUtils._mgmeBuildOracleDialog('What', (input) => {
       MGMEOracleUtils._mgmeMultipleTableOracle([
-        {key: 'Type', name: 'What Type'},
-        {key: 'Subject', name: 'What Subject'}
+        {name: 'What Action'},
+        {name: 'What Type'},
+        {name: 'What Subject'}
       ], 'What',
         false,
         input
@@ -255,6 +218,46 @@ export default class PUMCore {
         ], 'Reason',
         false,
         input
+      );
+    })
+  }
+
+  static pumKindOfItem() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Item', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'Kind of Item'},
+        'Kind of Item',
+        false
+      );
+    })
+  }
+
+  static pumKindOfAbility() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Ability', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'Kind of Ability'},
+        'Kind of Ability',
+        false
+      );
+    })
+  }
+
+  static pumKindOfPerson() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Person', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'Kind of Person'},
+        'Kind of Person',
+        false
+      );
+    })
+  }
+
+  static pumKindOfEnemy() {
+    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Enemy', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'Kind of Enemy'},
+        'Kind of Enemy',
+        false
       );
     })
   }
