@@ -91,37 +91,40 @@ export default class MGMEMacroAPI {
     api.win = win;
   }
 
-  static pumSceneDesigner = PUMCore.pumSceneDesigner;
+  static pumScenePrompt = PUMCore.pumScenePrompt;
   static pumExpectationChecker = PUMCore.pumExpectationChecker;
-  static pumChallengeDesigner = PUMCore.pumChallengeDesigner;
-  static pumHighStakes = PUMCore.pumHighStakes;
-  static pumSceneFiller = PUMCore.pumSceneFiller;
-  static pumComplicationDesigner = PUMCore.pumComplicationDesigner;
-  static pumCombatDesigner = PUMCore.pumCombatDesigner;
+  static pumInteraction = PUMCore.pumInteraction;
+  static pumSceneGoal = PUMCore.pumSceneGoal;
+  static pumSceneRisk = PUMCore.pumSceneRisk;
+  static pumDiscovery = PUMCore.pumDiscovery;
+  static pumRevelation = PUMCore.pumRevelation;
+  static pumCircumstance = PUMCore.pumCircumstance;
   static pumYesOrNoEven = PUMCore.pumYesOrNoEven;
   static pumYesOrNoLikely = PUMCore.pumYesOrNoLikely;
   static pumYesOrNoUnlikely = PUMCore.pumYesOrNoUnlikely;
-  static pumHowMany = PUMCore.pumHowMany;
-  static pumHowMuch = PUMCore.pumHowMuch;
-  static pumHowGood = PUMCore.pumHowGood;
-  static pumHowHard = PUMCore.pumHowHard;
-  static pumHowToDo = PUMCore.pumHowToDo;
   static pumLooksArea = PUMCore.pumLooksArea;
   static pumLooksNPC = PUMCore.pumLooksNPC;
   static pumLooksObject = PUMCore.pumLooksObject;
   static pumWho = PUMCore.pumWho;
+  static pumSubject = PUMCore.pumSubject;
   static pumWhat = PUMCore.pumWhat;
   static pumIntent = PUMCore.pumIntent;
   static pumActivity = PUMCore.pumActivity;
   static pumReason = PUMCore.pumReason;
+  static pumKindOfItem = PUMCore.pumKindOfItem;
+  static pumKindOfAbility = PUMCore.pumKindOfAbility;
+  static pumKindOfPerson = PUMCore.pumKindOfPerson;
+  static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
 
   static sumGM0 = () => SUMCore.sumGM('1d20+0');
   static sumGM1 = () => SUMCore.sumGM('1d20+10');
   static sumGM2 = () => SUMCore.sumGM('1d20+20');
   static sumGM3 = () => SUMCore.sumGM('1d20+30');
 
-  static sumNPCGood = SUMCore.sumNPCGood;
-  static sumNPCBad = SUMCore.sumNPCBad;
+  static sumNPCD0 = () => SUMCore.sumNPCD('1d20+0');
+  static sumNPCD1 = () => SUMCore.sumNPCD('1d20+10');
+  static sumNPCD2 = () => SUMCore.sumNPCD('1d20+20');
+  static sumNPCD3 = () => SUMCore.sumNPCD('1d20+30');
 
   static sumNPC0 = () => SUMCore.sumNPC('1d20+0');
   static sumNPC1 = () => SUMCore.sumNPC('1d20+10');

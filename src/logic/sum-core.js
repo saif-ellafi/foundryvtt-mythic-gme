@@ -9,26 +9,18 @@ export default class SUMCore {
     );
   }
 
+  static sumNPCD(formula) {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'NPC Disposition', formula: formula},
+      'NPC Disposition: ' + formula,
+      false
+    );
+  }
+
   static sumNPC(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
       {name: 'NPC Actions', formula: formula},
       'NPC Action: ' + formula,
-      false
-    );
-  }
-
-  static sumNPCGood() {
-    MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'Disposition good'},
-      'NPC Behavior (good)',
-      false
-    );
-  }
-
-  static sumNPCBad() {
-    MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'Disposition bad'},
-      'NPC Behavior (bad)',
       false
     );
   }
