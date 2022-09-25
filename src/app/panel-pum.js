@@ -15,13 +15,13 @@ export default class PUMPanel extends MGMEPanel {
 
     html.find("#pum_sd").click(api.pumScenePrompt);
     html.find("#pum_ex").click(api.pumExpectationChecker);
-    html.find("#pum_cd").click(api.pumSceneGoal);
+    html.find("#pum_cd").click(api.pumSceneGain);
     html.find("#pum_hs").click(api.pumSceneRisk);
 
-    html.find("#pum_intr").click(api.pumInteraction);
+    html.find("#pum_chll").click(api.pumChallenge);
     html.find("#pum_circ").click(api.pumCircumstance);
-    html.find("#pum_disc").click(api.pumDiscovery);
-    html.find("#pum_revl").click(api.pumRevelation);
+    html.find("#pum_contx").click(api.pumContext);
+    html.find("#pum_compc").click(api.pumComplication);
 
     html.find("#pum_qqe").click(api.pumYesOrNoEven);
     html.find("#pum_qql").click(api.pumYesOrNoLikely);

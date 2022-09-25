@@ -1,3 +1,7 @@
+### 2.6.5
+* Updated: PUM to V4
+* Updated: SUM to V2.2
+
 ### 2.6.4
 * Updated: PUM to V3.2
 * Updated: SUM to V2
@@ -14,6 +18,10 @@
 
 ### 2.6.0
 * Compatibility: Foundry V10 support
+
+### 2.5.15
+* Updated: PUM to V4
+* Updated: SUM to V2.2
 
 ### 2.5.13
 * Update: Added GMA Weird Horror Deck

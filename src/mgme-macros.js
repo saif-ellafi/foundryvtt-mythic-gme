@@ -93,11 +93,11 @@ export default class MGMEMacroAPI {
 
   static pumScenePrompt = PUMCore.pumScenePrompt;
   static pumExpectationChecker = PUMCore.pumExpectationChecker;
-  static pumInteraction = PUMCore.pumInteraction;
-  static pumSceneGoal = PUMCore.pumSceneGoal;
+  static pumChallenge = PUMCore.pumChallenge;
+  static pumSceneGain = PUMCore.pumSceneGain;
   static pumSceneRisk = PUMCore.pumSceneRisk;
-  static pumDiscovery = PUMCore.pumDiscovery;
-  static pumRevelation = PUMCore.pumRevelation;
+  static pumContext = PUMCore.pumContext;
+  static pumComplication = PUMCore.pumComplication;
   static pumCircumstance = PUMCore.pumCircumstance;
   static pumYesOrNoEven = PUMCore.pumYesOrNoEven;
   static pumYesOrNoLikely = PUMCore.pumYesOrNoLikely;
