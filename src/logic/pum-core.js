@@ -18,20 +18,20 @@ export default class PUMCore {
     );
   }
 
-  static pumInteraction() {
+  static pumChallenge() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'Scene Interaction', key: 'Skill'}
+      {name: 'Scene Challenge', key: 'Skill'}
     ],
-      'Scene Interaction',
+      'Scene Challenge',
       false
     );
   }
 
-  static pumSceneGoal() {
+  static pumSceneGain() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'Scene Goal', key: 'Goal'},
+      {name: 'Scene Gain', key: 'Gain'},
     ],
-      'Scene Goal',
+      'Scene Gain',
       false
     );
   }
@@ -45,28 +45,28 @@ export default class PUMCore {
     );
   }
 
-  static pumDiscovery() {
+  static pumContext() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-        {name: 'Scene Discovery'}
+        {name: 'Scene Context'}
       ],
-      'Scene Discovery',
+      'Scene Context',
       false
     );
   }
 
-  static pumRevelation() {
+  static pumComplication() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'Scene Revelation'}
+        {key: 'Target', name: 'Scene Subject'},
+        {key: 'Is...', name: 'Scene Complication'}
     ],
-      'Scene Revelation',
+      'Scene Complication',
       false
     );
   }
 
   static pumCircumstance() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {key: 'Circumstance', name: 'Scene Circumstance'},
-      {key: 'Enemy', name: 'Kind of Enemy'},
+      {key: 'Circumstance', name: 'Scene Circumstance'}
       ],
       'Scene Circumstance',
       false
