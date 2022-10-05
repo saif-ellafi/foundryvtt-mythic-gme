@@ -27,11 +27,11 @@ export default class PUMCore {
     );
   }
 
-  static pumSceneGain() {
+  static pumSceneDiscovery() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-      {name: 'Scene Gain', key: 'Gain'},
+      {name: 'Scene Discovery', key: 'Discovery'},
     ],
-      'Scene Gain',
+      'Scene Discovery',
       false
     );
   }
