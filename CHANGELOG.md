@@ -1,5 +1,6 @@
 ### 2.5.16
 * Updated: PUM to V4.4
+* Updated: SUM to v2.3
 
 ### 2.5.15
 * Updated: PUM to V4
