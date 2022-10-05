@@ -1,3 +1,7 @@
+### 2.6.6
+* Updated: PUM to V4.4
+* Updated: SUM to V2.3
+
 ### 2.6.5
 * Updated: PUM to V4
 * Updated: SUM to V2.2
@@ -18,6 +22,10 @@
 
 ### 2.6.0
 * Compatibility: Foundry V10 support
+
+### 2.5.16
+* Updated: PUM to V4.4
+* Updated: SUM to V2.3
 
 ### 2.5.15
 * Updated: PUM to V4
