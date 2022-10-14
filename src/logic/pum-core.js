@@ -223,43 +223,43 @@ export default class PUMCore {
   }
 
   static pumKindOfItem() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Item', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Kind of Item'},
-        'Kind of Item',
-        false
-      );
-    })
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'Kind of Item'},
+      'Kind of Item',
+      false
+    );
   }
 
   static pumKindOfAbility() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Ability', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Kind of Ability'},
-        'Kind of Ability',
-        false
-      );
-    })
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'Kind of Ability'},
+      'Kind of Ability',
+      false
+    );
   }
 
   static pumKindOfPerson() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Person', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Kind of Person'},
-        'Kind of Person',
-        false
-      );
-    })
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'Kind of Person'},
+      'Kind of Person',
+      false
+    );
   }
 
   static pumKindOfEnemy() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Kind of Enemy', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Kind of Enemy'},
-        'Kind of Enemy',
-        false
-      );
-    })
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'Kind of Enemy'},
+      'Kind of Enemy',
+      false
+    );
+  }
+
+  static pumKindOfDanger() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'Kind of Danger'},
+      'Kind of Danger',
+      false
+    );
   }
 
 }

@@ -115,21 +115,12 @@ export default class MGMEMacroAPI {
   static pumKindOfAbility = PUMCore.pumKindOfAbility;
   static pumKindOfPerson = PUMCore.pumKindOfPerson;
   static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
+  static pumKindOfDanger = PUMCore.pumKindOfDanger;
 
-  static sumGM0 = () => SUMCore.sumGM('1d20+0');
-  static sumGM1 = () => SUMCore.sumGM('1d20+10');
-  static sumGM2 = () => SUMCore.sumGM('1d20+20');
-  static sumGM3 = () => SUMCore.sumGM('1d20+30');
-
-  static sumNPCD0 = () => SUMCore.sumNPCD('1d20+0');
-  static sumNPCD1 = () => SUMCore.sumNPCD('1d20+10');
-  static sumNPCD2 = () => SUMCore.sumNPCD('1d20+20');
-  static sumNPCD3 = () => SUMCore.sumNPCD('1d20+30');
-
-  static sumNPC0 = () => SUMCore.sumNPC('1d20+0');
-  static sumNPC1 = () => SUMCore.sumNPC('1d20+10');
-  static sumNPC2 = () => SUMCore.sumNPC('1d20+20');
-  static sumNPC3 = () => SUMCore.sumNPC('1d20+30');
+  static sumGMB = () => SUMCore.sumGMB();
+  static sumGMT = () => SUMCore.sumGMT();
+  static sumNPCG = () => SUMCore.sumNPCG();
+  static sumNPCB = () => SUMCore.sumNPCB();
 
   static sumAction = SUMCore.sumAction;
   static sumSubject = SUMCore.sumSubject;

@@ -43,21 +43,12 @@ export default class PUMPanel extends MGMEPanel {
     html.find("#pum_kinda").click(api.pumKindOfAbility);
     html.find("#pum_kindp").click(api.pumKindOfPerson);
     html.find("#pum_kinde").click(api.pumKindOfEnemy);
+    html.find("#pum_kindd").click(api.pumKindOfDanger);
 
-    html.find("#sum_gm0").click(api.sumGM0)
-    html.find("#sum_gm1").click(api.sumGM1)
-    html.find("#sum_gm2").click(api.sumGM2)
-    html.find("#sum_gm3").click(api.sumGM3)
-
-    html.find("#sum_npcd0").click(api.sumNPCD0)
-    html.find("#sum_npcd1").click(api.sumNPCD1)
-    html.find("#sum_npcd2").click(api.sumNPCD2)
-    html.find("#sum_npcd3").click(api.sumNPCD3)
-
-    html.find("#sum_npc0").click(api.sumNPC0)
-    html.find("#sum_npc1").click(api.sumNPC1)
-    html.find("#sum_npc2").click(api.sumNPC2)
-    html.find("#sum_npc3").click(api.sumNPC3)
+    html.find("#sum_gmb").click(api.sumGMB)
+    html.find("#sum_gmt").click(api.sumGMT)
+    html.find("#sum_npcg").click(api.sumNPCG)
+    html.find("#sum_npcb").click(api.sumNPCB)
 
     html.find("#sum_act").click(api.sumAction)
     html.find("#sum_sub").click(api.sumSubject)
