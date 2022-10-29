@@ -80,6 +80,12 @@ export default class MGMEPanel extends Application {
           callback: (html) => {
             let panelSelection = html.find("#mgme_pan_config").val();
             if (panelSelection === 'nopanel') {
+              const api = game.modules.get('mythic-gme-tools').api;
+              if (api.win) {
+                api.win?.close({force: true});
+                delete api.win;
+              }
+              game.settings.set('mythic-gme-tools', 'panelKey', 'nopanel');
               new Dialog({
                 title: "Mythic GME Tools",
                 content: "<div>Mythic GME Tools Panel can be enabled again in Module Settings.</div>",

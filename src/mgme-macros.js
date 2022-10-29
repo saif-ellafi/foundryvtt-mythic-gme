@@ -54,14 +54,16 @@ export default class MGMEMacroAPI {
     if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
       return
     }
+    const key = game.settings.get('mythic-gme-tools', 'panelKey');
     const api = game.modules.get('mythic-gme-tools').api;
     if (api.win) {
       api.win?.close({force: true});
       delete api.win;
     }
-    const key = game.settings.get('mythic-gme-tools', 'panelKey');
+    if (key === 'nopanel') return;
     let winWidth = 400;
     let minHeight = 320;
+    let maxHeight = undefined;
     let win;
     switch (key) {
       case 'mgme_blue': {
@@ -77,16 +79,17 @@ export default class MGMEMacroAPI {
         break;
       }
       case 'pum_core': {
-        winWidth = 550;
-        minHeight = 520;
         win = new PUMPanel();
+        minHeight = 250;
+        maxHeight = 225;
         break;
       }
     }
     win?.render(true, {
       width: winWidth,
       left: (canvas.app.screen.width - ui.sidebar.element.width() - winWidth - 20),
-      top: canvas.app.screen.height - minHeight
+      top: canvas.app.screen.height - minHeight,
+      height: maxHeight
     });
     api.win = win;
   }

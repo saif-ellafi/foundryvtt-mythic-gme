@@ -176,14 +176,14 @@ export default class PUMCore {
   static pumWhat() {
     MGMEOracleUtils._mgmeBuildOracleDialog('What', (input) => {
       MGMEOracleUtils._mgmeMultipleTableOracle([
-        {name: 'What Action'},
-        {name: 'What Type'},
-        {name: 'What Subject'}
-      ], 'What',
+          {name: 'What Type'},
+          {name: 'What Subject'},
+          {name: 'What Action'}
+        ], 'What',
         false,
         input
       );
-    })
+    });
   }
 
   static pumIntent() {

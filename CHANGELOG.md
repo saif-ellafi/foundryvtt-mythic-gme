@@ -1,24 +1,29 @@
+### 2.6.9
+* Enhancement: PUM Panel made smaller and snappier
+* Bugfix: Panel would close when disabled
+* Bugfix: What oracle in PUM now fixed
+
 ### 2.6.8
-* Updated: SUM to V3.1
+* Update: SUM to V3.1
 
 ### 2.6.7
-* Updated: PUM to V4.5
-* Updated: SUM to V3.0
+* Update: PUM to V4.5
+* Update: SUM to V3.0
 
 ### 2.6.6
-* Updated: PUM to V4.4
-* Updated: SUM to V2.3
+* Update: PUM to V4.4
+* Update: SUM to V2.3
 
 ### 2.6.5
-* Updated: PUM to V4
-* Updated: SUM to V2.2
+* Update: PUM to V4
+* Update: SUM to V2.2
 
 ### 2.6.4
-* Updated: PUM to V3.2
-* Updated: SUM to V2
+* Update: PUM to V3.2
+* Update: SUM to V2
 
 ### 2.6.3
-* Updated: GMA Weird Horror Deck added
+* Update: GMA Weird Horror Deck added
 
 ### 2.6.2
 * Bugfix: Should not be possible to install on v9
@@ -31,16 +36,16 @@
 * Compatibility: Foundry V10 support
 
 ### 2.5.16
-* Updated: PUM to V4.4
-* Updated: SUM to V2.3
+* Update: PUM to V4.4
+* Update: SUM to V2.3
 
 ### 2.5.15
-* Updated: PUM to V4
-* Updated: SUM to V2.2
+* Update: PUM to V4
+* Update: SUM to V2.2
 
 ### 2.5.13
 * Update: Added GMA Weird Horror Deck
-* Updated: SUM and PUM to latest
+* Update: SUM and PUM to latest
 
 ### 2.5.12
 * Update: Scene Unfolding Machine Rev.4
