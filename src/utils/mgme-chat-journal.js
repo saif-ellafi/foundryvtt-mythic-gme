@@ -44,7 +44,7 @@ export default class MGMEChatJournal {
     const speakerChange = speaker !== MGMEChatJournal._mgmeLastChatExportSpeaker;
     if (MGMEChatJournal._mgmeLastChatExportSpeaker && speakerChange)
       content += '<br>'; // Add spacing between messages before changing speaker
-    if (speaker === 'Gamemaster')
+    if (speaker === game.user.name)
       content += '<div style="background-color:#3a4daf3d">';
     else if (isFlavor)
       content += '<div style="background-color:#c5926d54">';
@@ -54,7 +54,7 @@ export default class MGMEChatJournal {
       content += '<br>' // Add spacing between messages of same speaker
     let htmlImg;
     if (speakerChange && includeActorImg) {
-      if (speaker !== 'Gamemaster') {
+      if (speaker !== game.user.name) {
         const actorImg = game.actors.contents.find(a => a.id === baseChat.speaker.actor)?.img;
         htmlImg = `<img alt="-" src="${actorImg}" width="36" height="36" class="message-portrait" style="border: 2px solid rgb(40, 111, 204);vertical-align: middle;">`;
       }

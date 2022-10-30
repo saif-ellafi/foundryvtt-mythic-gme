@@ -89,7 +89,7 @@ export default class MGMEChatExtras {
       render: html => {
         const curSpeaker = ChatMessage.getSpeaker();
         const speakerElement = $("#mgme_format_speaker");
-        speakerElement.append(`<option value="Gamemaster">Gamemaster</option>`);
+        speakerElement.append(`<option value="curr_user">${game.user.name}</option>`);
         tokens.forEach(token => {
           if (token.actor)
             speakerElement.append(`<option value=${token.actor.id} selected>${token.name}</option>`);
@@ -141,7 +141,7 @@ export default class MGMEChatExtras {
             }
 
             const speakerElementVal = $("#mgme_format_speaker").val()?.trim();
-            const selectedSpeaker = speakerElementVal === 'Gamemaster' ? {alias: "Gamemaster"} : {actor: tokens.find(t => t.actor.id === speakerElementVal).actor.id};
+            const selectedSpeaker = speakerElementVal === 'curr_user' ? {alias: game.user.name} : {actor: tokens.find(t => t.actor.id === speakerElementVal).actor.id};
             let chatConfig = {
               content: message,
               speaker: selectedSpeaker

@@ -43,7 +43,7 @@ export default class MGMEVariations1 {
               let triggerMsg = await backstoryDraw.roll.toMessage({
                 whisper: whisper,
                 flavor: game.i18n.localize('MGME.BackstoryEvents'),
-                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
+                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === game.user.name ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
               });
               await MGMEChatJournal._mgmeLogChatToJournal(triggerMsg);
               await MGMECommon._mgmeWaitFor3DDice(triggerMsg.id);
@@ -52,7 +52,7 @@ export default class MGMEVariations1 {
               await MGMEChatJournal._mgmeCreateChatAndLog({
                 whisper: whisper,
                 flavor: game.i18n.localize('MGME.BackstoryEvents'),
-                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === 'Gamemaster' ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
+                content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === game.user.name ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
               })
             }
             const backstoryFocusTable = await MGMECommon._mgmeFindTableByName(backstoryFocus)
@@ -69,7 +69,7 @@ export default class MGMEVariations1 {
             while (i < eventsCount) {
               const backstoryFocus = (await backstoryFocusTable.roll()).results[0].getChatText();
               await MGMEOracleUtils._mgmeSubmitOracleQuestion(
-                `${speaker.alias === 'Gamemaster' ? '' : `<h2>${speaker.alias} - ${game.i18n.localize('MGME.Backstory')}</h2>`}`,
+                `${speaker.alias === game.user.name ? '' : `<h2>${speaker.alias} - ${game.i18n.localize('MGME.Backstory')}</h2>`}`,
                 `${eventsCount === 1 ? game.i18n.localize('MGME.BackstoryEvent') : (backstoryLabels[i] ?? i+1) + ' Backstory Event'}`,
                 false,
                 backstoryFocus,
