@@ -1,3 +1,6 @@
+### 2.6.11
+* Update: SUM to V4.0
+
 ### 2.6.10
 * Bugfix: Fixed issues related to GM users having other alias than 'Gamemaster'
 

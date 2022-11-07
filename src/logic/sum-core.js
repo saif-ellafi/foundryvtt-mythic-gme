@@ -1,42 +1,59 @@
 import MGMEOracleUtils from "../utils/mgme-oracle-utils";
 
 export default class SUMCore {
-  static sumGM(formula) {
+
+  static sumGMAction(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'GM Actions', formula: formula},
-      'GM Action: ' + formula,
+      {name: 'GM Action', formula: formula},
+      'GM Action',
       false
     );
   }
 
-  static sumGMB() {
+  static sumGMFeedback(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'GM Action Building'},
-      'GM Action (Building)',
+      {name: 'GM Feedback', formula: formula},
+      'GM Feedback',
       false
     );
   }
 
-  static sumGMT() {
+  static sumGMWorld() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'GM Action Tension'},
-      'GM Action (Tension)',
+      {name: 'GM World'},
+      'GM World',
       false
     );
   }
 
-  static sumNPCG() {
+  static sumNPCContribution(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'NPC Action Good'},
-      'NPC Actions (Good)',
+      {name: 'NPC Contribution', formula: formula},
+      'NPC Contribution',
       false
     );
   }
 
-  static sumNPCB() {
+  static sumNPCBehavior(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'NPC Action Bad'},
-      'NPC Actions (Bad)',
+      {name: 'NPC Behavior', formula: formula},
+      'NPC Behavior',
+      false
+    );
+  }
+
+  static sumNPCOpinion(formula) {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'NPC Opinion', formula: formula},
+      'NPC Opinion',
+      false
+    );
+  }
+
+  static sumNPCAnswer(formula) {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'NPC Answer', formula: formula},
+      'NPC Answer',
       false
     );
   }

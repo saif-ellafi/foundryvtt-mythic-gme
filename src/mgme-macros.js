@@ -80,8 +80,8 @@ export default class MGMEMacroAPI {
       }
       case 'pum_core': {
         win = new PUMPanel();
-        minHeight = 250;
-        maxHeight = 225;
+        minHeight = 275;
+        maxHeight = 250;
         break;
       }
     }
@@ -120,10 +120,13 @@ export default class MGMEMacroAPI {
   static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
   static pumKindOfDanger = PUMCore.pumKindOfDanger;
 
-  static sumGMB = () => SUMCore.sumGMB();
-  static sumGMT = () => SUMCore.sumGMT();
-  static sumNPCG = () => SUMCore.sumNPCG();
-  static sumNPCB = () => SUMCore.sumNPCB();
+  static sumGMAction = (formula) => SUMCore.sumGMAction(formula);
+  static sumGMFeedback = (formula) => SUMCore.sumGMFeedback(formula);
+  static sumGMWorld = () => SUMCore.sumGMWorld();
+  static sumNPCContribution = (formula) => SUMCore.sumNPCContribution(formula);
+  static sumNPCBehavior = (formula) => SUMCore.sumNPCBehavior(formula);
+  static sumNPCOpinion = (formula) => SUMCore.sumNPCOpinion(formula);
+  static sumNPCAnswer = (formula) => SUMCore.sumNPCAnswer(formula);
 
   static sumAction = SUMCore.sumAction;
   static sumSubject = SUMCore.sumSubject;
