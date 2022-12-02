@@ -47,9 +47,9 @@ export default class PUMCore {
 
   static pumContext() {
     MGMEOracleUtils._mgmeMultipleTableOracle([
-        {name: 'Scene Context'}
+        {name: 'Scene Catalyst'}
       ],
-      'Scene Context',
+      'Scene Catalyst',
       false
     );
   }
@@ -177,8 +177,7 @@ export default class PUMCore {
     MGMEOracleUtils._mgmeBuildOracleDialog('What', (input) => {
       MGMEOracleUtils._mgmeMultipleTableOracle([
           {name: 'What Type'},
-          {name: 'What Subject'},
-          {name: 'What Action'}
+          {name: 'What Subject'}
         ], 'What',
         false,
         input
