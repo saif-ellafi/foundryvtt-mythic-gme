@@ -1,3 +1,6 @@
+### 2.6.12
+* Update: PUM to v5.5
+
 ### 2.6.11
 * Update: SUM to V4.0
 
