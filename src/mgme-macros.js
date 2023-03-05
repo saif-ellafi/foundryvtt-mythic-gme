@@ -5,7 +5,7 @@ import MGMECards from "./logic/mgme-cards";
 import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
 import MGMECrafterSeries from "./logic/mgme-crafter-series";
-import MGMEBluePanel from "./app/panel-mythic-gme";
+import MGME1ePanel from "./app/panel-mythic-gme-1e";
 import MGME2ePanel from "./app/panel-mythic-gme-2e";
 import MGMEVars1Panel from "./app/panel-mythic-vars1";
 import MGMEVars2Panel from "./app/panel-mythic-vars2";
@@ -67,11 +67,23 @@ export default class MGMEMacroAPI {
     let maxHeight = undefined;
     let win;
     switch (key) {
-      case 'mgme_blue': {
-        win = new MGMEBluePanel();
+      case 'mgme_1e': {
+        const defaultFocusTable = game.settings.settings.get('mythic-gme-tools.focusTable').default;
+        const focusTable = game.settings.get('mythic-gme-tools', 'focusTable');
+        if (focusTable === 'Mythic GME: Event Focus (2e)') {
+          game.settings.set('mythic-gme-tools', 'focusTable', defaultFocusTable);
+          ui.notifications.warn(game.i18n.localize('MGME.WarnFocus2e1e'));
+        }
+        win = new MGME1ePanel();
         break;
       }
       case 'mgme_2e': {
+        const defaultFocusTable = game.settings.settings.get('mythic-gme-tools.focusTable').default;
+        const focusTable = game.settings.get('mythic-gme-tools', 'focusTable');
+        if (focusTable === defaultFocusTable) {
+          game.settings.set('mythic-gme-tools', 'focusTable', 'Mythic GME: Event Focus (2e)');
+          ui.notifications.warn(game.i18n.localize('MGME.WarnFocus1e2e'));
+        }
         win = new MGME2ePanel();
         break;
       }      

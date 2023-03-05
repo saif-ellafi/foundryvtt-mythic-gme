@@ -1,13 +1,13 @@
 import MGMEPanel from "./panel-base";
 import '../style/panel-mythic.css'
 
-export default class MGMEBluePanel extends MGMEPanel {
+export default class MGME1ePanel extends MGMEPanel {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      id: "mblue_panel_window",
+      id: "m1e_panel_window",
       title: 'Mythic GM Emulator',
-      template: "./modules/mythic-gme-tools/template/panel-mythic-gme.hbs"
+      template: "./modules/mythic-gme-tools/template/panel-mythic-gme-1e.hbs"
     });
   }
 

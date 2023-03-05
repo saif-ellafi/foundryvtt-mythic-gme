@@ -23,7 +23,7 @@ export default class MGMECore {
       config: true,
       type: String,
       choices: MGMEReference.MYTHIC_PANELS,
-      default: 'mgme_blue',
+      default: 'mgme_1e',
       onChange: () => game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
     });
 
@@ -213,7 +213,7 @@ export default class MGMECore {
 
     function generateOutput(question, odds, chaos, result) {
       const version = game.settings.get('mythic-gme-tools', 'panelKey');
-      const chart = version != 'mgme_2e' ? 
+      const chart = version !== 'mgme_2e' ?
         MGMEReference.FATE_CHART : MGMEReference.FATE_CHART_2E;
       const target = chart[odds][chaos];
       const ex_yes_bound = target * 0.2;
@@ -231,7 +231,7 @@ export default class MGMECore {
         outcome = game.i18n.localize('MGME.No');
       }
       const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
-      const oddsKey = version != 'mgme_2e' ?
+      const oddsKey = version !== 'mgme_2e' ?
         MGMEReference.ODDS_MAP_CORE[odds] :
         MGMEReference.ODDS_MAP_2E[odds]['key'];
       return `
@@ -242,7 +242,7 @@ export default class MGMECore {
     }
 
     const version = game.settings.get('mythic-gme-tools', 'panelKey');
-    const fateChartTemplate = version != 'mgme_2e'  ?
+    const fateChartTemplate = version !== 'mgme_2e'  ?
       './modules/mythic-gme-tools/template/core-fatechart-dialog.hbs' :
       './modules/mythic-gme-tools/template/core-fatechart-2e-dialog.hbs';
     const fateChartDialog = await renderTemplate(fateChartTemplate, {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
@@ -265,7 +265,7 @@ export default class MGMECore {
             if (result > 10) {
               const s = result.toString();
               const ignoreDoubles = game.settings.get("mythic-gme-tools", "doublesIgnoreChaos");
-              if (((result == 100) || (s[0] === s[1])) && (ignoreDoubles || s[1] <= parseInt(chaos))) {
+              if (((result === 100) || (s[0] === s[1])) && (ignoreDoubles || s[1] <= parseInt(chaos))) {
                 content += `<div><b>${game.i18n.localize('MGME.Doubles')}</b></div>`
                 doubles = true;
               }

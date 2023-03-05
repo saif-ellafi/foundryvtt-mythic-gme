@@ -90,8 +90,10 @@
   "MGME.NearlyCertain": "Nearly certain",
   "MGME.Certain": "Certain",
 
-  "MGME.WarnNoTokenSelected": "No Token selected. Anonymous Behavior Check.",
+  "MGME.WarnNoTokenSelected": "Mythic GME Tools: No Token selected. Anonymous Behavior Check.",
   "MGME.WarnNoTables": "Mythic GME Tools: No RollTables find in your World. Please create or import some first.",
+  "MGME.WarnFocus1e2e": "Mythic GME Tools: Switched default focus table to Mythic 2e. Change in settings.",
+  "MGME.WarnFocus2e1e": "Mythic GME Tools: Switched default focus table to Mythic 1e. Change in settings.",
 
   "MGME.InfoShuffled": "The Deck has been shuffled. Please draw again.",
   "MGME.ErrNoCards": "ERROR: Cards not found. Make sure your cards are in the Data folder, in the following path",

@@ -227,7 +227,7 @@ export default class MGMEReference {
 
   static MYTHIC_PANELS = {
     'nopanel': 'Disabled',
-    'mgme_blue': 'Mythic GM Emulator (Blue Book)',
+    'mgme_1e': 'Mythic GM Emulator (Blue Book)',
     'mgme_2e': 'Mythic GM Emulator (2nd Edition)',
     'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
     'mgme_vars2': 'Mythic Variations 2 (Green Book)',
