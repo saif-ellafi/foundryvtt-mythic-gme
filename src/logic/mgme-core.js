@@ -212,7 +212,10 @@ export default class MGMECore {
   static async mgmeFateChart() {
 
     function generateOutput(question, odds, chaos, result) {
-      const target = MGMEReference.FATE_CHART[odds][chaos];
+      const version = game.settings.get('mythic-gme-tools', 'panelKey');
+      const chart = version != 'mgme_2e' ? 
+        MGMEReference.FATE_CHART : MGMEReference.FATE_CHART_2E;
+      const target = chart[odds][chaos];
       const ex_yes_bound = target * 0.2;
       const ex_no_bound = 100 - ((100 - target) * 0.2)
       let outcome = game.i18n.localize('MGME.Yes');
@@ -228,14 +231,21 @@ export default class MGMECore {
         outcome = game.i18n.localize('MGME.No');
       }
       const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+      const oddsKey = version != 'mgme_2e' ?
+        MGMEReference.ODDS_MAP_CORE[odds] :
+        MGMEReference.ODDS_MAP_2E[odds]['key'];
       return `
-        ${question ? `<h2>${question} <em>(${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])})</em></h2>` : `<h2><em>${game.i18n.localize(MGMEReference.ODDS_MAP_CORE[odds])}</em></h2>`}
+        ${question ? `<h2>${question} <em>(${game.i18n.localize(oddsKey)})</em></h2>` : `<h2><em>${game.i18n.localize(oddsKey)}</em></h2>`}
         ${debug ? `<div><b>Roll:</b> ${result} Chaos [${chaos}]</div>` : ''}
         <b style="color: ${color}">${outcome}</b>
       `
     }
 
-    const fateChartDialog = await renderTemplate('./modules/mythic-gme-tools/template/core-fatechart-dialog.hbs', {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
+    const version = game.settings.get('mythic-gme-tools', 'panelKey');
+    const fateChartTemplate = version != 'mgme_2e'  ?
+      './modules/mythic-gme-tools/template/core-fatechart-dialog.hbs' :
+      './modules/mythic-gme-tools/template/core-fatechart-2e-dialog.hbs';
+    const fateChartDialog = await renderTemplate(fateChartTemplate, {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});
 
     let dialogue = new Dialog({
       title: game.i18n.localize('MGME.FateChart'),
@@ -252,10 +262,10 @@ export default class MGMECore {
             const result = roll.evaluate({async: false}).total;
             let content = generateOutput(html.find("#mgme_question").val()?.trim(), odds, chaos, result);
             let doubles = false;
-            if (result > 10 && result < 100) {
+            if (result > 10) {
               const s = result.toString();
               const ignoreDoubles = game.settings.get("mythic-gme-tools", "doublesIgnoreChaos");
-              if (s[0] === s[1] && (ignoreDoubles || s[0] <= parseInt(chaos))) {
+              if (((result == 100) || (s[0] === s[1])) && (ignoreDoubles || s[1] <= parseInt(chaos))) {
                 content += `<div><b>${game.i18n.localize('MGME.Doubles')}</b></div>`
                 doubles = true;
               }

@@ -6,6 +6,7 @@ import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
 import MGMECrafterSeries from "./logic/mgme-crafter-series";
 import MGMEBluePanel from "./app/panel-mythic-gme";
+import MGME2ePanel from "./app/panel-mythic-gme-2e";
 import MGMEVars1Panel from "./app/panel-mythic-vars1";
 import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
@@ -70,6 +71,10 @@ export default class MGMEMacroAPI {
         win = new MGMEBluePanel();
         break;
       }
+      case 'mgme_2e': {
+        win = new MGME2ePanel();
+        break;
+      }      
       case 'mgme_vars1': {
         win = new MGMEVars1Panel();
         break;

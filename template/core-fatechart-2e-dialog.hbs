@@ -1,0 +1,20 @@
+<form>
+    <label for="mgme_odds">Odds:</label>
+    <select name="Odds" id="mgme_odds" style="margin-bottom: 10px;">
+        <option value="i">{{localize "MGME.Impossible"}}</option>
+        <option value="ni">{{localize "MGME.NearlyImpossible"}}</option>
+        <option value="vu">{{localize "MGME.VeryUnlikely"}}</option>
+        <option value="u">{{localize "MGME.Unlikely"}}</option>
+        <option value="ff" selected>{{localize "MGME.fiftyfifty"}}</option>
+        <option value="l">{{localize "MGME.Likely"}}</option>
+        <option value="vl">{{localize "MGME.VeryLikely"}}</option>
+        <option value="nc">{{localize "MGME.NearlyCertain"}}</option>
+        <option value="c">{{localize "MGME.Certain"}}</option>
+    </select>
+    <label for="mgme_chaos" style="margin-left: 5px;">{{localize "MGME.ChaosRank"}}:</label>
+    <select name="Chaos" id="mgme_chaos" style="margin-bottom: 10px;">
+        {{chaosRankOptions}}
+    </select><br>
+    <label for="mgme_question">{{localize "MGME.Question"}} ({{localize "MGME.Optional"}}):</label>
+    <input id="mgme_question" style="margin-bottom:10px;width: 260px;" placeholder="{{localize "MGME.Question"}}"/>
+</form>
