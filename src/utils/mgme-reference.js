@@ -123,9 +123,112 @@ export default class MGMEReference {
     }
   }
 
+  static FATE_CHART_2E = {
+    'i': {
+      '9': 50,
+      '8': 35,
+      '7': 25,
+      '6': 15,
+      '5': 10,
+      '4': 5,
+      '3': 1,
+      '2': 1,
+      '1': 1
+    },
+    'ni': {
+      '9': 65,
+      '8': 50,
+      '7': 35,
+      '6': 25,
+      '5': 15,
+      '4': 10,
+      '3': 5,
+      '2': 1,
+      '1': 1
+    },
+    'vu': {
+      '9': 75,
+      '8': 65,
+      '7': 50,
+      '6': 35,
+      '5': 25,
+      '4': 15,
+      '3': 10,
+      '2': 5,
+      '1': 1
+    },
+    'u': {
+      '9': 85,
+      '8': 75,
+      '7': 65,
+      '6': 50,
+      '5': 35,
+      '4': 25,
+      '3': 15,
+      '2': 10,
+      '1': 5
+    },
+    'ff': {
+      '9': 90,
+      '8': 85,
+      '7': 75,
+      '6': 65,
+      '5': 50,
+      '4': 35,
+      '3': 25,
+      '2': 15,
+      '1': 10
+    },
+    'l': {
+      '9': 95,
+      '8': 90,
+      '7': 85,
+      '6': 75,
+      '5': 65,
+      '4': 50,
+      '3': 35,
+      '2': 25,
+      '1': 15
+    },
+    'vl': {
+      '9': 99,
+      '8': 95,
+      '7': 90,
+      '6': 85,
+      '5': 75,
+      '4': 65,
+      '3': 50,
+      '2': 35,
+      '1': 25
+    },
+    'nc': {
+      '9': 99,
+      '8': 99,
+      '7': 95,
+      '6': 90,
+      '5': 85,
+      '4': 75,
+      '3': 65,
+      '2': 50,
+      '1': 35
+    },
+    'c': {
+      '9': 99,
+      '8': 99,
+      '7': 99,
+      '6': 95,
+      '5': 90,
+      '4': 85,
+      '3': 75,
+      '2': 65,
+      '1': 50
+    }
+  }
+
   static MYTHIC_PANELS = {
     'nopanel': 'Disabled',
     'mgme_blue': 'Mythic GM Emulator (Blue Book)',
+    'mgme_2e': 'Mythic GM Emulator (2nd Edition)',
     'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
     'mgme_vars2': 'Mythic Variations 2 (Green Book)',
     'pum_core': 'Plot Unfolding Machine (Unofficial Homebrew)'
@@ -163,6 +266,18 @@ export default class MGMEReference {
     'nst': 'MGME.NearSureThing',
     'ast': 'MGME.SureThing',
     'htb': 'MGME.HasToBe'
+  }
+
+  static ODDS_MAP_2E = {
+    'imp': {key: 'MGME.Impossible', mod: -5},
+    'nw': {key: 'MGME.NearlyImpossible', mod: -4},
+    'vu': {key: 'MGME.VeryUnlikely', mod: -2},
+    'u': {key: 'MGME.Unlikely', mod: -1},
+    'ff': {key: 'MGME.fiftyfifty', mod: 0},
+    'l': {key: 'MGME.Likely', mod: 1},
+    'vl': {key: 'MGME.VeryLikely', mod: 2},
+    'nc': {key: 'MGME.NearlyCertain', mod: 4},
+    'c': {key: 'MGME.Certain', mod: 5}
   }
 
   static ODDS_MAP_VARS2 = {

@@ -86,6 +86,10 @@
   "MGME.SureThing": "Sure thing",
   "MGME.HasToBe": "Has to be",
 
+  "MGME.NearlyImpossible": "Nearly impossible",
+  "MGME.NearlyCertain": "Nearly certain",
+  "MGME.Certain": "Certain",
+
   "MGME.WarnNoTokenSelected": "No Token selected. Anonymous Behavior Check.",
   "MGME.WarnNoTables": "Mythic GME Tools: No RollTables find in your World. Please create or import some first.",
 
@@ -97,6 +101,7 @@
 
   "MGME.RandomEvent": "Random Event",
   "MGME.EventFocus": "Event Focus",
+  "MGME.EventFocus2e": "Event Focus (2e)",
   "MGME.UnexpectedRandomEvent": "Unexpected Random Event",
   "MGME.UnexpectedInterruptionEvent": "Interruption Event",
   "MGME.EventCheck": "Event Check",
@@ -237,5 +242,6 @@
   "MGME.DecreaseChaos": "Decrease Chaos",
 
   "MGME.NPCList": "NPCs List",
-  "MGME.ThreadList": "Thread List"
+  "MGME.ThreadList": "Thread List",
+  "MGME.CharacterList": "Character List"
 }
