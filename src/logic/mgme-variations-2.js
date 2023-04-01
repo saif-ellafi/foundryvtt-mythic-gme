@@ -16,6 +16,16 @@ export default class MGMEVariations2 {
     });
   }
 
+  static resetDefaults() {
+    game.settings.set('mythic-gme-tools', 'focusTable', game.settings.settings.get('mythic-gme-tools.focusTable').default);
+    game.settings.set('mythic-gme-tools', 'actionTable', game.settings.settings.get('mythic-gme-tools.actionTable').default);
+    game.settings.set('mythic-gme-tools', 'subjectTable', game.settings.settings.get('mythic-gme-tools.subjectTable').default);
+    game.settings.set('mythic-gme-tools', 'descriptionsAdvTable', game.settings.settings.get('mythic-gme-tools.descriptionsAdvTable').default);
+    game.settings.set('mythic-gme-tools', 'descriptionsAdjTable', game.settings.settings.get('mythic-gme-tools.descriptionsAdjTable').default);
+    game.settings.set('mythic-gme-tools', 'minChaos', 3);
+    game.settings.set('mythic-gme-tools', 'maxChaos', 6);
+  }
+
   static _mgmeEnsureV2Chaos(windowTitle, macroCallback) {
     const isMinChaos = game.settings.get('mythic-gme-tools', 'minChaos') >= 3
     const isMaxChaos = game.settings.get('mythic-gme-tools', 'maxChaos') <= 6
@@ -402,7 +412,7 @@ export default class MGMEVariations2 {
               flavor: game.i18n.localize('MGME.FateCheckQuestion'),
               content: content,
               speaker: ChatMessage.getSpeaker()
-            }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
+            }, {rollMode: MGMECommon._mgmeGetRollMode()}).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
             if (output.randomEvent) {
               if (game.dice3d)
                 Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.UNEXPECTED_EVENT()))

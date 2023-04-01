@@ -1,4 +1,7 @@
 import MGMEReference from "../utils/mgme-reference";
+import MGMECore from "../logic/mgme-core";
+import MGMEVariations1 from "../logic/mgme-variations-1";
+import MGMEVariations2 from "../logic/mgme-variations-2";
 
 export default class MGMEPanel extends Application {
 
@@ -58,6 +61,9 @@ export default class MGMEPanel extends Application {
       <div style="margin-bottom: 5px;">
       <label for="panConfigure">${game.i18n.localize('MGME.PanelConfigureLayout')}:</label>
       <select name="panConfigure" id="mgme_pan_config" style="width: 308px;"></select>
+      <label for="panDefaultUse">${game.i18n.localize('MGME.PanelConfigureUseDefaults')}:</label>
+      <input type="checkbox" id="mgme_pan_use_defaults" checked>
+      <div style="text-align:right;margin-bottom:5px;margin-top:5px;font-size:11px"><a href="https://ko-fi.com/jeansenvaars">would you buy me a coffee?</a> :)</div>
       </div>
       </form>
     `;
@@ -96,7 +102,30 @@ export default class MGMEPanel extends Application {
                 }
               }).render(true, {width: 250})
             } else if (game.settings.get('mythic-gme-tools', 'panelKey') !== panelSelection) {
-              game.settings.set('mythic-gme-tools', 'panelKey', panelSelection)
+              game.settings.set('mythic-gme-tools', 'panelKey', panelSelection);
+              if (html.find("#mgme_pan_use_defaults")[0].checked) {
+                switch (panelSelection) {
+                  case 'mgme_1e': {
+                    MGMECore.resetDefaults();
+                    break;
+                  }
+                  case 'mgme_2e': {
+                    MGMECore.resetDefaults2e();
+                    break;
+                  }
+                  case 'mgme_vars1': {
+                    MGMEVariations1.resetDefaults();
+                    break;
+                  }
+                  case 'mgme_vars2': {
+                    MGMEVariations2.resetDefaults();
+                    break;
+                  }
+                  case 'pum_core': {
+                    break;
+                  }
+                }
+              }
             }
           }
         }

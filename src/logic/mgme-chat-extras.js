@@ -68,13 +68,13 @@ export default class MGMEChatExtras {
 
   static async mgmeRollNPCsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
-      table.draw();
+      table.normalize().then((t) => t.draw());
     });
   }
 
   static async mgmeRollThreadsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
-      table.draw();
+      table.normalize().then((t) => t.draw());
     });
   }
 
@@ -144,7 +144,8 @@ export default class MGMEChatExtras {
             const selectedSpeaker = speakerElementVal === 'curr_user' ? {alias: game.user.name} : {actor: tokens.find(t => t.actor.id === speakerElementVal).actor.id};
             let chatConfig = {
               content: message,
-              speaker: selectedSpeaker
+              speaker: selectedSpeaker,
+              whisper: MGMECommon._mgmeGetWhisperMode()
             };
             MGMEChatJournal._mgmeCreateChatAndLog(chatConfig);
           }

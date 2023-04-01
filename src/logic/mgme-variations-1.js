@@ -16,6 +16,15 @@ export default class MGMEVariations1 {
     });
   }
 
+  static resetDefaults() {
+    game.settings.set('mythic-gme-tools', 'focusTable', 'Mythic GME: Event Focus (2e)');
+    game.settings.set('mythic-gme-tools', 'actionTable', game.settings.settings.get('mythic-gme-tools.actionTable').default);
+    game.settings.set('mythic-gme-tools', 'subjectTable', game.settings.settings.get('mythic-gme-tools.subjectTable').default);
+    game.settings.set('mythic-gme-tools', 'backstoryFocusTable', game.settings.settings.get('mythic-gme-tools.backstoryFocusTable').default);
+    game.settings.set('mythic-gme-tools', 'minChaos', 1);
+    game.settings.set('mythic-gme-tools', 'maxChaos', 9);
+  }
+
   static async mgmeComplexQuestion() {
     await MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.COMPLEX_QUESTION())
   }
@@ -40,11 +49,11 @@ export default class MGMEVariations1 {
               const eventsCountTable = await MGMECommon._mgmeFindTableByName('Mythic GME: Backstory Events');
               const backstoryDraw = await eventsCountTable.roll();
               eventsCount = parseInt(backstoryDraw.results[0].getChatText());
+              // NOTE: roll.toMessage does not take whisper, only rollMode
               let triggerMsg = await backstoryDraw.roll.toMessage({
-                whisper: whisper,
                 flavor: game.i18n.localize('MGME.BackstoryEvents'),
                 content: `<b>${eventsCount}</b> ${game.i18n.localize('MGME.BackstoryEvents')}${speaker.alias === game.user.name ? '' : ` ${game.i18n.localize('MGME.For')} <b>${speaker.alias}</b>`}`
-              });
+              }, {rollMode: MGMECommon._mgmeGetRollMode()});
               await MGMEChatJournal._mgmeLogChatToJournal(triggerMsg);
               await MGMECommon._mgmeWaitFor3DDice(triggerMsg.id);
             } else {

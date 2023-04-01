@@ -6,7 +6,7 @@ export default class MGME1ePanel extends MGMEPanel {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "m1e_panel_window",
-      title: 'Mythic GM Emulator',
+      title: 'Mythic GME 1st Edition',
       template: "./modules/mythic-gme-tools/template/panel-mythic-gme-1e.hbs"
     });
   }

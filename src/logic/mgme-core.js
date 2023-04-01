@@ -24,7 +24,9 @@ export default class MGMECore {
       type: String,
       choices: MGMEReference.MYTHIC_PANELS,
       default: 'mgme_1e',
-      onChange: () => game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
+      onChange: () => {
+        game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
+      }
     });
 
     game.settings.register('mythic-gme-tools', 'panelPermission', {
@@ -54,6 +56,15 @@ export default class MGMECore {
     game.settings.register('mythic-gme-tools', 'mythicRollDebug', {
       name: game.i18n.localize('MGME.SettingsRollDebugName'),
       hint: game.i18n.localize('MGME.SettingsRollDebugHint'),
+      scope: 'world',
+      config: true,
+      type: Boolean,
+      default: false
+    });
+
+    game.settings.register('mythic-gme-tools', 'mythicRollPrivately', {
+      name: game.i18n.localize('MGME.SettingsRollPrivatelyName'),
+      hint: game.i18n.localize('MGME.SettingsRollPrivatelyHint'),
       scope: 'world',
       config: true,
       type: Boolean,
@@ -209,6 +220,22 @@ export default class MGMECore {
 
   }
 
+  static resetDefaults() {
+    game.settings.set('mythic-gme-tools', 'focusTable', game.settings.settings.get('mythic-gme-tools.focusTable').default);
+    game.settings.set('mythic-gme-tools', 'actionTable', game.settings.settings.get('mythic-gme-tools.actionTable').default);
+    game.settings.set('mythic-gme-tools', 'subjectTable', game.settings.settings.get('mythic-gme-tools.subjectTable').default);
+    game.settings.set('mythic-gme-tools', 'minChaos', 1);
+    game.settings.set('mythic-gme-tools', 'maxChaos', 9);
+  }
+
+  static resetDefaults2e() {
+    game.settings.set('mythic-gme-tools', 'focusTable', 'Mythic GME: Event Focus (2e)');
+    game.settings.set('mythic-gme-tools', 'actionTable', game.settings.settings.get('mythic-gme-tools.actionTable').default);
+    game.settings.set('mythic-gme-tools', 'subjectTable', game.settings.settings.get('mythic-gme-tools.subjectTable').default);
+    game.settings.set('mythic-gme-tools', 'minChaos', 1);
+    game.settings.set('mythic-gme-tools', 'maxChaos', 9);
+  }
+
   static async mgmeFateChart() {
 
     function generateOutput(question, odds, chaos, result) {
@@ -274,7 +301,7 @@ export default class MGMECore {
               flavor: game.i18n.localize('MGME.FateChartQuestion'),
               content: content,
               speaker: ChatMessage.getSpeaker()
-            }).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
+            }, {rollMode: MGMECommon._mgmeGetRollMode()}).then(chat => MGMEChatJournal._mgmeLogChatToJournal(chat));
             if (doubles) {
               if (game.dice3d)
                 Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.UNEXPECTED_EVENT()))
@@ -378,7 +405,7 @@ export default class MGMECore {
                 roll.toMessage({
                   flavor: game.i18n.localize('MGME.SceneAlterationCheck'),
                   content: `<b style="color: darkred">${game.i18n.localize("MGME.SceneInterrupted")}</b>${debug ? ' ('+result+')' : ''}`
-                });
+                }, {rollMode: MGMECommon._mgmeGetRollMode()});
                 if (game.settings.get('mythic-gme-tools', 'autoInterrupt')) {
                   if (game.dice3d)
                     Hooks.once('diceSoNiceRollComplete', () => MGMEOracleUtils._mgmePrepareOracleQuestion(MGMEReference.PROPS_TEMPLATES.INTERRUPTION_EVENT()))
@@ -389,13 +416,13 @@ export default class MGMECore {
                 return roll.toMessage({
                   flavor: game.i18n.localize('MGME.SceneAlterationCheck'),
                   content: `<b style="color: darkred">${game.i18n.localize('MGME.SceneAltered')}</b>${debug ? ' ('+result+')' : ''}`
-                }).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
+                }, {rollMode: MGMECommon._mgmeGetRollMode()}).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
               }
             } else {
               return roll.toMessage({
                 flavor: game.i18n.localize('MGME.SceneAlterationCheck'),
                 content: `<b style="color: darkgreen">${game.i18n.localize('MGME.SceneNormal')}</b>${debug ? ' ('+result+')' : ''}`
-              }).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
+              }, {rollMode: MGMECommon._mgmeGetRollMode()}).then(chat => {MGMEChatJournal._mgmeLogChatToJournal(chat);return chat});
             }
           }
         }

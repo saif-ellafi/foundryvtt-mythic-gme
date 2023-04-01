@@ -71,9 +71,24 @@ export default class MGMECommon {
   }
 
   static _mgmeGetWhisperMode() {
-    const rollMode = ui.chat.getData().rollMode; // 'roll' and 'publicRoll' for compatibility with both 0.8.x and V9+
-    return rollMode === 'roll' || rollMode === 'publicroll' ? undefined : [game.user];
+    const rollPrivately = game.settings.get('mythic-gme-tools', 'mythicRollPrivately');
+    const rollMode = game.settings.get("core", "rollMode");
+    if (rollPrivately)
+      return [game.user]
+    else if (rollMode === 'roll' || rollMode === 'publicroll') // 'roll' is for backwards compatibility
+      return undefined
+    else
+      return [game.user];
   }
+
+  static _mgmeGetRollMode() {
+    const rollPrivately = game.settings.get('mythic-gme-tools', 'mythicRollPrivately');
+    if (rollPrivately)
+      return 'gmroll'
+    else
+      return undefined
+  }
+
 }
 
 

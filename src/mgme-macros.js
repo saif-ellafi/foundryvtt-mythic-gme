@@ -12,6 +12,7 @@ import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
 import PUMPanel from "./app/panel-pum";
 import SUMCore from "./logic/sum-core";
+import MGMECore2e from "./logic/mgme-core-2e";
 
 export default class MGMEMacroAPI {
   static mgmeIncreaseChaos = MGMECore.mgmeIncreaseChaos;
@@ -51,6 +52,11 @@ export default class MGMEMacroAPI {
   static mgmeRenderThreadsList = MGMEChatExtras.mgmeRenderThreadsList;
   static mgmeRollThreadsList = MGMEChatExtras.mgmeRollThreadsList;
 
+  static mgmeRenderNPCsList2e = MGMECore2e.mgmeRenderNPCsList2e;
+  static mgmeRollNPCsList2e = MGMECore2e.mgmeRollNPCsList2e;
+  static mgmeRenderThreadsList2e = MGMECore2e.mgmeRenderThreadsList2e;
+  static mgmeRollThreadsList2e = MGMECore2e.mgmeRollThreadsList2e;
+
   static mgmeLaunchPanel() {
     if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
       return
@@ -68,22 +74,10 @@ export default class MGMEMacroAPI {
     let win;
     switch (key) {
       case 'mgme_1e': {
-        const defaultFocusTable = game.settings.settings.get('mythic-gme-tools.focusTable').default;
-        const focusTable = game.settings.get('mythic-gme-tools', 'focusTable');
-        if (focusTable === 'Mythic GME: Event Focus (2e)') {
-          game.settings.set('mythic-gme-tools', 'focusTable', defaultFocusTable);
-          ui.notifications.warn(game.i18n.localize('MGME.WarnFocus2e1e'));
-        }
         win = new MGME1ePanel();
         break;
       }
       case 'mgme_2e': {
-        const defaultFocusTable = game.settings.settings.get('mythic-gme-tools.focusTable').default;
-        const focusTable = game.settings.get('mythic-gme-tools', 'focusTable');
-        if (focusTable === defaultFocusTable) {
-          game.settings.set('mythic-gme-tools', 'focusTable', 'Mythic GME: Event Focus (2e)');
-          ui.notifications.warn(game.i18n.localize('MGME.WarnFocus1e2e'));
-        }
         win = new MGME2ePanel();
         break;
       }      
