@@ -40,6 +40,8 @@
   "MGME.SettingsPanelPermissionHint": "Selecciona quién puede ver el panel HUD",
   "MGME.SettingsPanelGMsVal": "Solo directores de juego",
   "MGME.SettingsPanelPlayersVal": "Todos",
+  "MGME.SettingsRollPrivatelyName": "Oraculos en privado",
+  "MGME.SettingsRollPrivatelyHint": "Tira todos los oráculos en privado, ignorando el modo de tirada del chat",
 
   "MGME.DialogV2Conversion1": "Esta regla se basa en las reglas de Factor de Caos de las Variaciones Míticas #2 y necesita ajustes de Rango de Caos entre 3 y 6.",
   "MGME.DialogV2Conversion2": "¿Quieres que cambie estos ajustes por ti?",
@@ -86,6 +88,10 @@
   "MGME.SureThing": "Seguro",
   "MGME.HasToBe": "Tiene que ser",
 
+  "MGME.NearlyImpossible": "Prácticamente imposible",
+  "MGME.NearlyCertain": "Casi seguro",
+  "MGME.Certain": "Seguro",
+
   "MGME.WarnNoTokenSelected": "No se ha seleccionado ninguna ficha. Comprobación de comportamiento anónimo.",
   "MGME.WarnNoTables": "Mythic GME Tools: No hay tablas aleatorias en tu munndo!",
 
@@ -97,6 +103,7 @@
 
   "MGME.RandomEvent": "Evento Aleatorio",
   "MGME.EventFocus": "Foco de Evento",
+  "MGME.EventFocus2e": "Foco de Evento (2e)",
   "MGME.UnexpectedRandomEvent": "Evento Aleatorio Inesperado",
   "MGME.UnexpectedInterruptionEvent": "Evento de Interrupción",
   "MGME.EventCheck": "Comprobación de Eventp",
@@ -160,6 +167,7 @@
   "MGME.ExternalRollExplain": "Resultados:",
 
   "MGME.RollTableFlavorTitle": "Lanzar en tabla aleatoria",
+  "MGME.TableResultChoose2e": "<Elige, o lanza de nuevo>",
 
   "MGME.MythicAdventureLog": "Log de Aventura Mythic",
   "MGME.ExportAllToJournal": "Exportar chat a un Journal",

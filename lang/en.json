@@ -40,6 +40,8 @@
   "MGME.SettingsPanelPermissionHint": "Select who can see the HUD Panel",
   "MGME.SettingsPanelGMsVal": "Game Masters only",
   "MGME.SettingsPanelPlayersVal": "Everyone",
+  "MGME.SettingsRollPrivatelyName": "Private Oracle Rolls",
+  "MGME.SettingsRollPrivatelyHint": "Roll all oracles privately, ignoring the chat roll mode",
 
   "MGME.DialogV2Conversion1": "This rule is based on Mythic Variations #2 Chaos Factor rules and needs Chaos Range settings between 3 and 6.",
   "MGME.DialogV2Conversion2": "Would you like me to change these settings for you?",
@@ -92,8 +94,6 @@
 
   "MGME.WarnNoTokenSelected": "Mythic GME Tools: No Token selected. Anonymous Behavior Check.",
   "MGME.WarnNoTables": "Mythic GME Tools: No RollTables find in your World. Please create or import some first.",
-  "MGME.WarnFocus1e2e": "Mythic GME Tools: Switched default focus table to Mythic 2e. Change in settings.",
-  "MGME.WarnFocus2e1e": "Mythic GME Tools: Switched default focus table to Mythic 1e. Change in settings.",
 
   "MGME.InfoShuffled": "The Deck has been shuffled. Please draw again.",
   "MGME.ErrNoCards": "ERROR: Cards not found. Make sure your cards are in the Data folder, in the following path",
@@ -167,6 +167,7 @@
   "MGME.ExternalRollExplain": "Results:",
 
   "MGME.RollTableFlavorTitle": "Roll on a Table",
+  "MGME.TableResultChoose2e": "<Choose, or roll again>",
 
   "MGME.MythicAdventureLog": "Mythic Adventure Log",
   "MGME.ExportAllToJournal": "Export Chat to Journal",

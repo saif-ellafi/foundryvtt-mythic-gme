@@ -40,6 +40,8 @@
   "MGME.SettingsPanelPermissionHint": "Auswählen, wer das HUD-Panel sehen kann",
   "MGME.SettingsPanelGMsVal": "Nur Spielleiter",
   "MGME.SettingsPanelPlayersVal": "Alle",
+  "MGME.SettingsRollPrivatelyName": "Private Oracle-Rollen",
+  "MGME.SettingsRollPrivatelyHint": "Rollt alle Orakel privat, ignoriert den Chat-Rollmodus",
 
   "MGME.DialogV2Conversion1": "Diese Regel basiert auf den Mythic Variationen #2 Chaos-Faktor-Regeln und benötigt einen Chaos-Bereich zwischen 3 und 6.",
   "MGME.DialogV2Conversion2": "Möchtest du, dass ich diese Einstellungen für dich ändere??",
@@ -86,6 +88,10 @@
   "MGME.SureThing": "Sichere Sache",
   "MGME.HasToBe": "Muss sein",
 
+  "MGME.NearlyImpossible": "Beinahe unmöglich",
+  "MGME.NearlyCertain": "Nahezu sicher",
+  "MGME.Certain": "Sicher",
+
   "MGME.WarnNoTokenSelected": "Kein Token ausgewählt. Anonyme Verhaltensprüfung.",
   "MGME.WarnNoTables": "Mythic GME Tools: Keine RollTables in deiner Welt gefunden. Bitte erstelle oder importiere welche.",
 
@@ -97,6 +103,7 @@
 
   "MGME.RandomEvent": "Zufallsereignis",
   "MGME.EventFocus": "Ereignis Fokus",
+  "MGME.EventFocus2e": "Ereignis Fokus (2e)",
   "MGME.UnexpectedRandomEvent": "Unerwartetes Zufallsereignis",
   "MGME.UnexpectedInterruptionEvent": "Unterbrechungsereignis",
   "MGME.EventCheck": "Ereignis Probe",
@@ -160,6 +167,7 @@
   "MGME.ExternalRollExplain": "Ergebnisse:",
 
   "MGME.RollTableFlavorTitle": "Auf einer Tabelle rollen",
+  "MGME.TableResultChoose2e": "Auswählen, ode erneut würfeln",
 
   "MGME.MythicAdventureLog": "Mythic Adventure Log",
   "MGME.ExportAllToJournal": "Chats ins Journal exportieren",
