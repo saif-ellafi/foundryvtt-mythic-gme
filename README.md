@@ -119,13 +119,13 @@ speak on his behalf or even sometimes use its information for better flavor!
 * Behavior Check - Advanced: This Macro stores disposition information within Tokens!
 * Statistic Check - Advanced: This Macro stores the last used Attributes in your game!
 
+![green-book-macros.png](green-book-macros.png)
+
 #### GM Emulator 2nd Edition
 * Discovery meaning tables
 * Scene adjustment table
 * Weighted lists support
 * Element meaning tables included
-
-![green-book-macros.png](green-book-macros.png)
 
 ### Non Mythic Macros
 
