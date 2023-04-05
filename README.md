@@ -127,6 +127,8 @@ speak on his behalf or even sometimes use its information for better flavor!
 * Weighted lists support
 * Element meaning tables included
 
+![mythic-panel-2e.png](mythic-panel-2e.png)
+
 ### Non Mythic Macros
 
 #### Plot Unfolding Machine
