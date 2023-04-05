@@ -23,6 +23,7 @@ Mythic GME Tools provides everything needed for playing Mythic GM Emulator with 
       1. [GM Emulator Blue Book](#gm-emulator-blue-book)
       2. [Variations 1 Orange Book](#variations-1-orange-book)
       3. [Variations 2 Green Book](#variations-2-green-book)
+      4. [GM Emulator 2nd Edition](#gm-emulator-2nd-edition)
    4. [Non Mythic Macros](#non-mythic-macros)
    3. [Mythic Panels](#mythic-panels)
    5. [The Oracle Builder](#the-oracle-builder)
