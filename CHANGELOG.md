@@ -1,3 +1,12 @@
+### 2.7.0
+* Enhancement: Support for Mythic GM Emulator 2nd Edition
+* Enhancement: Included all meaning tables from Mythic 2nd Edition
+* Enhancement: Support for Mythic 2nd Edition Weighted Lists
+* Enhancement: New setting to make all oracle roles private
+* Bugfix: Characters and Threads list now automatically set the roll formula
+* Bugfix: When switching rulebook settings, defaults adjust automatically
+* Community: Thank you so much @vulpzor for submitting a PR with Mythic 2nd Edition Oracle Logic and Focus Tables!
+
 ### 2.6.12
 * Update: PUM to v5.5
 
