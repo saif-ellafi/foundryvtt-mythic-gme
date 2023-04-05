@@ -79,6 +79,8 @@ export default class MGMEMacroAPI {
       }
       case 'mgme_2e': {
         win = new MGME2ePanel();
+        minHeight = 375;
+        maxHeight = 300;
         break;
       }      
       case 'mgme_vars1': {

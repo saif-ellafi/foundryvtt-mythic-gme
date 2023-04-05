@@ -23,7 +23,7 @@ export default class MGMECore {
       config: true,
       type: String,
       choices: MGMEReference.MYTHIC_PANELS,
-      default: 'mgme_1e',
+      default: 'mgme_2e',
       onChange: () => {
         game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
       }
