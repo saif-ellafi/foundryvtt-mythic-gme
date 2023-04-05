@@ -1,3 +1,8 @@
+### 2.7.1
+* Enhancement: Mythic 2nd Edition and PUM panels now vertically resizable
+* Bugfix: Event meaning tables of Mythic 2nd edition rolls twice now
+* Community: Thank you Thessius for the feedback
+
 ### 2.7.0
 * Enhancement: Support for Mythic GM Emulator 2nd Edition
 * Enhancement: Included all meaning tables from Mythic 2nd Edition

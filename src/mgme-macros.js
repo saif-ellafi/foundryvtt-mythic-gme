@@ -102,7 +102,8 @@ export default class MGMEMacroAPI {
       width: winWidth,
       left: (canvas.app.screen.width - ui.sidebar.element.width() - winWidth - 20),
       top: canvas.app.screen.height - minHeight,
-      height: maxHeight
+      height: maxHeight,
+      resizable: true
     });
     api.win = win;
   }
