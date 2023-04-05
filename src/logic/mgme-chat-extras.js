@@ -68,13 +68,13 @@ export default class MGMEChatExtras {
 
   static async mgmeRollNPCsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
-      table.normalize().then((t) => t.draw());
+      table.normalize().then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
     });
   }
 
   static async mgmeRollThreadsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
-      table.normalize().then((t) => t.draw());
+      table.normalize().then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
     });
   }
 

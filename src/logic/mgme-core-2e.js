@@ -1,10 +1,10 @@
 import MGMEChatJournal from "../utils/mgme-chat-journal";
+import MGMECommon from "../utils/mgme-common";
 
 export default class MGMECore2e {
 
     static async adjustTable(table) {
         let size = table.results.size;
-        console.log(size);
         if (size === 0 || size % 5) {
             let adjustBy = 5 - size % 5;
             let newResults = [];
@@ -36,13 +36,13 @@ export default class MGMECore2e {
 
     static mgmeRollNPCsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then((t) => t.normalize()).then((t) => t.draw());
+            MGMECore2e.adjustTable(table).then((t) => t.normalize()).then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
         });
     }
 
     static mgmeRollThreadsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then((t) => t.normalize()).then((t) => t.draw());
+            MGMECore2e.adjustTable(table).then((t) => t.normalize()).then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
         });
     }
 
