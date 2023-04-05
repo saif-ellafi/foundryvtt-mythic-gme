@@ -3,8 +3,9 @@
 
 Mythic GME Tools provides everything needed for playing Mythic GM Emulator with any RPG System in Foundry VTT.
 
-Supported ruleset: Mythic (Blue Book), Mythic Variations 1, Mythic Variations 2, Mythic 2nd Edition
-Extra rulesets: Game Apprentice Cards, The Adventure Crafter Cards, Plot Unfolding Machine, Tricube Tales Countdown Cards
+**Supported ruleset**: Mythic (Blue Book), Mythic Variations 1, Mythic Variations 2, Mythic 2nd Edition
+
+**Extra rulesets**: Game Apprentice Cards, The Adventure Crafter Cards, Plot Unfolding Machine, Tricube Tales Countdown Cards
 
 ### _Created by: JeansenVaars_
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
