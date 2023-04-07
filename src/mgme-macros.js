@@ -12,6 +12,8 @@ import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
 import PUMPanel from "./app/panel-pum";
 import SUMCore from "./logic/sum-core";
+import GUMPanel from "./app/panel-gum";
+import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
 
 export default class MGMEMacroAPI {
@@ -97,6 +99,12 @@ export default class MGMEMacroAPI {
         maxHeight = 250;
         break;
       }
+      case 'gum_core': {
+        win = new GUMPanel();
+        minHeight = 275;
+        maxHeight = 250;
+        break;
+      }
     }
     win?.render(true, {
       width: winWidth,
@@ -145,5 +153,61 @@ export default class MGMEMacroAPI {
   static sumAction = SUMCore.sumAction;
   static sumSubject = SUMCore.sumSubject;
   static sumAdjective = SUMCore.sumAdjective;
+
+  static gumActionGood = GUMCore.gumActionGood;
+  static gumActionEvil = GUMCore.gumActionEvil;
+  static gumCombatBehavior = GUMCore.gumCombatBehavior;
+  static gumCombatComposition = GUMCore.gumCombatComposition;
+  static gumCombatConditions = GUMCore.gumCombatConditions;
+  static gumCombatTactical = GUMCore.gumCombatTactical;
+  static gumGMIntervention = GUMCore.gumGMIntervention;
+  static gumGrandAction = GUMCore.gumGrandAction;
+  static gumGrandDescriptor = GUMCore.gumGrandDescriptor;
+  static gumGrandSubject = GUMCore.gumGrandSubject;
+  static gumLocationDetActivity = GUMCore.gumLocationDetActivity;
+  static gumLocationDetFeature = GUMCore.gumLocationDetFeature;
+  static gumLocationDetInhabitants = GUMCore.gumLocationDetInhabitants;
+  static gumLocationDetLooks = GUMCore.gumLocationDetLooks;
+  static gumLocationDetPurpose = GUMCore.gumLocationDetPurpose;
+  static gumLocationDetWorth = GUMCore.gumLocationDetWorth;
+  static gumLocationIdBuilding = GUMCore.gumLocationIdBuilding;
+  static gumLocationIdOutskirts = GUMCore.gumLocationIdOutskirts;
+  static gumLocationIdSpace = GUMCore.gumLocationIdSpace;
+  static gumLocationIdSpecial = GUMCore.gumLocationIdSpecial;
+  static gumLocationIdUrban = GUMCore.gumLocationIdUrban;
+  static gumLocationIdWilderness = GUMCore.gumLocationIdWilderness;
+  static gumMotiveGood = GUMCore.gumMotiveGood;
+  static gumMotiveEvil = GUMCore.gumMotiveEvil;
+
+  static gumNPCWho = GUMCore.gumNPCWho;
+  static gumNPCDetAttitude = GUMCore.gumNPCDetAttitude;
+  static gumNPCDetEdge = GUMCore.gumNPCDetEdge;
+  static gumNPCDetLooks = GUMCore.gumNPCDetLooks;
+  static gumNPCDetQuirk = GUMCore.gumNPCDetQuirk;
+  static gumNPCDetStuff = GUMCore.gumNPCDetStuff;
+  static gumNPCDetWants = GUMCore.gumNPCDetWants;
+  static gumNPCIdCivilian = GUMCore.gumNPCIdCivilian;
+  static gumNPCIdConnected = GUMCore.gumNPCIdConnected;
+  static gumNPCIdFighting = GUMCore.gumNPCIdFighting;
+  static gumNPCIdSkilled = GUMCore.gumNPCIdSkilled;
+  static gumNPCIdSpecial = GUMCore.gumNPCIdSpecial;
+  static gumNPCIdVIP = GUMCore.gumNPCIdVIP;
+
+  static gumPlanCheckSafe = GUMCore.gumPlanCheckSafe;
+  static gumPlanCheckRisky = GUMCore.gumPlanCheckRisky;
+  static gumPlanCheckTense = GUMCore.gumPlanCheckTense;
+  static gumPlanCheckExploding = GUMCore.gumPlanCheckExploding;
+
+  static gumPlanCheckCircumstance = GUMCore.gumPlanCheckCircumstance;
+  static gumPlanCheckComplication = GUMCore.gumPlanCheckComplication;
+  static gumPlanCheckInconvenience = GUMCore.gumPlanCheckInconvenience;
+  static gumPlanCheckProblem = GUMCore.gumPlanCheckProblem;
+
+  static gumQuestionGM = (formula) => GUMCore.gumQuestionGM(formula);
+  static gumQuestionPC = (formula) => GUMCore.gumQuestionPC(formula);
+  static gumQuestionNPC = (formula) => GUMCore.gumQuestionNPC(formula);
+
+  static gumSceneDesign = GUMCore.gumSceneDesign;
+  static gumChallenge = GUMCore.gumChallenge;
 
 }

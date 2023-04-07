@@ -144,6 +144,6 @@
     padding-right: 15px;
 }
 
-#m2e_panel_window, #pum_panel_window {
+#m2e_panel_window, #pum_panel_window, #gum_panel_window {
     min-width: 400px;
 }

@@ -121,6 +121,9 @@ export default class MGMEPanel extends Application {
                 case 'pum_core': {
                   break;
                 }
+                case 'gum_core': {
+                  break;
+                }
               }
             }
           }

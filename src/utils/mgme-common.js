@@ -8,8 +8,9 @@ export default class MGMECommon {
     const packsV1 = await game.packs.get('mythic-gme-tools.mythic-gme-v1-tables').getDocuments();
     const packsV2 = await game.packs.get('mythic-gme-tools.mythic-gme-v2-tables').getDocuments();
     const packsPum = await game.packs.get('mythic-gme-tools.plot-unfolding-machine').getDocuments();
+    const packsGum = await game.packs.get('mythic-gme-tools.game-unfolding-machine').getDocuments();
     const packsDecks = await game.packs.get('mythic-gme-tools.mythic-decks-tables').getDocuments();
-    return packsCore.concat(packs2e).concat(packsV1).concat(packsV2).concat(packsPum).concat(packsDecks);
+    return packsCore.concat(packs2e).concat(packsV1).concat(packsV2).concat(packsPum).concat(packsGum).concat(packsDecks);
   }
 
   static async _mgmeFindTableBySetting(setting) {

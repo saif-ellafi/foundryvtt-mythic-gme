@@ -9,10 +9,10 @@
       "ko-fi": "https://ko-fi.com/jeansenvaars"
     }
   ],
-  "version": "2.7.1",
+  "version": "2.8.0",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
-  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.7.1/foundryvtt-mythic-gme_2.7.1.zip",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.8.0/foundryvtt-mythic-gme_2.8.0.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibility": {
     "minimum": "10",
@@ -128,6 +128,14 @@
       "name": "plot-unfolding-machine",
       "label": "Plot Unfolding Machine Tables",
       "path": "packs/plot-unfolding-machine.db",
+      "module": "mythic-gme-tools",
+      "type": "RollTable",
+      "private": true
+    },
+    {
+      "name": "game-unfolding-machine",
+      "label": "Game Unfolding Machine Tables",
+      "path": "packs/game-unfolding-machine.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
       "private": true

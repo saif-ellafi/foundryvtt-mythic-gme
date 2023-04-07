@@ -5,7 +5,7 @@ Mythic GME Tools provides everything needed for playing Mythic GM Emulator with 
 
 **Supported ruleset**: Mythic (Blue Book), Mythic Variations 1, Mythic Variations 2, Mythic 2nd Edition
 
-**Extra rulesets**: Game Apprentice Cards, The Adventure Crafter Cards, Plot Unfolding Machine, Tricube Tales Countdown Cards
+**Extra rulesets**: Game Apprentice Cards, The Adventure Crafter Cards, Plot Unfolding Machine, Game Unfolding Machine, Tricube Tales Countdown Cards
 
 ### _Created by: JeansenVaars_
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
@@ -136,6 +136,12 @@ speak on his behalf or even sometimes use its information for better flavor!
 This Solo system can be played with Mythic or on its own, and it focuses on placing your PCs into action, Scene by Scene. [HERE](https://jeansenvaars.itch.io/plot-unfolding-machine) :)
 
 Check it out if getting stuck in your Solo or GMLess games is an often-issue, because PUM is designed to help with Scene Setup proposals.
+
+#### Game Unfolding Machine
+
+This GM Emulator is action driven and focuses on getting you started with a solo adventure [HERE](https://jeansenvaars.itch.io/game-unfolding-machine) :)
+
+Check it out if you'd like to try something different in your adventures.
 
 ![pum-example.png](pum-example.png)
 

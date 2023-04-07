@@ -1,3 +1,6 @@
+### 2.8.0
+* Enhancement: Included the rulesets for my Game Unfolding Machine homebrew
+
 ### 2.7.1
 * Enhancement: Mythic 2nd Edition and PUM panels now vertically resizable
 * Bugfix: Event meaning tables of Mythic 2nd edition rolls twice now
