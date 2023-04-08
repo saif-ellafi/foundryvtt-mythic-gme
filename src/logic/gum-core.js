@@ -404,4 +404,128 @@ export default class GUMCore {
     );
   }
 
+  // GUM Extended scripts
+
+  static gumeProberWorld() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Prober World'},
+        'Brain Prober - World',
+        false
+    );
+  }
+
+  static gumeProberScene() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Prober Scene'},
+        'Brain Prober - Scene',
+        false
+    );
+  }
+
+  static gumeSceneKicker() {
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+          {name: 'GUM-E Scene Kicker A', key: 'What PCs could find'},
+          {name: 'GUM-E Scene Kicker B', key: 'is'}
+        ],
+        'Scene Kicker',
+        false
+    );
+  }
+
+  static gumeInteractionBehavior() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Interaction Behavior'},
+        'NPC Interaction - Behavior',
+        false
+    );
+  }
+
+  static gumeInteractionContribution() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Interaction Contribution'},
+        'NPC Interaction - Contribution',
+        false
+    );
+  }
+
+  static gumeInteractionRequest() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Interaction Request'},
+        'NPC Interaction - Request',
+        false
+    );
+  }
+
+  static gumeInteractionResponse() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Interaction Response'},
+        'NPC Interaction - Response',
+        false
+    );
+  }
+
+  static gumeDiscoveryClues() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Discovery Clues'},
+        'Plot Discovery - Clues & info',
+        false
+    );
+  }
+
+  static gumeDiscoveryFuture() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Discovery Future'},
+        'Plot Discovery - Future actions',
+        false
+    );
+  }
+
+  static gumeDiscoveryPast() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Discovery Past'},
+        'Plot Discovery - Past deeds',
+        false
+    );
+  }
+
+  static gumeDiscoveryReason() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Discovery Reason'},
+        'Plot Discovery - Reasons',
+        false
+    );
+  }
+
+  static gumeEnemyEvents() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Enemy Events'},
+        'Enemy Actions - Recent events',
+        false
+    );
+  }
+
+  static gumeEnemyFeelings() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Enemy Feelings'},
+        'Enemy Actions - Feelings & insights',
+        false
+    );
+  }
+
+  static gumeEnemyRisks() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Enemy Risks'},
+        'Enemy Actions - Risks',
+        false
+    );
+  }
+
+  static gumeEnemyThreats() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM-E Enemy Threats'},
+        'Enemy Actions - Threats',
+        false
+    );
+  }
+
 }

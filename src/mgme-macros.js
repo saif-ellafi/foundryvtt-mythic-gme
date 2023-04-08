@@ -17,6 +17,71 @@ import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
 
 export default class MGMEMacroAPI {
+
+  static mgmeLaunchPanel() {
+    if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
+      return
+    }
+    const key = game.settings.get('mythic-gme-tools', 'panelKey');
+    const api = game.modules.get('mythic-gme-tools').api;
+    if (api.win) {
+      api.win?.close({force: true});
+      delete api.win;
+    }
+    if (key === 'nopanel') return;
+    let winWidth = 400;
+    let minHeight = 320;
+    let maxHeight = undefined;
+    let resizable = false;
+    let win;
+    switch (key) {
+      case 'mgme_1e': {
+        win = new MGME1ePanel();
+        break;
+      }
+      case 'mgme_2e': {
+        win = new MGME2ePanel();
+        minHeight = 375;
+        maxHeight = 300;
+        winWidth = 420;
+        resizable = true;
+        break;
+      }
+      case 'mgme_vars1': {
+        win = new MGMEVars1Panel();
+        break;
+      }
+      case 'mgme_vars2': {
+        win = new MGMEVars2Panel();
+        break;
+      }
+      case 'pum_core': {
+        win = new PUMPanel();
+        minHeight = 275;
+        maxHeight = 250;
+        winWidth = 420;
+        resizable = true;
+        break;
+      }
+      case 'gum_core': {
+        win = new GUMPanel();
+        minHeight = 275;
+        maxHeight = 250;
+        winWidth = 420;
+        resizable = true;
+        break;
+      }
+    }
+    win?.render(true, {
+      width: winWidth,
+      left: (canvas.app.screen.width - ui.sidebar.element.width() - winWidth - 20),
+      top: canvas.app.screen.height - minHeight,
+      height: maxHeight,
+      resizable: resizable
+    });
+    api.win = win;
+  }
+
   static mgmeIncreaseChaos = MGMECore.mgmeIncreaseChaos;
   static mgmeDecreaseChaos = MGMECore.mgmeDecreaseChaos;
   static mgmeCheckChaos = MGMECore.mgmeCheckChaos;
@@ -59,69 +124,50 @@ export default class MGMEMacroAPI {
   static mgmeRenderThreadsList2e = MGMECore2e.mgmeRenderThreadsList2e;
   static mgmeRollThreadsList2e = MGMECore2e.mgmeRollThreadsList2e;
 
-  static mgmeLaunchPanel() {
-    if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
-      return
-    }
-    const key = game.settings.get('mythic-gme-tools', 'panelKey');
-    const api = game.modules.get('mythic-gme-tools').api;
-    if (api.win) {
-      api.win?.close({force: true});
-      delete api.win;
-    }
-    if (key === 'nopanel') return;
-    let winWidth = 400;
-    let minHeight = 320;
-    let maxHeight = undefined;
-    let resizable = false;
-    let win;
-    switch (key) {
-      case 'mgme_1e': {
-        win = new MGME1ePanel();
-        break;
-      }
-      case 'mgme_2e': {
-        win = new MGME2ePanel();
-        minHeight = 375;
-        maxHeight = 300;
-        winWidth = 420;
-        resizable = true;
-        break;
-      }      
-      case 'mgme_vars1': {
-        win = new MGMEVars1Panel();
-        break;
-      }
-      case 'mgme_vars2': {
-        win = new MGMEVars2Panel();
-        break;
-      }
-      case 'pum_core': {
-        win = new PUMPanel();
-        minHeight = 275;
-        maxHeight = 250;
-        winWidth = 420;
-        resizable = true;
-        break;
-      }
-      case 'gum_core': {
-        win = new GUMPanel();
-        minHeight = 275;
-        maxHeight = 250;
-        winWidth = 420;
-        resizable = true;
-        break;
-      }
-    }
-    win?.render(true, {
-      width: winWidth,
-      left: (canvas.app.screen.width - ui.sidebar.element.width() - winWidth - 20),
-      top: canvas.app.screen.height - minHeight,
-      height: maxHeight,
-      resizable: resizable
-    });
-    api.win = win;
-  }
+  static mgmeAdvTone = MGMECore2e.mgmeAdvTone;
+  static mgmeAlienSpecies = MGMECore2e.mgmeAlienSpecies;
+  static mgmeAnimalActions = MGMECore2e.mgmeAnimalActions;
+  static mgmeArmyDescriptors = MGMECore2e.mgmeArmyDescriptors;
+  static mgmeCaverns = MGMECore2e.mgmeCaverns;
+  static mgmeCharacters = MGMECore2e.mgmeCharacters;
+  static mgmeCharacterCombat = MGMECore2e.mgmeCharacterCombat;
+  static mgmeCharacterActions = MGMECore2e.mgmeCharacterActions;
+  static mgmeCharacterAppearance = MGMECore2e.mgmeCharacterAppearance;
+  static mgmeCharacterConversation = MGMECore2e.mgmeCharacterConversation;
+  static mgmeCharacterDescriptors = MGMECore2e.mgmeCharacterDescriptors;
+  static mgmeCharacterIdentity = MGMECore2e.mgmeCharacterIdentity;
+  static mgmeCharacterMotivations = MGMECore2e.mgmeCharacterMotivations;
+  static mgmeCharacterPersonality = MGMECore2e.mgmeCharacterPersonality;
+  static mgmeCharacterSkills = MGMECore2e.mgmeCharacterSkills;
+  static mgmeCharacterTraits = MGMECore2e.mgmeCharacterTraits;
+  static mgmeCityDescriptors = MGMECore2e.mgmeCityDescriptors;
+  static mgmeCivilizationDescriptors = MGMECore2e.mgmeCivilizationDescriptors;
+  static mgmeCreatureAbilities = MGMECore2e.mgmeCreatureAbilities;
+  static mgmeCreatureDescriptors = MGMECore2e.mgmeCreatureDescriptors;
+  static mgmeCrypticMessage = MGMECore2e.mgmeCrypticMessage;
+  static mgmeCurses = MGMECore2e.mgmeCurses;
+  static mgmeDomicile = MGMECore2e.mgmeDomicile;
+  static mgmeDungeonDescriptors = MGMECore2e.mgmeDungeonDescriptors;
+  static mgmeDungeonTraps = MGMECore2e.mgmeDungeonTraps;
+  static mgmeForestDescriptors = MGMECore2e.mgmeForestDescriptors;
+  static mgmeGods = MGMECore2e.mgmeGods;
+  static mgmeLegends = MGMECore2e.mgmeLegends;
+  static mgmeLocations = MGMECore2e.mgmeLocations;
+  static mgmeMagicItem = MGMECore2e.mgmeMagicItem;
+  static mgmeMutationDescriptors = MGMECore2e.mgmeMutationDescriptors;
+  static mgmeNames = MGMECore2e.mgmeNames;
+  static mgmeNobleHouse = MGMECore2e.mgmeNobleHouse;
+  static mgmeObjects = MGMECore2e.mgmeObjects;
+  static mgmePlotTwists = MGMECore2e.mgmePlotTwists;
+  static mgmePowers = MGMECore2e.mgmePowers;
+  static mgmeScavengingResults = MGMECore2e.mgmeScavengingResults;
+  static mgmeSmells = MGMECore2e.mgmeSmells;
+  static mgmeSounds = MGMECore2e.mgmeSounds;
+  static mgmeSpellEffects = MGMECore2e.mgmeSpellEffects;
+  static mgmeStarshipDescriptors = MGMECore2e.mgmeStarshipDescriptors;
+  static mgmeTerrainDescriptors = MGMECore2e.mgmeTerrainDescriptors;
+  static mgmeUndeadDescriptors = MGMECore2e.mgmeUndeadDescriptors;
+  static mgmeVisions = MGMECore2e.mgmeVisions;
 
   static pumScenePrompt = PUMCore.pumScenePrompt;
   static pumExpectationChecker = PUMCore.pumExpectationChecker;
@@ -216,5 +262,23 @@ export default class MGMEMacroAPI {
 
   static gumSceneDesign = GUMCore.gumSceneDesign;
   static gumChallenge = GUMCore.gumChallenge;
+
+  // GUM Extended
+
+  static gumeProberWorld = GUMCore.gumeProberWorld;
+  static gumeProberScene = GUMCore.gumeProberScene;
+  static gumeSceneKicker = GUMCore.gumeSceneKicker;
+  static gumeInteractionBehavior = GUMCore.gumeInteractionBehavior;
+  static gumeInteractionContribution = GUMCore.gumeInteractionContribution;
+  static gumeInteractionRequest = GUMCore.gumeInteractionRequest;
+  static gumeInteractionResponse = GUMCore.gumeInteractionResponse;
+  static gumeDiscoveryClues = GUMCore.gumeDiscoveryClues;
+  static gumeDiscoveryFuture = GUMCore.gumeDiscoveryFuture;
+  static gumeDiscoveryPast = GUMCore.gumeDiscoveryPast;
+  static gumeDiscoveryReason = GUMCore.gumeDiscoveryReason;
+  static gumeEnemyEvents = GUMCore.gumeEnemyEvents;
+  static gumeEnemyFeelings = GUMCore.gumeEnemyFeelings;
+  static gumeEnemyRisks = GUMCore.gumeEnemyRisks;
+  static gumeEnemyThreats = GUMCore.gumeEnemyThreats;
 
 }

@@ -101,6 +101,27 @@ export default class GUMPanel extends MGMEPanel {
     html.find("#gum_act_good").click(api.gumActionGood);
     html.find("#gum_act_evil").click(api.gumActionEvil);
 
+    // GUM Extended
+
+    html.find("#gume_probe_world").click(api.gumeProberWorld);
+    html.find("#gume_probe_scene").click(api.gumeProberScene);
+    html.find("#gume_scene_kick").click(api.gumeSceneKicker);
+
+    html.find("#gume_interact_beh").click(api.gumeInteractionBehavior);
+    html.find("#gume_interact_cont").click(api.gumeInteractionContribution);
+    html.find("#gume_interact_req").click(api.gumeInteractionRequest);
+    html.find("#gume_interact_res").click(api.gumeInteractionResponse);
+
+    html.find("#gume_discovery_past").click(api.gumeDiscoveryPast);
+    html.find("#gume_discovery_future").click(api.gumeDiscoveryFuture);
+    html.find("#gume_discovery_clue").click(api.gumeDiscoveryClues);
+    html.find("#gume_discovery_reason").click(api.gumeDiscoveryReason);
+
+    html.find("#gume_enemy_event").click(api.gumeEnemyEvents);
+    html.find("#gume_enemy_feeling").click(api.gumeEnemyFeelings);
+    html.find("#gume_enemy_risk").click(api.gumeEnemyRisks);
+    html.find("#gume_enemy_threat").click(api.gumeEnemyThreats);
+
   }
 
 }
