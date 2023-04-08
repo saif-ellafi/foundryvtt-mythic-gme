@@ -73,6 +73,7 @@ export default class MGMEMacroAPI {
     let winWidth = 400;
     let minHeight = 320;
     let maxHeight = undefined;
+    let resizable = false;
     let win;
     switch (key) {
       case 'mgme_1e': {
@@ -83,6 +84,8 @@ export default class MGMEMacroAPI {
         win = new MGME2ePanel();
         minHeight = 375;
         maxHeight = 300;
+        winWidth = 420;
+        resizable = true;
         break;
       }      
       case 'mgme_vars1': {
@@ -97,12 +100,16 @@ export default class MGMEMacroAPI {
         win = new PUMPanel();
         minHeight = 275;
         maxHeight = 250;
+        winWidth = 420;
+        resizable = true;
         break;
       }
       case 'gum_core': {
         win = new GUMPanel();
         minHeight = 275;
         maxHeight = 250;
+        winWidth = 420;
+        resizable = true;
         break;
       }
     }
@@ -111,7 +118,7 @@ export default class MGMEMacroAPI {
       left: (canvas.app.screen.width - ui.sidebar.element.width() - winWidth - 20),
       top: canvas.app.screen.height - minHeight,
       height: maxHeight,
-      resizable: true
+      resizable: resizable
     });
     api.win = win;
   }

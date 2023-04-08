@@ -1,3 +1,8 @@
+### 2.8.1
+* Enhancement: Added the tables for GUM Extended
+* Bugfix: Adjusted window size for resizable panel
+* Bugfix: Better organized GUM tables
+
 ### 2.8.0
 * Enhancement: Included the rulesets for my Game Unfolding Machine homebrew
 
