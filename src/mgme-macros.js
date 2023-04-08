@@ -124,6 +124,10 @@ export default class MGMEMacroAPI {
   static mgmeRenderThreadsList2e = MGMECore2e.mgmeRenderThreadsList2e;
   static mgmeRollThreadsList2e = MGMECore2e.mgmeRollThreadsList2e;
 
+  static mgmeActions = MGMECore2e.mgmeActions;
+  static mgmeDescriptions = MGMECore2e.mgmeDescriptions;
+  static mgmeSceneAdjust = MGMECore2e.mgmeSceneAdjust;
+
   static mgmeAdvTone = MGMECore2e.mgmeAdvTone;
   static mgmeAlienSpecies = MGMECore2e.mgmeAlienSpecies;
   static mgmeAnimalActions = MGMECore2e.mgmeAnimalActions;
@@ -133,6 +137,7 @@ export default class MGMEMacroAPI {
   static mgmeCharacterCombat = MGMECore2e.mgmeCharacterCombat;
   static mgmeCharacterActions = MGMECore2e.mgmeCharacterActions;
   static mgmeCharacterAppearance = MGMECore2e.mgmeCharacterAppearance;
+  static mgmeCharacterBackground = MGMECore2e.mgmeCharacterBackground;
   static mgmeCharacterConversation = MGMECore2e.mgmeCharacterConversation;
   static mgmeCharacterDescriptors = MGMECore2e.mgmeCharacterDescriptors;
   static mgmeCharacterIdentity = MGMECore2e.mgmeCharacterIdentity;

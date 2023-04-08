@@ -1,3 +1,6 @@
+### 2.8.2
+* Bugfix: Fixed 5 broken random tables for Mythic 2e (Thanks KarstenW)
+
 ### 2.8.1
 * Enhancement: Added the tables for GUM Extended
 * Bugfix: Adjusted window size for resizable panel

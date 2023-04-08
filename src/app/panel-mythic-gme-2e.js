@@ -47,6 +47,7 @@ export default class MGME2ePanel extends MGMEPanel {
     html.find("#mgme_el_charcomb").click(api.mgmeCharacterCombat);
     html.find("#mgme_el_charact").click(api.mgmeCharacterActions);
     html.find("#mgme_el_charapp").click(api.mgmeCharacterAppearance);
+    html.find("#mgme_el_charback").click(api.mgmeCharacterBackground);
     html.find("#mgme_el_charconv").click(api.mgmeCharacterConversation);
     html.find("#mgme_el_chardesc").click(api.mgmeCharacterDescriptors);
     html.find("#mgme_el_charid").click(api.mgmeCharacterIdentity);
