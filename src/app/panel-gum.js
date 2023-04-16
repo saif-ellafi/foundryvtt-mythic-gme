@@ -59,7 +59,11 @@ export default class GUMPanel extends MGMEPanel {
 
     html.find("#gum_intervention").click(api.gumGMIntervention);
     html.find("#gum_scene").click(api.gumSceneDesign);
-    html.find("#gum_skill").click(api.gumChallenge);
+
+    html.find("#gum_chskill").click(api.gumChallengeSkill);
+    html.find("#gum_chsituation").click(api.gumChallengeSituation);
+    html.find("#gum_chprompt").click(api.gumChallengePrompt);
+    html.find("#gum_chcondition").click(api.gumChallengeCondition);
 
     html.find("#gum_combat_beh").click(api.gumCombatBehavior);
     html.find("#gum_combat_comp").click(api.gumCombatComposition);

@@ -1,3 +1,8 @@
+### 2.8.3
+* Bugfix: Fixed wrong Mythic 2e focus table values (thank you @vandora03)
+* Bugfix: Fixed mythic focus table not changing when changing ruleset (thank you @vandora03)
+* Update: GUM to Rev5 (Updated challenge table)
+
 ### 2.8.2
 * Bugfix: Fixed 5 broken random tables for Mythic 2e (Thanks KarstenW)
 

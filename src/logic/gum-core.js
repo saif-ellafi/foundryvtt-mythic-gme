@@ -394,13 +394,35 @@ export default class GUMCore {
     );
   }
 
-  static gumChallenge() {
-    MGMEOracleUtils._mgmeMultipleTableOracle([
+  static gumChallengeSkill() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
       {name: 'GUM Challenge Skill Test', key: 'Skill'},
-      {name: 'GUM Challenge Conditions', key: 'Condition'}
-    ],
       'Scene Challenge',
       false
+    );
+  }
+
+  static gumChallengeSituation() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM Challenge Situation', key: 'Situation'},
+        'Scene Challenge',
+        false
+    );
+  }
+
+  static gumChallengePrompt() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM Challenge Prompt', key: 'Prompt'},
+        'Scene Challenge',
+        false
+    );
+  }
+
+  static gumChallengeCondition() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM Challenge Condition', key: 'Condition'},
+        'Scene Challenge',
+        false
     );
   }
 

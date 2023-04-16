@@ -82,9 +82,9 @@ export default class MGMEPanel extends Application {
           icon: '<i class="fas fa-comments"></i>',
           label: game.i18n.localize('MGME.PanelConfigureSubmit'),
           callback: (html) => {
+            const api = game.modules.get('mythic-gme-tools').api;
             let panelSelection = html.find("#mgme_pan_config").val();
             if (panelSelection === 'nopanel') {
-              const api = game.modules.get('mythic-gme-tools').api;
               if (api.win) {
                 api.win?.close({force: true});
                 delete api.win;
@@ -101,30 +101,6 @@ export default class MGMEPanel extends Application {
               }).render(true, {width: 250})
             } else if (game.settings.get('mythic-gme-tools', 'panelKey') !== panelSelection) {
               game.settings.set('mythic-gme-tools', 'panelKey', panelSelection);
-              switch (panelSelection) {
-                case 'mgme_1e': {
-                  MGMECore.resetDefaults();
-                  break;
-                }
-                case 'mgme_2e': {
-                  MGMECore.resetDefaults2e();
-                  break;
-                }
-                case 'mgme_vars1': {
-                  MGMEVariations1.resetDefaults();
-                  break;
-                }
-                case 'mgme_vars2': {
-                  MGMEVariations2.resetDefaults();
-                  break;
-                }
-                case 'pum_core': {
-                  break;
-                }
-                case 'gum_core': {
-                  break;
-                }
-              }
             }
           }
         }

@@ -24,7 +24,8 @@ export default class MGMECore {
       type: String,
       choices: MGMEReference.MYTHIC_PANELS,
       default: 'mgme_2e',
-      onChange: () => {
+      onChange: (panelKey) => {
+        game.modules.get('mythic-gme-tools').api.mgmeResetRuleDefaults(panelKey);
         game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
       }
     });

@@ -82,6 +82,33 @@ export default class MGMEMacroAPI {
     api.win = win;
   }
 
+  static mgmeResetRuleDefaults(panelKey) {
+    switch (panelKey) {
+      case 'mgme_1e': {
+        MGMECore.resetDefaults();
+        break;
+      }
+      case 'mgme_2e': {
+        MGMECore.resetDefaults2e();
+        break;
+      }
+      case 'mgme_vars1': {
+        MGMEVariations1.resetDefaults();
+        break;
+      }
+      case 'mgme_vars2': {
+        MGMEVariations2.resetDefaults();
+        break;
+      }
+      case 'pum_core': {
+        break;
+      }
+      case 'gum_core': {
+        break;
+      }
+    }
+  }
+
   static mgmeIncreaseChaos = MGMECore.mgmeIncreaseChaos;
   static mgmeDecreaseChaos = MGMECore.mgmeDecreaseChaos;
   static mgmeCheckChaos = MGMECore.mgmeCheckChaos;
@@ -266,7 +293,11 @@ export default class MGMEMacroAPI {
   static gumQuestionNPC = (formula) => GUMCore.gumQuestionNPC(formula);
 
   static gumSceneDesign = GUMCore.gumSceneDesign;
-  static gumChallenge = GUMCore.gumChallenge;
+
+  static gumChallengeSkill = GUMCore.gumChallengeSkill;
+  static gumChallengeSituation = GUMCore.gumChallengeSituation;
+  static gumChallengePrompt = GUMCore.gumChallengePrompt;
+  static gumChallengeCondition = GUMCore.gumChallengeCondition;
 
   // GUM Extended
 
