@@ -270,8 +270,8 @@ export default class MGMEReference {
   }
 
   static ODDS_MAP_2E = {
-    'imp': {key: 'MGME.Impossible', mod: -5},
-    'nw': {key: 'MGME.NearlyImpossible', mod: -4},
+    'i': {key: 'MGME.Impossible', mod: -5},
+    'ni': {key: 'MGME.NearlyImpossible', mod: -4},
     'vu': {key: 'MGME.VeryUnlikely', mod: -2},
     'u': {key: 'MGME.Unlikely', mod: -1},
     'ff': {key: 'MGME.fiftyfifty', mod: 0},

@@ -1,3 +1,7 @@
+### 2.8.4
+* Enhancement: Improved performance by caching random tables in memory
+* Bugfix: Impossible and Nearly Impossible fate chart rolls fixed
+
 ### 2.8.3
 * Bugfix: Fixed wrong Mythic 2e focus table values (thank you @vandora03)
 * Bugfix: Fixed mythic focus table not changing when changing ruleset (thank you @vandora03)
