@@ -1,3 +1,6 @@
+### 2.8.5
+* Bugfix: Fixed missing double rolls after performance patch
+
 ### 2.8.4
 * Enhancement: Improved performance by caching random tables in memory
 * Bugfix: Impossible and Nearly Impossible fate chart rolls fixed

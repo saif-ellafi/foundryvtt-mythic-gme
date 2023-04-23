@@ -95,9 +95,9 @@ export default class MGMEOracleUtils {
       await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
       const output = targetRoll.results[0].getChatText();
       if (tableData.key) {
-        MGMEOracleUtils._mgmeUpdateChatSimulation(chat, `<b>${tableData.key}:</b> ${output}`, first === false ? '<br/>' : '')
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chat, `<b>${tableData.key}:</b> ${output}`, first === false ? '<br/>' : '')
       } else {
-        MGMEOracleUtils._mgmeUpdateChatSimulation(chat, `${output}`, first === false ? ' ' : '')
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chat, `${output}`, first === false ? ' ' : '')
       }
       first = false;
     }
