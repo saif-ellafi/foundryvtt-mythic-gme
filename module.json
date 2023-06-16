@@ -50,7 +50,7 @@
       "path": "packs/mythic-gme-tables.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-gme-2e-tables",
@@ -58,7 +58,7 @@
       "path": "packs/mythic-gme-2e-tables.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
-      "private": true
+      "ownership": true
     },    
     {
       "name": "mythic-gme-v1-tables",
@@ -66,7 +66,7 @@
       "path": "packs/mythic-gme-v1-tables.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-gme-v2-tables",
@@ -74,7 +74,7 @@
       "path": "packs/mythic-gme-v2-tables.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-gme-macros",
@@ -82,7 +82,7 @@
       "path": "packs/mythic-gme-macros.db",
       "module": "mythic-gme-tools",
       "type": "Macro",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-gme-v1-macros",
@@ -90,7 +90,7 @@
       "path": "packs/mythic-gme-v1-macros.db",
       "module": "mythic-gme-tools",
       "type": "Macro",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-gme-v2-macros",
@@ -98,7 +98,7 @@
       "path": "packs/mythic-gme-v2-macros.db",
       "module": "mythic-gme-tools",
       "type": "Macro",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-decks-macros",
@@ -106,7 +106,7 @@
       "path": "packs/mythic-decks-macros.db",
       "module": "mythic-gme-tools",
       "type": "Macro",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-decks-tables",
@@ -114,7 +114,7 @@
       "path": "packs/mythic-decks-tables.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
-      "private": true
+      "ownership": true
     },
     {
       "name": "mythic-crafter-macros",
@@ -122,7 +122,7 @@
       "path": "packs/mythic-crafter-macros.db",
       "module": "mythic-gme-tools",
       "type": "Macro",
-      "private": true
+      "ownership": true
     },
     {
       "name": "plot-unfolding-machine",
@@ -130,7 +130,7 @@
       "path": "packs/plot-unfolding-machine.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
-      "private": true
+      "ownership": true
     },
     {
       "name": "game-unfolding-machine",
@@ -138,7 +138,7 @@
       "path": "packs/game-unfolding-machine.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
-      "private": true
+      "ownership": true
     }
   ]
 }
