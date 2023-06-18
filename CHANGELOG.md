@@ -1,3 +1,7 @@
+### 2.9.0
+* Compatibility: Foundry V11 (thank you @vudx00)
+* Bugfix: Adjusted macro windows positioning
+
 ### 2.8.5
 * Bugfix: Fixed missing double rolls after performance patch
 

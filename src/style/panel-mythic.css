@@ -144,6 +144,14 @@
     padding-right: 15px;
 }
 
-#m2e_panel_window, #pum_panel_window, #gum_panel_window {
-    min-width: 405px;
+#m2e_panel_window {
+    min-width: 420px;
+}
+
+#pum_panel_window {
+    min-width: 450px;
+}
+
+#gum_panel_window {
+    min-width: 470px;
 }

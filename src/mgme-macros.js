@@ -29,9 +29,9 @@ export default class MGMEMacroAPI {
       delete api.win;
     }
     if (key === 'nopanel') return;
-    let winWidth = 400;
-    let minHeight = 320;
-    let maxHeight = undefined;
+    let startWidth = 400;
+    let startTop = 320;
+    let startHeight = undefined;
     let resizable = false;
     let win;
     switch (key) {
@@ -41,9 +41,9 @@ export default class MGMEMacroAPI {
       }
       case 'mgme_2e': {
         win = new MGME2ePanel();
-        minHeight = 375;
-        maxHeight = 300;
-        winWidth = 420;
+        startTop = 375;
+        startHeight = 300;
+        startWidth = 420;
         resizable = true;
         break;
       }
@@ -57,26 +57,26 @@ export default class MGMEMacroAPI {
       }
       case 'pum_core': {
         win = new PUMPanel();
-        minHeight = 275;
-        maxHeight = 250;
-        winWidth = 420;
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
         resizable = true;
         break;
       }
       case 'gum_core': {
         win = new GUMPanel();
-        minHeight = 275;
-        maxHeight = 250;
-        winWidth = 420;
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
         resizable = true;
         break;
       }
     }
     win?.render(true, {
-      width: winWidth,
-      left: (canvas.app.screen.width - ui.sidebar.element.width() - winWidth - 20),
-      top: canvas.app.screen.height - minHeight,
-      height: maxHeight,
+      width: startWidth,
+      left: (canvas.app.screen.width - ui.sidebar.element.width() - startWidth - 20),
+      top: canvas.app.screen.height - startTop,
+      height: startHeight,
       resizable: resizable
     });
     api.win = win;
