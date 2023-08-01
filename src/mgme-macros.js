@@ -15,6 +15,7 @@ import SUMCore from "./logic/sum-core";
 import GUMPanel from "./app/panel-gum";
 import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
+import GMAPanel from "./app/panel-gma";
 
 export default class MGMEMacroAPI {
 
@@ -53,6 +54,12 @@ export default class MGMEMacroAPI {
       }
       case 'mgme_vars2': {
         win = new MGMEVars2Panel();
+        break;
+      }
+      case 'gma_cards': {
+        win = new GMAPanel();
+        resizable = true;
+        startHeight = 250;
         break;
       }
       case 'pum_core': {
@@ -226,6 +233,8 @@ export default class MGMEMacroAPI {
   static pumKindOfPerson = PUMCore.pumKindOfPerson;
   static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
   static pumKindOfDanger = PUMCore.pumKindOfDanger;
+
+  static gmaDraw = (deck) => MGMECards.mgmeDealCard({tableName: deck});
 
   static sumGMAction = (formula) => SUMCore.sumGMAction(formula);
   static sumGMFeedback = (formula) => SUMCore.sumGMFeedback(formula);

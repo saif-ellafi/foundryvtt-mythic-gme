@@ -1,3 +1,11 @@
+### 2.9.2
+* Feature: Added Game Master's Apprentice (all decks) as supported ruleset
+* Enhancement: Drawing cards now lays them out horizontally on the screen
+* Bugfix: Fixed GMA's Steampunk, Weird Horror and Cyberpunk decks issues 
+
+### 2.9.1
+* Bugfix: Hide oracle packs from non-GM users
+
 ### 2.9.0
 * Compatibility: Foundry V11 (thank you @vudx00)
 * Bugfix: Adjusted macro windows positioning

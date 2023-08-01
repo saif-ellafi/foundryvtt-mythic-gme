@@ -14,6 +14,8 @@ export default class MGMECards {
     });
   }
 
+  static lastPos = 150;
+
   static async mgmeDealCard({
                                tableName,
                                fileExtension = 'jpg',
@@ -97,6 +99,10 @@ export default class MGMECards {
       default: 'close'
     });
     dialog.options.resizable = true;
-    dialog.render(true);
+    dialog.render(true, {top: 100, left: MGMECards.lastPos});
+    if (MGMECards.lastPos < canvas.screenDimensions[0] - (parseInt(height) / 1.5)*2 - ui.chat.position.width)
+      MGMECards.lastPos += parseInt(height) / 1.5 + 150;
+    else
+      MGMECards.lastPos = 150;
   }
 }

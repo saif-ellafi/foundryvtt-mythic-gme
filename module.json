@@ -9,10 +9,10 @@
       "ko-fi": "https://ko-fi.com/jeansenvaars"
     }
   ],
-  "version": "2.9.0",
+  "version": "2.9.2",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
-  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.9.0/foundryvtt-mythic-gme_2.9.0.zip",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.9.2/foundryvtt-mythic-gme_2.9.2.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibility": {
     "minimum": "10",
@@ -49,84 +49,132 @@
       "label": "Mythic GME Tables",
       "path": "packs/mythic-gme-tables.db",
       "module": "mythic-gme-tools",
-      "type": "RollTable"
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-gme-2e-tables",
       "label": "Mythic GME 2e Tables",
       "path": "packs/mythic-gme-2e-tables.db",
       "module": "mythic-gme-tools",
-      "type": "RollTable"
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },    
     {
       "name": "mythic-gme-v1-tables",
       "label": "Mythic GME V1 Tables",
       "path": "packs/mythic-gme-v1-tables.db",
       "module": "mythic-gme-tools",
-      "type": "RollTable"
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-gme-v2-tables",
       "label": "Mythic GME V2 Tables",
       "path": "packs/mythic-gme-v2-tables.db",
       "module": "mythic-gme-tools",
-      "type": "RollTable"
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-gme-macros",
       "label": "Mythic GME Macros",
       "path": "packs/mythic-gme-macros.db",
       "module": "mythic-gme-tools",
-      "type": "Macro"
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-gme-v1-macros",
       "label": "Mythic GME V1 Macros",
       "path": "packs/mythic-gme-v1-macros.db",
       "module": "mythic-gme-tools",
-      "type": "Macro"
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-gme-v2-macros",
       "label": "Mythic GME V2 Macros",
       "path": "packs/mythic-gme-v2-macros.db",
       "module": "mythic-gme-tools",
-      "type": "Macro"
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-decks-macros",
       "label": "Mythic Deck Macros",
       "path": "packs/mythic-decks-macros.db",
       "module": "mythic-gme-tools",
-      "type": "Macro"
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-decks-tables",
       "label": "Mythic Deck Tables",
       "path": "packs/mythic-decks-tables.db",
       "module": "mythic-gme-tools",
-      "type": "RollTable"
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "mythic-crafter-macros",
       "label": "Mythic Crafter Macros",
       "path": "packs/mythic-crafter-macros.db",
       "module": "mythic-gme-tools",
-      "type": "Macro"
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "plot-unfolding-machine",
       "label": "Plot Unfolding Machine Tables",
       "path": "packs/plot-unfolding-machine.db",
       "module": "mythic-gme-tools",
-      "type": "RollTable"
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "name": "game-unfolding-machine",
       "label": "Game Unfolding Machine Tables",
       "path": "packs/game-unfolding-machine.db",
       "module": "mythic-gme-tools",
-      "type": "RollTable"
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     }
   ]
 }
