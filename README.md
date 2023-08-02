@@ -1,11 +1,11 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/total?logo=GitHub) ![GitHub release (latest by date)](https://img.shields.io/github/downloads/saif-ellafi/foundryvtt-mythic-gme/latest/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/saif-ellafi/foundryvtt-mythic-gme) ![GitHub issues](https://img.shields.io/github/issues-raw/saif-ellafi/foundryvtt-mythic-gme)
 # Mythic GME Tools for FoundryVTT
 
-Mythic GME Tools provides everything needed for playing Mythic GM Emulator with any RPG System in Foundry VTT.
+Mythic GME Tools provides everything needed for playing Solo and GM-Less games with Mythic GM Emulator and other GM Emulators with any RPG System in Foundry VTT.
 
-**Supported ruleset**: Mythic (Blue Book), Mythic Variations 1, Mythic Variations 2, Mythic 2nd Edition
+**Mythic rulesets**: Mythic (Blue Book), Mythic Variations 1, Mythic Variations 2, Mythic 2nd Edition
 
-**Extra rulesets**: Game Apprentice Cards, The Adventure Crafter Cards, Plot Unfolding Machine, Game Unfolding Machine, Tricube Tales Countdown Cards
+**Other rulesets**: Game Apprentice Cards, The Adventure Crafter Cards, Plot Unfolding Machine, Game Unfolding Machine, Tricube Tales Countdown Cards
 
 ### _Created by: JeansenVaars_
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
@@ -80,15 +80,13 @@ Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then
 
 ### Overview
 
-* One-Click Macros for Mythic GME basic components: Fate Charts, Scene Alteration, Events and Chaos Level
-* **Mythic Variations #1** Macros for Complex Questions and Backstory Generation plus selectable themed focus tables
-* **Mythic Variations #2** Macros for Event Checks, Detail and Action questions, Behavior checks and Statistic Checks!
-* Saves progress for Chaos Level, Behavior Disposition, Statistic Checks
-* Customize all Roll Tables and the Macros will automatically use them!
+* One-Click Macros for multiple GM Emulator rulesets: Mythic GM Emulator, GameMaster's Apprentice, Plot Unfolding Machine, and more
+* Saves Mythic's progress for Chaos Level, Behavior Disposition, Statistic Checks
+* Customize roll tables, focus tables, and much more to set up your favorite GM-Less experience
 * Built-in Support for **Dice so Nice!** taking 3D dice to a flavor-narrative oriented experience
 * All Actions translate into the chat for keeping a **history of your game**. This may also be exported to a Journal.
 * Everything is configurable through Mythic GME Tools module settings (such as Focus Tables, and more)
-* Support for non-Mythic solo games too (Such as my Plot Unfolding Machine)
+* Support for non-Mythic solo games too (Such as my Plot Unfolding Machine and Tricube Tales Countdown cards)
 
 ![mythic-gme-tools-example.png](mythic-gme-tools-example.png)
 
