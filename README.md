@@ -15,9 +15,8 @@ Mythic GME Tools provides everything needed for playing Solo and GM-Less games w
 ### [This module was made for free, with love, hard work and tons of coffee!](https://ko-fi.com/jeansenvaars)
 
 # Table of Contents
-1. [Word Mill Games - License](#word-mill-games)
-2. [How to play](#how-to-play)
-3. [Features](#features)
+1. [How to play](#how-to-play)
+2. [Features](#features)
    1. [Overview](#overview)
    2. [Mythic GME Tools Panel](#mythic-gme-tools-panel)
    3. [Mythic GM Emulator Rulesets](#mythic-gm-emulator-rulesets)
@@ -37,9 +36,9 @@ Mythic GME Tools provides everything needed for playing Solo and GM-Less games w
    8. [Customizing your Playstyle](#customizing-your-playstyle)
    9. [Saved Progress](#saved-progress)
    10. [Card Decks](#card-decks)
-4. [Tips and Tricks](#tips-and-tricks)
-5. [Author](#author)
-6. [License](#license)
+3. [Tips and Tricks](#tips-and-tricks)
+4. [Author](#author)
+5. [License](#license)
 
 ## Word Mill Games
 
@@ -50,6 +49,14 @@ Mythic Game Master Emulator is property of [Word Mill Games](https://www.wordmil
 May not be commercially redistributed. Offered for free (Donations permitted and welcome to the author of this module).
 
 [Get Mythic GME Books](https://www.wordmillgames.com/)
+
+## Larcenous Designs
+
+**GameMaster's Apprentice Cards** are _REQUIRED_ to be able to play with the GMA Panel.
+
+GameMaster's Apprentice Cards are property of [Larcenous Designs](https://www.larcenousdesigns.com/) and this module does not distribute the cards themselves of author **Nathan Rockwood**
+
+[Get GMA Cards](https://www.drivethrurpg.com/browse/pub/6395/Larcenous-Designs-LLC)
 
 ### Special Appreciations!
 * **Tana Pigeon** for authorizing the distribution of this module, based on the wonderful Mythic Books
