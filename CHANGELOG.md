@@ -1,3 +1,6 @@
+### 2.9.3
+* Bugfix: Adjusted height of GMA drawn cards
+
 ### 2.9.2
 * Feature: Added Game Master's Apprentice (all decks) as supported ruleset
 * Enhancement: Drawing cards now lays them out horizontally on the screen

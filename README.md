@@ -19,13 +19,18 @@ Mythic GME Tools provides everything needed for playing Mythic GM Emulator with 
 2. [How to play](#how-to-play)
 3. [Features](#features)
    1. [Overview](#overview)
-   2. [Mythic Macros](#mythic-macros)
-      1. [GM Emulator Blue Book](#gm-emulator-blue-book)
-      2. [Variations 1 Orange Book](#variations-1-orange-book)
-      3. [Variations 2 Green Book](#variations-2-green-book)
-      4. [GM Emulator 2nd Edition](#gm-emulator-2nd-edition)
-   4. [Non Mythic Macros](#non-mythic-macros)
-   3. [Mythic Panels](#mythic-panels)
+   2. [Mythic GME Tools Panel](#mythic-gme-tools-panel)
+   3. [Mythic GM Emulator Rulesets](#mythic-gm-emulator-rulesets)
+      1. [GM Emulator 2nd Edition](#gm-emulator-2nd-edition)
+      2. [GM Emulator Blue Book](#gm-emulator-blue-book)
+      3. [Variations 1 Orange Book](#variations-1-orange-book)
+      4. [Variations 2 Green Book](#variations-2-green-book)
+      5. [Adventure Crafter Cards](#adventure-crafter-cards)
+   4. [Other GM Emulator Rulesets](#other-gm-emulator-rulesets)
+      1. [The GameMaster's Apprentice](#the-gamemasters-apprentice)
+      2. [Plot Unfolding Machine](#plot-unfolding-machine)
+      3. [Game Unfolding Machine](#game-unfolding-machine)
+      4. [Tricube Tales Countdown Cards](#tricube-tales-countdown-cards)
    5. [The Oracle Builder](#the-oracle-builder)
    6. [Rolling your own Tables](#rolling-your-own-tables)
    7. [Chat and Exporting](#chat-and-exporting)
@@ -48,7 +53,7 @@ May not be commercially redistributed. Offered for free (Donations permitted and
 
 ### Special Appreciations!
 * **Tana Pigeon** for authorizing the distribution of this module, based on the wonderful Mythic Books
-* **stargolum** for DECKs support to play with Mythic and GMA Cards, as well for the positive feedback and panels UI
+* **stargolem** for DECKs support to play with Mythic and GMA Cards, as well for the positive feedback and panels UI
 * **KarstenW** for providing German Translations
 * **FoundryVTT Discord, Die Gießerei and Mythic Discord communities** for supporting with my terrible coding skills and crazy ideas
 * Everyone who appreciates and enjoys this material
@@ -87,12 +92,28 @@ Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then
 
 ![mythic-gme-tools-example.png](mythic-gme-tools-example.png)
 
-### Mythic Macros
+### Mythic GME Tools Panel
+
+The main panel of this module allows you to play your favorite GM emulator ruleset with ease.
+
+Click on **Configure** to switch to alternate GM emulators, and **Export** will let you export Chat to Journal.
+
+![green-book-macros.png](mythic-panel-1.png)
+
+### Mythic GM Emulator Rulesets
 These macros provide complex functionalities summarized in a one-click event.
 Most of them bring up a Dialog in which the player customizes or elaborates the event.
 
 Selecting a Token will cause the Macros to interact with a Foundry VTT actor, 
 speak on his behalf or even sometimes use its information for better flavor!
+
+#### GM Emulator 2nd Edition
+* Discovery meaning tables
+* Scene adjustment table
+* Weighted lists support
+* Element meaning tables included
+
+![mythic-panel-2e.png](mythic-panel-2e.png)
 
 #### GM Emulator Blue Book
 * Fate Chart: Rolls on the Fate Chart. Triggers Random Events when appropriate.
@@ -121,15 +142,19 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 ![green-book-macros.png](green-book-macros.png)
 
-#### GM Emulator 2nd Edition
-* Discovery meaning tables
-* Scene adjustment table
-* Weighted lists support
-* Element meaning tables included
+#### Adventure Crafter Cards
 
-![mythic-panel-2e.png](mythic-panel-2e.png)
+Drag and Drop the TAC Deck Macro to your hotbar, to pop up adventure crafter cards.
 
-### Non Mythic Macros
+![img.png](adventure-crafter-example.png)
+
+### Other GM Emulator Rulesets
+
+#### The GameMaster's Apprentice
+
+Check out the cards section to learn how to configure them.
+
+![gma-example.png](gma-example.png)
 
 #### Plot Unfolding Machine
 
@@ -145,26 +170,11 @@ Check it out if you'd like to try something different in your adventures.
 
 ![pum-example.png](pum-example.png)
 
-#### Game Master's Apprentice Cards
-
-Check out the cards section to learn how to configure them.
-
-![gma-example.png](gma-example.png)
-
 #### Tricube Tales Countdown Cards
 
 Check out the cards section to learn how to configure them.
 
 ![countdown-deck-example.png](countdown-deck-example.png)
-
-### Mythic Panels
-
-These panels appear by default as soon as the module is enabled, and allow you to play directly from there, without the need
-of importing Macros.
-
-Click on **Configure** to switch to alternate layouts, and **Export** will let you export Chat to Journal.
-
-![green-book-macros.png](mythic-panel-1.png)
 
 ### The Oracle Builder
 Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
