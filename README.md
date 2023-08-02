@@ -99,6 +99,8 @@ Simply drag and drop them to your Macro Hotbar at the bottom of the screen. Then
 
 ![mythic-gme-tools-example.png](mythic-gme-tools-example.png)
 
+![img.png](mythic-gme-tools-example-gma.png)
+
 ### Mythic GME Tools Panel
 
 The main panel of this module allows you to play your favorite GM emulator ruleset with ease.
