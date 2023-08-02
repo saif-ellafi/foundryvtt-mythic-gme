@@ -53,9 +53,11 @@ May not be commercially redistributed. Offered for free (Donations permitted and
 
 ### Special Appreciations!
 * **Tana Pigeon** for authorizing the distribution of this module, based on the wonderful Mythic Books
+* **Nathan Rockwood** for the support to handle GameMaster's Apprentice cards
 * **stargolem** for DECKs support to play with Mythic and GMA Cards, as well for the positive feedback and panels UI
 * **KarstenW** for providing German Translations
 * **FoundryVTT Discord, Die Gießerei and Mythic Discord communities** for supporting with my terrible coding skills and crazy ideas
+* The SOLO Roleplaying community in general!
 * Everyone who appreciates and enjoys this material
 
 ## How to play
