@@ -1,3 +1,7 @@
+### 2.9.4
+* Enhancement: Using Foundry 11 Folders for Compendium (Thank you @DawidIzydor)
+* Enhancement: Using Foundry 11 Module Properties (Thank you @vudx00)
+
 ### 2.9.3
 * Bugfix: Adjusted height of GMA drawn cards
 
