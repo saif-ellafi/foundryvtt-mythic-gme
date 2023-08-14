@@ -43,57 +43,57 @@
       "path": "lang/de.json"
     }
   ],
-	"packFolders": [{
-		"name": "Mythic GME Tools",
-		"sorting": "m",
-		"ownership": {
-			"PLAYER": "NONE",
-			"ASSISTANT": "OWNER"
-		},
-		"folders": [{
-				"name": "Mythic GME Tables",
-				"sorting": "m",
-				"ownership": {
-					"PLAYER": "NONE",
-					"ASSISTANT": "OWNER"
-				},
-				"packs": [
-					"mythic-gme-tables",
-					"mythic-gme-2e-tables",
-					"mythic-gme-v1-tables",
-					"mythic-gme-v2-tables",
-					"mythic-decks-tables"
-				]
-			},
-			{
-				"name": "Mythic GME Macros",
-				"sorting": "m",
-				"ownership": {
-					"PLAYER": "NONE",
-					"ASSISTANT": "OWNER"
-				},
-				"packs": [
-					"mythic-gme-macros",
-					"mythic-gme-v1-macros",
-					"mythic-gme-v2-macros",
-					"mythic-decks-macros",
-					"mythic-crafter-macros"
-				]
-			},
-			{
-				"name": "Unfolding Machine",
-				"sorting": "m",
-				"ownership": {
-					"PLAYER": "NONE",
-					"ASSISTANT": "OWNER"
-				},
-				"packs": [
-					"plot-unfolding-machine",
-					"game-unfolding-machine"
-				]
-			}
-		]
-	}],
+  "packFolders": [{
+      "name": "Mythic GME Tools",
+      "sorting": "m",
+      "ownership": {
+          "PLAYER": "NONE",
+          "ASSISTANT": "OWNER"
+      },
+      "folders": [{
+              "name": "Mythic GME Tables",
+              "sorting": "m",
+              "ownership": {
+                  "PLAYER": "NONE",
+                  "ASSISTANT": "OWNER"
+              },
+              "packs": [
+                  "mythic-gme-tables",
+                  "mythic-gme-2e-tables",
+                  "mythic-gme-v1-tables",
+                  "mythic-gme-v2-tables",
+                  "mythic-decks-tables"
+              ]
+          },
+          {
+              "name": "Mythic GME Macros",
+              "sorting": "m",
+              "ownership": {
+                  "PLAYER": "NONE",
+                  "ASSISTANT": "OWNER"
+              },
+              "packs": [
+                  "mythic-gme-macros",
+                  "mythic-gme-v1-macros",
+                  "mythic-gme-v2-macros",
+                  "mythic-decks-macros",
+                  "mythic-crafter-macros"
+              ]
+          },
+          {
+              "name": "Unfolding Machine",
+              "sorting": "m",
+              "ownership": {
+                  "PLAYER": "NONE",
+                  "ASSISTANT": "OWNER"
+              },
+              "packs": [
+                  "plot-unfolding-machine",
+                  "game-unfolding-machine"
+              ]
+          }
+      ]
+  }],
   "packs": [
     {
       "name": "mythic-gme-tables",
