@@ -93,7 +93,18 @@
             "plot-unfolding-machine",
             "game-unfolding-machine"
           ]
-        }
+        },
+			{
+				"name": "Adventure Crafter",
+				"sorting": "m",
+				"ownership": {
+					"PLAYER": "NONE",
+					"ASSISTANT": "OWNER"
+				},
+				"packs": [
+					"adventure-crafter-tables"
+				]
+			}
       ]
     }
   ],
@@ -229,6 +240,17 @@
         "PLAYER": "NONE",
         "ASSISTANT": "OWNER"
       }
-    }
+    },
+	{
+		"name": "adventure-crafter-tables",
+		"label": "Adventure Crafter Tables",
+		"path": "packs/adventure-crafter-tables.db",
+		"module": "mythic-gme-tools",
+		"type": "RollTable",
+		"ownership": {
+			"PLAYER": "NONE",
+			"ASSISTANT": "OWNER"
+		}
+	}
   ]
 }
