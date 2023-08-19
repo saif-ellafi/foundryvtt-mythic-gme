@@ -1,0 +1,47 @@
+.tac-dialog {
+    /* Custom properties */
+    --item-gap: 4px;
+
+    display: flex;
+}
+.tac-dialog__controls {
+    display: flex;
+}
+.tac-dialog__controls {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.tac-dialog__themes-list {
+    margin: 0;
+}
+.tac-dialog__themes-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--item-gap);
+    background: rgba(255, 255, 240, 0.8);
+    border-radius: 3px;
+}
+.tac-dialog__button {
+    margin: 0;
+}
+.tac-dialog__up,
+.tac-dialog__down {
+    width: 44px;
+}
+.tac-dialog__up {
+    margin: 0 1em 0 0;
+}
+.tac-dialog__down {
+    margin: 0 0 0 1em;
+}
+.tac-dialog__button-control {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--item-gap);
+}
+.tac-dialog__character-list, 
+.tac-dialog__plotline-list {
+    flex: 1;
+}
