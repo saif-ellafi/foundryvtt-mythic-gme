@@ -231,6 +231,7 @@ export default class MGMEReference {
     'mgme_2e': 'Mythic GM Emulator (2nd Edition)',
     'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
     'mgme_vars2': 'Mythic Variations 2 (Green Book)',
+    'tac_core': 'The Adventure Crafter',
     'gma_cards': 'Game Master\'s Apprentice (Cards)',
     'pum_core': 'Plot Unfolding Machine (Unofficial Homebrew)',
     'gum_core': 'Game Unfolding Machine (Unofficial Homebrew)'

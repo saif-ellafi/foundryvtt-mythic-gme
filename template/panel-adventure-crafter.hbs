@@ -1,0 +1,68 @@
+<div class="mythic-gme-dialog">
+    <div>
+        <ol>
+            <li><button class="up"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-up"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.IncreaseChaos"}}</span></span></button>Action<button class="down"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-down"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DecreaseChaos"}}</span></span></button></li>
+            <li><button class="up"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-up"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.IncreaseChaos"}}</span></span></button>Tension<button class="down"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-down"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DecreaseChaos"}}</span></span></button></li>
+            <li><button class="up"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-up"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.IncreaseChaos"}}</span></span></button>Mystery<button class="down"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-down"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DecreaseChaos"}}</span></span></button></li>
+            <li><button class="up"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-up"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.IncreaseChaos"}}</span></span></button>Social<button class="down"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-down"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DecreaseChaos"}}</span></span></button></li>
+            <li><button class="up"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-up"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.IncreaseChaos"}}</span></span></button>Personal<button class="down"><i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-down"></i><span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DecreaseChaos"}}</span></span></button></li>
+        </ol>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_fq">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_tac_pp">
+            <i class="fas mythic-gme-dialog__icon--left fa-question"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.TACPP"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_re">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_tac_nc">
+            <i class="fas mythic-gme-dialog__icon--left fa-lightbulb"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.TACNC"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_npc">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_tac_chars">
+            <i class="fas mythic-gme-dialog__icon--left fa-list"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.CharacterList"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__dice--right mgme_panel_npc_roll">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_tac_chars_roll" style="height: 32px;">
+            <i class="fas mythic-gme-dialog__icon--left fa-dice"></i>
+            <span class="mythic-gme-dialog__button-control-label"></span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__button-control mgme_panel_thread">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_tac_plotlines">
+            <i class="fas mythic-gme-dialog__icon--left fa-list"></i>
+            <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.TACPList"}}</span>
+        </button>
+    </div>
+    <div class="mythic-gme-dialog__dice--left mgme_panel_thread_roll">
+        <button class="mythic-gme-dialog__button" id="mgme_panel_tac_plotlines_roll" style="height: 32px;">
+            <i class="fas mythic-gme-dialog__icon--left fa-dice"></i>
+            <span class="mythic-gme-dialog__button-control-label"></span>
+        </button>
+    </div>
+</div>
+<script>
+
+    $.fn.moveUp = function() {
+        before = $(this).prev();
+        $(this).insertBefore(before)
+    }
+
+    $.fn.moveDown = function() {
+        after=$(this).next();
+        $(this).insertAfter(after)
+    }
+
+    $('.up').click(function() {
+        $(this).parent().moveUp()
+    })
+
+    $('.down').click(function() {
+        $(this).parent().moveDown()
+    })
+
+</script>

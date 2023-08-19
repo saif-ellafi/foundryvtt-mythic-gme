@@ -246,5 +246,10 @@
 
   "MGME.NPCList": "NPCs List",
   "MGME.ThreadList": "Thread List",
-  "MGME.CharacterList": "Character List"
+  "MGME.CharacterList": "Character List",
+
+  "MGME.TACPP": "Generate a plot point",
+  "MGME.TACNC": "Generate a new character",
+  "MGME.TACPList": "Plotline List"
+
 }

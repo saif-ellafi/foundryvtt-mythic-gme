@@ -16,6 +16,8 @@ import GUMPanel from "./app/panel-gum";
 import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
 import GMAPanel from "./app/panel-gma";
+import TACCore from "./logic/tac-core";
+import TACPanel from "./app/panel-adventure-crafter"
 
 export default class MGMEMacroAPI {
 
@@ -77,6 +79,9 @@ export default class MGMEMacroAPI {
         startWidth = 470;
         resizable = true;
         break;
+      }
+      case 'tac_core': {
+        win = new TACPanel();
       }
     }
     win?.render(true, {
@@ -325,5 +330,14 @@ export default class MGMEMacroAPI {
   static gumeEnemyFeelings = GUMCore.gumeEnemyFeelings;
   static gumeEnemyRisks = GUMCore.gumeEnemyRisks;
   static gumeEnemyThreats = GUMCore.gumeEnemyThreats;
+
+  // TAC
+
+  static tacPlotPoint = TACCore.tacPlotPoint;
+  static tacNewCharacter = TACCore.tacNewCharacter;
+  static tacRenderCharactersList = TACCore.tacRenderCharactersList;
+  static tacRenderPlotlinesList = TACCore.tacRenderPlotlinesList;
+  static tacRollCharactersList = TACCore.tacRollCharactersList;
+  static tacRollPlotlinesList = TACCore.tacRollPlotlinesList;
 
 }
