@@ -1,5 +1,5 @@
 import MGMEPanel from "./panel-base";
-import '../style/panel-mythic.css'
+import '../style/panel-tac.css'
 
 export default class MGMETACPanel extends MGMEPanel {
 
