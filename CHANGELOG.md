@@ -1,3 +1,7 @@
+### 2.9.6
+* Bugfix: Fixed GUM V2 missing weak oracle answers
+* Bugfix: Now needs Foundry V11 (due to new db) 
+
 ### 2.9.5
 * Feature: Gamemaster's Apprentice Cards Cyberpunk Deck
 * Feature: Game Unfolding Machine V2

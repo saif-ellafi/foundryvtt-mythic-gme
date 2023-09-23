@@ -17,10 +17,16 @@ export default class GUMV2Core {
           content: `<div style="color:green"><b>STRONG YES</b> (${result.result})</div>`,
           whisper: whisper
         });
-      } else if (result.result > threshold) {
+      } else if (result.result > threshold + 2) {
         MGMEChatJournal._mgmeCreateChatAndLog({
           flavor: 'Yes or No',
           content: `<div style="color:green"><b>Yes</b> (${result.result})</div>`,
+          whisper: whisper
+        });
+      } else if (result.result > threshold) {
+        MGMEChatJournal._mgmeCreateChatAndLog({
+          flavor: 'Yes or No',
+          content: `<div style="color:green">Weak yes (${result.result})</div>`,
           whisper: whisper
         });
       } else if (result.result < 3) {
@@ -29,10 +35,16 @@ export default class GUMV2Core {
           content: `<div style="color:red"><b>STRONG NO</b> (${result.result})</div>`,
           whisper: whisper
         });
-      } else {
+      } else if (result.result < threshold - 2) {
         MGMEChatJournal._mgmeCreateChatAndLog({
           flavor: 'Yes or No',
           content: `<div style="color:red"><b>No</b> (${result.result})</div>`,
+          whisper: whisper
+        });
+      } else {
+        MGMEChatJournal._mgmeCreateChatAndLog({
+          flavor: 'Yes or No',
+          content: `<div style="color:red">Weak no (${result.result})</div>`,
           whisper: whisper
         });
       }
