@@ -171,13 +171,13 @@ This Solo system can be played with Mythic or on its own, and it focuses on plac
 
 Check it out if getting stuck in your Solo or GMLess games is an often-issue, because PUM is designed to help with Scene Setup proposals.
 
+![pum-example.png](pum-example.png)
+
 #### Game Unfolding Machine
 
 This GM Emulator is action driven and focuses on getting you started with a solo adventure [HERE](https://jeansenvaars.itch.io/game-unfolding-machine) :)
 
 Check it out if you'd like to try something different in your adventures.
-
-![pum-example.png](pum-example.png)
 
 #### Tricube Tales Countdown Cards
 
@@ -288,7 +288,7 @@ Simply unzip the files as they are, into the `decks` folder in your `Data` folde
     7. If everything works, you can delete the zip file from there. It is not needed.
 2. Enable the module in a game world, and go to Compendiums Tab
 3. Open `Mythic Deck Macros` and Drag and Drop the ones you want, to the Macro Hotbar
-4. [Optional] Import `Mythic Deck Tables` from Compendium if you want to draw cards without replacement
+4. [Optional] Import `Card Decks Tables` from Compendium if you want to draw cards without replacement
 5. Say thanks if you like this, particularly to `Stargolum` :)
 
 ## Tips and Tricks

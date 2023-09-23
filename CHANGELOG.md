@@ -1,3 +1,9 @@
+### 2.9.5
+* Feature: Gamemaster's Apprentice Cards Cyberpunk Deck
+* Feature: Game Unfolding Machine V2
+* Bugfix: Missing GMA cards number 110 (Thank you @Pharmudtix)
+* Bugfix: Removed prompt from PUM oracles
+
 ### 2.9.4
 * Enhancement: Using Foundry 11 Folders for Compendium (Thank you @DawidIzydor)
 * Enhancement: Using Foundry 11 Module Properties (Thank you @vudx00)

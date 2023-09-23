@@ -16,6 +16,8 @@ import GUMPanel from "./app/panel-gum";
 import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
 import GMAPanel from "./app/panel-gma";
+import GUMV2Core from "./logic/gum-v2-core";
+import GUM2Panel from "./app/panel-gum-v2";
 
 export default class MGMEMacroAPI {
 
@@ -78,6 +80,14 @@ export default class MGMEMacroAPI {
         resizable = true;
         break;
       }
+      case 'gum2_core': {
+        win = new GUM2Panel();
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
     }
     win?.render(true, {
       width: startWidth,
@@ -111,6 +121,9 @@ export default class MGMEMacroAPI {
         break;
       }
       case 'gum_core': {
+        break;
+      }
+      case 'gum2_core': {
         break;
       }
     }
@@ -325,5 +338,58 @@ export default class MGMEMacroAPI {
   static gumeEnemyFeelings = GUMCore.gumeEnemyFeelings;
   static gumeEnemyRisks = GUMCore.gumeEnemyRisks;
   static gumeEnemyThreats = GUMCore.gumeEnemyThreats;
+
+  // GUM V2
+
+  static gum2Question = (threshold) => GUMV2Core.gum2Question(threshold);
+
+  static gum2ProposalCheck = GUMV2Core.gum2ProposalCheck;
+
+  static gum2ExpLocation = GUMV2Core.gum2ExpLocation;
+  static gum2ExpSkill = GUMV2Core.gum2ExpSkill;
+  static gum2ExpCircumstance = GUMV2Core.gum2ExpCircumstance;
+
+  static gum2CombLocation = GUMV2Core.gum2CombLocation;
+  static gum2CombTactics = GUMV2Core.gum2CombTactics;
+  static gum2CombComposition = GUMV2Core.gum2CombComposition;
+
+  static gum2PlotClue = GUMV2Core.gum2PlotClue;
+  static gum2PlotFinding = GUMV2Core.gum2PlotFinding;
+  static gum2PlotActivities = GUMV2Core.gum2PlotActivities;
+  static gum2PlotOccurrences = GUMV2Core.gum2PlotOccurrences;
+
+  static gum2NPCGAttitude = GUMV2Core.gum2NPCGAttitude;
+  static gum2NPCGContribution = GUMV2Core.gum2NPCGContribution;
+  static gum2NPCGOpinion = GUMV2Core.gum2NPCGOpinion;
+  static gum2NPCGWants = GUMV2Core.gum2NPCGWants;
+
+  static gum2NPCEAttitude = GUMV2Core.gum2NPCEAttitude;
+  static gum2NPCEImpression = GUMV2Core.gum2NPCEImpression;
+  static gum2NPCEDeeds = GUMV2Core.gum2NPCEDeeds;
+  static gum2NPCEIntentions = GUMV2Core.gum2NPCEIntentions;
+
+  static gum2MotGoodMotive = GUMV2Core.gum2MotGoodMotive;
+  static gum2MotGoodActions = GUMV2Core.gum2MotGoodActions;
+  static gum2MotEvilMotive = GUMV2Core.gum2MotEvilMotive;
+  static gum2MotEvilActions = GUMV2Core.gum2MotEvilActions;
+
+  static gum2CharPossess = GUMV2Core.gum2CharPossess;
+  static gum2CharLooks = GUMV2Core.gum2CharLooks;
+  static gum2CharActivity = GUMV2Core.gum2CharActivity;
+
+  static gum2LocFeature = GUMV2Core.gum2LocFeature;
+  static gum2LocWorth = GUMV2Core.gum2LocWorth;
+  static gum2LocPurpose = GUMV2Core.gum2LocPurpose;
+  static gum2LocContent = GUMV2Core.gum2LocContent;
+
+  static gum2ObjFunction = GUMV2Core.gum2ObjFunction;
+  static gum2ObjForm = GUMV2Core.gum2ObjForm;
+  static gum2ObjState = GUMV2Core.gum2ObjState;
+
+  static gum2FactionFocus = GUMV2Core.gum2FactionFocus
+  static gum2FactionResource = GUMV2Core.gum2FactionResource;
+
+  static gum2PromptScene = GUMV2Core.gum2PromptScene;
+  static gum2PromptWorld = GUMV2Core.gum2PromptWorld;
 
 }

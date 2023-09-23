@@ -1,0 +1,26 @@
+// Input: Table Name
+
+const tableName = "name_here";
+
+// Input: entries
+
+const entriesText = `
+
+paste_here
+
+`;
+
+// Script
+
+const table = RollTable.create({name: tableName});
+const entriesList = entriesText.trim().split('\n');
+
+let i = 0;
+const entries = entriesList.map(e => {
+  i += 1;
+  return {text: e, range: [i, i], weight: 1}
+});
+
+table.then(table => table.createEmbeddedDocuments('TableResult', entries).then(e => table.normalize()));
+
+// End

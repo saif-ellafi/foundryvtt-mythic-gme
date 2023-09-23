@@ -74,151 +74,127 @@ export default class PUMCore {
   }
 
   static pumYesOrNoEven() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Yes or No - even', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle(
-        [
-          {name: 'Yes or No Question Even'},
-          {name: 'Yes or No Answer Caveat'}
-        ],
-        'Question (even)',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle(
+      [
+        {name: 'Yes or No Question Even'},
+        {name: 'Yes or No Answer Caveat'}
+      ],
+      'Question (even)',
+      false,
+      input
+    );
   }
 
   static pumYesOrNoLikely() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Yes or No - likely', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle(
-        [
-          {name: 'Yes or No Question Likely'},
-          {name: 'Yes or No Answer Caveat'}
-        ],
-        'Question (likely)',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle(
+      [
+        {name: 'Yes or No Question Likely'},
+        {name: 'Yes or No Answer Caveat'}
+      ],
+      'Question (likely)',
+      false,
+      input
+    );
   }
 
   static pumYesOrNoUnlikely() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Yes or No - unlikely', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle(
-        [
-          {name: 'Yes or No Question Unlikely'},
-          {name: 'Yes or No Answer Caveat'}
-        ],
-        'Question (unlikely)',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle(
+      [
+        {name: 'Yes or No Question Unlikely'},
+        {name: 'Yes or No Answer Caveat'}
+      ],
+      'Question (unlikely)',
+      false,
+      input
+    );
   }
 
   static pumLooksArea() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Area looks', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-        {name: 'Looks Adverb'},
-        {name: 'Looks Area'}
-      ], 'Looks (area)',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+      {name: 'Looks Adverb'},
+      {name: 'Looks Area'}
+    ], 'Looks (area)',
+      false,
+      input
+    );
   }
 
   static pumLooksNPC() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('NPC looks', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-        {name: 'Looks Adverb'},
-        {name: 'Looks NPC'}
-      ], 'Looks (npc)',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+      {name: 'Looks Adverb'},
+      {name: 'Looks NPC'}
+    ], 'Looks (npc)',
+      false,
+      input
+    );
   }
 
   static pumLooksObject() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Object looks', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-        {name: 'Looks Adverb'},
-        {name: 'Looks Object'}
-      ], 'Looks (object)',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+      {name: 'Looks Adverb'},
+      {name: 'Looks Object'}
+    ], 'Looks (object)',
+      false,
+      input
+    );
   }
 
   static pumWho() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Who', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-          {key: 'Subject', name: 'Who Subject'},
-          {key: 'Type', name: 'Who Type'}
-        ], 'Who',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+        {key: 'Subject', name: 'Who Subject'},
+        {key: 'Type', name: 'Who Type'}
+      ], 'Who',
+      false,
+      input
+    );
   }
 
   static pumSubject() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Subject', (input) => {
-      MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'Scene Subject'},
-        'Subject',
-        false
-      );
-    })
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+      {name: 'Scene Subject'},
+      'Subject',
+      false
+    );
   }
 
   static pumWhat() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('What', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-          {name: 'What Type'},
-          {name: 'What Subject'}
-        ], 'What',
-        false,
-        input
-      );
-    });
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+        {name: 'What Type'},
+        {name: 'What Subject'}
+      ], 'What',
+      false,
+      input
+    );
   }
 
   static pumIntent() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Intent', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-        {key: 'They', name: 'Intent Do'},
-        {name: 'Intent What'}
-      ], 'Intent',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+      {key: 'They', name: 'Intent Do'},
+      {name: 'Intent What'}
+    ], 'Intent',
+      false,
+      input
+    );
   }
 
   static pumActivity() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Activity', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-          {key: 'They are', name: 'Activity Do'},
-          {name: 'Activity What'}
-        ], 'Activity',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+        {key: 'They are', name: 'Activity Do'},
+        {name: 'Activity What'}
+      ], 'Activity',
+      false,
+      input
+    );
   }
 
   static pumReason() {
-    MGMEOracleUtils._mgmeBuildOracleDialog('Reason', (input) => {
-      MGMEOracleUtils._mgmeMultipleTableOracle([
-          {name: 'Reason Action'},
-          {name: 'Reason Motive'},
-        ], 'Reason',
-        false,
-        input
-      );
-    })
+    MGMEOracleUtils._mgmeMultipleTableOracle([
+        {name: 'Reason Action'},
+        {name: 'Reason Motive'},
+      ], 'Reason',
+      false,
+      input
+    );
   }
 
   static pumKindOfItem() {
