@@ -58,10 +58,10 @@ export default class GUMV2Core {
     });
   }
 
-  static gum2ProposalCheck() {
+  static gum2Intervention() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'GUM V2 Proposal Check'},
-        'Proposal check',
+        {name: 'GUM V2 Intervention'},
+        'Intervention event',
         false
     );
   }

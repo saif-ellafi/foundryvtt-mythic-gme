@@ -1,3 +1,6 @@
+### 2.9.7
+* Enhancement: Update to latest GUM V2 version
+
 ### 2.9.6
 * Bugfix: Fixed GUM V2 missing weak oracle answers
 * Bugfix: Now needs Foundry V11 (due to new db) 

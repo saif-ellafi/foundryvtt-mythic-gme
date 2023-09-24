@@ -343,7 +343,7 @@ export default class MGMEMacroAPI {
 
   static gum2Question = (threshold) => GUMV2Core.gum2Question(threshold);
 
-  static gum2ProposalCheck = GUMV2Core.gum2ProposalCheck;
+  static gum2Intervention = GUMV2Core.gum2Intervention;
 
   static gum2ExpLocation = GUMV2Core.gum2ExpLocation;
   static gum2ExpSkill = GUMV2Core.gum2ExpSkill;
