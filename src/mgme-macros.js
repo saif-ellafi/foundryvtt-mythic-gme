@@ -345,6 +345,10 @@ export default class MGMEMacroAPI {
 
   static gum2Intervention = GUMV2Core.gum2Intervention;
 
+  static gum2Action = GUMV2Core.gum2Action;
+  static gum2Adjective = GUMV2Core.gum2Adjective;
+  static gum2Subject = GUMV2Core.gum2Subject;
+
   static gum2ExpLocation = GUMV2Core.gum2ExpLocation;
   static gum2ExpSkill = GUMV2Core.gum2ExpSkill;
   static gum2ExpCircumstance = GUMV2Core.gum2ExpCircumstance;

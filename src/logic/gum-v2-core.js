@@ -6,9 +6,9 @@ export default class GUMV2Core {
 
   static gum2Question(threshold) {
     const roll = Roll.create("1d20");
-    roll.roll().then(result => {
+    roll.roll().then(async result => {
       if (game.dice3d) {
-        game.dice3d.showForRoll(result);
+        await game.dice3d.showForRoll(result);
       }
       const whisper = MGMECommon._mgmeGetWhisperMode();
       if (result.result > 18) {
@@ -61,7 +61,31 @@ export default class GUMV2Core {
   static gum2Intervention() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'GUM V2 Intervention'},
-        'Intervention event',
+        'Intervention!',
+        false
+    );
+  }
+
+  static gum2Action() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM V2 Action'},
+        'Oracle: Action',
+        false
+    );
+  }
+
+  static gum2Adjective() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM V2 Adjective'},
+        'Oracle: Adjective',
+        false
+    );
+  }
+
+  static gum2Subject() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM V2 Subject'},
+        'Oracle: Subject',
         false
     );
   }

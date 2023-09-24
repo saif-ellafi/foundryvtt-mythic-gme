@@ -19,6 +19,10 @@ export default class GUM2Panel extends MGMEPanel {
 
     html.find("#gum2_intervention").click(api.gum2Intervention);
 
+    html.find("#gum2_action").click(api.gum2Action);
+    html.find("#gum2_adjective").click(api.gum2Adjective);
+    html.find("#gum2_subject").click(api.gum2Subject);
+
     html.find("#gum2_exp_loc").click(api.gum2ExpLocation);
     html.find("#gum2_exp_skill").click(api.gum2ExpSkill);
     html.find("#gum2_exp_circ").click(api.gum2ExpCircumstance);
