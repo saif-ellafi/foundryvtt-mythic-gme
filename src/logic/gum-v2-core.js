@@ -48,7 +48,7 @@ export default class GUMV2Core {
           whisper: whisper
         });
       }
-      if ([1, 10, 20].includes(Number(result.result))) {
+      if ([1, threshold, 20].includes(Number(result.result))) {
         MGMEOracleUtils._mgmeSimpleTableOracle(
             {name: 'GUM V2 Intervention'},
             'Intervention!',
@@ -276,8 +276,8 @@ export default class GUMV2Core {
 
   static gum2CharLooks() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'GUM V2 Character Looks'},
-        'Character by looks',
+        {name: 'GUM V2 Character Impression'},
+        'Character by impression',
         false
     );
   }
@@ -286,6 +286,38 @@ export default class GUMV2Core {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'GUM V2 Character Activity'},
         'Character by activity',
+        false
+    );
+  }
+
+  static gum2CharIntention() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM V2 Character Intention'},
+        'Character by intention',
+        false
+    );
+  }
+
+  static gum2CreatureType() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM V2 Creature Type'},
+        'Creature by type',
+        false
+    );
+  }
+
+  static gum2CreatureAbility() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM V2 Creature Ability'},
+        'Creature by ability',
+        false
+    );
+  }
+
+  static gum2CreatureBehavior() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'GUM V2 Creature Behavior'},
+        'Creature by behavior',
         false
     );
   }

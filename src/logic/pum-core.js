@@ -80,8 +80,7 @@ export default class PUMCore {
         {name: 'Yes or No Answer Caveat'}
       ],
       'Question (even)',
-      false,
-      input
+      false
     );
   }
 
@@ -92,8 +91,7 @@ export default class PUMCore {
         {name: 'Yes or No Answer Caveat'}
       ],
       'Question (likely)',
-      false,
-      input
+      false
     );
   }
 
@@ -104,8 +102,7 @@ export default class PUMCore {
         {name: 'Yes or No Answer Caveat'}
       ],
       'Question (unlikely)',
-      false,
-      input
+      false
     );
   }
 
@@ -114,8 +111,7 @@ export default class PUMCore {
       {name: 'Looks Adverb'},
       {name: 'Looks Area'}
     ], 'Looks (area)',
-      false,
-      input
+      false
     );
   }
 
@@ -124,8 +120,7 @@ export default class PUMCore {
       {name: 'Looks Adverb'},
       {name: 'Looks NPC'}
     ], 'Looks (npc)',
-      false,
-      input
+      false
     );
   }
 
@@ -134,8 +129,7 @@ export default class PUMCore {
       {name: 'Looks Adverb'},
       {name: 'Looks Object'}
     ], 'Looks (object)',
-      false,
-      input
+      false
     );
   }
 
@@ -144,8 +138,7 @@ export default class PUMCore {
         {key: 'Subject', name: 'Who Subject'},
         {key: 'Type', name: 'Who Type'}
       ], 'Who',
-      false,
-      input
+      false
     );
   }
 
@@ -162,8 +155,7 @@ export default class PUMCore {
         {name: 'What Type'},
         {name: 'What Subject'}
       ], 'What',
-      false,
-      input
+      false
     );
   }
 
@@ -172,8 +164,7 @@ export default class PUMCore {
       {key: 'They', name: 'Intent Do'},
       {name: 'Intent What'}
     ], 'Intent',
-      false,
-      input
+      false
     );
   }
 
@@ -182,8 +173,7 @@ export default class PUMCore {
         {key: 'They are', name: 'Activity Do'},
         {name: 'Activity What'}
       ], 'Activity',
-      false,
-      input
+      false
     );
   }
 
@@ -192,8 +182,7 @@ export default class PUMCore {
         {name: 'Reason Action'},
         {name: 'Reason Motive'},
       ], 'Reason',
-      false,
-      input
+      false
     );
   }
 

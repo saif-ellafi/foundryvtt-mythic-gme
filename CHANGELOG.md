@@ -1,3 +1,8 @@
+### 2.9.8
+* Feature: Plot unfolding machine V6 support
+* Enhancement: Updated to GUM V11
+* Bugfix: Fixed broken PUM oracle roll
+
 ### 2.9.7
 * Enhancement: Update to latest GUM V2 version
 

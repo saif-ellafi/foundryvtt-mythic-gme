@@ -54,6 +54,11 @@ export default class GUM2Panel extends MGMEPanel {
     html.find("#gum2_char_poss").click(api.gum2CharPossess);
     html.find("#gum2_char_looks").click(api.gum2CharLooks);
     html.find("#gum2_char_act").click(api.gum2CharActivity);
+    html.find("#gum2_char_int").click(api.gum2CharIntention);
+
+    html.find("#gum2_cre_type").click(api.gum2CreatureType);
+    html.find("#gum2_cre_abi").click(api.gum2CreatureAbility);
+    html.find("#gum2_cre_beh").click(api.gum2CreatureBehavior);
 
     html.find("#gum2_loc_feat").click(api.gum2LocFeature);
     html.find("#gum2_loc_worth").click(api.gum2LocWorth);

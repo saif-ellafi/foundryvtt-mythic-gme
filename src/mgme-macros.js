@@ -18,6 +18,8 @@ import MGMECore2e from "./logic/mgme-core-2e";
 import GMAPanel from "./app/panel-gma";
 import GUMV2Core from "./logic/gum-v2-core";
 import GUM2Panel from "./app/panel-gum-v2";
+import PUMV6Core from "./logic/pum-v6-core";
+import PUMV6Panel from "./app/panel-pum-v6";
 
 export default class MGMEMacroAPI {
 
@@ -72,6 +74,14 @@ export default class MGMEMacroAPI {
         resizable = true;
         break;
       }
+      case 'pum6_core': {
+        win = new PUMV6Panel();
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
+        resizable = true;
+        break;
+      }
       case 'gum_core': {
         win = new GUMPanel();
         startTop = 325;
@@ -118,6 +128,9 @@ export default class MGMEMacroAPI {
         break;
       }
       case 'pum_core': {
+        break;
+      }
+      case 'pum6_core': {
         break;
       }
       case 'gum_core': {
@@ -235,6 +248,8 @@ export default class MGMEMacroAPI {
   static pumLooksArea = PUMCore.pumLooksArea;
   static pumLooksNPC = PUMCore.pumLooksNPC;
   static pumLooksObject = PUMCore.pumLooksObject;
+  static pumLooksItem = PUMV6Core.pumLooksItem;
+  static pumLooksMonster = PUMV6Core.pumLooksMonster;
   static pumWho = PUMCore.pumWho;
   static pumSubject = PUMCore.pumSubject;
   static pumWhat = PUMCore.pumWhat;
@@ -246,6 +261,23 @@ export default class MGMEMacroAPI {
   static pumKindOfPerson = PUMCore.pumKindOfPerson;
   static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
   static pumKindOfDanger = PUMCore.pumKindOfDanger;
+
+  static pumV6Prompt = PUMV6Core.pumV6Prompt;
+  static pumV6Check = PUMV6Core.pumV6Check;
+  static pumV6Challenge = PUMV6Core.pumV6Challenge;
+  static pumV6Catalyst = PUMV6Core.pumV6Catalyst;
+  static pumV6Complication = PUMV6Core.pumV6Complication;
+  static pumV6Situation = PUMV6Core.pumV6Situation;
+
+  static pumV6RenderAspectsList = PUMV6Core.pumV6RenderAspectsList;
+  static pumV6RenderActorsList = PUMV6Core.pumV6RenderActorsList;
+  static pumV6RenderTroublesList = PUMV6Core.pumV6RenderTroublesList;
+  static pumV6RenderThreadsList = PUMV6Core.pumV6RenderThreadsList;
+
+  static pumV6RollAspectsList = PUMV6Core.pumV6RollAspectsList;
+  static pumV6RollActorsList = PUMV6Core.pumV6RollActorsList;
+  static pumV6RollTroublesList = PUMV6Core.pumV6RollTroublesList;
+  static pumV6RollThreadsList = PUMV6Core.pumV6RollThreadsList;
 
   static gmaDraw = (deck) => MGMECards.mgmeDealCard({tableName: deck});
 
@@ -380,6 +412,11 @@ export default class MGMEMacroAPI {
   static gum2CharPossess = GUMV2Core.gum2CharPossess;
   static gum2CharLooks = GUMV2Core.gum2CharLooks;
   static gum2CharActivity = GUMV2Core.gum2CharActivity;
+  static gum2CharIntention = GUMV2Core.gum2CharIntention;
+
+  static gum2CreatureType = GUMV2Core.gum2CreatureType;
+  static gum2CreatureAbility = GUMV2Core.gum2CreatureAbility;
+  static gum2CreatureBehavior = GUMV2Core.gum2CreatureBehavior;
 
   static gum2LocFeature = GUMV2Core.gum2LocFeature;
   static gum2LocWorth = GUMV2Core.gum2LocWorth;
