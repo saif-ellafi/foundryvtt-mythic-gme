@@ -232,10 +232,10 @@ export default class MGMEReference {
     'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
     'mgme_vars2': 'Mythic Variations 2 (Green Book)',
     'gma_cards': 'Game Master\'s Apprentice (Cards)',
-    'pum_core': 'Plot Unfolding Machine (Unofficial Homebrew)',
-    'pum6_core': 'Plot Unfolding Machine V6 (Unofficial Homebrew)',
-    'gum_core': 'Game Unfolding Machine (Unofficial Homebrew)',
-    'gum2_core': 'Game Unfolding Machine V2 (Unofficial Homebrew)'
+    'pum_core': 'Plot Unfolding Machine (free edition)',
+    'pum8_core': 'Plot Unfolding Machine v8',
+    'gum_core': 'Game Unfolding Machine (free edition)',
+    'gum2_core': 'Game Unfolding Machine v2'
   }
 
   static DIE_COLORS = {

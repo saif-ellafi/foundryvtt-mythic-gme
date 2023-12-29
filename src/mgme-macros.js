@@ -18,8 +18,8 @@ import MGMECore2e from "./logic/mgme-core-2e";
 import GMAPanel from "./app/panel-gma";
 import GUMV2Core from "./logic/gum-v2-core";
 import GUM2Panel from "./app/panel-gum-v2";
-import PUMV6Core from "./logic/pum-v6-core";
-import PUMV6Panel from "./app/panel-pum-v6";
+import PUMV8Core from "./logic/pum-v8-core";
+import PUMV8Panel from "./app/panel-pum-v8";
 
 export default class MGMEMacroAPI {
 
@@ -74,8 +74,8 @@ export default class MGMEMacroAPI {
         resizable = true;
         break;
       }
-      case 'pum6_core': {
-        win = new PUMV6Panel();
+      case 'pum8_core': {
+        win = new PUMV8Panel();
         startTop = 325;
         startHeight = 250;
         startWidth = 450;
@@ -130,7 +130,7 @@ export default class MGMEMacroAPI {
       case 'pum_core': {
         break;
       }
-      case 'pum6_core': {
+      case 'pum8_core': {
         break;
       }
       case 'gum_core': {
@@ -248,8 +248,6 @@ export default class MGMEMacroAPI {
   static pumLooksArea = PUMCore.pumLooksArea;
   static pumLooksNPC = PUMCore.pumLooksNPC;
   static pumLooksObject = PUMCore.pumLooksObject;
-  static pumLooksItem = PUMV6Core.pumLooksItem;
-  static pumLooksMonster = PUMV6Core.pumLooksMonster;
   static pumWho = PUMCore.pumWho;
   static pumSubject = PUMCore.pumSubject;
   static pumWhat = PUMCore.pumWhat;
@@ -262,22 +260,35 @@ export default class MGMEMacroAPI {
   static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
   static pumKindOfDanger = PUMCore.pumKindOfDanger;
 
-  static pumV6Prompt = PUMV6Core.pumV6Prompt;
-  static pumV6Check = PUMV6Core.pumV6Check;
-  static pumV6Challenge = PUMV6Core.pumV6Challenge;
-  static pumV6Catalyst = PUMV6Core.pumV6Catalyst;
-  static pumV6Complication = PUMV6Core.pumV6Complication;
-  static pumV6Situation = PUMV6Core.pumV6Situation;
+  static pumV8RandomPrompt = PUMV8Core.pumV8RandomPrompt;
+  static pumV8ModifiedProposal = PUMV8Core.pumV8ModifiedProposal;
+  static pumV8Challenge = PUMV8Core.pumV8Challenge;
+  static pumV8Catalyst = PUMV8Core.pumV8Catalyst;
+  static pumV8Complication = PUMV8Core.pumV8Complication;
+  static pumV8Situation = PUMV8Core.pumV8Situation;
 
-  static pumV6RenderAspectsList = PUMV6Core.pumV6RenderAspectsList;
-  static pumV6RenderActorsList = PUMV6Core.pumV6RenderActorsList;
-  static pumV6RenderTroublesList = PUMV6Core.pumV6RenderTroublesList;
-  static pumV6RenderThreadsList = PUMV6Core.pumV6RenderThreadsList;
+  static pumV8Subjective = PUMV8Core.pumV8Subjective;
+  static pumV8Deterministic = PUMV8Core.pumV8Deterministic;
+  static pumV8Interaction = PUMV8Core.pumV8Interaction;
 
-  static pumV6RollAspectsList = PUMV6Core.pumV6RollAspectsList;
-  static pumV6RollActorsList = PUMV6Core.pumV6RollActorsList;
-  static pumV6RollTroublesList = PUMV6Core.pumV6RollTroublesList;
-  static pumV6RollThreadsList = PUMV6Core.pumV6RollThreadsList;
+  static pumV8Someone = PUMV8Core.pumV8Someone;
+  static pumV8Intent = PUMV8Core.pumV8Intent;
+  static pumV8Activity = PUMV8Core.pumV8Activity;
+  static pumV8Place = PUMV8Core.pumV8Place;
+  static pumV8Reason = PUMV8Core.pumV8Reason;
+  static pumV8Explain = PUMV8Core.pumV8Explain;
+
+  static pumV8Focus = PUMV8Core.pumV8Focus;
+
+  static pumV8RenderAspectsList = PUMV8Core.pumV8RenderAspectsList;
+  static pumV8RenderEncountersList = PUMV8Core.pumV8RenderEncountersList;
+  static pumV8RenderFindsList = PUMV8Core.pumV8RenderFindsList;
+  static pumV8RenderQuestionsList = PUMV8Core.pumV8RenderQuestionsList;
+
+  static pumV8RollAspectsList = PUMV8Core.pumV8RollAspectsList;
+  static pumV8RollEncountersList = PUMV8Core.pumV8RollEncountersList;
+  static pumV8RollFindsList = PUMV8Core.pumV8RollFindsList;
+  static pumV8RollQuestionsList = PUMV8Core.pumV8RollQuestionsList;
 
   static gmaDraw = (deck) => MGMECards.mgmeDealCard({tableName: deck});
 

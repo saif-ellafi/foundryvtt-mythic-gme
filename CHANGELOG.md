@@ -1,3 +1,6 @@
+### 2.9.9
+* Enhancement: Updated to PUM V8 and GUM V12
+
 ### 2.9.8
 * Feature: Plot unfolding machine V6 support
 * Enhancement: Updated to GUM V11

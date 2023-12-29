@@ -1,4 +1,4 @@
-.pum6-dialog {
+.pum8-dialog {
     display: grid;
     grid-template-areas:
         "aspr asp asp xx act act actr"
@@ -7,7 +7,7 @@
     grid-template-rows: auto;
 }
 
-.pum6-dialog__button {
+.pum8-dialog__button {
     display: grid;
     grid-template-areas:
         "icon label";
@@ -16,59 +16,59 @@
     margin-bottom: 3px;
 }
 
-.pum6-dialog__icon--left {
+.pum8-dialog__icon--left {
     grid-area: icon;
     margin: auto;
     width: 14px;
 }
 
-.pum6-dialog__dice--right {
+.pum8-dialog__dice--right {
     margin-right: 5px;
     font-size: 20px;
 }
 
-.pum6-dialog__dice--left {
+.pum8-dialog__dice--left {
     margin-left: 5px;
     font-size: 20px;
 }
 
-.pum6-dialog__dice > i:focus, .pum6-dialog__dice > i:hover {
+.pum8-dialog__dice > i:focus, .pum8-dialog__dice > i:hover {
     outline: none;
     box-shadow: 0 0 5px var(--color-shadow-primary);
 }
 
-.pum6-dialog__button-control-label {
+.pum8-dialog__button-control-label {
     grid-area: label;
 }
 
-.pum6_panel_aspect {
+.pum8_panel_aspect_setup {
     grid-area: asp
 }
 
-.pum6_panel_aspect_roll {
+.pum8_panel_aspect_roll {
     grid-area: aspr
 }
 
-.pum6_panel_actor {
+.pum8_panel_encounter_setup {
     grid-area: act
 }
 
-.pum6_panel_actor_roll {
+.pum8_panel_encounter_roll {
     grid-area: actr
 }
 
-.pum6_panel_trouble {
+.pum8_panel_find_setup {
     grid-area: tro
 }
 
-.pum6_panel_trouble_roll {
+.pum8_panel_find_roll {
     grid-area: tror
 }
 
-.pum6_panel_thread {
+.pum8_panel_question_setup {
     grid-area: thr
 }
 
-.pum6_panel_thread_roll {
+.pum8_panel_question_roll {
     grid-area: thrr
 }
