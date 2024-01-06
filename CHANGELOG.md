@@ -1,3 +1,7 @@
+### 2.9.10
+* Enhancement: Added FRENCH (Thank you @Kirwiisp)
+* Enhancement: All languages now autot-translated (Thank you @Kirwiisp)
+
 ### 2.9.9
 * Enhancement: Updated to PUM V8 and GUM V12
 
