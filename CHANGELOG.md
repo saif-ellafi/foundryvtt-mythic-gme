@@ -1,3 +1,6 @@
+### 2.9.11
+* Bugfix: Fixed PUM v8 database
+
 ### 2.9.10
 * Enhancement: Added FRENCH (Thank you @Kirwiisp)
 * Enhancement: All languages now autot-translated (Thank you @Kirwiisp)
