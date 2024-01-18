@@ -127,25 +127,25 @@ export default class PUMV8Core {
 
   static pumV8Subjective() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'PUM v8 - Yes or No (Subjective)'},
-      'Question (Subjective)',
-      false
+        {name: 'PUM v8 - Yes or No (Subjective)'},
+        'Question (Subjective)',
+        false
     );
   }
 
   static pumV8Deterministic() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'PUM v8 - Yes or No (Deterministic)'},
-      'Question (Deterministic)',
-      false
+        {name: 'PUM v8 - Yes or No (Deterministic)'},
+        'Question (Deterministic)',
+        false
     );
   }
 
   static pumV8Interaction() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-      {name: 'PUM v8 - Yes or No (Interaction)'},
-      'Question (Interaction)',
-      false
+        {name: 'PUM v8 - Yes or No (Interaction)'},
+        'Question (Interaction)',
+        false
     );
   }
 
@@ -201,6 +201,94 @@ export default class PUMV8Core {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Focus'},
         'Focus (what?)',
+        false
+    );
+  }
+
+  static pumV8HowMany() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Quantifier (Many)'},
+        'Quantifier (Many)',
+        false
+    );
+  }
+
+  static pumV8HowMuch() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Quantifier (Much)'},
+        'Quantifier (Much)',
+        false
+    );
+  }
+
+  static pumV8HowWell() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Quantifier (Well)'},
+        'Quantifier (Well)',
+        false
+    );
+  }
+
+  static pumV8HowHard() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Quantifier (Hard)'},
+        'Quantifier (Hard)',
+        false
+    );
+  }
+
+  static pumV8Time() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Time'},
+        'Time (when?)',
+        false
+    );
+  }
+
+  static pumV8Object() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Object'},
+        'Object (what for?)',
+        false
+    );
+  }
+
+  static pumV8Fight() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Fight'},
+        'Fight (skills)',
+        false
+    );
+  }
+
+  static pumV8Sense() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Sense'},
+        'Sense (perceive)',
+        false
+    );
+  }
+
+  static pumV8Discovery() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Discovery'},
+        'Discovery (find)',
+        false
+    );
+  }
+
+  static pumV8Stakes() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Stakes'},
+        'Stakes (risk)',
+        false
+    );
+  }
+
+  static pumV8Description() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Description'},
+        'Description (looks)',
         false
     );
   }

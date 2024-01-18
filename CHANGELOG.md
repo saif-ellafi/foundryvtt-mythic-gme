@@ -1,3 +1,6 @@
+### 2.9.12
+* Enhancement: Updated to PUM V8 Final
+
 ### 2.9.11
 * Bugfix: Fixed PUM v8 database
 

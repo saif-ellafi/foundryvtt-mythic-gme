@@ -280,6 +280,20 @@ export default class MGMEMacroAPI {
 
   static pumV8Focus = PUMV8Core.pumV8Focus;
 
+  static pumV8HowMany = PUMV8Core.pumV8HowMany;
+  static pumV8HowMuch = PUMV8Core.pumV8HowMuch;
+  static pumV8HowWell = PUMV8Core.pumV8HowWell;
+  static pumV8HowHard = PUMV8Core.pumV8HowHard;
+
+  static pumV8Time = PUMV8Core.pumV8Time;
+  static pumV8Object = PUMV8Core.pumV8Object;
+  static pumV8Fight = PUMV8Core.pumV8Fight;
+  static pumV8Sense = PUMV8Core.pumV8Sense;
+  static pumV8Discovery = PUMV8Core.pumV8Discovery;
+  static pumV8Stakes = PUMV8Core.pumV8Stakes;
+
+  static pumV8Description = PUMV8Core.pumV8Description;
+
   static pumV8RenderAspectsList = PUMV8Core.pumV8RenderAspectsList;
   static pumV8RenderEncountersList = PUMV8Core.pumV8RenderEncountersList;
   static pumV8RenderFindsList = PUMV8Core.pumV8RenderFindsList;

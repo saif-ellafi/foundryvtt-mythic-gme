@@ -36,6 +36,21 @@ export default class PUMV8Panel extends MGMEPanel {
 
     html.find("#pum_focus").click(api.pumV8Focus);
 
+    html.find("#pum_qhma").click(api.pumV8HowMany);
+    html.find("#pum_qhmu").click(api.pumV8HowMuch);
+    html.find("#pum_qhw").click(api.pumV8HowWell);
+    html.find("#pum_qhh").click(api.pumV8HowHard);
+
+    html.find("#pum_when").click(api.pumV8Time);
+    html.find("#pum_whatfor").click(api.pumV8Object);
+    html.find("#pum_skill").click(api.pumV8Fight);
+
+    html.find("#pum_perceive").click(api.pumV8Sense);
+    html.find("#pum_find").click(api.pumV8Discovery);
+    html.find("#pum_risk").click(api.pumV8Stakes);
+
+    html.find("#pum_looks").click(api.pumV8Description);
+
     html.find("#pum8_panel_aspect_setup").click(api.pumV8RenderAspectsList);
     html.find("#pum8_panel_aspect_roll").click(api.pumV8RollAspectsList);
 
