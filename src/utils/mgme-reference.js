@@ -232,10 +232,10 @@ export default class MGMEReference {
     'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
     'mgme_vars2': 'Mythic Variations 2 (Green Book)',
     'gma_cards': 'Game Master\'s Apprentice (Cards)',
-    'pum_core': 'Plot Unfolding Machine (free edition)',
+    'pum_core': 'Plot Unfolding Machine (free version)',
     'pum8_core': 'Plot Unfolding Machine v8',
     'sum6_core': 'Scene Unfolding Machine v6',
-    'gum_core': 'Game Unfolding Machine (free edition)',
+    'gum_core': 'Game Unfolding Machine (free version)',
     'gum2_core': 'Game Unfolding Machine v2'
   }
 

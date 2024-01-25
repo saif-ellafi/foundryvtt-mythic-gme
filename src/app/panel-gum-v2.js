@@ -5,7 +5,7 @@ export default class GUM2Panel extends MGMEPanel {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "gum2_panel_window",
-      title: 'Game Unfolding Machine V2',
+      title: 'Game Unfolding Machine v2',
       template: "./modules/mythic-gme-tools/template/panel-gum-v2.hbs"
     });
   }
