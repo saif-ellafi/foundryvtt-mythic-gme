@@ -5,7 +5,7 @@
   "main": "mythic-gme-tools.js",
   "scripts": {
     "copy": "cp ./README.md dist/ && cp ./CHANGELOG.md dist/ && cp ./LICENSE.md dist/ && cp ./module.json dist/ && cp ./THANKS.txt dist/ && cp -r ./packs dist/ && cp -r ./icons dist/ && cp -r ./lang dist/ && cp -r template dist/",
-    "copyWin": "copy README.md dist && copy CHANGELOG.md dist && copy LICENSE.md dist && copy module.json dist && copy THANKS.txt dist && xcopy /Y /I packs dist\\packs && xcopy /Y /I packs\\game-unfolding-machine-v2-tables dist\\packs\\game-unfolding-machine-v2-tables && xcopy /Y /I packs\\plot-unfolding-machine dist\\packs\\plot-unfolding-machine && xcopy /Y /I icons dist\\icons && xcopy /Y /I lang dist\\lang && xcopy /Y /I template dist\\template",
+    "copyWin": "copy README.md dist && copy CHANGELOG.md dist && copy LICENSE.md dist && copy module.json dist && copy THANKS.txt dist && xcopy /Y /I packs dist\\packs && xcopy /Y /I packs\\game-unfolding-machine-v2-tables dist\\packs\\game-unfolding-machine-v2-tables && xcopy /Y /I packs\\plot-unfolding-machine dist\\packs\\plot-unfolding-machine && xcopy /Y /I packs\\scene-unfolding-machine dist\\packs\\scene-unfolding-machine && xcopy /Y /I icons dist\\icons && xcopy /Y /I lang dist\\lang && xcopy /Y /I template dist\\template",
     "build": "rollup --config ./rollup.config.js && npm run copy",
     "buildWin": "rollup --config ./rollup.config.js && npm run copyWin",
     "zip": "npm-build-zip --source=dist --destination=.",
