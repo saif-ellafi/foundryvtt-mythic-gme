@@ -234,6 +234,7 @@ export default class MGMEReference {
     'gma_cards': 'Game Master\'s Apprentice (Cards)',
     'pum_core': 'Plot Unfolding Machine (free edition)',
     'pum8_core': 'Plot Unfolding Machine v8',
+    'sum6_core': 'Scene Unfolding Machine v6',
     'gum_core': 'Game Unfolding Machine (free edition)',
     'gum2_core': 'Game Unfolding Machine v2'
   }

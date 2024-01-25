@@ -74,36 +74,45 @@ export default class PUMCore {
   }
 
   static pumYesOrNoEven() {
-    MGMEOracleUtils._mgmeMultipleTableOracle(
-      [
-        {name: 'Yes or No Question Even'},
-        {name: 'Yes or No Answer Caveat'}
-      ],
-      'Question (even)',
-      false
-    );
+    MGMEOracleUtils._mgmeBuildOracleDialog('Question (even)', (input) => {
+      MGMEOracleUtils._mgmeMultipleTableOracle(
+          [
+            {name: 'Yes or No Question Even'},
+            {name: 'Yes or No Answer Caveat'}
+          ],
+          'Question (even)',
+          false,
+          input
+      );
+    });
   }
 
   static pumYesOrNoLikely() {
-    MGMEOracleUtils._mgmeMultipleTableOracle(
-      [
-        {name: 'Yes or No Question Likely'},
-        {name: 'Yes or No Answer Caveat'}
-      ],
-      'Question (likely)',
-      false
-    );
+    MGMEOracleUtils._mgmeBuildOracleDialog('Question (likely)', (input) => {
+      MGMEOracleUtils._mgmeMultipleTableOracle(
+          [
+            {name: 'Yes or No Question Likely'},
+            {name: 'Yes or No Answer Caveat'}
+          ],
+          'Question (likely)',
+          false,
+          input
+      );
+    });
   }
 
   static pumYesOrNoUnlikely() {
-    MGMEOracleUtils._mgmeMultipleTableOracle(
-      [
-        {name: 'Yes or No Question Unlikely'},
-        {name: 'Yes or No Answer Caveat'}
-      ],
-      'Question (unlikely)',
-      false
-    );
+    MGMEOracleUtils._mgmeBuildOracleDialog('Question (unlikely)', (input) => {
+      MGMEOracleUtils._mgmeMultipleTableOracle(
+          [
+            {name: 'Yes or No Question Unlikely'},
+            {name: 'Yes or No Answer Caveat'}
+          ],
+          'Question (unlikely)',
+          false,
+          input
+      );
+    });
   }
 
   static pumLooksArea() {

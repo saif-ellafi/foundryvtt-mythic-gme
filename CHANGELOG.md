@@ -1,3 +1,7 @@
+### 2.9.13
+* Feature: Scene unfolding machine v6
+* Enhancement: PUM oracle questions now prompt
+
 ### 2.9.12
 * Enhancement: Updated to PUM V8 Final
 

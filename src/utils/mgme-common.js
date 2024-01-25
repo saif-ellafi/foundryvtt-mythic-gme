@@ -10,10 +10,11 @@ export default class MGMECommon {
       const packsV1 = await game.packs.get('mythic-gme-tools.mythic-gme-v1-tables').getDocuments();
       const packsV2 = await game.packs.get('mythic-gme-tools.mythic-gme-v2-tables').getDocuments();
       const packsPum = await game.packs.get('mythic-gme-tools.plot-unfolding-machine').getDocuments();
+      const packsSumV6 = await game.packs.get('mythic-gme-tools.scene-unfolding-machine').getDocuments();
       const packsGum = await game.packs.get('mythic-gme-tools.game-unfolding-machine').getDocuments();
       const packsGumV2 = await game.packs.get('mythic-gme-tools.game-unfolding-machine-v2-tables').getDocuments();
       const packsDecks = await game.packs.get('mythic-gme-tools.card-decks-tables').getDocuments();
-      MGMECommon.packTablesCache = packsCore.concat(packs2e).concat(packsV1).concat(packsV2).concat(packsPum).concat(packsGum).concat(packsGumV2).concat(packsDecks);
+      MGMECommon.packTablesCache = packsCore.concat(packs2e).concat(packsV1).concat(packsV2).concat(packsPum).concat(packsSumV6).concat(packsGum).concat(packsGumV2).concat(packsDecks);
     }
     return MGMECommon.packTablesCache;
   }

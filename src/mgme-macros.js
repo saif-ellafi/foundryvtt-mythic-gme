@@ -12,6 +12,7 @@ import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
 import PUMPanel from "./app/panel-pum";
 import SUMCore from "./logic/sum-core";
+import SUMV6Core from "./logic/sum-v6-core";
 import GUMPanel from "./app/panel-gum";
 import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
@@ -20,6 +21,7 @@ import GUMV2Core from "./logic/gum-v2-core";
 import GUM2Panel from "./app/panel-gum-v2";
 import PUMV8Core from "./logic/pum-v8-core";
 import PUMV8Panel from "./app/panel-pum-v8";
+import SUMV6Panel from "./app/panel-sum-v6";
 
 export default class MGMEMacroAPI {
 
@@ -78,6 +80,14 @@ export default class MGMEMacroAPI {
         win = new PUMV8Panel();
         startTop = 325;
         startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
+      case 'sum6_core': {
+        win = new SUMV6Panel();
+        startTop = 325;
+        startHeight = 250;
         startWidth = 450;
         resizable = true;
         break;
@@ -131,6 +141,9 @@ export default class MGMEMacroAPI {
         break;
       }
       case 'pum8_core': {
+        break;
+      }
+      case 'sum6_core': {
         break;
       }
       case 'gum_core': {
@@ -317,6 +330,19 @@ export default class MGMEMacroAPI {
   static sumAction = SUMCore.sumAction;
   static sumSubject = SUMCore.sumSubject;
   static sumAdjective = SUMCore.sumAdjective;
+
+  static sumV6ActionsReaction = SUMV6Core.sumV6ActionsReaction;
+  static sumV6Attitude = SUMV6Core.sumV6Attitude;
+  static sumV6BondingRelations = SUMV6Core.sumV6BondingRelations;
+  static sumV6Contribution = SUMV6Core.sumV6Contribution;
+  static sumV6FillerTalks = SUMV6Core.sumV6FillerTalks;
+  static sumV6InterventionCheck = SUMV6Core.sumV6InterventionCheck;
+  static sumV6LingeringBackstories = SUMV6Core.sumV6LingeringBackstories;
+  static sumV6LivingFactions = SUMV6Core.sumV6LivingFactions;
+  static sumV6Opinion = SUMV6Core.sumV6Opinion;
+  static sumV6OutsideImpression = SUMV6Core.sumV6OutsideImpression;
+  static sumV6ParallelMatters = SUMV6Core.sumV6ParallelMatters;
+  static sumV6TruthOrDare = SUMV6Core.sumV6TruthOrDare;
 
   static gumActionGood = GUMCore.gumActionGood;
   static gumActionEvil = GUMCore.gumActionEvil;

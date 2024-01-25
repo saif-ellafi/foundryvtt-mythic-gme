@@ -126,27 +126,36 @@ export default class PUMV8Core {
   }
 
   static pumV8Subjective() {
-    MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Yes or No (Subjective)'},
-        'Question (Subjective)',
-        false
-    );
+    MGMEOracleUtils._mgmeBuildOracleDialog('Question (Subjective)', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+          {name: 'PUM v8 - Yes or No (Subjective)'},
+          'Question (Subjective)',
+          false,
+          input
+      );
+    });
   }
 
   static pumV8Deterministic() {
-    MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Yes or No (Deterministic)'},
-        'Question (Deterministic)',
-        false
-    );
+    MGMEOracleUtils._mgmeBuildOracleDialog('Question (Deterministic)', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+          {name: 'PUM v8 - Yes or No (Deterministic)'},
+          'Question (Deterministic)',
+          false,
+          input
+      );
+    })
   }
 
   static pumV8Interaction() {
-    MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Yes or No (Interaction)'},
-        'Question (Interaction)',
-        false
-    );
+    MGMEOracleUtils._mgmeBuildOracleDialog('Question (Interaction)', (input) => {
+      MGMEOracleUtils._mgmeSimpleTableOracle(
+          {name: 'PUM v8 - Yes or No (Interaction)'},
+          'Question (Interaction)',
+          false,
+          input
+      );
+    });
   }
 
   static pumV8Someone() {
@@ -208,7 +217,7 @@ export default class PUMV8Core {
   static pumV8HowMany() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Quantifier (Many)'},
-        'Quantifier (Many)',
+        'Quantifier (how many?)',
         false
     );
   }
@@ -216,7 +225,7 @@ export default class PUMV8Core {
   static pumV8HowMuch() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Quantifier (Much)'},
-        'Quantifier (Much)',
+        'Quantifier (how much?)',
         false
     );
   }
@@ -224,7 +233,7 @@ export default class PUMV8Core {
   static pumV8HowWell() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Quantifier (Well)'},
-        'Quantifier (Well)',
+        'Quantifier (how well?)',
         false
     );
   }
@@ -232,7 +241,7 @@ export default class PUMV8Core {
   static pumV8HowHard() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Quantifier (Hard)'},
-        'Quantifier (Hard)',
+        'Quantifier (how hard?)',
         false
     );
   }
