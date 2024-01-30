@@ -26,6 +26,8 @@ export default class PUMV8Panel extends MGMEPanel {
     html.find("#pum_qqd").click(api.pumV8Deterministic);
     html.find("#pum_qqi").click(api.pumV8Interaction);
 
+    html.find("#pum_disd").click(api.pumV8Disruption);
+
     html.find("#pum_who").click(api.pumV8Someone);
     html.find("#pum_want").click(api.pumV8Intent);
     html.find("#pum_doing").click(api.pumV8Activity);

@@ -284,6 +284,8 @@ export default class MGMEMacroAPI {
   static pumV8Deterministic = PUMV8Core.pumV8Deterministic;
   static pumV8Interaction = PUMV8Core.pumV8Interaction;
 
+  static pumV8Disruption = PUMV8Core.pumV8Disruption;
+
   static pumV8Someone = PUMV8Core.pumV8Someone;
   static pumV8Intent = PUMV8Core.pumV8Intent;
   static pumV8Activity = PUMV8Core.pumV8Activity;

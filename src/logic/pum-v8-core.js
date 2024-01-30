@@ -158,6 +158,14 @@ export default class PUMV8Core {
     });
   }
 
+  static pumV8Disruption() {
+    MGMEOracleUtils._mgmeSimpleTableOracle(
+        {name: 'PUM v8 - Disruption'},
+        'Disruption check',
+        false
+    );
+  }
+
   static pumV8Someone() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Someone'},

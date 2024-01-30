@@ -1,3 +1,6 @@
+### 2.9.14
+* Feature: Plot unfolding machine to preview v8-1
+
 ### 2.9.13
 * Feature: Scene unfolding machine v6
 * Enhancement: PUM oracle questions now prompt
