@@ -1,3 +1,6 @@
+### 2.9.17
+* Feature: Allow multiple different panels
+
 ### 2.9.16
 * Bugfix: Arranged correct oracle order
 

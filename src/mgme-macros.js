@@ -25,6 +25,92 @@ import SUMV6Panel from "./app/panel-sum-v6";
 
 export default class MGMEMacroAPI {
 
+  static mgmeRenderPanel(key, is_secondary=false) {
+    let startWidth = 400;
+    let startTop = 320;
+    let startHeight = undefined;
+    let resizable = false;
+    let win;
+    switch (key) {
+      case 'mgme_1e': {
+        win = new MGME1ePanel(is_secondary);
+        break;
+      }
+      case 'mgme_2e': {
+        win = new MGME2ePanel(is_secondary);
+        startTop = 375;
+        startHeight = 300;
+        startWidth = 420;
+        resizable = true;
+        break;
+      }
+      case 'mgme_vars1': {
+        win = new MGMEVars1Panel(is_secondary);
+        break;
+      }
+      case 'mgme_vars2': {
+        win = new MGMEVars2Panel(is_secondary);
+        break;
+      }
+      case 'gma_cards': {
+        win = new GMAPanel(is_secondary);
+        resizable = true;
+        startHeight = 250;
+        break;
+      }
+      case 'pum_core': {
+        win = new PUMPanel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
+        resizable = true;
+        break;
+      }
+      case 'pum8_core': {
+        win = new PUMV8Panel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
+      case 'sum6_core': {
+        win = new SUMV6Panel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
+        resizable = true;
+        break;
+      }
+      case 'gum_core': {
+        win = new GUMPanel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
+      case 'gum2_core': {
+        win = new GUM2Panel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
+    }
+    if (is_secondary)
+      startTop += 320;
+    win?.render(true, {
+      width: startWidth,
+      left: (canvas.app.screen.width - ui.sidebar.element.width() - startWidth - 20),
+      top: canvas.app.screen.height - startTop,
+      height: startHeight,
+      resizable: resizable
+    });
+    return win;
+  }
+
   static mgmeLaunchPanel() {
     if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
       return
@@ -36,86 +122,7 @@ export default class MGMEMacroAPI {
       delete api.win;
     }
     if (key === 'nopanel') return;
-    let startWidth = 400;
-    let startTop = 320;
-    let startHeight = undefined;
-    let resizable = false;
-    let win;
-    switch (key) {
-      case 'mgme_1e': {
-        win = new MGME1ePanel();
-        break;
-      }
-      case 'mgme_2e': {
-        win = new MGME2ePanel();
-        startTop = 375;
-        startHeight = 300;
-        startWidth = 420;
-        resizable = true;
-        break;
-      }
-      case 'mgme_vars1': {
-        win = new MGMEVars1Panel();
-        break;
-      }
-      case 'mgme_vars2': {
-        win = new MGMEVars2Panel();
-        break;
-      }
-      case 'gma_cards': {
-        win = new GMAPanel();
-        resizable = true;
-        startHeight = 250;
-        break;
-      }
-      case 'pum_core': {
-        win = new PUMPanel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 450;
-        resizable = true;
-        break;
-      }
-      case 'pum8_core': {
-        win = new PUMV8Panel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 470;
-        resizable = true;
-        break;
-      }
-      case 'sum6_core': {
-        win = new SUMV6Panel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 450;
-        resizable = true;
-        break;
-      }
-      case 'gum_core': {
-        win = new GUMPanel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 470;
-        resizable = true;
-        break;
-      }
-      case 'gum2_core': {
-        win = new GUM2Panel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 470;
-        resizable = true;
-        break;
-      }
-    }
-    win?.render(true, {
-      width: startWidth,
-      left: (canvas.app.screen.width - ui.sidebar.element.width() - startWidth - 20),
-      top: canvas.app.screen.height - startTop,
-      height: startHeight,
-      resizable: resizable
-    });
+    const win = MGMEMacroAPI.mgmeRenderPanel(key);
     api.win = win;
   }
 

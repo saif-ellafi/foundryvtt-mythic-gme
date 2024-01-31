@@ -2,8 +2,14 @@ import MGMEReference from "../utils/mgme-reference";
 import MGMECore from "../logic/mgme-core";
 import MGMEVariations1 from "../logic/mgme-variations-1";
 import MGMEVariations2 from "../logic/mgme-variations-2";
+import MGMEMacroAPI from "../mgme-macros";
 
 export default class MGMEPanel extends Application {
+
+  constructor(secondary= false) {
+    super();
+    this.is_secondary_panel = secondary
+  }
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -18,7 +24,7 @@ export default class MGMEPanel extends Application {
   }
 
   _getHeaderButtons() {
-    return [
+    const buttons = [
       {
         label: "",
         class: "minimize",
@@ -53,6 +59,14 @@ export default class MGMEPanel extends Application {
         "onclick": () => this._configurePanel()
       }
     ];
+    if (this.is_secondary_panel)
+      buttons.push({
+        "label": "",
+        "class": "close",
+        "icon": "fas fa-times",
+        "onclick": () => this.close({force: true})
+      });
+    return buttons;
   }
 
   _configurePanel() {
@@ -61,6 +75,7 @@ export default class MGMEPanel extends Application {
       <div style="margin-bottom: 5px;">
       <label for="panConfigure">${game.i18n.localize('MGME.PanelConfigureLayout')}:</label>
       <select name="panConfigure" id="mgme_pan_config" style="width: 308px;"></select>
+      <div><input type="checkbox" name="open_separate" id="open_separate" style="position:relative;top:5px"><label for="open_separate">Open separately</label></div>
       <div style="text-align:right;margin-bottom:5px;margin-top:5px;font-size:11px"><a href="https://ko-fi.com/jeansenvaars">would you buy me a coffee?</a> :)</div>
       </div>
       </form>
@@ -99,6 +114,8 @@ export default class MGMEPanel extends Application {
                   }
                 }
               }).render(true, {width: 250})
+            } else if ($("#open_separate").prop('checked')) {
+              MGMEMacroAPI.mgmeRenderPanel(panelSelection, true);
             } else if (game.settings.get('mythic-gme-tools', 'panelKey') !== panelSelection) {
               game.settings.set('mythic-gme-tools', 'panelKey', panelSelection);
             }
