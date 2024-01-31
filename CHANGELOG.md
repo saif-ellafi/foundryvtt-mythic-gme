@@ -1,3 +1,6 @@
+### 2.9.16
+* Bugfix: Arranged correct oracle order
+
 ### 2.9.15
 * Bugfix: Fixed minor table typos
 
