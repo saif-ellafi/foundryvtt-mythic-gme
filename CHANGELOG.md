@@ -1,3 +1,6 @@
+### 2.9.15
+* Bugfix: Fixed minor table typos
+
 ### 2.9.14
 * Feature: Plot unfolding machine to preview v8-1
 
