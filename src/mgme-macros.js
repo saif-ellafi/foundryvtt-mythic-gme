@@ -303,7 +303,6 @@ export default class MGMEMacroAPI {
   static pumV8Focus = PUMV8Core.pumV8Focus;
 
   static pumV8HowMany = PUMV8Core.pumV8HowMany;
-  static pumV8HowMuch = PUMV8Core.pumV8HowMuch;
   static pumV8HowWell = PUMV8Core.pumV8HowWell;
   static pumV8HowHard = PUMV8Core.pumV8HowHard;
 

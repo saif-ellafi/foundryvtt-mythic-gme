@@ -225,15 +225,7 @@ export default class PUMV8Core {
   static pumV8HowMany() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Quantifier (Many)'},
-        'Quantifier (how many?)',
-        false
-    );
-  }
-
-  static pumV8HowMuch() {
-    MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Quantifier (Much)'},
-        'Quantifier (how much?)',
+        'Quantifier (how many/much?)',
         false
     );
   }
@@ -241,7 +233,7 @@ export default class PUMV8Core {
   static pumV8HowWell() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Quantifier (Well)'},
-        'Quantifier (how well?)',
+        'Quantifier (how well/good?)',
         false
     );
   }
@@ -249,7 +241,7 @@ export default class PUMV8Core {
   static pumV8HowHard() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
         {name: 'PUM v8 - Quantifier (Hard)'},
-        'Quantifier (how hard?)',
+        'Quantifier (how hard/tough?)',
         false
     );
   }
@@ -280,8 +272,8 @@ export default class PUMV8Core {
 
   static pumV8Sense() {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Sense'},
-        'Sense (perceive)',
+        {name: 'PUM v8 - Insight'},
+        'Insight (notice)',
         false
     );
   }
