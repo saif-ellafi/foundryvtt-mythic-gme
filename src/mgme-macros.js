@@ -12,7 +12,7 @@ import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
 import PUMPanel from "./app/panel-pum";
 import SUMCore from "./logic/sum-core";
-import SUMV6Core from "./logic/sum-v6-core";
+import SUMV7Core from "./logic/sum-v7-core";
 import GUMPanel from "./app/panel-gum";
 import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
@@ -21,7 +21,7 @@ import GUMV2Core from "./logic/gum-v2-core";
 import GUM2Panel from "./app/panel-gum-v2";
 import PUMV8Core from "./logic/pum-v8-core";
 import PUMV8Panel from "./app/panel-pum-v8";
-import SUMV6Panel from "./app/panel-sum-v6";
+import SUMV7Panel from "./app/panel-sum-v7";
 
 export default class MGMEMacroAPI {
 
@@ -74,8 +74,8 @@ export default class MGMEMacroAPI {
         resizable = true;
         break;
       }
-      case 'sum6_core': {
-        win = new SUMV6Panel(is_secondary);
+      case 'sum7_core': {
+        win = new SUMV7Panel(is_secondary);
         startTop = 325;
         startHeight = 250;
         startWidth = 450;
@@ -150,7 +150,7 @@ export default class MGMEMacroAPI {
       case 'pum8_core': {
         break;
       }
-      case 'sum6_core': {
+      case 'sum7_core': {
         break;
       }
       case 'gum_core': {
@@ -339,18 +339,21 @@ export default class MGMEMacroAPI {
   static sumSubject = SUMCore.sumSubject;
   static sumAdjective = SUMCore.sumAdjective;
 
-  static sumV6ActionsReaction = SUMV6Core.sumV6ActionsReaction;
-  static sumV6Attitude = SUMV6Core.sumV6Attitude;
-  static sumV6BondingRelations = SUMV6Core.sumV6BondingRelations;
-  static sumV6Contribution = SUMV6Core.sumV6Contribution;
-  static sumV6FillerTalks = SUMV6Core.sumV6FillerTalks;
-  static sumV6InterventionCheck = SUMV6Core.sumV6InterventionCheck;
-  static sumV6LingeringBackstories = SUMV6Core.sumV6LingeringBackstories;
-  static sumV6LivingFactions = SUMV6Core.sumV6LivingFactions;
-  static sumV6Opinion = SUMV6Core.sumV6Opinion;
-  static sumV6OutsideImpression = SUMV6Core.sumV6OutsideImpression;
-  static sumV6ParallelMatters = SUMV6Core.sumV6ParallelMatters;
-  static sumV6TruthOrDare = SUMV6Core.sumV6TruthOrDare;
+  static sumV7ActionsReaction = SUMV7Core.sumV7ActionsReaction;
+  static sumV7FirstReaction = SUMV7Core.sumV7FirstReaction;
+  static sumV7BondingRelations = SUMV7Core.sumV7BondingRelations;
+  static sumV7PlotContribution = SUMV7Core.sumV7PlotContribution;
+  static sumV7FillerTalks = SUMV7Core.sumV7FillerTalks;
+  static sumV7PersonalityType = SUMV7Core.sumV7PersonalityType;
+  static sumV7InterventionCheck = SUMV7Core.sumV7InterventionCheck;
+  static sumV7LingeringBackstories = SUMV7Core.sumV7LingeringBackstories;
+  static sumV7SceneOpener = SUMV7Core.sumV7SceneOpener;
+  static sumV7OpinionResponse = SUMV7Core.sumV7OpinionResponse;
+  static sumV7OutsideImpression = SUMV7Core.sumV7OutsideImpression;
+  static sumV7ParallelMatters = SUMV7Core.sumV7ParallelMatters;
+  static sumV7JobProfession = SUMV7Core.sumV7JobProfession;
+  static sumV7RecentAnecdote = SUMV7Core.sumV7RecentAnecdote;
+  static sumV7TruthOrDare = SUMV7Core.sumV7TruthOrDare;
 
   static gumActionGood = GUMCore.gumActionGood;
   static gumActionEvil = GUMCore.gumActionEvil;
