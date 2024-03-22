@@ -1,3 +1,12 @@
+### 2.9.19
+* Update: Scene unfolding machine V7 final
+* Update: Game unfolding machine (free edition) revision
+* Enhancement: Added bias rolls in PUM and SUM (rolling twice)
+* Enhancement: Separated SUM from PUM free edition
+* Bugfix: "Show dice roll details" now works with table rolls
+* Bugfix: Fixed wrong formulas in bias rolls (keep lowest, keep highest)
+* Bugfix: Fixed Mythic character background table missing value
+
 ### 2.9.18
 * Update: Plot unfolding machine V8-1 final
 

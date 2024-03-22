@@ -45,67 +45,6 @@ export default class PUMPanel extends MGMEPanel {
     html.find("#pum_kinde").click(api.pumKindOfEnemy);
     html.find("#pum_kindd").click(api.pumKindOfDanger);
 
-    html.find("#sum_gma").click(() => {
-      const tension = $("input[name='scene_tension']:checked").val();
-      if (tension === 'calm')
-        api.sumGMAction('2d100dis')
-      else if (tension === 'tense')
-        api.sumGMAction('2d100adv')
-      else
-        api.sumGMAction('1d100')
-    })
-    html.find("#sum_gmf").click(() => {
-      const tension = $("input[name='scene_tension']:checked").val();
-      if (tension === 'calm')
-        api.sumGMFeedback('2d20dis')
-      else if (tension === 'tense')
-        api.sumGMFeedback('2d20adv')
-      else
-        api.sumGMFeedback('1d20')
-    })
-    html.find("#sum_gmw").click(api.sumGMWorld)
-
-    html.find("#sum_npcc").click(() => {
-      const disposition = $("input[name='npc_disposition']:checked").val();
-      if (disposition === 'friend')
-        api.sumNPCContribution('2d100dis')
-      else if (disposition === 'foe')
-        api.sumNPCContribution('2d100adv')
-      else
-        api.sumNPCContribution('1d100')
-    })
-    html.find("#sum_npcb").click(() => {
-      const disposition = $("input[name='npc_disposition']:checked").val();
-      if (disposition === 'friend')
-        api.sumNPCBehavior('2d20dis')
-      else if (disposition === 'foe')
-        api.sumNPCBehavior('2d20adv')
-      else
-        api.sumNPCBehavior('1d20')
-    })
-    html.find("#sum_npco").click(() => {
-      const disposition = $("input[name='npc_disposition']:checked").val();
-      if (disposition === 'friend')
-        api.sumNPCOpinion('2d20dis')
-      else if (disposition === 'foe')
-        api.sumNPCOpinion('2d20adv')
-      else
-        api.sumNPCOpinion('1d20')
-    })
-    html.find("#sum_npca").click(() => {
-      const disposition = $("input[name='npc_disposition']:checked").val();
-      if (disposition === 'friend')
-        api.sumNPCAnswer('2d20dis')
-      else if (disposition === 'foe')
-        api.sumNPCAnswer('2d20adv')
-      else
-        api.sumNPCAnswer('1d20')
-    })
-
-    html.find("#sum_act").click(api.sumAction)
-    html.find("#sum_sub").click(api.sumSubject)
-    html.find("#sum_adj").click(api.sumAdjective)
-
   }
 
 }

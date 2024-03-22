@@ -66,7 +66,9 @@ export default class MGMEOracleUtils {
   static async _mgmeSimpleTableOracle(tableData, flavor, useSpeaker, input) {
     const targetTable = await MGMECommon._mgmeFindTableByName(tableData.name);
     const targetRoll = await targetTable.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
-    const text = targetRoll.results[0].getChatText();
+    const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+    const focusDebug = debug ? ` (${targetRoll.roll.formula}: ${targetRoll.roll.result})` : '';
+    const text = targetRoll.results[0].getChatText()+focusDebug;
     const output = (input?.length ? `<h2>${game.i18n.localize(input)}</h2>` : "") + (tableData.key ? `<b>${game.i18n.localize(tableData.key)}:</b> ` : ``) + game.i18n.localize(text);
     const whisper = MGMECommon._mgmeGetWhisperMode();
     let chatConfig = {
@@ -81,6 +83,7 @@ export default class MGMEOracleUtils {
 
   static async _mgmeMultipleTableOracle(tableDataList, flavor, useSpeaker, input) {
     const whisper = MGMECommon._mgmeGetWhisperMode();
+    const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
     let chatConfig = {
       flavor: game.i18n.localize(flavor),
       speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
@@ -93,7 +96,8 @@ export default class MGMEOracleUtils {
       const sceneDesign = await MGMECommon._mgmeFindTableByName(tableData.name);
       const targetRoll = await sceneDesign.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
       await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
-      const output = targetRoll.results[0].getChatText();
+      const focusDebug = debug ? ` (${targetRoll.roll.formula}: ${targetRoll.roll.result})` : '';
+      const output = targetRoll.results[0].getChatText()+focusDebug;
       if (tableData.key) {
         await MGMEOracleUtils._mgmeUpdateChatSimulation(
 					chat,

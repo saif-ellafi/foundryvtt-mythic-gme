@@ -125,10 +125,10 @@ export default class PUMV8Core {
     });
   }
 
-  static pumV8Subjective() {
+  static pumV8Subjective(formula) {
     MGMEOracleUtils._mgmeBuildOracleDialog('Question (Subjective)', (input) => {
       MGMEOracleUtils._mgmeSimpleTableOracle(
-          {name: 'PUM v8 - Yes or No (Subjective)'},
+          {name: 'PUM v8 - Yes or No (Subjective)', formula: formula},
           'Question (Subjective)',
           false,
           input
@@ -136,10 +136,10 @@ export default class PUMV8Core {
     });
   }
 
-  static pumV8Deterministic() {
+  static pumV8Deterministic(formula) {
     MGMEOracleUtils._mgmeBuildOracleDialog('Question (Deterministic)', (input) => {
       MGMEOracleUtils._mgmeSimpleTableOracle(
-          {name: 'PUM v8 - Yes or No (Deterministic)'},
+          {name: 'PUM v8 - Yes or No (Deterministic)', formula: formula},
           'Question (Deterministic)',
           false,
           input
@@ -147,10 +147,10 @@ export default class PUMV8Core {
     })
   }
 
-  static pumV8Interaction() {
+  static pumV8Interaction(formula) {
     MGMEOracleUtils._mgmeBuildOracleDialog('Question (Interaction)', (input) => {
       MGMEOracleUtils._mgmeSimpleTableOracle(
-          {name: 'PUM v8 - Yes or No (Interaction)'},
+          {name: 'PUM v8 - Yes or No (Interaction)', formula: formula},
           'Question (Interaction)',
           false,
           input
@@ -222,25 +222,25 @@ export default class PUMV8Core {
     );
   }
 
-  static pumV8HowMany() {
+  static pumV8HowMany(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Quantifier (Many)'},
+        {name: 'PUM v8 - Quantifier (Many)', formula: formula},
         'Quantifier (how many/much?)',
         false
     );
   }
 
-  static pumV8HowWell() {
+  static pumV8HowWell(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Quantifier (Well)'},
+        {name: 'PUM v8 - Quantifier (Well)', formula: formula},
         'Quantifier (how well/good?)',
         false
     );
   }
 
-  static pumV8HowHard() {
+  static pumV8HowHard(formula) {
     MGMEOracleUtils._mgmeSimpleTableOracle(
-        {name: 'PUM v8 - Quantifier (Hard)'},
+        {name: 'PUM v8 - Quantifier (Hard)', formula: formula},
         'Quantifier (how hard/tough?)',
         false
     );

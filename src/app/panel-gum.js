@@ -14,33 +14,33 @@ export default class GUMPanel extends MGMEPanel {
     const api = game.modules.get('mythic-gme-tools').api;
 
     html.find("#gum_qqgm_n").click(() => {
-      api.gumQuestionGM('1d20dis')
+      api.gumQuestionGM('2d20kl')
     })
     html.find("#gum_qqgm_u").click(() => {
-      api.gumQuestionGM('1d20dis')
+      api.gumQuestionGM('1d20')
     })
     html.find("#gum_qqgm_y").click(() => {
-      api.gumQuestionGM('1d20dis')
+      api.gumQuestionGM('2d20kh')
     })
 
     html.find("#gum_qqpc_n").click(() => {
-      api.gumQuestionPC('1d20dis')
+      api.gumQuestionPC('2d20kl')
     })
     html.find("#gum_qqpc_u").click(() => {
-      api.gumQuestionPC('1d20dis')
+      api.gumQuestionPC('1d20')
     })
     html.find("#gum_qqpc_y").click(() => {
-      api.gumQuestionPC('1d20dis')
+      api.gumQuestionPC('2d20kh')
     })
 
     html.find("#gum_qqnpc_n").click(() => {
-      api.gumQuestionNPC('1d20dis')
+      api.gumQuestionNPC('2d20kl')
     })
     html.find("#gum_qqnpc_u").click(() => {
-      api.gumQuestionNPC('1d20dis')
+      api.gumQuestionNPC('1d20')
     })
     html.find("#gum_qqnpc_y").click(() => {
-      api.gumQuestionNPC('1d20dis')
+      api.gumQuestionNPC('2d20kh')
     })
 
     html.find("#gum_act").click(api.gumGrandAction);

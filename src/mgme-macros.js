@@ -11,6 +11,7 @@ import MGMEVars1Panel from "./app/panel-mythic-vars1";
 import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
 import PUMPanel from "./app/panel-pum";
+import SUMPanel from "./app/panel-sum";
 import SUMCore from "./logic/sum-core";
 import SUMV7Core from "./logic/sum-v7-core";
 import GUMPanel from "./app/panel-gum";
@@ -60,6 +61,14 @@ export default class MGMEMacroAPI {
       }
       case 'pum_core': {
         win = new PUMPanel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
+        resizable = true;
+        break;
+      }
+      case 'sum_core': {
+        win = new SUMPanel(is_secondary);
         startTop = 325;
         startHeight = 250;
         startWidth = 450;
@@ -145,6 +154,9 @@ export default class MGMEMacroAPI {
         break;
       }
       case 'pum_core': {
+        break;
+      }
+      case 'sum_core': {
         break;
       }
       case 'pum8_core': {
@@ -287,9 +299,9 @@ export default class MGMEMacroAPI {
   static pumV8Complication = PUMV8Core.pumV8Complication;
   static pumV8Situation = PUMV8Core.pumV8Situation;
 
-  static pumV8Subjective = PUMV8Core.pumV8Subjective;
-  static pumV8Deterministic = PUMV8Core.pumV8Deterministic;
-  static pumV8Interaction = PUMV8Core.pumV8Interaction;
+  static pumV8Subjective = (formula) => PUMV8Core.pumV8Subjective(formula);
+  static pumV8Deterministic = (formula) => PUMV8Core.pumV8Deterministic(formula);
+  static pumV8Interaction = (formula) => PUMV8Core.pumV8Interaction(formula);
 
   static pumV8Disruption = PUMV8Core.pumV8Disruption;
 
@@ -302,9 +314,9 @@ export default class MGMEMacroAPI {
 
   static pumV8Focus = PUMV8Core.pumV8Focus;
 
-  static pumV8HowMany = PUMV8Core.pumV8HowMany;
-  static pumV8HowWell = PUMV8Core.pumV8HowWell;
-  static pumV8HowHard = PUMV8Core.pumV8HowHard;
+  static pumV8HowMany = (formula) => PUMV8Core.pumV8HowMany(formula);
+  static pumV8HowWell = (formula) => PUMV8Core.pumV8HowWell(formula);
+  static pumV8HowHard = (formula) => PUMV8Core.pumV8HowHard(formula);
 
   static pumV8Time = PUMV8Core.pumV8Time;
   static pumV8Object = PUMV8Core.pumV8Object;
@@ -339,21 +351,21 @@ export default class MGMEMacroAPI {
   static sumSubject = SUMCore.sumSubject;
   static sumAdjective = SUMCore.sumAdjective;
 
-  static sumV7ActionsReaction = SUMV7Core.sumV7ActionsReaction;
-  static sumV7FirstReaction = SUMV7Core.sumV7FirstReaction;
-  static sumV7BondingRelations = SUMV7Core.sumV7BondingRelations;
-  static sumV7PlotContribution = SUMV7Core.sumV7PlotContribution;
-  static sumV7FillerTalks = SUMV7Core.sumV7FillerTalks;
-  static sumV7PersonalityType = SUMV7Core.sumV7PersonalityType;
-  static sumV7InterventionCheck = SUMV7Core.sumV7InterventionCheck;
-  static sumV7LingeringBackstories = SUMV7Core.sumV7LingeringBackstories;
-  static sumV7SceneOpener = SUMV7Core.sumV7SceneOpener;
-  static sumV7OpinionResponse = SUMV7Core.sumV7OpinionResponse;
-  static sumV7OutsideImpression = SUMV7Core.sumV7OutsideImpression;
-  static sumV7ParallelMatters = SUMV7Core.sumV7ParallelMatters;
-  static sumV7JobProfession = SUMV7Core.sumV7JobProfession;
-  static sumV7RecentAnecdote = SUMV7Core.sumV7RecentAnecdote;
-  static sumV7TruthOrDare = SUMV7Core.sumV7TruthOrDare;
+  static sumV7ActionsReaction = (formula) => SUMV7Core.sumV7ActionsReaction(formula);
+  static sumV7FirstReaction = (formula) => SUMV7Core.sumV7FirstReaction(formula);
+  static sumV7BondingRelations = (formula) => SUMV7Core.sumV7BondingRelations(formula);
+  static sumV7PlotContribution = (formula) => SUMV7Core.sumV7PlotContribution(formula);
+  static sumV7FillerTalks = (formula) => SUMV7Core.sumV7FillerTalks(formula);
+  static sumV7PersonalityType = (formula) => SUMV7Core.sumV7PersonalityType(formula);
+  static sumV7InterventionCheck = (formula) => SUMV7Core.sumV7InterventionCheck(formula);
+  static sumV7LingeringBackstories = (formula) => SUMV7Core.sumV7LingeringBackstories(formula);
+  static sumV7SceneOpener = (formula) => SUMV7Core.sumV7SceneOpener(formula);
+  static sumV7OpinionResponse = (formula) => SUMV7Core.sumV7OpinionResponse(formula);
+  static sumV7OutsideImpression = (formula) => SUMV7Core.sumV7OutsideImpression(formula);
+  static sumV7ParallelMatters = (formula) => SUMV7Core.sumV7ParallelMatters(formula);
+  static sumV7JobProfession = (formula) => SUMV7Core.sumV7JobProfession(formula);
+  static sumV7RecentAnecdote = (formula) => SUMV7Core.sumV7RecentAnecdote(formula);
+  static sumV7TruthOrDare = (formula) => SUMV7Core.sumV7TruthOrDare(formula);
 
   static gumActionGood = GUMCore.gumActionGood;
   static gumActionEvil = GUMCore.gumActionEvil;

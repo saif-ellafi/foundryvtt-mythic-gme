@@ -11,6 +11,16 @@ export default class PUMV8Panel extends MGMEPanel {
     });
   }
 
+  getD10Formula(elem) {
+    const disposition = $(`input[name=${elem}]:checked`).val();
+    let formula = '1d10';
+    if (disposition === 'low')
+      formula = '2d10kl'
+    else if (disposition === 'high')
+      formula = '2d10kh'
+    return formula;
+  }
+
   activateListeners(html) {
     const api = game.modules.get('mythic-gme-tools').api;
 
@@ -22,9 +32,9 @@ export default class PUMV8Panel extends MGMEPanel {
     html.find("#pum_chll").click(api.pumV8Challenge);
     html.find("#pum_sit").click(api.pumV8Situation);
 
-    html.find("#pum_qqs").click(api.pumV8Subjective);
-    html.find("#pum_qqd").click(api.pumV8Deterministic);
-    html.find("#pum_qqi").click(api.pumV8Interaction);
+    html.find("#pum_qqs").click(() => {api.pumV8Subjective(this.getD10Formula('pum8_qqbias'))});
+    html.find("#pum_qqd").click(() => {api.pumV8Deterministic(this.getD10Formula('pum8_qqbias'))});
+    html.find("#pum_qqi").click(() => {api.pumV8Interaction(this.getD10Formula('pum8_qqbias'))});
 
     html.find("#pum_disd").click(api.pumV8Disruption);
 
@@ -38,9 +48,9 @@ export default class PUMV8Panel extends MGMEPanel {
 
     html.find("#pum_focus").click(api.pumV8Focus);
 
-    html.find("#pum_qhma").click(api.pumV8HowMany);
-    html.find("#pum_qhw").click(api.pumV8HowWell);
-    html.find("#pum_qhh").click(api.pumV8HowHard);
+    html.find("#pum_qhma").click(() => {api.pumV8HowMany(this.getD10Formula('pum8_quantbias'))});
+    html.find("#pum_qhw").click(() => {api.pumV8HowWell(this.getD10Formula('pum8_quantbias'))});
+    html.find("#pum_qhh").click(() => {api.pumV8HowHard(this.getD10Formula('pum8_quantbias'))});
 
     html.find("#pum_when").click(api.pumV8Time);
     html.find("#pum_whatfor").click(api.pumV8Object);
