@@ -4,7 +4,7 @@ import '../style/panel-mythic.css'
 export default class MGME2ePanel extends MGMEPanel {
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: "m2e_panel_window",
       title: 'Mythic GME 2nd Edition',
       template: "./modules/mythic-gme-tools/template/panel-mythic-gme-2e.hbs"
@@ -12,7 +12,7 @@ export default class MGME2ePanel extends MGMEPanel {
   }
 
   getData() {
-    return mergeObject(super.getData(), {
+    return foundry.utils.mergeObject(super.getData(), {
       rankValue: game.settings.get('mythic-gme-tools', 'currentChaos')
     });
   }

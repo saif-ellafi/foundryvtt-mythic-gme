@@ -4,7 +4,7 @@ import '../style/panel-pum-v8.css'
 export default class PUMV8Panel extends MGMEPanel {
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: "pum8_panel_window",
       title: 'Plot Unfolding Machine v8',
       template: "./modules/mythic-gme-tools/template/panel-pum-v8.hbs"

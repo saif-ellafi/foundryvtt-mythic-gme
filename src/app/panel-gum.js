@@ -3,7 +3,7 @@ import MGMEPanel from "./panel-base";
 export default class GUMPanel extends MGMEPanel {
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: "gum_panel_window",
       title: 'Game Unfolding Machine',
       template: "./modules/mythic-gme-tools/template/panel-gum.hbs"

@@ -287,7 +287,7 @@ export default class MGMECore {
             const odds = html.find("#mgme_odds").val();
             const chaos = html.find("#mgme_chaos").val();
             const roll = new Roll(`1d100`);
-            const result = roll.evaluate({async: false}).total;
+            const result = roll.evaluate().total;
             let content = generateOutput(html.find("#mgme_question").val()?.trim(), odds, chaos, result);
             let doubles = false;
             if (result > 10) {
@@ -399,7 +399,7 @@ export default class MGMECore {
             const chaos = parseInt(html.find("#mgme_chaos").val());
             const useD8 = game.settings.get('mythic-gme-tools', 'useD8ForSceneCheck');
             const roll = new Roll(`${useD8 ? '1d8' : '1d10'}`);
-            const result = roll.evaluate({async: false}).total;
+            const result = roll.evaluate().total;
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             if (result <= chaos) {
               if (result % 2 === 0) {

@@ -3,7 +3,7 @@ import MGMEPanel from "./panel-base";
 export default class SUMPanel extends MGMEPanel {
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: "sum_panel_window",
       title: 'Scene Unfolding Machine',
       template: "./modules/mythic-gme-tools/template/panel-sum.hbs"

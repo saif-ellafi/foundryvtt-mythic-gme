@@ -3,7 +3,7 @@ import MGMEPanel from "./panel-base";
 export default class GMAPanel extends MGMEPanel {
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: "gma_panel_window",
       title: 'Game Master\'s Apprentice',
       template: "./modules/mythic-gme-tools/template/panel-gma.hbs"

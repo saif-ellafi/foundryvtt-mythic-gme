@@ -4,7 +4,7 @@ import '../style/panel-mythic.css'
 export default class MGMEVars1Panel extends MGMEPanel {
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       id: "mvars1_panel_window",
       title: 'Mythic GME Variations 1',
       template: "./modules/mythic-gme-tools/template/panel-mythic-vars1.hbs"
@@ -12,7 +12,7 @@ export default class MGMEVars1Panel extends MGMEPanel {
   }
 
   getData() {
-    return mergeObject(super.getData(), {
+    return foundry.utils.mergeObject(super.getData(), {
       rankValue: game.settings.get('mythic-gme-tools', 'currentChaos')
     });
   }

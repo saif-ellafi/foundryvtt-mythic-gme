@@ -1,3 +1,6 @@
+### 2.10.0
+* Compatibility: Foundry V12.325
+
 ### 2.9.19
 * Update: Scene unfolding machine V7 final
 * Update: Game unfolding machine (free edition) revision

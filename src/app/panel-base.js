@@ -12,7 +12,7 @@ export default class MGMEPanel extends Application {
   }
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       popOut: true
     });
   }
