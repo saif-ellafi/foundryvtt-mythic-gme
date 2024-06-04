@@ -15,11 +15,11 @@
   "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.10.0/foundryvtt-mythic-gme_2.10.0.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibility": {
-    "minimum": "11",
+    "minimum": "12",
     "verified": "12.325",
     "maximum": "12.325"
   },
-  "minimumCoreVersion": "11",
+  "minimumCoreVersion": "12",
   "styles": [
     "mythic-gme-tools.css"
   ],
