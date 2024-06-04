@@ -1,5 +1,6 @@
 ### 2.10.0
 * Compatibility: Foundry V12.325
+* Bugfix: Fixed Smells and Character Descriptors table typos
 
 ### 2.9.19
 * Update: Scene unfolding machine V7 final
