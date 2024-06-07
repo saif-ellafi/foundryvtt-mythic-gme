@@ -1,3 +1,7 @@
+### 2.10.2
+* Compatibility: Foundry V12 and onwards
+* Bugfix: Mythic Fate and Alteration checks fixed (thank you @tslays)
+
 ### 2.10.0
 * Compatibility: Foundry V12.325
 * Bugfix: Fixed Smells and Character Descriptors table typos
