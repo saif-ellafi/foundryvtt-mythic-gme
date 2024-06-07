@@ -395,7 +395,7 @@ export default class MGMEVariations2 {
             const odds = html.find("#mgme_v2_odds").val();
             const chaosFactor = html.find("#mgme_chaos").val();
             const yesFavorable = html.find("#mgme_v2_yesfav").prop('checked');
-            const roll = Roll.create('2d10 + 1d10[cold]').roll();
+            const roll = await Roll.create('2d10 + 1d10[cold]').roll();
             const fateResult = roll.terms[0].total;
             const fateLeft = roll.terms[0].results[0].result;
             const fateRight = roll.terms[0].results[1].result;
