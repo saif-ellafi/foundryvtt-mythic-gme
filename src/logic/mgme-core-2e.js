@@ -48,11 +48,11 @@ export default class MGMECore2e {
     }
 
     static mgmeActions() {
-        MGMEOracleUtils._mgmeMultipleTableOracle([{name: "Mythic GME: Action 1 (2e)"}, {name: "Mythic GME: Action 2 (2e)"}], "Action Meaning");
+        MGMEOracleUtils._mgmeMultipleTableOracle([{name: MGMECommon._mgmeFindValueBySetting('actionTable')}, {name: MGMECommon._mgmeFindValueBySetting('subjectTable')}], "Action Meaning");
     }
 
     static mgmeDescriptions() {
-        MGMEOracleUtils._mgmeMultipleTableOracle([{name: "Mythic GME: Description 1 (2e)"}, {name: "Mythic GME: Description 2 (2e)"}], "Description Meaning");
+        MGMEOracleUtils._mgmeMultipleTableOracle([{name: MGMECommon._mgmeFindValueBySetting('descriptionsAdvTable')}, {name: MGMECommon._mgmeFindValueBySetting('descriptionsAdjTable')}], "Description Meaning");
     }
 
     static mgmeSceneAdjust() {
