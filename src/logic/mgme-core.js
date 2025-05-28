@@ -292,8 +292,7 @@ export default class MGMECore {
             let doubles = false;
             if (result > 10) {
               const s = result.toString();
-              const ignoreDoubles = game.settings.get("mythic-gme-tools", "doublesIgnoreChaos");
-              if (((result === 100) || (s[0] === s[1])) && (ignoreDoubles || s[1] <= parseInt(chaos))) {
+              if (((result === 100) || (s[0] === s[1])) && (s[1] <= parseInt(chaos))) {
                 content += `<div><b>${game.i18n.localize('MGME.Doubles')}</b></div>`
                 doubles = true;
               }
@@ -397,8 +396,7 @@ export default class MGMECore {
           label: game.i18n.localize('MGME.ToChat'),
           callback: async (html) => {
             const chaos = parseInt(html.find("#mgme_chaos").val());
-            const useD8 = game.settings.get('mythic-gme-tools', 'useD8ForSceneCheck');
-            const roll = new Roll(`${useD8 ? '1d8' : '1d10'}`);
+            const roll = new Roll('1d10');
             const result = (await roll.evaluate()).total;
             const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
             if (result <= chaos) {

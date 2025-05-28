@@ -1,56 +1,31 @@
 import MGMECore from "./logic/mgme-core";
-import MGMEVariations1 from "./logic/mgme-variations-1";
-import MGMEVariations2 from "./logic/mgme-variations-2";
+import MGMECore2e from "./logic/mgme-core-2e";
+import MGME2ePanel from "./app/panel-mythic-gme-2e";
+import PUMV8Core from "./logic/pum-v8-core";
+import PUMV8Panel from "./app/panel-pum-v8";
+import SUMV7Core from "./logic/sum-v7-core";
+import SUMV7Panel from "./app/panel-sum-v7";
+import GUMV2Core from "./logic/gum-v2-core";
+import GUM2Panel from "./app/panel-gum-v2";
+import GMAPanel from "./app/panel-gma";
 import MGMECards from "./logic/mgme-cards";
 import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
-import MGMECrafterSeries from "./logic/mgme-crafter-series";
-import MGME1ePanel from "./app/panel-mythic-gme-1e";
-import MGME2ePanel from "./app/panel-mythic-gme-2e";
-import MGMEVars1Panel from "./app/panel-mythic-vars1";
-import MGMEVars2Panel from "./app/panel-mythic-vars2";
-import PUMCore from "./logic/pum-core";
-import PUMPanel from "./app/panel-pum";
-import SUMPanel from "./app/panel-sum";
-import SUMCore from "./logic/sum-core";
-import SUMV7Core from "./logic/sum-v7-core";
-import GUMPanel from "./app/panel-gum";
-import GUMCore from "./logic/gum-core";
-import MGMECore2e from "./logic/mgme-core-2e";
-import GMAPanel from "./app/panel-gma";
-import GUMV2Core from "./logic/gum-v2-core";
-import GUM2Panel from "./app/panel-gum-v2";
-import PUMV8Core from "./logic/pum-v8-core";
-import PUMV8Panel from "./app/panel-pum-v8";
-import SUMV7Panel from "./app/panel-sum-v7";
 
 export default class MGMEMacroAPI {
 
   static mgmeRenderPanel(key, is_secondary=false) {
-    let startWidth = 400;
+    let startWidth = 420;
     let startTop = 320;
     let startHeight = undefined;
     let resizable = false;
     let win;
     switch (key) {
-      case 'mgme_1e': {
-        win = new MGME1ePanel(is_secondary);
-        break;
-      }
       case 'mgme_2e': {
         win = new MGME2ePanel(is_secondary);
         startTop = 375;
         startHeight = 300;
-        startWidth = 420;
         resizable = true;
-        break;
-      }
-      case 'mgme_vars1': {
-        win = new MGMEVars1Panel(is_secondary);
-        break;
-      }
-      case 'mgme_vars2': {
-        win = new MGMEVars2Panel(is_secondary);
         break;
       }
       case 'gma_cards': {
@@ -59,40 +34,16 @@ export default class MGMEMacroAPI {
         startHeight = 250;
         break;
       }
-      case 'pum_core': {
-        win = new PUMPanel(is_secondary);
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 450;
-        resizable = true;
-        break;
-      }
-      case 'sum_core': {
-        win = new SUMPanel(is_secondary);
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 450;
-        resizable = true;
-        break;
-      }
       case 'pum8_core': {
         win = new PUMV8Panel(is_secondary);
         startTop = 325;
         startHeight = 250;
-        startWidth = 470;
+        startWidth = 500;
         resizable = true;
         break;
       }
       case 'sum7_core': {
         win = new SUMV7Panel(is_secondary);
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 450;
-        resizable = true;
-        break;
-      }
-      case 'gum_core': {
-        win = new GUMPanel(is_secondary);
         startTop = 325;
         startHeight = 250;
         startWidth = 470;
@@ -112,8 +63,8 @@ export default class MGMEMacroAPI {
       startTop += 320;
     win?.render(true, {
       width: startWidth,
-      left: (canvas.app.screen.width - ui.sidebar.element.width() - startWidth - 20),
-      top: canvas.app.screen.height - startTop,
+      left: (canvas.app.screen.width - startWidth - 400),
+      top: canvas.app.screen.height - startTop - 80,
       height: startHeight,
       resizable: resizable
     });
@@ -137,35 +88,14 @@ export default class MGMEMacroAPI {
 
   static mgmeResetRuleDefaults(panelKey) {
     switch (panelKey) {
-      case 'mgme_1e': {
-        MGMECore.resetDefaults();
-        break;
-      }
       case 'mgme_2e': {
         MGMECore.resetDefaults2e();
-        break;
-      }
-      case 'mgme_vars1': {
-        MGMEVariations1.resetDefaults();
-        break;
-      }
-      case 'mgme_vars2': {
-        MGMEVariations2.resetDefaults();
-        break;
-      }
-      case 'pum_core': {
-        break;
-      }
-      case 'sum_core': {
         break;
       }
       case 'pum8_core': {
         break;
       }
       case 'sum7_core': {
-        break;
-      }
-      case 'gum_core': {
         break;
       }
       case 'gum2_core': {
@@ -181,20 +111,6 @@ export default class MGMEMacroAPI {
   static mgmeRandomEvent = MGMECore.mgmeRandomEvent;
   static mgmeFocusCheck = MGMECore.mgmeFocusCheck;
   static mgmeSceneAlteration = MGMECore.mgmeSceneAlteration;
-
-  static mgmeComplexQuestion = MGMEVariations1.mgmeComplexQuestion;
-  static mgmeBackstoryGenerator = MGMEVariations1.mgmeBackstoryGenerator;
-
-  static mgmeFateCheck = MGMEVariations2.mgmeFateCheck;
-  static mgmeEventCheck = MGMEVariations2.mgmeEventCheck;
-  static mgmeDetailDescriptionCheck = MGMEVariations2.mgmeDetailDescriptionCheck;
-  static mgmeDetailActionCheck = MGMEVariations2.mgmeDetailActionCheck;
-  static mgmeStatisticCheck = MGMEVariations2.mgmeStatisticCheck;
-  static mgmeBehaviorCheck = MGMEVariations2.mgmeBehaviorCheck;
-  static mgmeDetailCheck = MGMEVariations2.mgmeDetailCheck;
-
-  static mgmeRngLocCrafterPPShift = MGMECrafterSeries.mgmeRngLocCrafterPPShift;
-  static mgmeRngLocCrafter = MGMECrafterSeries.mgmeRngLocCrafter;
 
   static mgmeDealCard = MGMECards.mgmeDealCard;
 
@@ -266,32 +182,6 @@ export default class MGMEMacroAPI {
   static mgmeUndeadDescriptors = MGMECore2e.mgmeUndeadDescriptors;
   static mgmeVisions = MGMECore2e.mgmeVisions;
 
-  static pumScenePrompt = PUMCore.pumScenePrompt;
-  static pumExpectationChecker = PUMCore.pumExpectationChecker;
-  static pumChallenge = PUMCore.pumChallenge;
-  static pumSceneDiscovery = PUMCore.pumSceneDiscovery;
-  static pumSceneRisk = PUMCore.pumSceneRisk;
-  static pumContext = PUMCore.pumContext;
-  static pumComplication = PUMCore.pumComplication;
-  static pumCircumstance = PUMCore.pumCircumstance;
-  static pumYesOrNoEven = PUMCore.pumYesOrNoEven;
-  static pumYesOrNoLikely = PUMCore.pumYesOrNoLikely;
-  static pumYesOrNoUnlikely = PUMCore.pumYesOrNoUnlikely;
-  static pumLooksArea = PUMCore.pumLooksArea;
-  static pumLooksNPC = PUMCore.pumLooksNPC;
-  static pumLooksObject = PUMCore.pumLooksObject;
-  static pumWho = PUMCore.pumWho;
-  static pumSubject = PUMCore.pumSubject;
-  static pumWhat = PUMCore.pumWhat;
-  static pumIntent = PUMCore.pumIntent;
-  static pumActivity = PUMCore.pumActivity;
-  static pumReason = PUMCore.pumReason;
-  static pumKindOfItem = PUMCore.pumKindOfItem;
-  static pumKindOfAbility = PUMCore.pumKindOfAbility;
-  static pumKindOfPerson = PUMCore.pumKindOfPerson;
-  static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
-  static pumKindOfDanger = PUMCore.pumKindOfDanger;
-
   static pumV8RandomPrompt = PUMV8Core.pumV8RandomPrompt;
   static pumV8ModifiedProposal = PUMV8Core.pumV8ModifiedProposal;
   static pumV8Challenge = PUMV8Core.pumV8Challenge;
@@ -339,17 +229,7 @@ export default class MGMEMacroAPI {
 
   static gmaDraw = (deck) => MGMECards.mgmeDealCard({tableName: deck});
 
-  static sumGMAction = (formula) => SUMCore.sumGMAction(formula);
-  static sumGMFeedback = (formula) => SUMCore.sumGMFeedback(formula);
-  static sumGMWorld = () => SUMCore.sumGMWorld();
-  static sumNPCContribution = (formula) => SUMCore.sumNPCContribution(formula);
-  static sumNPCBehavior = (formula) => SUMCore.sumNPCBehavior(formula);
-  static sumNPCOpinion = (formula) => SUMCore.sumNPCOpinion(formula);
-  static sumNPCAnswer = (formula) => SUMCore.sumNPCAnswer(formula);
-
-  static sumAction = SUMCore.sumAction;
-  static sumSubject = SUMCore.sumSubject;
-  static sumAdjective = SUMCore.sumAdjective;
+  // SUM V7
 
   static sumV7ActionsReaction = (formula) => SUMV7Core.sumV7ActionsReaction(formula);
   static sumV7FirstReaction = (formula) => SUMV7Core.sumV7FirstReaction(formula);
@@ -366,84 +246,6 @@ export default class MGMEMacroAPI {
   static sumV7JobProfession = (formula) => SUMV7Core.sumV7JobProfession(formula);
   static sumV7RecentAnecdote = (formula) => SUMV7Core.sumV7RecentAnecdote(formula);
   static sumV7TruthOrDare = (formula) => SUMV7Core.sumV7TruthOrDare(formula);
-
-  static gumActionGood = GUMCore.gumActionGood;
-  static gumActionEvil = GUMCore.gumActionEvil;
-  static gumCombatBehavior = GUMCore.gumCombatBehavior;
-  static gumCombatComposition = GUMCore.gumCombatComposition;
-  static gumCombatConditions = GUMCore.gumCombatConditions;
-  static gumCombatTactical = GUMCore.gumCombatTactical;
-  static gumGMIntervention = GUMCore.gumGMIntervention;
-  static gumGrandAction = GUMCore.gumGrandAction;
-  static gumGrandDescriptor = GUMCore.gumGrandDescriptor;
-  static gumGrandSubject = GUMCore.gumGrandSubject;
-  static gumLocationDetActivity = GUMCore.gumLocationDetActivity;
-  static gumLocationDetFeature = GUMCore.gumLocationDetFeature;
-  static gumLocationDetInhabitants = GUMCore.gumLocationDetInhabitants;
-  static gumLocationDetLooks = GUMCore.gumLocationDetLooks;
-  static gumLocationDetPurpose = GUMCore.gumLocationDetPurpose;
-  static gumLocationDetWorth = GUMCore.gumLocationDetWorth;
-  static gumLocationIdBuilding = GUMCore.gumLocationIdBuilding;
-  static gumLocationIdOutskirts = GUMCore.gumLocationIdOutskirts;
-  static gumLocationIdSpace = GUMCore.gumLocationIdSpace;
-  static gumLocationIdSpecial = GUMCore.gumLocationIdSpecial;
-  static gumLocationIdUrban = GUMCore.gumLocationIdUrban;
-  static gumLocationIdWilderness = GUMCore.gumLocationIdWilderness;
-  static gumMotiveGood = GUMCore.gumMotiveGood;
-  static gumMotiveEvil = GUMCore.gumMotiveEvil;
-
-  static gumNPCWho = GUMCore.gumNPCWho;
-  static gumNPCDetAttitude = GUMCore.gumNPCDetAttitude;
-  static gumNPCDetEdge = GUMCore.gumNPCDetEdge;
-  static gumNPCDetLooks = GUMCore.gumNPCDetLooks;
-  static gumNPCDetQuirk = GUMCore.gumNPCDetQuirk;
-  static gumNPCDetStuff = GUMCore.gumNPCDetStuff;
-  static gumNPCDetWants = GUMCore.gumNPCDetWants;
-  static gumNPCIdCivilian = GUMCore.gumNPCIdCivilian;
-  static gumNPCIdConnected = GUMCore.gumNPCIdConnected;
-  static gumNPCIdFighting = GUMCore.gumNPCIdFighting;
-  static gumNPCIdSkilled = GUMCore.gumNPCIdSkilled;
-  static gumNPCIdSpecial = GUMCore.gumNPCIdSpecial;
-  static gumNPCIdVIP = GUMCore.gumNPCIdVIP;
-
-  static gumPlanCheckSafe = GUMCore.gumPlanCheckSafe;
-  static gumPlanCheckRisky = GUMCore.gumPlanCheckRisky;
-  static gumPlanCheckTense = GUMCore.gumPlanCheckTense;
-  static gumPlanCheckExploding = GUMCore.gumPlanCheckExploding;
-
-  static gumPlanCheckCircumstance = GUMCore.gumPlanCheckCircumstance;
-  static gumPlanCheckComplication = GUMCore.gumPlanCheckComplication;
-  static gumPlanCheckInconvenience = GUMCore.gumPlanCheckInconvenience;
-  static gumPlanCheckProblem = GUMCore.gumPlanCheckProblem;
-
-  static gumQuestionGM = (formula) => GUMCore.gumQuestionGM(formula);
-  static gumQuestionPC = (formula) => GUMCore.gumQuestionPC(formula);
-  static gumQuestionNPC = (formula) => GUMCore.gumQuestionNPC(formula);
-
-  static gumSceneDesign = GUMCore.gumSceneDesign;
-
-  static gumChallengeSkill = GUMCore.gumChallengeSkill;
-  static gumChallengeSituation = GUMCore.gumChallengeSituation;
-  static gumChallengePrompt = GUMCore.gumChallengePrompt;
-  static gumChallengeCondition = GUMCore.gumChallengeCondition;
-
-  // GUM Extended
-
-  static gumeProberWorld = GUMCore.gumeProberWorld;
-  static gumeProberScene = GUMCore.gumeProberScene;
-  static gumeSceneKicker = GUMCore.gumeSceneKicker;
-  static gumeInteractionBehavior = GUMCore.gumeInteractionBehavior;
-  static gumeInteractionContribution = GUMCore.gumeInteractionContribution;
-  static gumeInteractionRequest = GUMCore.gumeInteractionRequest;
-  static gumeInteractionResponse = GUMCore.gumeInteractionResponse;
-  static gumeDiscoveryClues = GUMCore.gumeDiscoveryClues;
-  static gumeDiscoveryFuture = GUMCore.gumeDiscoveryFuture;
-  static gumeDiscoveryPast = GUMCore.gumeDiscoveryPast;
-  static gumeDiscoveryReason = GUMCore.gumeDiscoveryReason;
-  static gumeEnemyEvents = GUMCore.gumeEnemyEvents;
-  static gumeEnemyFeelings = GUMCore.gumeEnemyFeelings;
-  static gumeEnemyRisks = GUMCore.gumeEnemyRisks;
-  static gumeEnemyThreats = GUMCore.gumeEnemyThreats;
 
   // GUM V2
 

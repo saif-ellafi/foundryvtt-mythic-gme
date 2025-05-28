@@ -1,6 +1,6 @@
 export default class MGMECommon {
 
-  static DEBOUNCED_RELOAD = debounce(() => window.location.reload(), 100);
+  static DEBOUNCED_RELOAD = foundry.utils.debounce(() => window.location.reload(), 100);
   static packTablesCache = undefined;
 
   static async _mgmeGetAllPackTables() {

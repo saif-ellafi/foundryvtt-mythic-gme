@@ -1,8 +1,4 @@
 import MGMEReference from "../utils/mgme-reference";
-import MGMECore from "../logic/mgme-core";
-import MGMEVariations1 from "../logic/mgme-variations-1";
-import MGMEVariations2 from "../logic/mgme-variations-2";
-import MGMEMacroAPI from "../mgme-macros";
 
 export default class MGMEPanel extends Application {
 
@@ -76,7 +72,7 @@ export default class MGMEPanel extends Application {
       <label for="panConfigure">${game.i18n.localize('MGME.PanelConfigureLayout')}:</label>
       <select name="panConfigure" id="mgme_pan_config" style="width: 308px;"></select>
       <div><input type="checkbox" name="open_separate" id="open_separate" style="position:relative;top:5px"><label for="open_separate">Open separately</label></div>
-      <div style="text-align:right;margin-bottom:5px;margin-top:5px;font-size:11px"><a href="https://ko-fi.com/jeansenvaars">would you buy me a coffee?</a> :)</div>
+      <div style="text-align:right;margin-bottom:5px;margin-top:5px;font-size:11px"><a href="https://ko-fi.com/jeansenvaars">Consider a donation</a> if you like this module :)</div>
       </div>
       </form>
     `;

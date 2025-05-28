@@ -51,6 +51,9 @@ export default class MGMECards {
         <div><em>${path}</em></div>
       `
       };
+      if (!ui.sidebar.expanded) {
+        ui.sidebar.expand();
+      }
       ChatMessage.create(errorChat);
       return;
     }
@@ -78,6 +81,9 @@ export default class MGMECards {
         chat: {
           label: game.i18n.localize('MGME.ToChat'),
           callback: async () => {
+            if (!ui.sidebar.expanded) {
+              ui.sidebar.expand();
+            }
             ChatMessage.create({
               flavor: tableName,
               content: `

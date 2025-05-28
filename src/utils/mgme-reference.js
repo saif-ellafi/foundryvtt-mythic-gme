@@ -227,17 +227,11 @@ export default class MGMEReference {
 
   static MYTHIC_PANELS = {
     'nopanel': 'Disabled',
-    'mgme_1e': 'Mythic GM Emulator (Blue Book)',
     'mgme_2e': 'Mythic GM Emulator (2nd Edition)',
-    'mgme_vars1': 'Mythic Variations 1 (Orange Book)',
-    'mgme_vars2': 'Mythic Variations 2 (Green Book)',
-    'gma_cards': 'Game Master\'s Apprentice (Cards)',
-    'pum_core': 'Plot Unfolding Machine (free version)',
-    'sum_core': 'Scene Unfolding Machine (free version)',
-    'gum_core': 'Game Unfolding Machine (free version)',
     'pum8_core': 'Plot Unfolding Machine v8',
     'sum7_core': 'Scene Unfolding Machine v7',
-    'gum2_core': 'Game Unfolding Machine v2'
+    'gum2_core': 'Game Unfolding Machine v2',
+    'gma_cards': 'Game Master\'s Apprentice (Cards)'
   }
 
   static DIE_COLORS = {
@@ -284,18 +278,6 @@ export default class MGMEReference {
     'vl': {key: 'MGME.VeryLikely', mod: 2},
     'nc': {key: 'MGME.NearlyCertain', mod: 4},
     'c': {key: 'MGME.Certain', mod: 5}
-  }
-
-  static ODDS_MAP_VARS2 = {
-    'imp': {key: 'MGME.Impossible', mod: -8},
-    'nw': {key: 'MGME.NoWay', mod: -6},
-    'vu': {key: 'MGME.VeryUnlikely', mod: -4},
-    'u': {key: 'MGME.Unlikely', mod: -2},
-    'ff': {key: 'MGME.fiftyfifty', mod: 0},
-    'l': {key: 'MGME.Likely', mod: 2},
-    'vl': {key: 'MGME.VeryLikely', mod: 4},
-    'st': {key: 'MGME.SureThing', mod: 6},
-    'htb': {key: 'MGME.HasToBe', mod: 8}
   }
 
   static PROPS_TEMPLATES = {

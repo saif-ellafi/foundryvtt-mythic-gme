@@ -267,7 +267,7 @@ export default class MGMEChatExtras {
                 await table.drawMany(many, {roll: Roll.create(formula?.length ? formula : table.formula), displayChat: false}).then(draw => {
                   let ii = 0;
                   for (const result of draw.results) {
-                    content += `<div>${result.getChatText()}${debug ? ` (${draw.roll.terms[0].results[ii].result})` : ''}</div>`
+                    content += `<div>${result.description}${debug ? ` (${draw.roll.terms[0].results[ii].result})` : ''}</div>`
                     ii += 1;
                   }
                 });

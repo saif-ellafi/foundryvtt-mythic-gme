@@ -38,19 +38,19 @@ export default class MGMEOracleUtils {
     else {
       const focusTable = await MGMECommon._mgmeFindTableBySetting('focusTable');
       focusRoll = await focusTable.roll();
-      focusResult = focusRoll.results[0].getChatText();
+      focusResult = focusRoll.results[0].description;
     }
 
     if (tableSetting1) {
       const descriptor1Table = await MGMECommon._mgmeFindTableBySetting(tableSetting1);
       descriptor1Roll = await descriptor1Table.roll();
-      descriptor1Result = descriptor1Roll.results[0].getChatText();
+      descriptor1Result = descriptor1Roll.results[0].description;
     }
 
     if (tableSetting2) {
       const descriptor2Table = await MGMECommon._mgmeFindTableBySetting(tableSetting2);
       descriptor2Roll = await descriptor2Table.roll();
-      descriptor2Result = descriptor2Roll.results[0].getChatText();
+      descriptor2Result = descriptor2Roll.results[0].description;
     }
 
     return {
@@ -68,7 +68,7 @@ export default class MGMEOracleUtils {
     const targetRoll = await targetTable.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
     const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
     const focusDebug = debug ? ` (${targetRoll.roll.formula}: ${targetRoll.roll.result})` : '';
-    const text = targetRoll.results[0].getChatText()+focusDebug;
+    const text = targetRoll.results[0].description+focusDebug;
     const output = (input?.length ? `<h2>${game.i18n.localize(input)}</h2>` : "") + (tableData.key ? `<b>${game.i18n.localize(tableData.key)}:</b> ` : ``) + game.i18n.localize(text);
     const whisper = MGMECommon._mgmeGetWhisperMode();
     let chatConfig = {
@@ -78,6 +78,9 @@ export default class MGMEOracleUtils {
       whisper: whisper
     };
     await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
+    if (!ui.sidebar.expanded) {
+      ui.sidebar.expand();
+    }
     await ChatMessage.create(chatConfig);
   }
 
@@ -90,6 +93,9 @@ export default class MGMEOracleUtils {
       content: input?.length ? `<h2>${input}</h2>` : '',
       whisper: whisper
     };
+    if (!ui.sidebar.expanded) {
+      ui.sidebar.expand();
+    }
     let chat = await ChatMessage.create(chatConfig);
     let first = true;
     for (const tableData of tableDataList) {
@@ -97,7 +103,7 @@ export default class MGMEOracleUtils {
       const targetRoll = await sceneDesign.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
       await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
       const focusDebug = debug ? ` (${targetRoll.roll.formula}: ${targetRoll.roll.result})` : '';
-      const output = targetRoll.results[0].getChatText()+focusDebug;
+      const output = targetRoll.results[0].description+focusDebug;
       if (tableData.key) {
         await MGMEOracleUtils._mgmeUpdateChatSimulation(
 					chat,
@@ -129,6 +135,9 @@ export default class MGMEOracleUtils {
         whisper: whisper
       };
       // NOTE: Do NOT send to Journal YET as it needs to be enhanced
+      if (!ui.sidebar.expanded) {
+        ui.sidebar.expand();
+      }
       chatMessage = await ChatMessage.create(chatConfig);
     }
     let oldHide;
@@ -218,7 +227,7 @@ export default class MGMEOracleUtils {
           const eFocusElement = $("#mgme_re_efocus");
           const focusTableName = game.settings.get('mythic-gme-tools', 'focusTable');
           eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
-          const focusResults = (await MGMECommon._mgmeFindTableByName(focusTableName)).results.contents.map(c => c.getChatText());
+          const focusResults = (await MGMECommon._mgmeFindTableByName(focusTableName)).results.contents.map(c => c.description);
           focusResults.forEach(focus => {
             eFocusElement.append(`<option value="${focus}">${focus}</option>`);
           });

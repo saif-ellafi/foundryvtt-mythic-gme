@@ -139,7 +139,7 @@ export default class MGMEOracleBuilder {
       const descriptorResults = await descriptorTable.drawMany(prop.draws, {displayChat: false});
 
       descriptorResults.results.forEach(result => {
-        content += `<div><b>${prop.label}:</b> ${result.getChatText()}</div>`
+        content += `<div><b>${prop.label}:</b> ${result.description}</div>`
       })
     }
     const whisper = MGMECommon._mgmeGetWhisperMode();
@@ -149,6 +149,9 @@ export default class MGMEOracleBuilder {
       speaker: ChatMessage.getSpeaker(),
       whisper: whisper
     };
+    if (!ui.sidebar.expanded) {
+      ui.sidebar.expand();
+    }
     ChatMessage.create(chatConfig).then(chat => {if (!oracle.test) MGMEChatJournal._mgmeLogChatToJournal(chat)});
   }
 }

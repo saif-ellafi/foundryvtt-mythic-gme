@@ -93,6 +93,9 @@ export default class MGMEChatJournal {
   }
 
   static async _mgmeCreateChatAndLog(props) {
+    if (!ui.sidebar.expanded) {
+      ui.sidebar.expand();
+    }
     const chatMsg = ChatMessage.create(props);
     chatMsg.then(createdChat => {
       MGMEChatJournal._mgmeLogChatToJournal(createdChat)
