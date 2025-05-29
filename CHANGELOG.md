@@ -1,6 +1,9 @@
 ### 2.11.0
 * Compatibility: Foundry V13 and onwards
 * Update: GMA 2e Base Deck support added
+* Language: Italian translations (Thank you @GawenOfKinner)
+* Fix: Use Action/Description tables from Settings (Thank you @MarkesOrelies)
+* Fix: Fixed wrong Many-Eyed oracle entry (Thank you @SarakayaKomzin)
 * Deprecations: Mythic 1st edition, PUM/SUM/GUM free editions, Location Crafter, Mythic Deck
 
 ### 2.10.2
