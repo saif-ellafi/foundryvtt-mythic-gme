@@ -47,11 +47,19 @@ May not be commercially redistributed. Offered for free (Donations permitted and
 
 [Get Mythic GME Books](https://www.wordmillgames.com/)
 
+## Unfolding Machines
+
+**Plot, Scene, and Game Unfolding Machine** are Solo RPG supplements and GM Emulators from the Unfolding Machine series by JeansenVaars.
+
+Find them all on [itch.io](https://jeansenvaars.itch.io/) and learn more about the unfolding machines universe [Here](https://www.unfolding-machines.com).
+
+May not be commercially redistributed, and requires the PDF booklets to take the most out of the oracles. The version included in Foundry for free is intentionally outdated.
+
 ## Larcenous Designs
 
 **GameMaster's Apprentice Cards** are _REQUIRED_ to be able to play with the GMA Panel.
 
-GameMaster's Apprentice Cards are property of [Larcenous Designs](https://www.larcenousdesigns.com/) and this module does not distribute the cards themselves of author **Nathan Rockwood**
+GameMaster's Apprentice Cards are property of [Larcenous Designs](https://www.larcenousdesigns.com/) and this module does not distribute the cards themselves of author **Nathan Rockwood** (Copyright).
 
 [Get GMA Cards](https://www.drivethrurpg.com/browse/pub/6395/Larcenous-Designs-LLC)
 
