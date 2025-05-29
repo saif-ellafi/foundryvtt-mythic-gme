@@ -3,9 +3,10 @@
 
 Mythic GME Tools provides everything needed for playing Solo and GM-Less games with Mythic GM Emulator and other GM Emulators with any RPG System in Foundry VTT.
 
-**Mythic rulesets**: Mythic (Blue Book), Mythic Variations 1, Mythic Variations 2, Mythic 2nd Edition
+**Mythic rulesets**: Mythic 2nd Edition
+**Unfolding machines rulesets**: Plot Unfolding Machine, Scene Unfolding Machine, Game Unfolding Machine
 
-**Other rulesets**: Game Apprentice Cards, The Adventure Crafter Cards, Plot Unfolding Machine, Game Unfolding Machine, Tricube Tales Countdown Cards
+**Other rulesets**: Game Apprentice Cards
 
 ### _Created by: JeansenVaars_
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V14D3AH)
@@ -21,15 +22,11 @@ Mythic GME Tools provides everything needed for playing Solo and GM-Less games w
    2. [Mythic GME Tools Panel](#mythic-gme-tools-panel)
    3. [Mythic GM Emulator Rulesets](#mythic-gm-emulator-rulesets)
       1. [GM Emulator 2nd Edition](#gm-emulator-2nd-edition)
-      2. [GM Emulator Blue Book](#gm-emulator-blue-book)
-      3. [Variations 1 Orange Book](#variations-1-orange-book)
-      4. [Variations 2 Green Book](#variations-2-green-book)
-      5. [Adventure Crafter Cards](#adventure-crafter-cards)
    4. [Other GM Emulator Rulesets](#other-gm-emulator-rulesets)
       1. [The GameMaster's Apprentice](#the-gamemasters-apprentice)
       2. [Plot Unfolding Machine](#plot-unfolding-machine)
-      3. [Game Unfolding Machine](#game-unfolding-machine)
-      4. [Tricube Tales Countdown Cards](#tricube-tales-countdown-cards)
+      3. [Scene Unfolding Machine](#scene-unfolding-machine)
+      4. [Game Unfolding Machine](#game-unfolding-machine)
    5. [The Oracle Builder](#the-oracle-builder)
    6. [Rolling your own Tables](#rolling-your-own-tables)
    7. [Chat and Exporting](#chat-and-exporting)
@@ -124,66 +121,33 @@ speak on his behalf or even sometimes use its information for better flavor!
 
 ![mythic-panel-2e.png](mythic-panel-2e.png)
 
-#### GM Emulator Blue Book
-* Fate Chart: Rolls on the Fate Chart. Triggers Random Events when appropriate.
-* Random Event: Generates a random event.
-* Scene Alteration: Checks if the proposed event is still valid. Rolls Random Events when appropriate.
-* Increase Chaos Rank
-* Decrease Chaos Rank
-* Check Chaos Rank
+### Unfolding Machines
 
-![img.png](blue-book-macros.png)
+#### Plot Unfolding Machine
 
-#### Variations 1 Orange Book
-* Complex Questions
-* Backstory Generator
+PUM is a GM Emulator that focuses on building up your plot beats and helping you with accurate oracles. [HERE](https://jeansenvaars.itch.io/plot-unfolding-machine) :)
 
-![img.png](orange-book-macros.png)
+Check it out if getting stuck in your Solo or GMLess games is an often-issue, because PUM is designed to help with coming up with what happenss next in your Solo gaming.
 
-#### Variations 2 Green Book
-* Fate Check
-* Event Check
-* Detail Check
-* Description Question
-* Action Question
-* Behavior Check - Advanced: This Macro stores disposition information within Tokens!
-* Statistic Check - Advanced: This Macro stores the last used Attributes in your game!
+![pum-example.png](pum-example.png)
 
-![green-book-macros.png](green-book-macros.png)
+#### Scene Unfolding Machine
 
-#### Adventure Crafter Cards
+This supplement can be played with PUM, with Mythic, or on its own, and it focuses on narrating elements inside a scene, manipulating a scene, and dealing with NPCs. [HERE](https://jeansenvaars.itch.io/scene-unfolding-machine) :)
 
-Drag and Drop the TAC Deck Macro to your hotbar, to pop up adventure crafter cards.
+It can be a great help in your Solo RPG adventures since it gives you content for things to happen in the momment.
 
-![img.png](adventure-crafter-example.png)
+#### Game Unfolding Machine
 
-### Other GM Emulator Rulesets
+This supplement can support PUM or Mythic, and it deals with plot seed generation and world building in general. [HERE](https://jeansenvaars.itch.io/game-unfolding-machine) :)
+
+Check it out to expand your stories, game prep, and solo storytelling.
 
 #### The GameMaster's Apprentice
 
 Check out the cards section to learn how to configure them.
 
 ![gma-example.png](gma-example.png)
-
-#### Plot Unfolding Machine
-
-This Solo system can be played with Mythic or on its own, and it focuses on placing your PCs into action, Scene by Scene. [HERE](https://jeansenvaars.itch.io/plot-unfolding-machine) :)
-
-Check it out if getting stuck in your Solo or GMLess games is an often-issue, because PUM is designed to help with Scene Setup proposals.
-
-![pum-example.png](pum-example.png)
-
-#### Game Unfolding Machine
-
-This GM Emulator is action driven and focuses on getting you started with a solo adventure [HERE](https://jeansenvaars.itch.io/game-unfolding-machine) :)
-
-Check it out if you'd like to try something different in your adventures.
-
-#### Tricube Tales Countdown Cards
-
-Check out the cards section to learn how to configure them.
-
-![countdown-deck-example.png](countdown-deck-example.png)
 
 ### The Oracle Builder
 Create your own Oracles with Random Tables, supporting multiple draws per tables and flavor dialogues
@@ -269,9 +233,6 @@ Simply unzip the files as they are, into the `decks` folder in your `Data` folde
 * [GMA Steampunk Deck](https://www.drivethrurpg.com/product/176739/The-GameMasters-Apprentice-Steampunk-Deck)
 * [GMA Age of Sail Deck](https://www.drivethrurpg.com/product/187419/The-GameMasters-Apprentice-Age-of-Sail-Deck)
 * [GMA Demon Hunters Deck](https://www.drivethrurpg.com/product/155835/The-GameMasters-Apprentice-Demon-Hunters)
-* [Saga of the Goblin Horde](https://www.drivethrurpg.com/product/244819)
-* [Countdown Galactic](https://www.drivethrurpg.com/product/249100)
-* [Countdown Monster](https://www.drivethrurpg.com/product/249101)
   
 ![](example-decks.png)
 
