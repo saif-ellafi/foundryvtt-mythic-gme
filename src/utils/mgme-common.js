@@ -93,6 +93,10 @@ export default class MGMECommon {
       return undefined
   }
 
+  static _mgmeFindValueBySetting(setting) {
+    return game.settings.get('mythic-gme-tools', setting);
+  }
+
 }
 
 
