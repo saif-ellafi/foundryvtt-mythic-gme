@@ -106,7 +106,7 @@ export default class MGMECards {
     });
     dialog.options.resizable = true;
     dialog.render(true, {top: 200, left: MGMECards.lastPos});
-    if (MGMECards.lastPos < canvas.screenDimensions[0] - (parseInt(height) / 1.5)*2 - ui.chat.position.width)
+    if (MGMECards.lastPos < canvas.app.screen.width - (parseInt(height) / 1.5)*2 - 400)
       MGMECards.lastPos += parseInt(height) / 1.5 + 150;
     else
       MGMECards.lastPos = 150;

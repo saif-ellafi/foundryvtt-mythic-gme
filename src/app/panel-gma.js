@@ -14,6 +14,7 @@ export default class GMAPanel extends MGMEPanel {
     const api = game.modules.get('mythic-gme-tools').api;
 
     html.find("#gma_base").click(() => api.gmaDraw('GMA Base Deck'));
+    html.find("#gma_base2e").click(() => api.gmaDraw('GMA 2e Base Deck'));
     html.find("#gma_fantasy").click(() => api.gmaDraw('GMA Fantasy Deck'));
     html.find("#gma_horror").click(() => api.gmaDraw('GMA Horror Deck'));
     html.find("#gma_weird").click(() => api.gmaDraw('GMA Weird Horror Deck'));

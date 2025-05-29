@@ -1,3 +1,8 @@
+### 2.11.0
+* Compatibility: Foundry V13 and onwards
+* Update: GMA 2e Base Deck support added
+* Deprecations: Mythic 1st edition, PUM/SUM/GUM free editions, Location Crafter, Mythic Deck
+
 ### 2.10.2
 * Compatibility: Foundry V12 and onwards
 * Bugfix: Mythic Fate and Alteration checks fixed (thank you @tslays)

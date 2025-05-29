@@ -1,4 +1,5 @@
 import MGMEReference from "../utils/mgme-reference";
+import MGMEMacroAPI from "../mgme-macros";
 
 export default class MGMEPanel extends Application {
 

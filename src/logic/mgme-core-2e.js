@@ -25,25 +25,25 @@ export default class MGMECore2e {
 
     static mgmeRenderNPCsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then(t => t.normalize().then(t => t.sheet.render(true)));
+            MGMECore2e.adjustTable(table).then(t => t.normalize().then(_ => t.sheet.render(true)));
         });
     }
 
     static mgmeRenderThreadsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then(t => t.normalize().then(t => t.sheet.render(true)));
+            MGMECore2e.adjustTable(table).then(t => t.normalize().then(_ => t.sheet.render(true)));
         });
     }
 
     static mgmeRollNPCsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then((t) => t.normalize()).then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
+            MGMECore2e.adjustTable(table).then((t) => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
         });
     }
 
     static mgmeRollThreadsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then((t) => t.normalize()).then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
+            MGMECore2e.adjustTable(table).then((t) => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
         });
     }
 
