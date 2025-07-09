@@ -46,7 +46,16 @@
       "lang": "fr",
       "name": "Français",
       "path": "lang/fr.json"
-      
+    },
+    {
+      "lang": "it",
+      "name": "Italian",
+      "path": "lang/it.json"
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português",
+      "path": "lang/pt-BR.json"
     }
   ],
   "packFolders": [
