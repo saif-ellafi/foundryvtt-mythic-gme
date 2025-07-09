@@ -185,7 +185,7 @@ export default class MGMECore {
         config: true,
         type: String,
         choices: tables,
-        default: "Mythic GME: Action Meaning"
+        default: "Mythic GME: Action 1 (2e)"
       });
 
       game.settings.register('mythic-gme-tools', 'subjectTable', {
@@ -195,7 +195,7 @@ export default class MGMECore {
         config: true,
         type: String,
         choices: tables,
-        default: "Mythic GME: Subject Meaning"
+        default: "Mythic GME: Action 2 (2e)"
       });
 
       game.settings.register('mythic-gme-tools', 'descriptionsAdvTable', {
@@ -205,7 +205,7 @@ export default class MGMECore {
         config: true,
         type: String,
         choices: tables,
-        default: "Mythic GME: Descriptions 1"
+        default: "Mythic GME: Description 1 (2e)"
       });
 
       game.settings.register('mythic-gme-tools', 'descriptionsAdjTable', {
@@ -215,7 +215,7 @@ export default class MGMECore {
         config: true,
         type: String,
         choices: tables,
-        default: "Mythic GME: Descriptions 2"
+        default: "Mythic GME: Description 2 (2e)"
       });
     })
 

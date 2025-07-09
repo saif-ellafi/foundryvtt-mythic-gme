@@ -1,3 +1,8 @@
+### 2.11.1
+* Language: Brazilian Portuguese (Thank you @coppolaop)
+* Fix: Wrong table entry Overpowering
+* Fix: Wrong defaults for Meaning tables not using 2e
+
 ### 2.11.0
 * Compatibility: Foundry V13 and onwards
 * Update: GMA 2e Base Deck support added
