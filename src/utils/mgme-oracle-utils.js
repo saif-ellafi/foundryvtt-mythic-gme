@@ -1,3 +1,4 @@
+import "../style/oracle-chat.css";
 import MGMEChatJournal from "./mgme-chat-journal";
 import MGMECommon from "./mgme-common";
 
@@ -13,9 +14,50 @@ export default class MGMEOracleUtils {
     return targetRoll;
   }
 
+  static async _mgmeScrollChat() {
+    await ui.chat.scrollBottom({popout: true});
+  }
+
+  static _MGME_ORACLE_AWAKE = "mgme-oracle-awake";
+
+  static _mgmeSetSidebarAwake(awake) {
+    for (const id of ["chat-notifications", "sidebar-tabs"]) {
+      document.getElementById(id)?.classList.toggle(MGMEOracleUtils._MGME_ORACLE_AWAKE, awake);
+    }
+  }
+
+  static _mgmePinFloatingChat(stepCount = 4) {
+    const ChatLog = ui.chat.constructor;
+    const saved = {notifyDuration: ChatLog.NOTIFY_DURATION, pinned: false};
+    if (!game.dice3d) return saved;
+    const delaySec = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') ?? 0;
+    const perStepMs = (delaySec + 5) * 1000;
+    ChatLog.NOTIFY_DURATION = Math.max(saved.notifyDuration, perStepMs * stepCount + 3000);
+    MGMEOracleUtils._mgmeSetSidebarAwake(true);
+    saved.pinned = true;
+    return saved;
+  }
+
+  static _mgmeRestoreFloatingChat(saved) {
+    if (!saved) return;
+    ui.chat.constructor.NOTIFY_DURATION = saved.notifyDuration;
+    if (saved.pinned) MGMEOracleUtils._mgmeSetSidebarAwake(false);
+  }
+
+  static async _mgmeRefreshChatDisplay(chatMessage, {isNew = false} = {}) {
+    if (isNew) ui.chat.notify(chatMessage, {newMessage: true});
+    else await ui.chat.updateMessage(chatMessage, {notify: true});
+    if (game.dice3d) {
+      const element = document.getElementById("chat-notifications")
+        ?.querySelector(`.message[data-message-id="${chatMessage.id}"]`);
+      if (element) element.style.opacity = "1";
+    }
+    await MGMEOracleUtils._mgmeScrollChat();
+  }
+
   static async _mgmeUpdateChatSimulation(baseChat, newMessage, separator = '') {
     await baseChat.update({content: baseChat.content + separator + newMessage});
-    await ui.chat.scrollBottom({popout: true});
+    await MGMEOracleUtils._mgmeRefreshChatDisplay(baseChat);
     const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
     if (randomEventsIn3D) {
       await new Promise(r => setTimeout(r, game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000));
@@ -76,98 +118,100 @@ export default class MGMEOracleUtils {
       whisper: whisper
     };
     await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
-    if (!ui.sidebar.expanded) {
-      ui.sidebar.expand();
-    }
     await ChatMessage.create(chatConfig);
+    await MGMEOracleUtils._mgmeScrollChat();
   }
 
   static async _mgmeMultipleTableOracle(tableDataList, flavor, useSpeaker, input) {
-    const whisper = MGMECommon._mgmeGetWhisperMode();
-    const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
-    let chatConfig = {
-      flavor: game.i18n.localize(flavor),
-      speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
-      content: input?.length ? `<h2>${input}</h2>` : '',
-      whisper: whisper
-    };
-    if (!ui.sidebar.expanded) {
-      ui.sidebar.expand();
-    }
-    let chat = await ChatMessage.create(chatConfig);
-    let first = true;
-    for (const tableData of tableDataList) {
-      const sceneDesign = await MGMECommon._mgmeFindTableByName(tableData.name);
-      const targetRoll = await sceneDesign.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
-      await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
-      const focusDebug = debug ? ` (${targetRoll.roll.formula}: ${targetRoll.roll.result})` : '';
-      const output = targetRoll.results[0].description+focusDebug;
-      if (tableData.key) {
-        await MGMEOracleUtils._mgmeUpdateChatSimulation(
-					chat,
-					`<b>${game.i18n.localize(tableData.key)}:</b> ${game.i18n.localize(output)}`,
-					first === false ? "<br/>" : ""
-				);
-      } else {
-        await MGMEOracleUtils._mgmeUpdateChatSimulation(
-					chat,
-					`${game.i18n.localize(output)}`,
-					first === false ? " " : ""
-				);
+    const pin = MGMEOracleUtils._mgmePinFloatingChat(tableDataList.length + 1);
+    try {
+      const whisper = MGMECommon._mgmeGetWhisperMode();
+      const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+      let chatConfig = {
+        flavor: game.i18n.localize(flavor),
+        speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
+        content: input?.length ? `<h2>${input}</h2>` : '',
+        whisper: whisper
+      };
+      let chat = await ChatMessage.create(chatConfig);
+      await MGMEOracleUtils._mgmeRefreshChatDisplay(chat, {isNew: true});
+      let first = true;
+      for (const tableData of tableDataList) {
+        const sceneDesign = await MGMECommon._mgmeFindTableByName(tableData.name);
+        const targetRoll = await sceneDesign.roll({roll: tableData.formula ? new Roll(tableData.formula) : undefined});
+        await MGMEOracleUtils._mgmeSimulateRoll(targetRoll.roll);
+        const focusDebug = debug ? ` (${targetRoll.roll.formula}: ${targetRoll.roll.result})` : '';
+        const output = targetRoll.results[0].description+focusDebug;
+        if (tableData.key) {
+          await MGMEOracleUtils._mgmeUpdateChatSimulation(
+            chat,
+            `<b>${game.i18n.localize(tableData.key)}:</b> ${game.i18n.localize(output)}`,
+            first === false ? "<br/>" : ""
+          );
+        } else {
+          await MGMEOracleUtils._mgmeUpdateChatSimulation(
+            chat,
+            `${game.i18n.localize(output)}`,
+            first === false ? " " : ""
+          );
+        }
+        first = false;
       }
-      first = false;
+    } finally {
+      MGMEOracleUtils._mgmeRestoreFloatingChat(pin);
     }
   }
 
   static async _mgmeSubmitOracleQuestion(eventTitle, eventFlavor, useSpeaker, eventFocus, tableSetting1, tableSetting2, baseChat) {
-    const randomAnswers = await MGMEOracleUtils._mgmeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2);
-    let chatMessage;
-    if (baseChat) {
-      chatMessage = baseChat;
-    } else {
-      const whisper = MGMECommon._mgmeGetWhisperMode();
-      let chatConfig = {
-        flavor: eventFlavor,
-        content: eventTitle,
-        speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
-        whisper: whisper
-      };
-      // NOTE: Do NOT send to Journal YET as it needs to be enhanced
-      if (!ui.sidebar.expanded) {
-        ui.sidebar.expand();
-      }
-      chatMessage = await ChatMessage.create(chatConfig);
-    }
+    const pin = MGMEOracleUtils._mgmePinFloatingChat(4);
     let oldHide;
-    if (game.dice3d) {
-      if (!game.user.getFlag('dice-so-nice', 'settings')) {
-        ui.notifications.warn("Dice So Nice! Installed but was never configured. Please go to it's module settings and configure dice for the first time.");
+    try {
+      const randomAnswers = await MGMEOracleUtils._mgmeGetOracleAnswers(eventFocus, tableSetting1, tableSetting2);
+      let chatMessage;
+      if (baseChat) {
+        chatMessage = baseChat;
       } else {
-        oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
-        game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') * 1000 * 1.1;
+        const whisper = MGMECommon._mgmeGetWhisperMode();
+        let chatConfig = {
+          flavor: eventFlavor,
+          content: eventTitle,
+          speaker: useSpeaker ? ChatMessage.getSpeaker() : undefined,
+          whisper: whisper
+        };
+        // NOTE: Do NOT send to Journal YET as it needs to be enhanced
+        chatMessage = await ChatMessage.create(chatConfig);
+        await MGMEOracleUtils._mgmeRefreshChatDisplay(chatMessage, {isNew: true});
       }
-    }
-    const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
-    if (randomAnswers.focusResult !== '_') {// Special exception for non-focus based oracle questions
-      const focusRoll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*';
-      const focusDebug = debug ? `(${focusRoll})` : '';
-      await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b>${focusDebug}</div>`);
-    }
-    if (randomAnswers.descriptor1Result) {
-      const desc1roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total;
-      const desc1debug = debug ? ` (${desc1roll})</div>` : '';
-      await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result}${desc1debug}`);
-    }
-    if (randomAnswers.descriptor2Result) {
-      const desc2roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total;
-      const desc2debug = debug ? ` (${desc2roll})` : '';
-      await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result}${desc2debug}</div>`);
-    }
-    await MGMEChatJournal._mgmeLogChatToJournal(chatMessage);
-    if (game.dice3d && oldHide) {
-      Hooks.once('diceSoNiceRollComplete', async () => {
+      if (game.dice3d) {
+        if (!game.user.getFlag('dice-so-nice', 'settings')) {
+          ui.notifications.warn("Dice So Nice! Installed but was never configured. Please go to it's module settings and configure dice for the first time.");
+        } else {
+          oldHide = game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide;
+          game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') * 1000 * 1.1;
+        }
+      }
+      const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
+      if (randomAnswers.focusResult !== '_') {// Special exception for non-focus based oracle questions
+        const focusRoll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*';
+        const focusDebug = debug ? `(${focusRoll})` : '';
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b>${focusDebug}</div>`);
+      }
+      if (randomAnswers.descriptor1Result) {
+        const desc1roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total;
+        const desc1debug = debug ? ` (${desc1roll})</div>` : '';
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result}${desc1debug}`);
+      }
+      if (randomAnswers.descriptor2Result) {
+        const desc2roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total;
+        const desc2debug = debug ? ` (${desc2roll})` : '';
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result}${desc2debug}</div>`);
+      }
+      await MGMEChatJournal._mgmeLogChatToJournal(chatMessage);
+    } finally {
+      MGMEOracleUtils._mgmeRestoreFloatingChat(pin);
+      if (game.dice3d && oldHide !== undefined) {
         game.user.getFlag('dice-so-nice', 'settings').timeBeforeHide = oldHide;
-      })
+      }
     }
   }
 

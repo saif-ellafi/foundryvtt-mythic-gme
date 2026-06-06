@@ -152,9 +152,9 @@ export default class MGMEOracleBuilder {
       speaker: ChatMessage.getSpeaker(),
       whisper: whisper
     };
-    if (!ui.sidebar.expanded) {
-      ui.sidebar.expand();
-    }
-    ChatMessage.create(chatConfig).then(chat => {if (!oracle.test) MGMEChatJournal._mgmeLogChatToJournal(chat)});
+    ChatMessage.create(chatConfig).then(async chat => {
+      await ui.chat.scrollBottom({popout: true});
+      if (!oracle.test) MGMEChatJournal._mgmeLogChatToJournal(chat);
+    });
   }
 }

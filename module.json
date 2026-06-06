@@ -16,7 +16,7 @@
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibility": {
     "minimum": "13",
-    "verified": "14.360",
+    "verified": "14.363",
     "maximum": "14"
   },
   "styles": [

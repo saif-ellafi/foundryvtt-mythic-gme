@@ -140,8 +140,32 @@
 #mgme_panel_ci,
 #mgme_panel_cd {
     height: 100%;
-    font-size: x-large;
+    font-size: 1.25rem;
     padding-right: 15px;
+}
+
+#mgme_panel_ci button,
+#mgme_panel_cd button {
+    font-size: 0.85rem;
+    line-height: 1.2;
+    padding: 4px 6px;
+}
+
+#m2e_panel_window .window-content {
+    padding-right: 6px;
+}
+
+#m2e_panel_window .window-content table {
+    width: 100%;
+}
+
+#m2e_panel_window .spaced {
+    padding: 2px;
+}
+
+#m2e_panel_window .spaced button {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #m2e_panel_window {

@@ -1,0 +1,7 @@
+/* Temporary full-opacity for collapsed-sidebar oracle rolls with Dice So Nice. */
+#chat-notifications.mgme-oracle-awake,
+#sidebar-tabs.mgme-oracle-awake {
+  --ui-fade-delay: 0;
+  --ui-fade-duration: 100ms;
+  opacity: 1;
+}

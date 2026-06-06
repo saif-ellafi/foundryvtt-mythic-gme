@@ -3,6 +3,9 @@
 * Migration: Updated chat visibility handling from roll modes to v14 message modes
 * Migration: Updated templates, file browsing, image sharing, and chat scrolling to documented v14 APIs
 * Migration: Updated TableResult reads and writes from deprecated `text` to `name`/`description`
+* Fix: Multi-step oracle chat no longer forces the sidebar open; updates scroll floating chat instead
+* Fix: Floating chat stays visible through multi-step oracle rolls when Dice So Nice is enabled
+* Fix: Collapsed sidebar stays fully opaque during multi-step oracle rolls with Dice So Nice, then returns to normal idle fade
 
 ### 2.11.1
 * Language: Brazilian Portuguese (Thank you @coppolaop)
