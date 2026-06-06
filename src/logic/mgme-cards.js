@@ -75,7 +75,8 @@ export default class MGMECards {
               editable: false,
               shareable: true
             });
-            ip._render(true, {title: "Card", height: parseInt(height), width: parseInt(height) / 1.5}).then(() => ip.shareImage());
+            ip.render(true, {title: "Card", height: parseInt(height), width: parseInt(height) / 1.5});
+            queueMicrotask(() => ip.shareImage());
           }
         },
         chat: {
