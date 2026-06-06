@@ -1,6 +1,8 @@
 import MGMEChatJournal from "./mgme-chat-journal";
 import MGMECommon from "./mgme-common";
 
+const {Dialog} = foundry.appv1.api;
+
 export default class MGMEOracleUtils {
 
   static async _mgmeSimulateRoll(targetRoll) {
@@ -13,11 +15,7 @@ export default class MGMEOracleUtils {
 
   static async _mgmeUpdateChatSimulation(baseChat, newMessage, separator = '') {
     await baseChat.update({content: baseChat.content + separator + newMessage});
-    ui.chat.scrollBottom();
-    const popOutChat = Object.values(ui.windows).find(w => w.constructor.name === 'ChatLog')
-    if (popOutChat) {
-      setTimeout(() => popOutChat.scrollBottom(), 10); // Don't ask
-    }
+    await ui.chat.scrollBottom({popout: true});
     const randomEventsIn3D = (game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
     if (randomEventsIn3D) {
       await new Promise(r => setTimeout(r, game.settings.get('mythic-gme-tools', 'randomEvents3DDelay')*1000));

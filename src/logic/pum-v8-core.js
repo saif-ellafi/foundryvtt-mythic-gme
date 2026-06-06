@@ -12,7 +12,7 @@ export default class PUMV8Core {
       let i = 0;
       while (i < adjustBy - 1) {
         newResults.push({
-          text: 'Choose or reroll',
+          name: 'Choose or reroll',
           range: [size + i + 1, size + i + 1],
           weight: 1
         });
@@ -20,7 +20,7 @@ export default class PUMV8Core {
       }
       // Add the last entry as to add new
       newResults.push({
-        text: 'Add new or reroll',
+        name: 'Add new or reroll',
         range: [size + i + 1, size + i + 1],
         weight: 1
       });
@@ -103,25 +103,25 @@ export default class PUMV8Core {
 
   static pumV8RollAspectsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('Game or world elements', 'PUM Plot Nodes').then(table => {
-      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
+      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()})));
     });
   }
 
   static pumV8RollEncountersList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('Meaningful encounters', 'PUM Plot Nodes').then(table => {
-      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
+      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()})));
     });
   }
 
   static pumV8RollFindsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('Things to be found', 'PUM Plot Nodes').then(table => {
-      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
+      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()})));
     });
   }
 
   static pumV8RollQuestionsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('Pending questions', 'PUM Plot Nodes').then(table => {
-      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
+      PUMV8Core.adjustTable(table, 'MGME.TableResultChoose2e').then(t => t.normalize().then(_ => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()})));
     });
   }
 

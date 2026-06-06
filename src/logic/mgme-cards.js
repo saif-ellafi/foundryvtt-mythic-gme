@@ -1,5 +1,8 @@
 import MGMECommon from "../utils/mgme-common";
 
+const {Dialog} = foundry.appv1.api;
+const {FilePicker, ImagePopout} = foundry.applications.apps;
+
 export default class MGMECards {
 
   static initSettings() {
@@ -35,14 +38,15 @@ export default class MGMECards {
       ui.notifications.info(game.i18n.localize('MGME.InfoShuffled'));
       return false;
     }
-    const image = await result.results[0].text;
+    const drawResult = result.results[0];
+    const image = drawResult.name || drawResult.description;
     const isRotated = Math.random() < 0.5;
     const style = useRotate && isRotated ? " transform: rotate(181deg);" : "";
 
     const path = `${projectRoot}/${image}.${fileExtension}`
 
     try {
-      await FilePicker.browse('user', path);
+      await FilePicker.browse('data', path);
     } catch {
       let errorChat = {
         content: `
@@ -70,13 +74,13 @@ export default class MGMECards {
       buttons: {
         share: {
           label: game.i18n.localize('MGME.DeckShow'),
-          callback: () => {
-            const ip = new ImagePopout(path, {
-              editable: false,
-              shareable: true
+          callback: async () => {
+            const ip = new ImagePopout({
+              src: path,
+              window: {title: "Card", resizable: true}
             });
-            ip.render(true, {title: "Card", height: parseInt(height), width: parseInt(height) / 1.5});
-            queueMicrotask(() => ip.shareImage());
+            await ip.render(true);
+            ip.shareImage();
           }
         },
         chat: {

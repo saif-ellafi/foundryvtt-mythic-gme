@@ -1,6 +1,9 @@
 import MGMECommon from "../utils/mgme-common";
 import MGMEChatJournal from "../utils/mgme-chat-journal";
 
+const {Dialog} = foundry.appv1.api;
+const {renderTemplate} = foundry.applications.handlebars;
+
 export default class MGMEOracleBuilder {
   /** MACRO */
   static async mgmeOracleBuilder() {

@@ -1,6 +1,8 @@
 import MGMEReference from "../utils/mgme-reference";
 import MGMEMacroAPI from "../mgme-macros";
 
+const {Application, Dialog} = foundry.appv1.api;
+
 export default class MGMEPanel extends Application {
 
   constructor(secondary= false) {

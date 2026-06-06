@@ -12,7 +12,7 @@ export default class MGMECore2e {
             let i = 0;
             while (i < adjustBy) {
                 newResults.push({
-                    text: game.i18n.localize('MGME.TableResultChoose2e'),
+                    name: game.i18n.localize('MGME.TableResultChoose2e'),
                     range: [size + i + 1, size + i + 1],
                     weight: 1
                 })
@@ -37,13 +37,13 @@ export default class MGMECore2e {
 
     static mgmeRollNPCsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then((t) => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
+            MGMECore2e.adjustTable(table).then((t) => t.normalize().then(_ => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()})));
         });
     }
 
     static mgmeRollThreadsList2e() {
         MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
-            MGMECore2e.adjustTable(table).then((t) => t.normalize().then(_ => t.draw({rollMode: MGMECommon._mgmeGetRollMode()})));
+            MGMECore2e.adjustTable(table).then((t) => t.normalize().then(_ => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()})));
         });
     }
 

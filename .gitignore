@@ -4,3 +4,4 @@ dist
 *.zip
 .idea
 .DS_Store
+.env

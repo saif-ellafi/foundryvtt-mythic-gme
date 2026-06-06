@@ -1,3 +1,9 @@
+### 2.12.0
+* Compatibility: Foundry VTT v14
+* Migration: Updated chat visibility handling from roll modes to v14 message modes
+* Migration: Updated templates, file browsing, image sharing, and chat scrolling to documented v14 APIs
+* Migration: Updated TableResult reads and writes from deprecated `text` to `name`/`description`
+
 ### 2.11.1
 * Language: Brazilian Portuguese (Thank you @coppolaop)
 * Fix: Wrong table entry Overpowering

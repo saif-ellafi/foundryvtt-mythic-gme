@@ -1,6 +1,9 @@
 import MGMEChatJournal from "../utils/mgme-chat-journal";
 import MGMECommon from "../utils/mgme-common";
 
+const {Dialog} = foundry.appv1.api;
+const {renderTemplate} = foundry.applications.handlebars;
+
 export default class MGMEChatExtras {
 
   static async mgmeExportChatToJournal() {
@@ -68,13 +71,13 @@ export default class MGMEChatExtras {
 
   static async mgmeRollNPCsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('NPCs List', 'Mythic Lists').then(table => {
-      table.normalize().then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
+      table.normalize().then((t) => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()}));
     });
   }
 
   static async mgmeRollThreadsList() {
     MGMEChatJournal._mgmeFindOrCreateRolltable('Threads List', 'Mythic Lists').then(table => {
-      table.normalize().then((t) => t.draw({rollMode: MGMECommon._mgmeGetRollMode()}));
+      table.normalize().then((t) => t.draw({messageMode: MGMECommon._mgmeGetMessageMode()}));
     });
   }
 
@@ -212,7 +215,7 @@ export default class MGMEChatExtras {
             let i = 0;
             while (i < howMany) {
               const roll = Roll.create(formula.length ? formula : '1d100');
-              await roll.roll({async: true}).then(async r => {
+              await roll.roll().then(async r => {
                 if (game.dice3d) {
                   await game.dice3d.showForRoll(r);
                 }

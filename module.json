@@ -9,17 +9,16 @@
       "ko-fi": "https://ko-fi.com/jeansenvaars"
     }
   ],
-  "version": "2.11.1",
+  "version": "2.12.0",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
-  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.11.1/foundryvtt-mythic-gme_2.11.1.zip",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.12.0/foundryvtt-mythic-gme_2.12.0.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibility": {
     "minimum": "13",
-    "verified": "13.344",
-    "maximum": "13"
+    "verified": "14.360",
+    "maximum": "14"
   },
-  "minimumCoreVersion": "13",
   "styles": [
     "mythic-gme-tools.css"
   ],
