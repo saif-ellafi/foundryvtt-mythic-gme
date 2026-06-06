@@ -1,3 +1,6 @@
+### 2.12.1
+* Compatibility: Minimum Foundry version raised to 14 (2.12.0 requires v14 APIs; prevents v13 clients from auto-updating into a broken install)
+
 ### 2.12.0
 * Compatibility: Foundry VTT v14
 * Migration: Updated chat visibility handling from roll modes to v14 message modes
