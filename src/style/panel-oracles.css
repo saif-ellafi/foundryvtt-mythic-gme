@@ -1,0 +1,176 @@
+#mgme_oracle_panel_window {
+  min-width: 470px;
+}
+
+#mgme_oracle_panel_window .window-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding-right: 6px;
+}
+
+#mgme_oracle_panel_window .window-content table {
+  width: 100%;
+}
+
+#mgme_oracle_panel_window .spaced {
+  padding: 2px;
+}
+
+#mgme_oracle_panel_window .spaced button {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#mgme_oracle_panel_window .header-control.icon.fa-times {
+  display: none;
+}
+
+.mgme-oracle-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mgme-oracle-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  width: 100%;
+  gap: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-bottom: 1px solid var(--color-border-light-2);
+  margin-bottom: 0.5rem;
+  padding-bottom: 2px;
+}
+
+.mgme-tab-link {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  padding: 0.35rem 0.5rem;
+  border-radius: 3px 3px 0 0;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: none;
+  cursor: pointer;
+  font: inherit;
+  line-height: inherit;
+}
+
+.mgme-tab-link:hover {
+  color: var(--color-text-primary);
+  text-shadow: 0 0 8px var(--color-shadow-primary);
+}
+
+.mgme-tab-link.active {
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light-2);
+  border-bottom-color: var(--color-bg-primary);
+  text-shadow: none;
+}
+
+.mgme-oracle-tab.active {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.mgme-oracle-tab__heading {
+  flex-shrink: 0;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  padding: 0;
+}
+
+.mgme-oracle-tab__title {
+  font-size: var(--font-size-11);
+  font-weight: normal;
+  color: var(--color-text-secondary);
+}
+
+#mgme_oracle_panel_window table tr,
+#mgme_oracle_panel_window table td,
+#mgme_oracle_panel_window table th,
+#mgme_oracle_panel_window table h5 {
+  background: transparent;
+}
+
+#mgme_oracle_panel_window .mgme-oracle-tab__heading + .mythic-gme-dialog,
+#mgme_oracle_panel_window .mgme-oracle-tab__heading + .pum8-dialog,
+#mgme_oracle_panel_window .mgme-oracle-tab__heading + #sum7-window,
+#mgme_oracle_panel_window .mgme-oracle-tab__heading + #mythic-gme-window {
+  margin-top: 0;
+}
+
+#mgme_oracle_panel_window .mythic-gme-dialog + div {
+  margin-top: 0.35rem;
+  padding-top: 0;
+}
+
+#mgme_oracle_panel_window .pum8-dialog + #pum8-window {
+  margin-top: 0.35rem;
+  padding-top: 0;
+}
+
+#mgme_oracle_panel_window .mythic-gme-dialog + div table {
+  margin-top: 0;
+}
+
+#mgme_oracle_panel_window .mythic-gme-dialog + div table tr:first-child h5 {
+  margin-top: 0;
+}
+
+#mgme_oracle_panel_window #sum7-window table,
+#mgme_oracle_panel_window #mythic-gme-window table {
+  margin-top: 0;
+}
+
+#mgme_oracle_panel_window #sum7-window table tr:first-child td,
+#mgme_oracle_panel_window #mythic-gme-window table tr:first-child td {
+  padding-top: 0;
+}
+
+#mgme_oracle_panel_window #sum7-window table tr:first-child h5,
+#mgme_oracle_panel_window #mythic-gme-window table tr:first-child h5 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.mgme-oracle-tab[hidden] {
+  display: none !important;
+}
+
+.mgme-configure-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mgme-configure-tabs__choice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mgme-configure-tabs__choice span {
+  flex: 1;
+}
+
+.mgme-configure-tabs__hint {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-12);
+  margin-bottom: 0.5rem;
+}

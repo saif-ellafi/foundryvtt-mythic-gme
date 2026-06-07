@@ -1,74 +1,111 @@
 .pum8-dialog {
+    --pum8-dice-width: 48px;
+    --pum8-core-button-height: 32px;
     display: grid;
     grid-template-areas:
-        "aspr asp asp xx act act actr"
-        "tror tro tro xx thr thr thrr";
-    grid-template-columns: .25fr 1fr auto 6px auto 1fr .25fr;
-    grid-template-rows: auto;
+        "aspr asp act actr"
+        "tror tro thr thrr";
+    grid-template-columns: var(--pum8-dice-width) 1fr 1fr var(--pum8-dice-width);
+    grid-template-rows: var(--pum8-core-button-height) var(--pum8-core-button-height);
+    column-gap: 3px;
+    row-gap: 2px;
+    margin-bottom: 0;
 }
 
 .pum8-dialog__button {
-    display: grid;
-    grid-template-areas:
-        "icon label";
-    grid-template-columns: 28px auto;
-    grid-template-rows: auto;
-    margin-bottom: 3px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.pum8-dialog__button:not(.pum8-dialog__button--icon) {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 6px;
+}
+
+.pum8-dialog__button--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.pum8-dialog__button-control,
+.pum8-dialog__dice {
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+}
+
+.pum8-dialog__dice {
+    width: var(--pum8-dice-width);
+    flex: 0 0 var(--pum8-dice-width);
+    justify-content: center;
+}
+
+.pum8-dialog__button-control .pum8-dialog__button,
+.pum8-dialog__dice .pum8-dialog__button {
+    box-sizing: border-box;
+}
+
+/* Rows 1–2: equal-height list + dice buttons */
+.pum8-dialog > .pum8-dialog__button-control .pum8-dialog__button,
+.pum8-dialog > .pum8-dialog__dice .pum8-dialog__button {
+    height: 100%;
+    min-height: var(--pum8-core-button-height);
+    max-height: var(--pum8-core-button-height);
+}
+
+.pum8-dialog > .pum8-dialog__dice .pum8-dialog__button {
+    width: var(--pum8-dice-width);
+    font-size: 1.1rem;
+    padding: 0;
 }
 
 .pum8-dialog__icon--left {
-    grid-area: icon;
-    margin: auto;
+    position: absolute;
+    left: 6px;
     width: 14px;
-}
-
-.pum8-dialog__dice--right {
-    margin-right: 5px;
-    font-size: 20px;
-}
-
-.pum8-dialog__dice--left {
-    margin-left: 5px;
-    font-size: 20px;
-}
-
-.pum8-dialog__dice > i:focus, .pum8-dialog__dice > i:hover {
-    outline: none;
-    box-shadow: 0 0 5px var(--color-shadow-primary);
+    margin: 0;
 }
 
 .pum8-dialog__button-control-label {
-    grid-area: label;
+    flex: 1;
+    width: 100%;
+    text-align: center;
 }
 
 .pum8_panel_aspect_setup {
-    grid-area: asp
+    grid-area: asp;
 }
 
 .pum8_panel_aspect_roll {
-    grid-area: aspr
+    grid-area: aspr;
 }
 
 .pum8_panel_encounter_setup {
-    grid-area: act
+    grid-area: act;
 }
 
 .pum8_panel_encounter_roll {
-    grid-area: actr
+    grid-area: actr;
 }
 
 .pum8_panel_find_setup {
-    grid-area: tro
+    grid-area: tro;
 }
 
 .pum8_panel_find_roll {
-    grid-area: tror
+    grid-area: tror;
 }
 
 .pum8_panel_question_setup {
-    grid-area: thr
+    grid-area: thr;
 }
 
 .pum8_panel_question_roll {
-    grid-area: thrr
+    grid-area: thrr;
 }

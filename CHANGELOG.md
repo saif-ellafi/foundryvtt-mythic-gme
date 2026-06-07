@@ -1,3 +1,7 @@
+### 2.13.0
+* Feature: Migrated the oracle panel to Foundry ApplicationV2
+* Feature: Single tabbed panel for all oracle systems (Mythic 2e, PUM, SUM, GUM, GMA) — Thank you stekman for the tabbed layout idea
+
 ### 2.12.1
 * Compatibility: Minimum Foundry version raised to 14 (2.12.0 requires v14 APIs; prevents v13 clients from auto-updating into a broken install)
 

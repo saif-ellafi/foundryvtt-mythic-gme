@@ -2,6 +2,7 @@ import MGMEReference from "../utils/mgme-reference";
 import MGMECommon from "../utils/mgme-common";
 import MGMEOracleUtils from "../utils/mgme-oracle-utils";
 import MGMEChatJournal from "../utils/mgme-chat-journal";
+import {ALL_PANEL_KEYS, DEFAULT_PANEL_KEYS, panelChoices} from "../app/panel-registry";
 
 const {Dialog} = foundry.appv1.api;
 const {renderTemplate} = foundry.applications.handlebars;
@@ -23,13 +24,27 @@ export default class MGMECore {
       name: game.i18n.localize('MGME.SettingsPanelKeyName'),
       hint: game.i18n.localize('MGME.SettingsPanelKeyHint'),
       scope: 'client',
-      config: true,
+      config: false,
       type: String,
-      choices: MGMEReference.MYTHIC_PANELS,
-      default: 'mgme_2e',
-      onChange: (panelKey) => {
-        game.modules.get('mythic-gme-tools').api.mgmeResetRuleDefaults(panelKey);
-        game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel()
+      choices: {
+        'nopanel': 'Disabled',
+        ...panelChoices()
+      },
+      default: 'mgme_2e'
+    });
+
+    game.settings.register('mythic-gme-tools', 'panelKeys', {
+      name: game.i18n.localize('MGME.SettingsPanelKeyName'),
+      hint: game.i18n.localize('MGME.SettingsPanelKeyHint'),
+      scope: 'client',
+      config: false,
+      type: Array,
+      default: [...ALL_PANEL_KEYS],
+      onChange: (panelKeys) => {
+        if (panelKeys?.includes('mgme_2e')) {
+          game.modules.get('mythic-gme-tools').api.mgmeResetRuleDefaults('mgme_2e');
+        }
+        game.modules.get('mythic-gme-tools').api.mgmeLaunchPanel();
       }
     });
 
@@ -241,11 +256,10 @@ export default class MGMECore {
   }
 
   static async mgmeFateChart() {
+    const isMythic2e = game.settings.get('mythic-gme-tools', 'panelKeys')?.includes('mgme_2e');
 
     function generateOutput(question, odds, chaos, result) {
-      const version = game.settings.get('mythic-gme-tools', 'panelKey');
-      const chart = version !== 'mgme_2e' ?
-        MGMEReference.FATE_CHART : MGMEReference.FATE_CHART_2E;
+      const chart = isMythic2e ? MGMEReference.FATE_CHART_2E : MGMEReference.FATE_CHART;
       const target = chart[odds][chaos];
       const ex_yes_bound = target * 0.2;
       const ex_no_bound = 100 - ((100 - target) * 0.2)
@@ -262,9 +276,7 @@ export default class MGMECore {
         outcome = game.i18n.localize('MGME.No');
       }
       const debug = game.settings.get('mythic-gme-tools', 'mythicRollDebug');
-      const oddsKey = version !== 'mgme_2e' ?
-        MGMEReference.ODDS_MAP_CORE[odds] :
-        MGMEReference.ODDS_MAP_2E[odds]['key'];
+      const oddsKey = isMythic2e ? MGMEReference.ODDS_MAP_2E[odds]['key'] : MGMEReference.ODDS_MAP_CORE[odds];
       return `
         ${question ? `<h2>${question} <em>(${game.i18n.localize(oddsKey)})</em></h2>` : `<h2><em>${game.i18n.localize(oddsKey)}</em></h2>`}
         ${debug ? `<div><b>Roll:</b> ${result} Chaos [${chaos}]</div>` : ''}
@@ -272,8 +284,7 @@ export default class MGMECore {
       `
     }
 
-    const version = game.settings.get('mythic-gme-tools', 'panelKey');
-    const fateChartTemplate = version !== 'mgme_2e'  ?
+    const fateChartTemplate = isMythic2e  ?
       './modules/mythic-gme-tools/template/core-fatechart-dialog.hbs' :
       './modules/mythic-gme-tools/template/core-fatechart-2e-dialog.hbs';
     const fateChartDialog = await renderTemplate(fateChartTemplate, {chaosRankOptions: new Handlebars.SafeString(MGMECommon._mgmeGenerateChaosRankOptions())});

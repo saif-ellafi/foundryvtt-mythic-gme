@@ -1,72 +1,29 @@
 import MGMECore from "./logic/mgme-core";
 import MGMECore2e from "./logic/mgme-core-2e";
-import MGME2ePanel from "./app/panel-mythic-gme-2e";
 import PUMV8Core from "./logic/pum-v8-core";
-import PUMV8Panel from "./app/panel-pum-v8";
 import SUMV7Core from "./logic/sum-v7-core";
-import SUMV7Panel from "./app/panel-sum-v7";
 import GUMV2Core from "./logic/gum-v2-core";
-import GUM2Panel from "./app/panel-gum-v2";
-import GMAPanel from "./app/panel-gma";
 import MGMECards from "./logic/mgme-cards";
 import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
+import MGMEPanel from "./app/panel-base";
+import {ALL_PANEL_KEYS, DEFAULT_PANEL_KEYS, normalizePanelKeys, PANEL_DEFINITIONS, PANEL_WINDOW_WIDTH} from "./app/panel-registry";
 
 export default class MGMEMacroAPI {
 
-  static mgmeRenderPanel(key, is_secondary=false) {
-    let startWidth = 420;
-    let startTop = 320;
-    let startHeight = undefined;
-    let resizable = false;
-    let win;
-    switch (key) {
-      case 'mgme_2e': {
-        win = new MGME2ePanel(is_secondary);
-        startTop = 375;
-        startHeight = 300;
-        resizable = true;
-        break;
+  static mgmeRenderPanel(panelKeys) {
+    const keys = normalizePanelKeys(panelKeys ?? game.settings.get('mythic-gme-tools', 'panelKeys'));
+    if (!keys.length) return undefined;
+    const activePanel = PANEL_DEFINITIONS[keys[0]] ?? PANEL_DEFINITIONS[DEFAULT_PANEL_KEYS[0]];
+    const win = new MGMEPanel(keys);
+    win.render({
+      force: true,
+      position: {
+        width: PANEL_WINDOW_WIDTH,
+        left: (canvas.app.screen.width - PANEL_WINDOW_WIDTH - 400),
+        top: canvas.app.screen.height - 505,
+        height: activePanel.height
       }
-      case 'gma_cards': {
-        win = new GMAPanel(is_secondary);
-        resizable = true;
-        startHeight = 250;
-        break;
-      }
-      case 'pum8_core': {
-        win = new PUMV8Panel(is_secondary);
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 500;
-        resizable = true;
-        break;
-      }
-      case 'sum7_core': {
-        win = new SUMV7Panel(is_secondary);
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 470;
-        resizable = true;
-        break;
-      }
-      case 'gum2_core': {
-        win = new GUM2Panel(is_secondary);
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 470;
-        resizable = true;
-        break;
-      }
-    }
-    if (is_secondary)
-      startTop += 320;
-    win?.render(true, {
-      width: startWidth,
-      left: (canvas.app.screen.width - startWidth - 400),
-      top: canvas.app.screen.height - startTop - 80,
-      height: startHeight,
-      resizable: resizable
     });
     return win;
   }
@@ -75,15 +32,28 @@ export default class MGMEMacroAPI {
     if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
       return
     }
-    const key = game.settings.get('mythic-gme-tools', 'panelKey');
+    const keys = normalizePanelKeys(game.settings.get('mythic-gme-tools', 'panelKeys'));
     const api = game.modules.get('mythic-gme-tools').api;
     if (api.win) {
       api.win?.close({force: true});
       delete api.win;
     }
-    if (key === 'nopanel') return;
-    const win = MGMEMacroAPI.mgmeRenderPanel(key);
+    if (!keys.length) return;
+    const win = MGMEMacroAPI.mgmeRenderPanel(keys);
     api.win = win;
+  }
+
+  static async mgmeMigratePanelKeys() {
+    const clientStorage = game.settings.storage?.get('client');
+    const storedPanelKeys = clientStorage?.get?.('mythic-gme-tools.panelKeys') ??
+      clientStorage?.getItem?.('mythic-gme-tools.panelKeys');
+    if (storedPanelKeys !== undefined) return normalizePanelKeys(game.settings.get('mythic-gme-tools', 'panelKeys'));
+
+    const legacyPanelKey = game.settings.get('mythic-gme-tools', 'panelKey');
+    const migratedKeys = normalizePanelKeys([legacyPanelKey]);
+    const panelKeys = legacyPanelKey === 'nopanel' ? [] : (migratedKeys.length ? migratedKeys : [...ALL_PANEL_KEYS]);
+    await game.settings.set('mythic-gme-tools', 'panelKeys', panelKeys);
+    return panelKeys;
   }
 
   static mgmeResetRuleDefaults(panelKey) {

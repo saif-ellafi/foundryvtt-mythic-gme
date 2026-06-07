@@ -1,129 +1,187 @@
-import MGMEReference from "../utils/mgme-reference";
-import MGMEMacroAPI from "../mgme-macros";
+import {DEFAULT_PANEL_KEYS, normalizePanelKeys, PANEL_DEFINITIONS, PANEL_WINDOW_WIDTH} from "./panel-registry";
+import '../style/panel-mythic.css';
+import '../style/panel-pum-v8.css';
+import '../style/panel-oracles.css';
 
-const {Application, Dialog} = foundry.appv1.api;
+const {ApplicationV2, DialogV2, HandlebarsApplicationMixin} = foundry.applications.api;
+const {renderTemplate} = foundry.applications.handlebars;
 
-export default class MGMEPanel extends Application {
+export default class MGMEPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
-  constructor(secondary= false) {
-    super();
-    this.is_secondary_panel = secondary
+  static DEFAULT_OPTIONS = {
+    id: "mgme_oracle_panel_window",
+    classes: ["themed"],
+    window: {
+      title: "Mythic GME Tools",
+      resizable: true,
+      controls: [
+        {
+          icon: "fas fa-book-open",
+          label: "MGME.Export",
+          action: "exportChat"
+        },
+        {
+          icon: "fas fa-cog",
+          label: "MGME.PanelConfigureLabel",
+          action: "configureTabs"
+        }
+      ]
+    },
+    position: {
+      width: PANEL_WINDOW_WIDTH,
+      height: 420
+    },
+    actions: {
+      exportChat: MGMEPanel._onExportChat,
+      configureTabs: MGMEPanel._onConfigureTabs
+    }
+  };
+
+  static PARTS = {
+    main: {
+      template: "./modules/mythic-gme-tools/template/panel-oracles.hbs"
+    }
+  };
+
+  constructor(panelKeys, options={}) {
+    super(options);
+    this.panelKeys = normalizePanelKeys(panelKeys ?? game.settings.get('mythic-gme-tools', 'panelKeys'));
+    this.activePanelKey = this.panelKeys[0] ?? DEFAULT_PANEL_KEYS[0];
   }
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      popOut: true
-    });
+  static _onExportChat() {
+    game.modules.get('mythic-gme-tools').api.mgmeExportChatToJournal();
   }
 
-  async close(options) {
-    if (options?.force) {
-      return super.close(options);
+  static _onConfigureTabs() {
+    this._configurePanel();
+  }
+
+  async close(options={}) {
+    if (options?.force) return super.close(options);
+  }
+
+  async _preClose(options) {
+    if (!options?.force) return false;
+  }
+
+  _prePosition(position) {
+    if (position.width < PANEL_WINDOW_WIDTH) {
+      position.width = PANEL_WINDOW_WIDTH;
+    }
+    const definition = PANEL_DEFINITIONS[this.activePanelKey];
+    if (definition?.height && position.height < definition.height) {
+      position.height = definition.height;
     }
   }
 
-  _getHeaderButtons() {
-    const buttons = [
-      {
-        label: "",
-        class: "minimize",
-        icon: "far fa-window-minimize",
-        onclick: function () {
-          if (this._minimized)
-            this.maximize();
-          else {
-            this.minimize();
-            //* Dirty hack to prevent "double minimize" after rapidly double-clicking on the minimize button
-            var _bkpMinimize = this.minimize;
-            this.minimize = () => {};
-            setTimeout(() => {
-              this.minimize = _bkpMinimize;
-            }, 200)
-          }
-        }.bind(this)
-      },
-      {
-        "label": game.i18n.localize('MGME.Export'),
-        "class": "configure-sheet",
-        "icon": "fas fa-book-open",
-        "onclick": () => {
-          const api = game.modules.get('mythic-gme-tools').api;
-          api.mgmeExportChatToJournal();
-        }
-      },
-      {
-        "label": game.i18n.localize('MGME.PanelConfigureLabel'),
-        "class": "export-to-journal",
-        "icon": "fas fa-cog",
-        "onclick": () => this._configurePanel()
-      }
-    ];
-    if (this.is_secondary_panel)
-      buttons.push({
-        "label": "",
-        "class": "close",
-        "icon": "fas fa-times",
-        "onclick": () => this.close({force: true})
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    const panels = [];
+    for (const key of this.panelKeys) {
+      const definition = PANEL_DEFINITIONS[key];
+      if (!definition) continue;
+      const data = definition.getData ? definition.getData() : {};
+      panels.push({
+        id: key,
+        label: definition.label,
+        shortLabel: definition.shortLabel,
+        active: key === this.activePanelKey,
+        content: await renderTemplate(definition.template, data)
       });
-    return buttons;
+    }
+    return foundry.utils.mergeObject(context, {
+      hasPanels: panels.length > 0,
+      panels: panels
+    });
   }
 
-  _configurePanel() {
-    const configureDialog = `
+  _onRender(context, options) {
+    super._onRender(context, options);
+
+    if (this.window?.close) this.window.close.hidden = true;
+
+    if (!this.panelKeys.length) return;
+
+    const root = this.window?.content ?? this.element;
+    const api = game.modules.get('mythic-gme-tools').api;
+    const tabNav = root.querySelector(".mgme-oracle-tabs");
+
+    if (tabNav && this._tabNav !== tabNav) {
+      tabNav.addEventListener("click", event => {
+        const tab = event.target.closest(".mgme-tab-link");
+        if (!tab) return;
+        event.preventDefault();
+        this._activateTab(tab.dataset.tab);
+      });
+      this._tabNav = tabNav;
+    }
+
+    for (const key of this.panelKeys) {
+      const panel = root.querySelector(`.mgme-oracle-tab[data-tab="${key}"]`);
+      PANEL_DEFINITIONS[key]?.bind(panel, api);
+    }
+
+    this._activateTab(this.activePanelKey);
+  }
+
+  _activateTab(panelKey) {
+    if (!PANEL_DEFINITIONS[panelKey]) return;
+    this.activePanelKey = panelKey;
+
+    const root = this.window?.content ?? this.element;
+    root.querySelectorAll(".mgme-tab-link").forEach(tab => {
+      tab.classList.toggle("active", tab.dataset.tab === panelKey);
+    });
+    root.querySelectorAll(".mgme-oracle-tab").forEach(tab => {
+      const isActive = tab.dataset.tab === panelKey;
+      tab.classList.toggle("active", isActive);
+      tab.hidden = !isActive;
+    });
+
+  }
+
+  async _configurePanel() {
+    const selectedKeys = new Set(this.panelKeys);
+    const content = `
       <form>
-      <div style="margin-bottom: 5px;">
-      <label for="panConfigure">${game.i18n.localize('MGME.PanelConfigureLayout')}:</label>
-      <select name="panConfigure" id="mgme_pan_config" style="width: 308px;"></select>
-      <div><input type="checkbox" name="open_separate" id="open_separate" style="position:relative;top:5px"><label for="open_separate">Open separately</label></div>
-      <div style="text-align:right;margin-bottom:5px;margin-top:5px;font-size:11px"><a href="https://ko-fi.com/jeansenvaars">Consider a donation</a> if you like this module :)</div>
-      </div>
+        <p class="mgme-configure-tabs__hint">Enable one or more oracle systems as tabs in the panel.</p>
+        <div class="mgme-configure-tabs">
+          ${Object.values(PANEL_DEFINITIONS).map(panel => `
+            <label class="mgme-configure-tabs__choice">
+              <input type="checkbox" name="panelKeys" value="${panel.id}" ${selectedKeys.has(panel.id) ? 'checked' : ''}/>
+              <span>${panel.label}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div style="text-align:right;margin-bottom:5px;margin-top:5px;font-size:11px">
+          <a href="https://ko-fi.com/jeansenvaars">Consider a donation</a> if you like this module :)
+        </div>
       </form>
     `;
 
-    let dialogue = new Dialog({
-      title: 'Configure Mythic GME Tools Panel',
-      content: configureDialog,
-      render: async function (html) {
-        const panelKey = game.settings.get('mythic-gme-tools', 'panelKey')
-        const panelSelect = html.find("#mgme_pan_config");
-        for (const [key, value] of Object.entries(MGMEReference.MYTHIC_PANELS)) {
-          panelSelect.append(`<option value=${key}>${value}</option>`);
-        }
-        html.find("#mgme_pan_config").val(panelKey);
-      },
-      buttons: {
-        submit: {
-          icon: '<i class="fas fa-comments"></i>',
+    await DialogV2.wait({
+      rejectClose: false,
+      window: {title: 'Configure Mythic GME Tools Panel'},
+      content: content,
+      buttons: [
+        {
+          action: 'submit',
+          icon: 'fas fa-check',
           label: game.i18n.localize('MGME.PanelConfigureSubmit'),
-          callback: (html) => {
-            const api = game.modules.get('mythic-gme-tools').api;
-            let panelSelection = html.find("#mgme_pan_config").val();
-            if (panelSelection === 'nopanel') {
-              if (api.win) {
-                api.win?.close({force: true});
-                delete api.win;
-              }
-              game.settings.set('mythic-gme-tools', 'panelKey', 'nopanel');
-              new Dialog({
-                title: "Mythic GME Tools",
-                content: "<div>Mythic GME Tools Panel can be enabled again in Module Settings.</div>",
-                buttons: {
-                  submit: {
-                    label: 'OK'
-                  }
-                }
-              }).render(true, {width: 250})
-            } else if ($("#open_separate").prop('checked')) {
-              MGMEMacroAPI.mgmeRenderPanel(panelSelection, true);
-            } else if (game.settings.get('mythic-gme-tools', 'panelKey') !== panelSelection) {
-              game.settings.set('mythic-gme-tools', 'panelKey', panelSelection);
+          callback: async (_event, button) => {
+            const form = button.form;
+            const panelKeys = Array.from(form.querySelectorAll('input[name="panelKeys"]:checked')).map(input => input.value);
+            if (!panelKeys.length) {
+              ui.notifications.warn("Select at least one Mythic GME Tools tab.");
+              return false;
             }
-          }
+            await game.settings.set('mythic-gme-tools', 'panelKeys', panelKeys);
+          },
+          default: true
         }
-      },
-      default: "submit"
+      ]
     });
-    dialogue.render(true);
   }
 
 }

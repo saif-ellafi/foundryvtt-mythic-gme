@@ -9,6 +9,10 @@ Hooks.once('ready', () => {
 
   game.modules.get('mythic-gme-tools').api = MGMEMacroAPI;
 
-  MGMEMacroAPI.mgmeLaunchPanel();
+  MGMEMacroAPI.mgmeMigratePanelKeys().then(() => {
+    if (!game.modules.get('mythic-gme-tools').api.win) {
+      MGMEMacroAPI.mgmeLaunchPanel();
+    }
+  });
 
 });

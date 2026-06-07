@@ -23,16 +23,15 @@
             <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.EventFocus"}}</span>
         </button>
     </div>
+    <div class="mythic-gme-dialog__dice mgme_panel_npc_roll">
+        <button class="mythic-gme-dialog__button mythic-gme-dialog__button--icon" id="mgme_panel_npc_roll" type="button" aria-label="Roll {{localize 'MGME.CharacterList'}}">
+            <i class="fas fa-dice"></i>
+        </button>
+    </div>
     <div class="mythic-gme-dialog__button-control mgme_panel_npc">
         <button class="mythic-gme-dialog__button" id="mgme_panel_npc">
             <i class="fas mythic-gme-dialog__icon--left fa-list"></i>
             <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.CharacterList"}}</span>
-        </button>
-    </div>
-    <div class="mythic-gme-dialog__dice--right mgme_panel_npc_roll">
-        <button class="mythic-gme-dialog__button" id="mgme_panel_npc_roll" style="height: 32px;">
-            <i class="fas mythic-gme-dialog__icon--left fa-dice"></i>
-            <span class="mythic-gme-dialog__button-control-label"></span>
         </button>
     </div>
     <div class="mythic-gme-dialog__button-control mgme_panel_thread">
@@ -41,26 +40,26 @@
             <span class="mythic-gme-dialog__button-control-label">{{localize "MGME.ThreadList"}}</span>
         </button>
     </div>
-    <div class="mythic-gme-dialog__dice--left mgme_panel_thread_roll">
-        <button class="mythic-gme-dialog__button" id="mgme_panel_thread_roll" style="height: 32px;">
-            <i class="fas mythic-gme-dialog__icon--left fa-dice"></i>
-            <span class="mythic-gme-dialog__button-control-label"></span>
+    <div class="mythic-gme-dialog__dice mgme_panel_thread_roll">
+        <button class="mythic-gme-dialog__button mythic-gme-dialog__button--icon" id="mgme_panel_thread_roll" type="button" aria-label="Roll {{localize 'MGME.ThreadList'}}">
+            <i class="fas fa-dice"></i>
         </button>
     </div>
-    <div class="mythic-gme-dialog__button-control mgme_panel_ci">
-        <button id="mgme_panel_ci">
-            <i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-up"></i>
-            <span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize
-                    "MGME.IncreaseChaos"}}</span></span>
-        </button>
-    </div>
-    <h2 id="mgme_panel_ct" class="mgme_panel_ct">{{localize "Chaos Factor"}}</h2>
-    <span id="mgme_panel_cc" class="mgme_panel_cc">{{rankValue}}</span>
-    <div class="mythic-gme-dialog__button-control mgme_panel_cd">
-        <button id="mgme_panel_cd">
-            <i style="margin: 0;" class="fas mythic-gme-dialog__icon--left fa-arrow-down"></i>
-            <span class="sr-only"><span class="mythic-gme-dialog__button-control-label">{{localize "MGME.DecreaseChaos"}}</span></span>
-        </button>
+    <div class="mythic-gme-dialog__chaos-row">
+        <div class="mythic-gme-dialog__button-control mgme_panel_ci">
+            <button class="mythic-gme-dialog__button mythic-gme-dialog__button--icon" id="mgme_panel_ci" type="button" aria-label="{{localize 'MGME.IncreaseChaos'}}">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+        <div class="mythic-gme-dialog__chaos mgme_panel_chaos">
+            <h2 id="mgme_panel_ct" class="mgme_panel_ct">{{localize "Chaos Factor"}}</h2>
+            <span id="mgme_panel_cc" class="mgme_panel_cc">{{rankValue}}</span>
+        </div>
+        <div class="mythic-gme-dialog__button-control mgme_panel_cd">
+            <button class="mythic-gme-dialog__button mythic-gme-dialog__button--icon" id="mgme_panel_cd" type="button" aria-label="{{localize 'MGME.DecreaseChaos'}}">
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
     </div>
 </div>
 <div>
