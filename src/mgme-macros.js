@@ -7,6 +7,7 @@ import MGMECards from "./logic/mgme-cards";
 import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
 import MGMEPanel from "./app/panel-base";
+import MGMECommon from "./utils/mgme-common";
 import {ALL_PANEL_KEYS, DEFAULT_PANEL_KEYS, normalizePanelKeys, PANEL_DEFINITIONS, PANEL_WINDOW_WIDTH} from "./app/panel-registry";
 
 export default class MGMEMacroAPI {
@@ -15,13 +16,14 @@ export default class MGMEMacroAPI {
     const keys = normalizePanelKeys(panelKeys ?? game.settings.get('mythic-gme-tools', 'panelKeys'));
     if (!keys.length) return undefined;
     const activePanel = PANEL_DEFINITIONS[keys[0]] ?? PANEL_DEFINITIONS[DEFAULT_PANEL_KEYS[0]];
+    const {width: viewportWidth, height: viewportHeight} = MGMECommon.getViewportSize();
     const win = new MGMEPanel(keys);
     win.render({
       force: true,
       position: {
         width: PANEL_WINDOW_WIDTH,
-        left: (canvas.app.screen.width - PANEL_WINDOW_WIDTH - 400),
-        top: canvas.app.screen.height - 505,
+        left: viewportWidth - PANEL_WINDOW_WIDTH - 400,
+        top: viewportHeight - 505,
         height: activePanel.height
       }
     });

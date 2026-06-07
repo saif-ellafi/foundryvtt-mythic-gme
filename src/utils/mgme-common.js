@@ -95,6 +95,14 @@ export default class MGMECommon {
     return game.settings.get('mythic-gme-tools', setting);
   }
 
+  static getViewportSize() {
+    const screen = canvas?.app?.screen;
+    if (screen?.width && screen?.height) {
+      return {width: screen.width, height: screen.height};
+    }
+    return {width: window.innerWidth, height: window.innerHeight};
+  }
+
 }
 
 

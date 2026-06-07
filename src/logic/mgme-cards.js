@@ -111,7 +111,8 @@ export default class MGMECards {
     });
     dialog.options.resizable = true;
     dialog.render(true, {top: 200, left: MGMECards.lastPos});
-    if (MGMECards.lastPos < canvas.app.screen.width - (parseInt(height) / 1.5)*2 - 400)
+    const {width: viewportWidth} = MGMECommon.getViewportSize();
+    if (MGMECards.lastPos < viewportWidth - (parseInt(height) / 1.5) * 2 - 400)
       MGMECards.lastPos += parseInt(height) / 1.5 + 150;
     else
       MGMECards.lastPos = 150;
