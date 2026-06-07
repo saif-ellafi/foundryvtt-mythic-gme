@@ -19,6 +19,51 @@ export default class MGMECards {
 
   static lastPos = 150;
 
+  static DECK_OPTIONS = {
+    'Mythic GME Deck': {
+      fileExtension: 'png',
+      useRotate: true,
+      dialogTitle: 'Mythic GME Card'
+    },
+    'TAC Deck': {
+      fileExtension: 'jpg',
+      useRotate: true,
+      dialogTitle: 'The Adventure Crafter Card'
+    },
+    'Countdown Galactic': {
+      fileExtension: 'png',
+      height: '400px',
+      dialogTitle: 'Countdown Galactic Deck'
+    },
+    'Countdown Monster': {
+      fileExtension: 'png',
+      height: '400px',
+      dialogTitle: 'Countdown Monster Deck'
+    },
+    'Countdown Saga of the Goblin Horde': {
+      fileExtension: 'png',
+      height: '400px',
+      dialogTitle: 'Countdown SotGH Deck'
+    },
+    'GMA Base Deck': {dialogTitle: 'Game Master\'s Apprentice Card'},
+    'GMA 2e Base Deck': {dialogTitle: 'GMA 2e Card'},
+    'GMA Fantasy Deck': {dialogTitle: 'GMA Fantasy Card'},
+    'GMA Horror Deck': {dialogTitle: 'GMA Horror Card'},
+    'GMA Weird Horror Deck': {dialogTitle: 'GMA Weird Horror Card'},
+    'GMA SciFi Deck': {dialogTitle: 'GMA SciFi Card'},
+    'GMA Cyberpunk Deck': {dialogTitle: 'GMA Cyberpunk Card'},
+    'GMA Steampunk Deck': {dialogTitle: 'GMA Steampunk Card'},
+    'GMA Age of Sail Deck': {dialogTitle: 'GMA Age of Sail Card'},
+    'GMA Demon Hunters Deck': {dialogTitle: 'GMA Demon Hunters Card'}
+  };
+
+  static dealDeck(tableName) {
+    return MGMECards.mgmeDealCard({
+      tableName,
+      ...(MGMECards.DECK_OPTIONS[tableName] ?? {})
+    });
+  }
+
   static async mgmeDealCard({
                                tableName,
                                fileExtension = 'jpg',

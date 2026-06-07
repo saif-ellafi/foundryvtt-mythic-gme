@@ -8,7 +8,7 @@ import MGMEChatExtras from "./logic/mgme-chat-extras";
 import MGMEOracleBuilder from "./logic/mgme-oracle-builder";
 import MGMEPanel from "./app/panel-base";
 import MGMECommon from "./utils/mgme-common";
-import {ALL_PANEL_KEYS, DEFAULT_PANEL_KEYS, normalizePanelKeys, PANEL_DEFINITIONS, PANEL_WINDOW_WIDTH} from "./app/panel-registry";
+import {DEFAULT_ENABLED_PANEL_KEYS, DEFAULT_PANEL_KEYS, normalizePanelKeys, PANEL_DEFINITIONS, PANEL_WINDOW_WIDTH} from "./app/panel-registry";
 
 export default class MGMEMacroAPI {
 
@@ -53,7 +53,7 @@ export default class MGMEMacroAPI {
 
     const legacyPanelKey = game.settings.get('mythic-gme-tools', 'panelKey');
     const migratedKeys = normalizePanelKeys([legacyPanelKey]);
-    const panelKeys = legacyPanelKey === 'nopanel' ? [] : (migratedKeys.length ? migratedKeys : [...ALL_PANEL_KEYS]);
+    const panelKeys = legacyPanelKey === 'nopanel' ? [] : (migratedKeys.length ? migratedKeys : [...DEFAULT_ENABLED_PANEL_KEYS]);
     await game.settings.set('mythic-gme-tools', 'panelKeys', panelKeys);
     return panelKeys;
   }
@@ -199,7 +199,7 @@ export default class MGMEMacroAPI {
   static pumV8RollFindsList = PUMV8Core.pumV8RollFindsList;
   static pumV8RollQuestionsList = PUMV8Core.pumV8RollQuestionsList;
 
-  static gmaDraw = (deck) => MGMECards.mgmeDealCard({tableName: deck});
+  static gmaDraw = (deck) => MGMECards.dealDeck(deck);
 
   // SUM V7
 

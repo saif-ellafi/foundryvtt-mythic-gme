@@ -2,7 +2,7 @@ import MGMEReference from "../utils/mgme-reference";
 import MGMECommon from "../utils/mgme-common";
 import MGMEOracleUtils from "../utils/mgme-oracle-utils";
 import MGMEChatJournal from "../utils/mgme-chat-journal";
-import {ALL_PANEL_KEYS, DEFAULT_PANEL_KEYS, panelChoices} from "../app/panel-registry";
+import {DEFAULT_ENABLED_PANEL_KEYS, DEFAULT_PANEL_KEYS, panelChoices} from "../app/panel-registry";
 
 const {Dialog} = foundry.appv1.api;
 const {renderTemplate} = foundry.applications.handlebars;
@@ -39,7 +39,7 @@ export default class MGMECore {
       scope: 'client',
       config: false,
       type: Array,
-      default: [...ALL_PANEL_KEYS],
+      default: [...DEFAULT_ENABLED_PANEL_KEYS],
       onChange: (panelKeys) => {
         if (panelKeys?.includes('mgme_2e')) {
           game.modules.get('mythic-gme-tools').api.mgmeResetRuleDefaults('mgme_2e');

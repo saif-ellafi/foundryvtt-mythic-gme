@@ -111,7 +111,8 @@
 #mgme_oracle_panel_window .mgme-oracle-tab__heading + .mythic-gme-dialog,
 #mgme_oracle_panel_window .mgme-oracle-tab__heading + .pum8-dialog,
 #mgme_oracle_panel_window .mgme-oracle-tab__heading + #sum7-window,
-#mgme_oracle_panel_window .mgme-oracle-tab__heading + #mythic-gme-window {
+#mgme_oracle_panel_window .mgme-oracle-tab__heading + #mythic-gme-window,
+#mgme_oracle_panel_window .mgme-oracle-tab__heading + #mgme-other-decks-window {
   margin-top: 0;
 }
 
@@ -134,17 +135,20 @@
 }
 
 #mgme_oracle_panel_window #sum7-window table,
-#mgme_oracle_panel_window #mythic-gme-window table {
+#mgme_oracle_panel_window #mythic-gme-window table,
+#mgme_oracle_panel_window #mgme-other-decks-window table {
   margin-top: 0;
 }
 
 #mgme_oracle_panel_window #sum7-window table tr:first-child td,
-#mgme_oracle_panel_window #mythic-gme-window table tr:first-child td {
+#mgme_oracle_panel_window #mythic-gme-window table tr:first-child td,
+#mgme_oracle_panel_window #mgme-other-decks-window table tr:first-child td {
   padding-top: 0;
 }
 
 #mgme_oracle_panel_window #sum7-window table tr:first-child h5,
-#mgme_oracle_panel_window #mythic-gme-window table tr:first-child h5 {
+#mgme_oracle_panel_window #mythic-gme-window table tr:first-child h5,
+#mgme_oracle_panel_window #mgme-other-decks-window table tr:first-child h5 {
   margin-top: 0;
   margin-bottom: 0;
 }

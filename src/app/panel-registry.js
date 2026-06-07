@@ -250,12 +250,32 @@ export const PANEL_DEFINITIONS = {
       bindClick(root, '#gma_sail', () => api.gmaDraw('GMA Age of Sail Deck'));
       bindClick(root, '#gma_demons', () => api.gmaDraw('GMA Demon Hunters Deck'));
     }
+  },
+  other_decks: {
+    id: 'other_decks',
+    label: 'Other Decks and Cards',
+    shortLabel: 'Decks',
+    version: 'Cards',
+    template: './modules/mythic-gme-tools/template/panel-other-decks.hbs',
+    width: PANEL_WINDOW_WIDTH,
+    height: 250,
+    bind(root, api) {
+      bindClick(root, '#deck_mythic_gme', () => api.gmaDraw('Mythic GME Deck'));
+      bindClick(root, '#deck_tac', () => api.gmaDraw('TAC Deck'));
+      bindClick(root, '#deck_countdown_galactic', () => api.gmaDraw('Countdown Galactic'));
+      bindClick(root, '#deck_countdown_monster', () => api.gmaDraw('Countdown Monster'));
+      bindClick(root, '#deck_countdown_goblin', () => api.gmaDraw('Countdown Saga of the Goblin Horde'));
+    }
   }
 };
+
+export const DECKS_PANEL_KEY = 'other_decks';
 
 export const DEFAULT_PANEL_KEYS = ['mgme_2e'];
 
 export const ALL_PANEL_KEYS = Object.keys(PANEL_DEFINITIONS);
+
+export const DEFAULT_ENABLED_PANEL_KEYS = ALL_PANEL_KEYS.filter(key => key !== DECKS_PANEL_KEY);
 
 export function panelChoices() {
   return Object.fromEntries(Object.entries(PANEL_DEFINITIONS).map(([key, panel]) => [key, panel.label]));
