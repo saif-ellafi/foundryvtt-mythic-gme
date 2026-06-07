@@ -1,6 +1,7 @@
 ### 2.13.0
 * Feature: Migrated the oracle panel to Foundry ApplicationV2
 * Feature: Single tabbed panel for all oracle systems (Mythic 2e, PUM, SUM, GUM, GMA) — Thank you stekman for the tabbed layout idea
+* Language: Russian (Thank you @izhukovets-sys)
 * Fix: Oracle panel and GMA card dialogs work when Foundry's canvas is disabled (Thank you @Tergiversater)
 * Fix: Event Focus and Random Event chat results respect the active language, including 2e focus table aliases (Thank you @coppolaop)
 

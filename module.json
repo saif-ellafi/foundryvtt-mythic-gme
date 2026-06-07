@@ -55,6 +55,11 @@
       "lang": "pt-BR",
       "name": "Português",
       "path": "lang/pt-BR.json"
+    },
+    {
+      "lang": "ru",
+      "name": "Русский",
+      "path": "lang/ru.json"
     }
   ],
   "packFolders": [
