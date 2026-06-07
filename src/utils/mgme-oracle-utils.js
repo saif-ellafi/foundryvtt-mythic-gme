@@ -6,6 +6,10 @@ const {Dialog} = foundry.appv1.api;
 
 export default class MGMEOracleUtils {
 
+  static _mgmeLocalizeOracleResult(text) {
+    return text ? game.i18n.localize(text) : text;
+  }
+
   static async _mgmeSimulateRoll(targetRoll) {
     const randomEventsIn3D = (targetRoll && game.dice3d && game.settings.get('mythic-gme-tools', 'randomEvents3DDelay') > 0);
     if (randomEventsIn3D) {
@@ -194,17 +198,17 @@ export default class MGMEOracleUtils {
       if (randomAnswers.focusResult !== '_') {// Special exception for non-focus based oracle questions
         const focusRoll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.focusRoll?.roll))?.total ?? '*';
         const focusDebug = debug ? `(${focusRoll})` : '';
-        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div><b><u>${randomAnswers.focusResult}</u></b>${focusDebug}</div>`);
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div><b><u>${MGMEOracleUtils._mgmeLocalizeOracleResult(randomAnswers.focusResult)}</u></b>${focusDebug}</div>`);
       }
       if (randomAnswers.descriptor1Result) {
         const desc1roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor1Roll.roll)).total;
         const desc1debug = debug ? ` (${desc1roll})</div>` : '';
-        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor1Result}${desc1debug}`);
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${MGMEOracleUtils._mgmeLocalizeOracleResult(randomAnswers.descriptor1Result)}${desc1debug}`);
       }
       if (randomAnswers.descriptor2Result) {
         const desc2roll = (await MGMEOracleUtils._mgmeSimulateRoll(randomAnswers.descriptor2Roll.roll)).total;
         const desc2debug = debug ? ` (${desc2roll})` : '';
-        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${randomAnswers.descriptor2Result}${desc2debug}</div>`);
+        await MGMEOracleUtils._mgmeUpdateChatSimulation(chatMessage, `<div>${MGMEOracleUtils._mgmeLocalizeOracleResult(randomAnswers.descriptor2Result)}${desc2debug}</div>`);
       }
       await MGMEChatJournal._mgmeLogChatToJournal(chatMessage);
     } finally {
@@ -271,7 +275,7 @@ export default class MGMEOracleUtils {
           eFocusElement.append(`<option value="Random">${focusTableName}</option>`);
           const focusResults = (await MGMECommon._mgmeFindTableByName(focusTableName)).results.contents.map(c => c.description);
           focusResults.forEach(focus => {
-            eFocusElement.append(`<option value="${focus}">${focus}</option>`);
+            eFocusElement.append(`<option value="${focus}">${MGMEOracleUtils._mgmeLocalizeOracleResult(focus)}</option>`);
           });
         }
         html[0].getElementsByTagName("input").mgme_re_question.focus();
